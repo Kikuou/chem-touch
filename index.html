@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="スマホで触れる化学学習アプリ。分子を回して、くらべて、共有しよう。">
+<meta name="theme-color" content="#F3F4F1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1311" media="(prefers-color-scheme: dark)">
+<title>ケミタッチ</title>
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="stylesheet" href="css/app.css">
+<script>
+  // apply the saved theme before first paint to avoid a flash
+  try { const t = localStorage.getItem('chemtouch:theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+<script type="module" src="js/main.js"></script>
+</head>
+<body>
+<main id="app" tabindex="-1"></main>
+<nav class="nav" aria-label="メインメニュー">
+  <a href="#/" data-tab="home"><span data-icon="home"></span>ホーム</a>
+  <a href="#/library" data-tab="library"><span data-icon="hex"></span>分子</a>
+  <a href="#/build" data-tab="build"><span data-icon="build"></span>つくる</a>
+  <a href="#/periodic" data-tab="periodic"><span data-icon="table"></span>周期表</a>
+  <a href="#/more" data-tab="more"><span data-icon="more"></span>その他</a>
+</nav>
+<noscript><p style="padding:24px">このアプリを使うには JavaScript を有効にしてください。</p></noscript>
+</body>
+</html>
