@@ -2757,10 +2757,9 @@
    "sdf_source": "pubchem-3d",
    "atoms": 52,
    "verification": {
-    "pubchem": "structure-only",
+    "pubchem": "verified",
     "stereo": "checked",
-    "pubchem_title": "Icosapent",
-    "pubchem_name_cid": 5282847
+    "pubchem_title": "Icosapent"
    },
    "pubchem_formula": "C20H30O2",
    "fatty_acid": {
@@ -3182,10 +3181,9 @@
    "sdf_source": "pubchem-3d",
    "atoms": 66,
    "verification": {
-    "pubchem": "structure-only",
+    "pubchem": "verified",
     "stereo": "checked",
-    "pubchem_title": "alpha-Maltotriose",
-    "pubchem_name_cid": 92146
+    "pubchem_title": "alpha-Maltotriose"
    },
    "pubchem_formula": "C18H32O16",
    "note_ja": "デンプンの成分アミロースの一部分のモデル。α-グルコースがα-1,4結合でつながると、鎖がらせん状に巻きやすい。人は消化酵素でこの結合を分解できる。",
@@ -3220,10 +3218,9 @@
    "sdf_source": "pubchem-3d",
    "atoms": 66,
    "verification": {
-    "pubchem": "structure-only",
+    "pubchem": "verified",
     "stereo": "checked",
-    "pubchem_title": "Cellulase",
-    "pubchem_name_cid": 5287993
+    "pubchem_title": "Cellulase"
    },
    "pubchem_formula": "C18H32O16",
    "note_ja": "植物の細胞壁をつくるセルロースの一部分のモデル。β-グルコースがβ-1,4結合でつながり、まっすぐな鎖になる。人はこの結合を分解する酵素をもたないため、食物繊維として働く。",
