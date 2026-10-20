@@ -1,9 +1,9 @@
 Hydrogen chloride
      RDKit          3D
-chem-touch: generated with RDKit (ETKDG + MMFF94)
+chem-touch: PubChem 3D conformer
   2  1  0  0  0  0  0  0  0  0999 V2000
-    0.6892    0.0000    0.0000 Cl  0  0  0  0  0  0  0  0  0  0  0  0
-   -0.6892    0.0000    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000    0.0000    0.0000 Cl  0  0  0  0  0  0  0  0  0  0  0  0
+    0.6058   -0.2053   -1.1384 H   0  0  0  0  0  0  0  0  0  0  0  0
   1  2  1  0
 M  END
 $$$$
