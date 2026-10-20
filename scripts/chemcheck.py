@@ -5,9 +5,10 @@ Every check works on an RDKit molecule that carries explicit hydrogens and a
 
 Check spec syntax (column "checks" in compound_sources.csv, ";"-separated):
 
-  cip=S,R,...          CIP labels of all stereocentres, in SMILES atom order
+  cip=S,R,...          CIP labels of all stereocentres, in the atom order
+                       of the SMILES in compound_sources.csv
   ez=Z,E,...           cis/trans of every acyclic C=C with one heavy
-                       substituent on each end, in SMILES atom order
+                       substituent on each end, in the same order
                        (judged from the 3D dihedral angle)
   fa=18:9Z,12Z         fatty acid: chain length and the delta positions of
                        the C=C bonds counted from the carboxyl carbon (C1)
@@ -278,12 +279,29 @@ def sugar_rings(mol) -> list[str]:
 
 # ---------------------------------------------------------------- entry point
 
-def run_checks(mol, checks: dict) -> dict:
+def in_smiles_order(mol, smiles: str):
+    """Renumber `mol` (e.g. a PubChem 3D record) so that its heavy atoms
+    follow the atom order of `smiles`; hydrogens go last. The cip= and ez=
+    specs list labels in SMILES atom order, so this makes them independent
+    of how the 3D file numbers its atoms."""
+    ref = Chem.MolFromSmiles(smiles)
+    match = mol.GetSubstructMatch(ref)
+    if len(match) != ref.GetNumAtoms():
+        raise CheckError("3D structure does not match the SMILES")
+    rest = [i for i in range(mol.GetNumAtoms()) if i not in set(match)]
+    return Chem.RenumberAtoms(mol, list(match) + rest)
+
+
+def run_checks(mol, checks: dict, smiles: str | None = None) -> dict:
     """Run the requested checks. Returns extra metadata (e.g. fatty_acid).
 
+    `smiles` is the curated SMILES of compound_sources.csv; pass it so that
+    order-dependent specs (cip=, ez=) are read in its atom order.
     Raises CheckError on the first mismatch.
     """
     extra = {}
+    if smiles:
+        mol = in_smiles_order(mol, smiles)
     if "racemic" not in checks:
         missing = unspecified_stereo(mol)
         if missing:

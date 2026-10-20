@@ -374,7 +374,7 @@ def build_row(row, pubchem, existing, report):
         mol3d = heavy_first(mol3d)
 
         # Checks on the final 3D structure
-        extra = chemcheck.run_checks(mol3d, checks)
+        extra = chemcheck.run_checks(mol3d, checks, smiles)
         if "racemic" not in checks and not chemcheck.stereo_matches_3d(mol3d, smiles):
             raise chemcheck.CheckError("3D coordinates do not reproduce the SMILES stereo")
 

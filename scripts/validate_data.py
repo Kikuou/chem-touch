@@ -120,7 +120,7 @@ def main() -> int:
         src = sources.get(cid)
         if src:
             try:
-                chemcheck.run_checks(mol3d, chemcheck.parse_checks(src.get("checks", "")))
+                chemcheck.run_checks(mol3d, chemcheck.parse_checks(src.get("checks", "")), src.get("smiles"))
             except chemcheck.CheckError as e:
                 err(cid, f"stereo check failed: {e}")
         status = c.get("verification", {}).get("pubchem")
