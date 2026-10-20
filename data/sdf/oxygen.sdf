@@ -1,0 +1,9 @@
+Oxygen
+     RDKit          3D
+chem-touch: generated with RDKit (ETKDG + MMFF94)
+  2  1  0  0  0  0  0  0  0  0999 V2000
+    0.5768    0.0000    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.5768    0.0000    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  2  0
+M  END
+$$$$

@@ -1,0 +1,7 @@
+[
+ { "no": 1, "date": "2027-04-12", "title": "化学ってなに？物質のなりたち", "links": [{ "label": "分子をさがす", "href": "#/library" }] },
+ { "no": 2, "date": "2027-04-19", "title": "原子の構造と電子配置", "links": [{ "label": "電子配置", "href": "#/electron" }] },
+ { "no": 5, "date": "2027-05-10", "title": "周期律と周期表", "links": [{ "label": "周期表", "href": "#/periodic" }] },
+ { "no": 9, "date": "2027-06-07", "title": "身近な有機化合物：アルコールとカルボン酸", "links": [{ "label": "アルコール", "href": "#/library?cat=alcohol" }] },
+ { "no": 12, "date": "2027-06-28", "title": "糖質：デンプンとセルロース", "links": [{ "label": "糖質", "href": "#/library?cat=carbohydrate" }, { "label": "グルコース", "href": "#/compound/alpha-d-glucose" }] }
+]

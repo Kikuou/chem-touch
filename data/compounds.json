@@ -1,0 +1,3070 @@
+{
+ "version": 1,
+ "pubchem": "offline",
+ "credit": "Structures checked against PubChem (https://pubchem.ncbi.nlm.nih.gov/) where marked verified. 3D coordinates generated with RDKit (ETKDG + MMFF94) unless sdf_source is pubchem-3d.",
+ "compounds": [
+  {
+   "id": "water",
+   "name_ja": "水",
+   "name_en": "Water",
+   "reading": "みず",
+   "aliases": [
+    "H2O",
+    "水分子"
+   ],
+   "categories": [
+    "basic"
+   ],
+   "kind": "molecule",
+   "formula": "H2O",
+   "mw": 18.02,
+   "smiles": "O",
+   "pubchem_cid": null,
+   "inchikey": "XLYOFNOQVPJJNP-UHFFFAOYSA-N",
+   "sdf": "sdf/water.sdf",
+   "sdf_source": "generated",
+   "atoms": 3,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "体重の約6割を占める、生命に欠かせない物質。折れ線形の分子で、酸素側がわずかに負、水素側がわずかに正に偏っているため、さまざまな物質をよく溶かす。",
+   "note_reviewed": false,
+   "related": [
+    "ammonia",
+    "methane",
+    "carbon-dioxide"
+   ]
+  },
+  {
+   "id": "ammonia",
+   "name_ja": "アンモニア",
+   "name_en": "Ammonia",
+   "reading": "",
+   "aliases": [
+    "NH3"
+   ],
+   "categories": [
+    "basic"
+   ],
+   "kind": "molecule",
+   "formula": "NH3",
+   "mw": 17.03,
+   "smiles": "N",
+   "pubchem_cid": null,
+   "inchikey": "QGZKDVFQNNGYKY-UHFFFAOYSA-N",
+   "sdf": "sdf/ammonia.sdf",
+   "sdf_source": "generated",
+   "atoms": 4,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "刺激臭のある気体で、水によく溶けて弱い塩基性を示す。体内ではアミノ酸の分解で生じ、肝臓で毒性の低い尿素に変えられる。",
+   "note_reviewed": false,
+   "related": [
+    "water",
+    "methane"
+   ]
+  },
+  {
+   "id": "methane",
+   "name_ja": "メタン",
+   "name_en": "Methane",
+   "reading": "",
+   "aliases": [
+    "CH4"
+   ],
+   "categories": [
+    "basic",
+    "alkane"
+   ],
+   "kind": "molecule",
+   "formula": "CH4",
+   "mw": 16.04,
+   "smiles": "C",
+   "pubchem_cid": null,
+   "inchikey": "VNWKTOKETHGBQD-UHFFFAOYSA-N",
+   "sdf": "sdf/methane.sdf",
+   "sdf_source": "generated",
+   "atoms": 5,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "もっとも単純な有機化合物で、都市ガス（天然ガス）の主成分。炭素を中心とする正四面体形の分子。",
+   "note_reviewed": false,
+   "related": [
+    "ethane",
+    "carbon-dioxide",
+    "water"
+   ]
+  },
+  {
+   "id": "carbon-dioxide",
+   "name_ja": "二酸化炭素",
+   "name_en": "Carbon dioxide",
+   "reading": "にさんかたんそ",
+   "aliases": [
+    "CO2",
+    "炭酸ガス"
+   ],
+   "categories": [
+    "basic"
+   ],
+   "kind": "molecule",
+   "formula": "CO2",
+   "mw": 44.01,
+   "smiles": "O=C=O",
+   "pubchem_cid": null,
+   "inchikey": "CURLTUGMZLYLDI-UHFFFAOYSA-N",
+   "sdf": "sdf/carbon-dioxide.sdf",
+   "sdf_source": "generated",
+   "atoms": 3,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "呼吸で体外に排出される直線形の分子。血液中では炭酸水素イオンとして運ばれ、血液のpHの調節にも関わる。",
+   "note_reviewed": false,
+   "related": [
+    "oxygen",
+    "water",
+    "methane"
+   ]
+  },
+  {
+   "id": "oxygen",
+   "name_ja": "酸素",
+   "name_en": "Oxygen",
+   "reading": "さんそ",
+   "aliases": [
+    "O2",
+    "酸素分子"
+   ],
+   "categories": [
+    "basic"
+   ],
+   "kind": "molecule",
+   "formula": "O2",
+   "mw": 32.0,
+   "smiles": "O=O",
+   "pubchem_cid": null,
+   "inchikey": "MYMOFIZGZYHOMD-UHFFFAOYSA-N",
+   "sdf": "sdf/oxygen.sdf",
+   "sdf_source": "generated",
+   "atoms": 2,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "空気の約2割を占める気体。細胞はブドウ糖などを酸素で酸化してエネルギーを取り出す。医療では酸素吸入に使われる。",
+   "note_reviewed": false,
+   "related": [
+    "nitrogen",
+    "carbon-dioxide",
+    "water"
+   ]
+  },
+  {
+   "id": "nitrogen",
+   "name_ja": "窒素",
+   "name_en": "Nitrogen",
+   "reading": "ちっそ",
+   "aliases": [
+    "N2",
+    "窒素分子"
+   ],
+   "categories": [
+    "basic"
+   ],
+   "kind": "molecule",
+   "formula": "N2",
+   "mw": 28.01,
+   "smiles": "N#N",
+   "pubchem_cid": null,
+   "inchikey": "IJGRMHOSHXDMSA-UHFFFAOYSA-N",
+   "sdf": "sdf/nitrogen.sdf",
+   "sdf_source": "generated",
+   "atoms": 2,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "空気の約8割を占める気体。窒素原子どうしが三重結合で強く結びついているため、反応しにくい。液体窒素は医療や食品の冷凍に使われる。",
+   "note_reviewed": false,
+   "related": [
+    "oxygen",
+    "ammonia"
+   ]
+  },
+  {
+   "id": "hydrogen-chloride",
+   "name_ja": "塩化水素",
+   "name_en": "Hydrogen chloride",
+   "reading": "えんかすいそ",
+   "aliases": [
+    "HCl",
+    "塩酸"
+   ],
+   "categories": [
+    "basic"
+   ],
+   "kind": "molecule",
+   "formula": "HCl",
+   "mw": 36.46,
+   "smiles": "Cl",
+   "pubchem_cid": null,
+   "inchikey": "VEXZGXHMUGYJMC-UHFFFAOYSA-N",
+   "sdf": "sdf/hydrogen-chloride.sdf",
+   "sdf_source": "generated",
+   "atoms": 2,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "水に溶かしたものが塩酸。胃液に含まれる胃酸の成分で、食べ物の殺菌やタンパク質の消化を助ける。",
+   "note_reviewed": false,
+   "related": [
+    "water",
+    "nacl-crystal"
+   ]
+  },
+  {
+   "id": "ethylene",
+   "name_ja": "エチレン",
+   "name_en": "Ethylene",
+   "reading": "",
+   "aliases": [
+    "エテン",
+    "C2H4"
+   ],
+   "categories": [
+    "basic",
+    "alkene-alkyne"
+   ],
+   "kind": "molecule",
+   "formula": "C2H4",
+   "mw": 28.05,
+   "smiles": "C=C",
+   "pubchem_cid": null,
+   "inchikey": "VGGSQFUCUMXWEO-UHFFFAOYSA-N",
+   "sdf": "sdf/ethylene.sdf",
+   "sdf_source": "generated",
+   "atoms": 6,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素どうしが二重結合で結ばれた平面形の分子。植物ホルモンとして果実の成熟を促すため、バナナやキウイの追熟に利用される。",
+   "note_reviewed": false,
+   "related": [
+    "ethane",
+    "acetylene",
+    "propene"
+   ]
+  },
+  {
+   "id": "acetylene",
+   "name_ja": "アセチレン",
+   "name_en": "Acetylene",
+   "reading": "",
+   "aliases": [
+    "エチン",
+    "C2H2"
+   ],
+   "categories": [
+    "basic",
+    "alkene-alkyne"
+   ],
+   "kind": "molecule",
+   "formula": "C2H2",
+   "mw": 26.04,
+   "smiles": "C#C",
+   "pubchem_cid": null,
+   "inchikey": "HSFWRNGVRCDJHI-UHFFFAOYSA-N",
+   "sdf": "sdf/acetylene.sdf",
+   "sdf_source": "generated",
+   "atoms": 4,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素どうしが三重結合で結ばれた直線形の分子。燃やすと高温の炎が得られ、金属の溶接や切断に使われる。",
+   "note_reviewed": false,
+   "related": [
+    "ethylene",
+    "ethane",
+    "propyne"
+   ]
+  },
+  {
+   "id": "benzene",
+   "name_ja": "ベンゼン",
+   "name_en": "Benzene",
+   "reading": "",
+   "aliases": [
+    "C6H6"
+   ],
+   "categories": [
+    "basic"
+   ],
+   "kind": "molecule",
+   "formula": "C6H6",
+   "mw": 78.11,
+   "smiles": "c1ccccc1",
+   "pubchem_cid": null,
+   "inchikey": "UHOVQNZJYSORNB-UHFFFAOYSA-N",
+   "sdf": "sdf/benzene.sdf",
+   "sdf_source": "generated",
+   "atoms": 12,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "6個の炭素が正六角形の環をつくる平面形の分子。この「ベンゼン環」はアミノ酸のフェニルアラニンや多くの医薬品に含まれる。ベンゼン自体は有害で、発がん性がある。",
+   "note_reviewed": false,
+   "related": [
+    "ethylene",
+    "acetylene"
+   ]
+  },
+  {
+   "id": "nacl-crystal",
+   "name_ja": "塩化ナトリウム（結晶）",
+   "name_en": "Sodium chloride (crystal)",
+   "reading": "えんかなとりうむ",
+   "aliases": [
+    "NaCl",
+    "食塩",
+    "イオン結晶"
+   ],
+   "categories": [
+    "basic",
+    "crystal"
+   ],
+   "kind": "crystal",
+   "formula": "NaCl",
+   "mw": null,
+   "smiles": null,
+   "pubchem_cid": null,
+   "inchikey": null,
+   "sdf": "sdf/nacl-crystal.sdf",
+   "sdf_source": "generated",
+   "atoms": 27,
+   "crystal": "nacl",
+   "verification": {
+    "pubchem": "n/a",
+    "stereo": "n/a"
+   },
+   "note_ja": "食塩の主成分。ナトリウムイオンと塩化物イオンが交互に並んだイオン結晶で、ここではその単位格子を示している。体液の浸透圧の維持に欠かせない。",
+   "note_reviewed": false,
+   "related": [
+    "hydrogen-chloride",
+    "diamond"
+   ]
+  },
+  {
+   "id": "diamond",
+   "name_ja": "ダイヤモンド",
+   "name_en": "Diamond",
+   "reading": "",
+   "aliases": [
+    "C",
+    "共有結合結晶"
+   ],
+   "categories": [
+    "basic",
+    "crystal"
+   ],
+   "kind": "crystal",
+   "formula": "C",
+   "mw": null,
+   "smiles": null,
+   "pubchem_cid": null,
+   "inchikey": null,
+   "sdf": "sdf/diamond.sdf",
+   "sdf_source": "generated",
+   "atoms": 47,
+   "crystal": "diamond",
+   "verification": {
+    "pubchem": "n/a",
+    "stereo": "n/a"
+   },
+   "note_ja": "炭素原子だけからなる共有結合の結晶。すべての炭素が4個の炭素と正四面体の向きに結合しているため、非常に硬い。ここでは結晶の一部を切り出して示している。",
+   "note_reviewed": false,
+   "related": [
+    "graphite",
+    "nacl-crystal",
+    "methane"
+   ]
+  },
+  {
+   "id": "graphite",
+   "name_ja": "黒鉛（グラファイト）",
+   "name_en": "Graphite",
+   "reading": "こくえん",
+   "aliases": [
+    "グラファイト",
+    "C"
+   ],
+   "categories": [
+    "basic",
+    "crystal"
+   ],
+   "kind": "crystal",
+   "formula": "C",
+   "mw": null,
+   "smiles": null,
+   "pubchem_cid": null,
+   "inchikey": null,
+   "sdf": "sdf/graphite.sdf",
+   "sdf_source": "generated",
+   "atoms": 34,
+   "crystal": "graphite",
+   "verification": {
+    "pubchem": "n/a",
+    "stereo": "n/a"
+   },
+   "note_ja": "炭素原子が六角形の網目状につながった平面が重なった結晶。層の間の結びつきは弱く、はがれやすいので鉛筆の芯に使われる。層の中を動ける電子があり、電気を通す。ここでは2層分の断片を示している。",
+   "note_reviewed": false,
+   "related": [
+    "diamond",
+    "benzene"
+   ]
+  },
+  {
+   "id": "ethane",
+   "name_ja": "エタン",
+   "name_en": "Ethane",
+   "reading": "",
+   "aliases": [
+    "C2H6"
+   ],
+   "categories": [
+    "alkane"
+   ],
+   "kind": "molecule",
+   "formula": "C2H6",
+   "mw": 30.07,
+   "smiles": "CC",
+   "pubchem_cid": null,
+   "inchikey": "OTMSDBZUPAUEDD-UHFFFAOYSA-N",
+   "sdf": "sdf/ethane.sdf",
+   "sdf_source": "generated",
+   "atoms": 8,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素2個のアルカン。天然ガスに含まれる。",
+   "note_reviewed": false,
+   "related": [
+    "methane",
+    "propane",
+    "ethylene"
+   ]
+  },
+  {
+   "id": "propane",
+   "name_ja": "プロパン",
+   "name_en": "Propane",
+   "reading": "",
+   "aliases": [
+    "C3H8"
+   ],
+   "categories": [
+    "alkane"
+   ],
+   "kind": "molecule",
+   "formula": "C3H8",
+   "mw": 44.1,
+   "smiles": "CCC",
+   "pubchem_cid": null,
+   "inchikey": "ATUOYWHBWRKTHZ-UHFFFAOYSA-N",
+   "sdf": "sdf/propane.sdf",
+   "sdf_source": "generated",
+   "atoms": 11,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素3個のアルカン。プロパンガス（LPガス）として家庭用の燃料に使われる。",
+   "note_reviewed": false,
+   "related": [
+    "ethane",
+    "butane",
+    "propene"
+   ]
+  },
+  {
+   "id": "butane",
+   "name_ja": "ブタン",
+   "name_en": "Butane",
+   "reading": "",
+   "aliases": [
+    "n-ブタン",
+    "C4H10"
+   ],
+   "categories": [
+    "alkane"
+   ],
+   "kind": "molecule",
+   "formula": "C4H10",
+   "mw": 58.12,
+   "smiles": "CCCC",
+   "pubchem_cid": null,
+   "inchikey": "IJDNQMDRQITEOD-UHFFFAOYSA-N",
+   "sdf": "sdf/butane.sdf",
+   "sdf_source": "generated",
+   "atoms": 14,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素4個の直鎖アルカン。カセットコンロやライターの燃料。枝分かれしたイソブタンとは分子式が同じ構造異性体。",
+   "note_reviewed": false,
+   "related": [
+    "isobutane",
+    "propane",
+    "pentane"
+   ]
+  },
+  {
+   "id": "pentane",
+   "name_ja": "ペンタン",
+   "name_en": "Pentane",
+   "reading": "",
+   "aliases": [
+    "n-ペンタン",
+    "C5H12"
+   ],
+   "categories": [
+    "alkane"
+   ],
+   "kind": "molecule",
+   "formula": "C5H12",
+   "mw": 72.15,
+   "smiles": "CCCCC",
+   "pubchem_cid": null,
+   "inchikey": "OFBQJSOFQDEBGM-UHFFFAOYSA-N",
+   "sdf": "sdf/pentane.sdf",
+   "sdf_source": "generated",
+   "atoms": 17,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素5個の直鎖アルカン。分子式C5H12には、ペンタン・イソペンタン・ネオペンタンの3つの構造異性体がある。",
+   "note_reviewed": false,
+   "related": [
+    "isopentane",
+    "neopentane",
+    "butane",
+    "hexane"
+   ]
+  },
+  {
+   "id": "hexane",
+   "name_ja": "ヘキサン",
+   "name_en": "Hexane",
+   "reading": "",
+   "aliases": [
+    "n-ヘキサン",
+    "C6H14"
+   ],
+   "categories": [
+    "alkane"
+   ],
+   "kind": "molecule",
+   "formula": "C6H14",
+   "mw": 86.18,
+   "smiles": "CCCCCC",
+   "pubchem_cid": null,
+   "inchikey": "VLKZOEOYAKHREP-UHFFFAOYSA-N",
+   "sdf": "sdf/hexane.sdf",
+   "sdf_source": "generated",
+   "atoms": 20,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素6個の直鎖アルカン。水に溶けにくく油をよく溶かすため、食用油の抽出溶剤に使われる。",
+   "note_reviewed": false,
+   "related": [
+    "pentane",
+    "heptane"
+   ]
+  },
+  {
+   "id": "heptane",
+   "name_ja": "ヘプタン",
+   "name_en": "Heptane",
+   "reading": "",
+   "aliases": [
+    "n-ヘプタン",
+    "C7H16"
+   ],
+   "categories": [
+    "alkane"
+   ],
+   "kind": "molecule",
+   "formula": "C7H16",
+   "mw": 100.2,
+   "smiles": "CCCCCCC",
+   "pubchem_cid": null,
+   "inchikey": "IMNFDUFMRHMDMM-UHFFFAOYSA-N",
+   "sdf": "sdf/heptane.sdf",
+   "sdf_source": "generated",
+   "atoms": 23,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素7個の直鎖アルカン。ガソリンの成分の一つ。",
+   "note_reviewed": false,
+   "related": [
+    "hexane",
+    "octane"
+   ]
+  },
+  {
+   "id": "octane",
+   "name_ja": "オクタン",
+   "name_en": "Octane",
+   "reading": "",
+   "aliases": [
+    "n-オクタン",
+    "C8H18"
+   ],
+   "categories": [
+    "alkane"
+   ],
+   "kind": "molecule",
+   "formula": "C8H18",
+   "mw": 114.23,
+   "smiles": "CCCCCCCC",
+   "pubchem_cid": null,
+   "inchikey": "TVMXDCGIABBOFY-UHFFFAOYSA-N",
+   "sdf": "sdf/octane.sdf",
+   "sdf_source": "generated",
+   "atoms": 26,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素8個の直鎖アルカン。ガソリンの成分の一つ。",
+   "note_reviewed": false,
+   "related": [
+    "heptane",
+    "nonane"
+   ]
+  },
+  {
+   "id": "nonane",
+   "name_ja": "ノナン",
+   "name_en": "Nonane",
+   "reading": "",
+   "aliases": [
+    "n-ノナン",
+    "C9H20"
+   ],
+   "categories": [
+    "alkane"
+   ],
+   "kind": "molecule",
+   "formula": "C9H20",
+   "mw": 128.26,
+   "smiles": "CCCCCCCCC",
+   "pubchem_cid": null,
+   "inchikey": "BKIMMITUMNQMOS-UHFFFAOYSA-N",
+   "sdf": "sdf/nonane.sdf",
+   "sdf_source": "generated",
+   "atoms": 29,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素9個の直鎖アルカン。灯油などの石油製品に含まれる。",
+   "note_reviewed": false,
+   "related": [
+    "octane",
+    "1-nonanol",
+    "nonanoic-acid"
+   ]
+  },
+  {
+   "id": "isobutane",
+   "name_ja": "イソブタン",
+   "name_en": "Isobutane",
+   "reading": "",
+   "aliases": [
+    "2-メチルプロパン",
+    "C4H10"
+   ],
+   "categories": [
+    "alkane"
+   ],
+   "kind": "molecule",
+   "formula": "C4H10",
+   "mw": 58.12,
+   "smiles": "CC(C)C",
+   "pubchem_cid": null,
+   "inchikey": "NNPPMTNAJDCUHE-UHFFFAOYSA-N",
+   "sdf": "sdf/isobutane.sdf",
+   "sdf_source": "generated",
+   "atoms": 14,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "ブタンの構造異性体で、炭素鎖が枝分かれしている。冷蔵庫の冷媒やカセットボンベの燃料に使われる。",
+   "note_reviewed": false,
+   "related": [
+    "butane",
+    "2-methyl-2-propanol"
+   ]
+  },
+  {
+   "id": "isopentane",
+   "name_ja": "イソペンタン",
+   "name_en": "Isopentane",
+   "reading": "",
+   "aliases": [
+    "2-メチルブタン",
+    "C5H12"
+   ],
+   "categories": [
+    "alkane"
+   ],
+   "kind": "molecule",
+   "formula": "C5H12",
+   "mw": 72.15,
+   "smiles": "CCC(C)C",
+   "pubchem_cid": null,
+   "inchikey": "QWTDNUCVQCZILF-UHFFFAOYSA-N",
+   "sdf": "sdf/isopentane.sdf",
+   "sdf_source": "generated",
+   "atoms": 17,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "ペンタンの構造異性体の一つで、枝分かれが1つある。",
+   "note_reviewed": false,
+   "related": [
+    "pentane",
+    "neopentane"
+   ]
+  },
+  {
+   "id": "neopentane",
+   "name_ja": "ネオペンタン",
+   "name_en": "Neopentane",
+   "reading": "",
+   "aliases": [
+    "2,2-ジメチルプロパン",
+    "C5H12"
+   ],
+   "categories": [
+    "alkane"
+   ],
+   "kind": "molecule",
+   "formula": "C5H12",
+   "mw": 72.15,
+   "smiles": "CC(C)(C)C",
+   "pubchem_cid": null,
+   "inchikey": "CRSOQBOWXPBRES-UHFFFAOYSA-N",
+   "sdf": "sdf/neopentane.sdf",
+   "sdf_source": "generated",
+   "atoms": 17,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "ペンタンの構造異性体の一つ。中心の炭素に4つのメチル基がついた球に近い形をしている。",
+   "note_reviewed": false,
+   "related": [
+    "pentane",
+    "isopentane"
+   ]
+  },
+  {
+   "id": "propene",
+   "name_ja": "プロペン",
+   "name_en": "Propene",
+   "reading": "",
+   "aliases": [
+    "プロピレン",
+    "C3H6"
+   ],
+   "categories": [
+    "alkene-alkyne"
+   ],
+   "kind": "molecule",
+   "formula": "C3H6",
+   "mw": 42.08,
+   "smiles": "C=CC",
+   "pubchem_cid": null,
+   "inchikey": "QQONPFPTGQHPMA-UHFFFAOYSA-N",
+   "sdf": "sdf/propene.sdf",
+   "sdf_source": "generated",
+   "atoms": 9,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素3個のアルケン。プロピレンとも呼ばれ、食品容器などに使われるポリプロピレンの原料。",
+   "note_reviewed": false,
+   "related": [
+    "ethylene",
+    "propane",
+    "1-butene"
+   ]
+  },
+  {
+   "id": "1-butene",
+   "name_ja": "1-ブテン",
+   "name_en": "1-Butene",
+   "reading": "",
+   "aliases": [
+    "C4H8"
+   ],
+   "categories": [
+    "alkene-alkyne"
+   ],
+   "kind": "molecule",
+   "formula": "C4H8",
+   "mw": 56.11,
+   "smiles": "C=CCC",
+   "pubchem_cid": null,
+   "inchikey": "VXNZUUAINFGPBY-UHFFFAOYSA-N",
+   "sdf": "sdf/1-butene.sdf",
+   "sdf_source": "generated",
+   "atoms": 12,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素4個のアルケンで、鎖の端に二重結合がある。二重結合の位置が違う2-ブテンとは構造異性体の関係。",
+   "note_reviewed": false,
+   "related": [
+    "cis-2-butene",
+    "trans-2-butene",
+    "butane"
+   ]
+  },
+  {
+   "id": "cis-2-butene",
+   "name_ja": "cis-2-ブテン",
+   "name_en": "cis-2-Butene",
+   "reading": "",
+   "aliases": [
+    "(Z)-2-ブテン",
+    "C4H8"
+   ],
+   "categories": [
+    "alkene-alkyne"
+   ],
+   "kind": "molecule",
+   "formula": "C4H8",
+   "mw": 56.11,
+   "smiles": "C/C=C\\C",
+   "pubchem_cid": null,
+   "inchikey": "IAQRGUVFOMOMEM-ARJAWSKDSA-N",
+   "sdf": "sdf/cis-2-butene.sdf",
+   "sdf_source": "generated",
+   "atoms": 12,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "note_ja": "二重結合をはさんで2つのメチル基が同じ側にあるシス形。二重結合は回転できないので、トランス形とは別の物質になる（シス・トランス異性体）。",
+   "note_reviewed": false,
+   "related": [
+    "trans-2-butene",
+    "1-butene",
+    "oleic-acid"
+   ]
+  },
+  {
+   "id": "trans-2-butene",
+   "name_ja": "trans-2-ブテン",
+   "name_en": "trans-2-Butene",
+   "reading": "",
+   "aliases": [
+    "(E)-2-ブテン",
+    "C4H8"
+   ],
+   "categories": [
+    "alkene-alkyne"
+   ],
+   "kind": "molecule",
+   "formula": "C4H8",
+   "mw": 56.11,
+   "smiles": "C/C=C/C",
+   "pubchem_cid": null,
+   "inchikey": "IAQRGUVFOMOMEM-ONEGZZNKSA-N",
+   "sdf": "sdf/trans-2-butene.sdf",
+   "sdf_source": "generated",
+   "atoms": 12,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "note_ja": "二重結合をはさんで2つのメチル基が反対側にあるトランス形。シス形と比べてみよう。",
+   "note_reviewed": false,
+   "related": [
+    "cis-2-butene",
+    "1-butene",
+    "elaidic-acid"
+   ]
+  },
+  {
+   "id": "propyne",
+   "name_ja": "プロピン",
+   "name_en": "Propyne",
+   "reading": "",
+   "aliases": [
+    "メチルアセチレン",
+    "C3H4"
+   ],
+   "categories": [
+    "alkene-alkyne"
+   ],
+   "kind": "molecule",
+   "formula": "C3H4",
+   "mw": 40.07,
+   "smiles": "C#CC",
+   "pubchem_cid": null,
+   "inchikey": "MWWATHDPGQKSAR-UHFFFAOYSA-N",
+   "sdf": "sdf/propyne.sdf",
+   "sdf_source": "generated",
+   "atoms": 7,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素3個のアルキン。三重結合のまわりの4つの原子が一直線に並ぶ。",
+   "note_reviewed": false,
+   "related": [
+    "acetylene",
+    "propene"
+   ]
+  },
+  {
+   "id": "methanol",
+   "name_ja": "メタノール",
+   "name_en": "Methanol",
+   "reading": "",
+   "aliases": [
+    "メチルアルコール",
+    "CH3OH"
+   ],
+   "categories": [
+    "alcohol"
+   ],
+   "kind": "molecule",
+   "formula": "CH4O",
+   "mw": 32.04,
+   "smiles": "CO",
+   "pubchem_cid": null,
+   "inchikey": "OKKJLVBELUTLKV-UHFFFAOYSA-N",
+   "sdf": "sdf/methanol.sdf",
+   "sdf_source": "generated",
+   "atoms": 6,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "もっとも単純なアルコール。飲むと体内でホルムアルデヒドやギ酸に変わり、失明などの重い中毒を起こすため有毒。",
+   "note_reviewed": false,
+   "related": [
+    "ethanol",
+    "formaldehyde",
+    "formic-acid"
+   ]
+  },
+  {
+   "id": "ethanol",
+   "name_ja": "エタノール",
+   "name_en": "Ethanol",
+   "reading": "",
+   "aliases": [
+    "エチルアルコール",
+    "アルコール",
+    "酒精"
+   ],
+   "categories": [
+    "alcohol"
+   ],
+   "kind": "molecule",
+   "formula": "C2H6O",
+   "mw": 46.07,
+   "smiles": "CCO",
+   "pubchem_cid": null,
+   "inchikey": "LFQSCWFLJHTTHZ-UHFFFAOYSA-N",
+   "sdf": "sdf/ethanol.sdf",
+   "sdf_source": "generated",
+   "atoms": 9,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "お酒に含まれるアルコール。体内では肝臓でアセトアルデヒド、さらに酢酸へと代謝される。約80%の水溶液は消毒用アルコールとして医療現場で使われる。",
+   "note_reviewed": false,
+   "related": [
+    "methanol",
+    "acetaldehyde",
+    "acetic-acid",
+    "dimethyl-ether"
+   ]
+  },
+  {
+   "id": "1-propanol",
+   "name_ja": "1-プロパノール",
+   "name_en": "1-Propanol",
+   "reading": "",
+   "aliases": [
+    "プロピルアルコール",
+    "n-プロパノール"
+   ],
+   "categories": [
+    "alcohol"
+   ],
+   "kind": "molecule",
+   "formula": "C3H8O",
+   "mw": 60.1,
+   "smiles": "CCCO",
+   "pubchem_cid": null,
+   "inchikey": "BDERNNFJNOPAEC-UHFFFAOYSA-N",
+   "sdf": "sdf/1-propanol.sdf",
+   "sdf_source": "generated",
+   "atoms": 12,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素3個の第一級アルコール。ヒドロキシ基の位置が違う2-プロパノールとは構造異性体の関係。",
+   "note_reviewed": false,
+   "related": [
+    "2-propanol",
+    "ethanol",
+    "1-butanol"
+   ]
+  },
+  {
+   "id": "1-butanol",
+   "name_ja": "1-ブタノール",
+   "name_en": "1-Butanol",
+   "reading": "",
+   "aliases": [
+    "ブチルアルコール",
+    "n-ブタノール"
+   ],
+   "categories": [
+    "alcohol"
+   ],
+   "kind": "molecule",
+   "formula": "C4H10O",
+   "mw": 74.12,
+   "smiles": "CCCCO",
+   "pubchem_cid": null,
+   "inchikey": "LRHPLDYGYMQRHN-UHFFFAOYSA-N",
+   "sdf": "sdf/1-butanol.sdf",
+   "sdf_source": "generated",
+   "atoms": 15,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素4個の第一級アルコール。炭素数が増えるほど、アルコールは水に溶けにくくなる。",
+   "note_reviewed": false,
+   "related": [
+    "2-butanol",
+    "2-methyl-2-propanol",
+    "1-propanol"
+   ]
+  },
+  {
+   "id": "1-pentanol",
+   "name_ja": "1-ペンタノール",
+   "name_en": "1-Pentanol",
+   "reading": "",
+   "aliases": [
+    "ペンチルアルコール",
+    "アミルアルコール"
+   ],
+   "categories": [
+    "alcohol"
+   ],
+   "kind": "molecule",
+   "formula": "C5H12O",
+   "mw": 88.15,
+   "smiles": "CCCCCO",
+   "pubchem_cid": null,
+   "inchikey": "AMQJEAYHLZJPGS-UHFFFAOYSA-N",
+   "sdf": "sdf/1-pentanol.sdf",
+   "sdf_source": "generated",
+   "atoms": 18,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素5個の直鎖の第一級アルコール。",
+   "note_reviewed": false,
+   "related": [
+    "1-butanol",
+    "1-hexanol"
+   ]
+  },
+  {
+   "id": "1-hexanol",
+   "name_ja": "1-ヘキサノール",
+   "name_en": "1-Hexanol",
+   "reading": "",
+   "aliases": [
+    "ヘキシルアルコール"
+   ],
+   "categories": [
+    "alcohol"
+   ],
+   "kind": "molecule",
+   "formula": "C6H14O",
+   "mw": 102.18,
+   "smiles": "CCCCCCO",
+   "pubchem_cid": null,
+   "inchikey": "ZSIAUFGUXNUGDI-UHFFFAOYSA-N",
+   "sdf": "sdf/1-hexanol.sdf",
+   "sdf_source": "generated",
+   "atoms": 21,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素6個の直鎖の第一級アルコール。青葉のにおいの成分に近い仲間の化合物。",
+   "note_reviewed": false,
+   "related": [
+    "1-pentanol",
+    "1-heptanol"
+   ]
+  },
+  {
+   "id": "1-heptanol",
+   "name_ja": "1-ヘプタノール",
+   "name_en": "1-Heptanol",
+   "reading": "",
+   "aliases": [
+    "ヘプチルアルコール"
+   ],
+   "categories": [
+    "alcohol"
+   ],
+   "kind": "molecule",
+   "formula": "C7H16O",
+   "mw": 116.2,
+   "smiles": "CCCCCCCO",
+   "pubchem_cid": null,
+   "inchikey": "BBMCTIGTTCKYKF-UHFFFAOYSA-N",
+   "sdf": "sdf/1-heptanol.sdf",
+   "sdf_source": "generated",
+   "atoms": 24,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素7個の直鎖の第一級アルコール。",
+   "note_reviewed": false,
+   "related": [
+    "1-hexanol",
+    "1-octanol"
+   ]
+  },
+  {
+   "id": "1-octanol",
+   "name_ja": "1-オクタノール",
+   "name_en": "1-Octanol",
+   "reading": "",
+   "aliases": [
+    "オクチルアルコール"
+   ],
+   "categories": [
+    "alcohol"
+   ],
+   "kind": "molecule",
+   "formula": "C8H18O",
+   "mw": 130.23,
+   "smiles": "CCCCCCCCO",
+   "pubchem_cid": null,
+   "inchikey": "KBPLFHHGFOOTCA-UHFFFAOYSA-N",
+   "sdf": "sdf/1-octanol.sdf",
+   "sdf_source": "generated",
+   "atoms": 27,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素8個の直鎖の第一級アルコール。医薬品が水と油のどちらになじみやすいかを調べる実験（分配係数）で、油の代わりに使われる。",
+   "note_reviewed": false,
+   "related": [
+    "1-heptanol",
+    "1-nonanol"
+   ]
+  },
+  {
+   "id": "1-nonanol",
+   "name_ja": "1-ノナノール",
+   "name_en": "1-Nonanol",
+   "reading": "",
+   "aliases": [
+    "ノニルアルコール"
+   ],
+   "categories": [
+    "alcohol"
+   ],
+   "kind": "molecule",
+   "formula": "C9H20O",
+   "mw": 144.26,
+   "smiles": "CCCCCCCCCO",
+   "pubchem_cid": null,
+   "inchikey": "ZWRUINPWMLAQRD-UHFFFAOYSA-N",
+   "sdf": "sdf/1-nonanol.sdf",
+   "sdf_source": "generated",
+   "atoms": 30,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素9個の直鎖の第一級アルコール。",
+   "note_reviewed": false,
+   "related": [
+    "1-octanol",
+    "nonane",
+    "nonanoic-acid"
+   ]
+  },
+  {
+   "id": "2-propanol",
+   "name_ja": "2-プロパノール",
+   "name_en": "2-Propanol",
+   "reading": "",
+   "aliases": [
+    "イソプロピルアルコール",
+    "イソプロパノール",
+    "IPA"
+   ],
+   "categories": [
+    "alcohol"
+   ],
+   "kind": "molecule",
+   "formula": "C3H8O",
+   "mw": 60.1,
+   "smiles": "CC(C)O",
+   "pubchem_cid": null,
+   "inchikey": "KFZMGEQAYNKOFK-UHFFFAOYSA-N",
+   "sdf": "sdf/2-propanol.sdf",
+   "sdf_source": "generated",
+   "atoms": 12,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "第二級アルコールの代表。イソプロパノールとも呼ばれ、消毒用アルコールとして使われる。酸化するとアセトンになる。",
+   "note_reviewed": false,
+   "related": [
+    "1-propanol",
+    "acetone",
+    "ethanol"
+   ]
+  },
+  {
+   "id": "2-butanol",
+   "name_ja": "2-ブタノール",
+   "name_en": "2-Butanol",
+   "reading": "",
+   "aliases": [
+    "sec-ブチルアルコール"
+   ],
+   "categories": [
+    "alcohol"
+   ],
+   "kind": "molecule",
+   "formula": "C4H10O",
+   "mw": 74.12,
+   "smiles": "CCC(C)O",
+   "pubchem_cid": null,
+   "inchikey": "BTANRVKWQNVYAZ-UHFFFAOYSA-N",
+   "sdf": "sdf/2-butanol.sdf",
+   "sdf_source": "generated",
+   "atoms": 15,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "racemic"
+   },
+   "stereo_note": "racemic",
+   "note_ja": "第二級アルコール。2番目の炭素は4つの異なる原子団と結合しているため鏡像体（R体とS体）があり、市販品は両者の混合物（ラセミ体）。3Dモデルは一方の鏡像体を表示している。",
+   "note_reviewed": false,
+   "related": [
+    "1-butanol",
+    "2-methyl-2-propanol"
+   ]
+  },
+  {
+   "id": "2-methyl-2-propanol",
+   "name_ja": "2-メチル-2-プロパノール",
+   "name_en": "2-Methyl-2-propanol",
+   "reading": "",
+   "aliases": [
+    "tert-ブチルアルコール",
+    "t-ブタノール"
+   ],
+   "categories": [
+    "alcohol"
+   ],
+   "kind": "molecule",
+   "formula": "C4H10O",
+   "mw": 74.12,
+   "smiles": "CC(C)(C)O",
+   "pubchem_cid": null,
+   "inchikey": "DKGAVHZHDRPRBM-UHFFFAOYSA-N",
+   "sdf": "sdf/2-methyl-2-propanol.sdf",
+   "sdf_source": "generated",
+   "atoms": 15,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "第三級アルコールの代表。ヒドロキシ基がついた炭素に水素がないため、第一級・第二級アルコールと違って酸化されにくい。",
+   "note_reviewed": false,
+   "related": [
+    "1-butanol",
+    "2-butanol",
+    "isobutane"
+   ]
+  },
+  {
+   "id": "ethylene-glycol",
+   "name_ja": "エチレングリコール",
+   "name_en": "Ethylene glycol",
+   "reading": "",
+   "aliases": [
+    "1,2-エタンジオール",
+    "グリコール"
+   ],
+   "categories": [
+    "alcohol"
+   ],
+   "kind": "molecule",
+   "formula": "C2H6O2",
+   "mw": 62.07,
+   "smiles": "OCCO",
+   "pubchem_cid": null,
+   "inchikey": "LYCAIKOWRPUZTN-UHFFFAOYSA-N",
+   "sdf": "sdf/ethylene-glycol.sdf",
+   "sdf_source": "generated",
+   "atoms": 10,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "ヒドロキシ基を2つもつ2価アルコール。自動車の不凍液やペットボトル（PET）の原料。甘味があるが有毒で、誤飲に注意が必要。",
+   "note_reviewed": false,
+   "related": [
+    "ethanol",
+    "glycerol",
+    "oxalic-acid"
+   ]
+  },
+  {
+   "id": "glycerol",
+   "name_ja": "グリセリン",
+   "name_en": "Glycerol",
+   "reading": "",
+   "aliases": [
+    "グリセロール",
+    "1,2,3-プロパントリオール"
+   ],
+   "categories": [
+    "alcohol"
+   ],
+   "kind": "molecule",
+   "formula": "C3H8O3",
+   "mw": 92.09,
+   "smiles": "OCC(O)CO",
+   "pubchem_cid": null,
+   "inchikey": "PEDCQBHIVMGVHV-UHFFFAOYSA-N",
+   "sdf": "sdf/glycerol.sdf",
+   "sdf_source": "generated",
+   "atoms": 14,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "ヒドロキシ基を3つもつ3価アルコール。脂肪（トリアシルグリセロール）は、グリセリンに脂肪酸3分子が結合したもの。保湿剤として化粧品や医薬品にも使われる。",
+   "note_reviewed": false,
+   "related": [
+    "ethylene-glycol",
+    "oleic-acid",
+    "stearic-acid"
+   ]
+  },
+  {
+   "id": "formic-acid",
+   "name_ja": "ギ酸",
+   "name_en": "Formic acid",
+   "reading": "ぎさん",
+   "aliases": [
+    "メタン酸",
+    "HCOOH"
+   ],
+   "categories": [
+    "carboxylic-acid"
+   ],
+   "kind": "molecule",
+   "formula": "CH2O2",
+   "mw": 46.02,
+   "smiles": "O=CO",
+   "pubchem_cid": null,
+   "inchikey": "BDAGIHXWWSANSR-UHFFFAOYSA-N",
+   "sdf": "sdf/formic-acid.sdf",
+   "sdf_source": "generated",
+   "atoms": 5,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "もっとも単純なカルボン酸。アリやハチの毒に含まれ、刺されたときの痛みの原因になる。",
+   "note_reviewed": false,
+   "related": [
+    "acetic-acid",
+    "methanol",
+    "formaldehyde"
+   ]
+  },
+  {
+   "id": "acetic-acid",
+   "name_ja": "酢酸",
+   "name_en": "Acetic acid",
+   "reading": "さくさん",
+   "aliases": [
+    "エタン酸",
+    "CH3COOH",
+    "C2:0"
+   ],
+   "categories": [
+    "carboxylic-acid",
+    "fatty-acid",
+    "short-chain"
+   ],
+   "kind": "molecule",
+   "formula": "C2H4O2",
+   "mw": 60.05,
+   "smiles": "CC(=O)O",
+   "pubchem_cid": null,
+   "inchikey": "QTBSBXVTEAMEQO-UHFFFAOYSA-N",
+   "sdf": "sdf/acetic-acid.sdf",
+   "sdf_source": "generated",
+   "atoms": 8,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "fatty_acid": {
+    "carbons": 2,
+    "double_bonds": [],
+    "omega": null,
+    "notation": "C2:0"
+   },
+   "note_ja": "食酢の酸味の成分。腸内細菌が食物繊維を発酵してつくる短鎖脂肪酸の一つでもある。",
+   "note_reviewed": false,
+   "related": [
+    "ethanol",
+    "ethyl-acetate",
+    "propionic-acid"
+   ]
+  },
+  {
+   "id": "propionic-acid",
+   "name_ja": "プロピオン酸",
+   "name_en": "Propionic acid",
+   "reading": "ぷろぴおんさん",
+   "aliases": [
+    "プロパン酸",
+    "C3:0"
+   ],
+   "categories": [
+    "carboxylic-acid",
+    "fatty-acid",
+    "short-chain"
+   ],
+   "kind": "molecule",
+   "formula": "C3H6O2",
+   "mw": 74.08,
+   "smiles": "CCC(=O)O",
+   "pubchem_cid": null,
+   "inchikey": "XBDQKXXYIPTUBI-UHFFFAOYSA-N",
+   "sdf": "sdf/propionic-acid.sdf",
+   "sdf_source": "generated",
+   "atoms": 11,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "fatty_acid": {
+    "carbons": 3,
+    "double_bonds": [],
+    "omega": null,
+    "notation": "C3:0"
+   },
+   "note_ja": "炭素3個のカルボン酸で、短鎖脂肪酸の一つ。カビの増殖を抑えるので、塩の形でパンなどの保存料に使われる。",
+   "note_reviewed": false,
+   "related": [
+    "acetic-acid",
+    "butyric-acid",
+    "1-propanol"
+   ]
+  },
+  {
+   "id": "butyric-acid",
+   "name_ja": "酪酸",
+   "name_en": "Butyric acid",
+   "reading": "らくさん",
+   "aliases": [
+    "ブタン酸",
+    "C4:0"
+   ],
+   "categories": [
+    "carboxylic-acid",
+    "fatty-acid",
+    "short-chain"
+   ],
+   "kind": "molecule",
+   "formula": "C4H8O2",
+   "mw": 88.11,
+   "smiles": "CCCC(=O)O",
+   "pubchem_cid": null,
+   "inchikey": "FERIUCNNQQJTOY-UHFFFAOYSA-N",
+   "sdf": "sdf/butyric-acid.sdf",
+   "sdf_source": "generated",
+   "atoms": 14,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "fatty_acid": {
+    "carbons": 4,
+    "double_bonds": [],
+    "omega": null,
+    "notation": "C4:0"
+   },
+   "note_ja": "炭素4個のカルボン酸で、バターに含まれる短鎖脂肪酸。腸内細菌が食物繊維からつくり、大腸の細胞のエネルギー源になる。",
+   "note_reviewed": false,
+   "related": [
+    "propionic-acid",
+    "1-butanol",
+    "caprylic-acid"
+   ]
+  },
+  {
+   "id": "pentanoic-acid",
+   "name_ja": "ペンタン酸",
+   "name_en": "Pentanoic acid",
+   "reading": "ぺんたんさん",
+   "aliases": [
+    "吉草酸",
+    "バレリアン酸",
+    "C5:0"
+   ],
+   "categories": [
+    "carboxylic-acid"
+   ],
+   "kind": "molecule",
+   "formula": "C5H10O2",
+   "mw": 102.13,
+   "smiles": "CCCCC(=O)O",
+   "pubchem_cid": null,
+   "inchikey": "NQPDZGIKBAWPEJ-UHFFFAOYSA-N",
+   "sdf": "sdf/pentanoic-acid.sdf",
+   "sdf_source": "generated",
+   "atoms": 17,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "fatty_acid": {
+    "carbons": 5,
+    "double_bonds": [],
+    "omega": null,
+    "notation": "C5:0"
+   },
+   "note_ja": "炭素5個の直鎖カルボン酸。吉草酸とも呼ばれ、強い不快臭がある。",
+   "note_reviewed": false,
+   "related": [
+    "butyric-acid",
+    "hexanoic-acid"
+   ]
+  },
+  {
+   "id": "hexanoic-acid",
+   "name_ja": "ヘキサン酸",
+   "name_en": "Hexanoic acid",
+   "reading": "へきさんさん",
+   "aliases": [
+    "カプロン酸",
+    "C6:0"
+   ],
+   "categories": [
+    "carboxylic-acid"
+   ],
+   "kind": "molecule",
+   "formula": "C6H12O2",
+   "mw": 116.16,
+   "smiles": "CCCCCC(=O)O",
+   "pubchem_cid": null,
+   "inchikey": "FUZZWVXGSFPDMH-UHFFFAOYSA-N",
+   "sdf": "sdf/hexanoic-acid.sdf",
+   "sdf_source": "generated",
+   "atoms": 20,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "fatty_acid": {
+    "carbons": 6,
+    "double_bonds": [],
+    "omega": null,
+    "notation": "C6:0"
+   },
+   "note_ja": "炭素6個の直鎖カルボン酸。カプロン酸とも呼ばれ、ヤギの乳の脂肪などに含まれる。",
+   "note_reviewed": false,
+   "related": [
+    "pentanoic-acid",
+    "heptanoic-acid",
+    "caprylic-acid"
+   ]
+  },
+  {
+   "id": "heptanoic-acid",
+   "name_ja": "ヘプタン酸",
+   "name_en": "Heptanoic acid",
+   "reading": "へぷたんさん",
+   "aliases": [
+    "エナント酸",
+    "C7:0"
+   ],
+   "categories": [
+    "carboxylic-acid"
+   ],
+   "kind": "molecule",
+   "formula": "C7H14O2",
+   "mw": 130.19,
+   "smiles": "CCCCCCC(=O)O",
+   "pubchem_cid": null,
+   "inchikey": "MNWFXJYAOYHMED-UHFFFAOYSA-N",
+   "sdf": "sdf/heptanoic-acid.sdf",
+   "sdf_source": "generated",
+   "atoms": 23,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "fatty_acid": {
+    "carbons": 7,
+    "double_bonds": [],
+    "omega": null,
+    "notation": "C7:0"
+   },
+   "note_ja": "炭素7個の直鎖カルボン酸。",
+   "note_reviewed": false,
+   "related": [
+    "hexanoic-acid",
+    "caprylic-acid"
+   ]
+  },
+  {
+   "id": "caprylic-acid",
+   "name_ja": "カプリル酸",
+   "name_en": "Caprylic acid",
+   "reading": "かぷりるさん",
+   "aliases": [
+    "オクタン酸",
+    "C8:0"
+   ],
+   "categories": [
+    "carboxylic-acid",
+    "fatty-acid",
+    "medium-chain"
+   ],
+   "kind": "molecule",
+   "formula": "C8H16O2",
+   "mw": 144.21,
+   "smiles": "CCCCCCCC(=O)O",
+   "pubchem_cid": null,
+   "inchikey": "WWZKQHOCKIZLMA-UHFFFAOYSA-N",
+   "sdf": "sdf/caprylic-acid.sdf",
+   "sdf_source": "generated",
+   "atoms": 26,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "fatty_acid": {
+    "carbons": 8,
+    "double_bonds": [],
+    "omega": null,
+    "notation": "C8:0"
+   },
+   "note_ja": "炭素8個の中鎖脂肪酸（オクタン酸）。ココナッツ油や母乳に含まれる。中鎖脂肪酸は消化・吸収が速く、エネルギーになりやすい。",
+   "note_reviewed": false,
+   "related": [
+    "capric-acid",
+    "lauric-acid",
+    "heptanoic-acid"
+   ]
+  },
+  {
+   "id": "nonanoic-acid",
+   "name_ja": "ノナン酸",
+   "name_en": "Nonanoic acid",
+   "reading": "のなんさん",
+   "aliases": [
+    "ペラルゴン酸",
+    "C9:0"
+   ],
+   "categories": [
+    "carboxylic-acid"
+   ],
+   "kind": "molecule",
+   "formula": "C9H18O2",
+   "mw": 158.24,
+   "smiles": "CCCCCCCCC(=O)O",
+   "pubchem_cid": null,
+   "inchikey": "FBUKVWPVBMHYJY-UHFFFAOYSA-N",
+   "sdf": "sdf/nonanoic-acid.sdf",
+   "sdf_source": "generated",
+   "atoms": 29,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "fatty_acid": {
+    "carbons": 9,
+    "double_bonds": [],
+    "omega": null,
+    "notation": "C9:0"
+   },
+   "note_ja": "炭素9個の直鎖カルボン酸。ペラルゴン酸とも呼ばれる。",
+   "note_reviewed": false,
+   "related": [
+    "caprylic-acid",
+    "capric-acid",
+    "nonane"
+   ]
+  },
+  {
+   "id": "oxalic-acid",
+   "name_ja": "シュウ酸",
+   "name_en": "Oxalic acid",
+   "reading": "しゅうさん",
+   "aliases": [
+    "エタン二酸"
+   ],
+   "categories": [
+    "carboxylic-acid"
+   ],
+   "kind": "molecule",
+   "formula": "C2H2O4",
+   "mw": 90.03,
+   "smiles": "O=C(O)C(=O)O",
+   "pubchem_cid": null,
+   "inchikey": "MUBZPKHOEPUJKR-UHFFFAOYSA-N",
+   "sdf": "sdf/oxalic-acid.sdf",
+   "sdf_source": "generated",
+   "atoms": 8,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "カルボキシ基を2つもつジカルボン酸。ホウレンソウなどに含まれ、カルシウムと結びつくと水に溶けにくいシュウ酸カルシウムになり、尿路結石の原因になることがある。",
+   "note_reviewed": false,
+   "related": [
+    "ethylene-glycol",
+    "citric-acid"
+   ]
+  },
+  {
+   "id": "lactic-acid",
+   "name_ja": "乳酸",
+   "name_en": "Lactic acid",
+   "reading": "にゅうさん",
+   "aliases": [
+    "L-乳酸",
+    "(S)-2-ヒドロキシプロパン酸"
+   ],
+   "categories": [
+    "carboxylic-acid"
+   ],
+   "kind": "molecule",
+   "formula": "C3H6O3",
+   "mw": 90.08,
+   "smiles": "C[C@H](O)C(=O)O",
+   "pubchem_cid": null,
+   "inchikey": "JVTAAEKCZFNVCJ-REOHCLBHSA-N",
+   "sdf": "sdf/lactic-acid.sdf",
+   "sdf_source": "generated",
+   "atoms": 12,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "note_ja": "ヨーグルトや漬物の酸味の成分で、乳酸菌がつくる。激しい運動で筋肉の酸素が足りなくなると、ブドウ糖から乳酸がつくられる。中央の炭素に鏡像体があり、ここでは生体内でつくられるL-乳酸を示している。",
+   "note_reviewed": false,
+   "related": [
+    "propionic-acid",
+    "citric-acid"
+   ]
+  },
+  {
+   "id": "citric-acid",
+   "name_ja": "クエン酸",
+   "name_en": "Citric acid",
+   "reading": "くえんさん",
+   "aliases": [],
+   "categories": [
+    "carboxylic-acid"
+   ],
+   "kind": "molecule",
+   "formula": "C6H8O7",
+   "mw": 192.12,
+   "smiles": "O=C(O)CC(O)(CC(=O)O)C(=O)O",
+   "pubchem_cid": null,
+   "inchikey": "KRKNYBCHXYNGOX-UHFFFAOYSA-N",
+   "sdf": "sdf/citric-acid.sdf",
+   "sdf_source": "generated",
+   "atoms": 21,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "レモンなどかんきつ類の酸味の成分。カルボキシ基を3つもつ。細胞のミトコンドリアでエネルギーを取り出すクエン酸回路の名前の由来。",
+   "note_reviewed": false,
+   "related": [
+    "lactic-acid",
+    "oxalic-acid"
+   ]
+  },
+  {
+   "id": "ethyl-acetate",
+   "name_ja": "酢酸エチル",
+   "name_en": "Ethyl acetate",
+   "reading": "さくさんえちる",
+   "aliases": [
+    "エステル"
+   ],
+   "categories": [
+    "carboxylic-acid"
+   ],
+   "kind": "molecule",
+   "formula": "C4H8O2",
+   "mw": 88.11,
+   "smiles": "CCOC(C)=O",
+   "pubchem_cid": null,
+   "inchikey": "XEKOWRVHYACXOJ-UHFFFAOYSA-N",
+   "sdf": "sdf/ethyl-acetate.sdf",
+   "sdf_source": "generated",
+   "atoms": 14,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "酢酸とエタノールからできるエステル。果物のような香りがあり、香料やマニキュアの除光液などの溶剤に使われる。",
+   "note_reviewed": false,
+   "related": [
+    "acetic-acid",
+    "ethanol"
+   ]
+  },
+  {
+   "id": "formaldehyde",
+   "name_ja": "ホルムアルデヒド",
+   "name_en": "Formaldehyde",
+   "reading": "",
+   "aliases": [
+    "メタナール",
+    "ホルマリン"
+   ],
+   "categories": [
+    "aldehyde-ketone"
+   ],
+   "kind": "molecule",
+   "formula": "CH2O",
+   "mw": 30.03,
+   "smiles": "C=O",
+   "pubchem_cid": null,
+   "inchikey": "WSFSSNUMVMOOMR-UHFFFAOYSA-N",
+   "sdf": "sdf/formaldehyde.sdf",
+   "sdf_source": "generated",
+   "atoms": 4,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "もっとも単純なアルデヒド。水溶液はホルマリンと呼ばれ、標本の保存に使われる。シックハウス症候群の原因物質の一つ。",
+   "note_reviewed": false,
+   "related": [
+    "methanol",
+    "formic-acid",
+    "acetaldehyde"
+   ]
+  },
+  {
+   "id": "acetaldehyde",
+   "name_ja": "アセトアルデヒド",
+   "name_en": "Acetaldehyde",
+   "reading": "",
+   "aliases": [
+    "エタナール"
+   ],
+   "categories": [
+    "aldehyde-ketone"
+   ],
+   "kind": "molecule",
+   "formula": "C2H4O",
+   "mw": 44.05,
+   "smiles": "CC=O",
+   "pubchem_cid": null,
+   "inchikey": "IKHGUXGNUITLKF-UHFFFAOYSA-N",
+   "sdf": "sdf/acetaldehyde.sdf",
+   "sdf_source": "generated",
+   "atoms": 7,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "エタノールが肝臓で代謝されるときにできるアルデヒド。顔が赤くなる・頭痛など、悪酔いや二日酔いの原因となる。",
+   "note_reviewed": false,
+   "related": [
+    "ethanol",
+    "acetic-acid",
+    "formaldehyde"
+   ]
+  },
+  {
+   "id": "acetone",
+   "name_ja": "アセトン",
+   "name_en": "Acetone",
+   "reading": "",
+   "aliases": [
+    "プロパノン",
+    "ジメチルケトン"
+   ],
+   "categories": [
+    "aldehyde-ketone"
+   ],
+   "kind": "molecule",
+   "formula": "C3H6O",
+   "mw": 58.08,
+   "smiles": "CC(C)=O",
+   "pubchem_cid": null,
+   "inchikey": "CSCPPACGZOOCGX-UHFFFAOYSA-N",
+   "sdf": "sdf/acetone.sdf",
+   "sdf_source": "generated",
+   "atoms": 10,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "もっとも単純なケトン。除光液などの溶剤に使われる。糖尿病などで脂肪の分解が進むと、ケトン体の一つとして体内でつくられる。",
+   "note_reviewed": false,
+   "related": [
+    "2-propanol",
+    "acetaldehyde"
+   ]
+  },
+  {
+   "id": "dimethyl-ether",
+   "name_ja": "ジメチルエーテル",
+   "name_en": "Dimethyl ether",
+   "reading": "",
+   "aliases": [
+    "メトキシメタン",
+    "DME"
+   ],
+   "categories": [
+    "ether"
+   ],
+   "kind": "molecule",
+   "formula": "C2H6O",
+   "mw": 46.07,
+   "smiles": "COC",
+   "pubchem_cid": null,
+   "inchikey": "LCGLNKUTAGEVQW-UHFFFAOYSA-N",
+   "sdf": "sdf/dimethyl-ether.sdf",
+   "sdf_source": "generated",
+   "atoms": 9,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "もっとも単純なエーテル。分子式はエタノールと同じC2H6Oだが、つながり方が違う構造異性体で、性質も大きく異なる（常温で気体）。スプレーの噴射剤に使われる。",
+   "note_reviewed": false,
+   "related": [
+    "ethanol",
+    "diethyl-ether"
+   ]
+  },
+  {
+   "id": "diethyl-ether",
+   "name_ja": "ジエチルエーテル",
+   "name_en": "Diethyl ether",
+   "reading": "",
+   "aliases": [
+    "エーテル",
+    "エトキシエタン"
+   ],
+   "categories": [
+    "ether"
+   ],
+   "kind": "molecule",
+   "formula": "C4H10O",
+   "mw": 74.12,
+   "smiles": "CCOCC",
+   "pubchem_cid": null,
+   "inchikey": "RTZKZFJDLAIYFH-UHFFFAOYSA-N",
+   "sdf": "sdf/diethyl-ether.sdf",
+   "sdf_source": "generated",
+   "atoms": 15,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "単に「エーテル」とも呼ばれる。かつては全身麻酔薬として使われた。引火しやすいので取り扱いに注意が必要。",
+   "note_reviewed": false,
+   "related": [
+    "dimethyl-ether",
+    "ethanol",
+    "1-butanol"
+   ]
+  },
+  {
+   "id": "capric-acid",
+   "name_ja": "カプリン酸",
+   "name_en": "Capric acid",
+   "reading": "かぷりんさん",
+   "aliases": [
+    "デカン酸",
+    "C10:0"
+   ],
+   "categories": [
+    "fatty-acid",
+    "medium-chain"
+   ],
+   "kind": "molecule",
+   "formula": "C10H20O2",
+   "mw": 172.27,
+   "smiles": "CCCCCCCCCC(=O)O",
+   "pubchem_cid": null,
+   "inchikey": "GHVNFZFCNZKVNT-UHFFFAOYSA-N",
+   "sdf": "sdf/capric-acid.sdf",
+   "sdf_source": "generated",
+   "atoms": 32,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "fatty_acid": {
+    "carbons": 10,
+    "double_bonds": [],
+    "omega": null,
+    "notation": "C10:0"
+   },
+   "note_ja": "炭素10個の中鎖脂肪酸（デカン酸）。ココナッツ油やパーム核油、乳脂肪に含まれる。",
+   "note_reviewed": false,
+   "related": [
+    "caprylic-acid",
+    "lauric-acid"
+   ]
+  },
+  {
+   "id": "lauric-acid",
+   "name_ja": "ラウリン酸",
+   "name_en": "Lauric acid",
+   "reading": "らうりんさん",
+   "aliases": [
+    "ドデカン酸",
+    "C12:0"
+   ],
+   "categories": [
+    "fatty-acid",
+    "medium-chain"
+   ],
+   "kind": "molecule",
+   "formula": "C12H24O2",
+   "mw": 200.32,
+   "smiles": "CCCCCCCCCCCC(=O)O",
+   "pubchem_cid": null,
+   "inchikey": "POULHZVOKOAJMA-UHFFFAOYSA-N",
+   "sdf": "sdf/lauric-acid.sdf",
+   "sdf_source": "generated",
+   "atoms": 38,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "fatty_acid": {
+    "carbons": 12,
+    "double_bonds": [],
+    "omega": null,
+    "notation": "C12:0"
+   },
+   "note_ja": "炭素12個の飽和脂肪酸。ココナッツ油やパーム核油に多い。せっけんの原料にも使われる。",
+   "note_reviewed": false,
+   "related": [
+    "capric-acid",
+    "myristic-acid"
+   ]
+  },
+  {
+   "id": "myristic-acid",
+   "name_ja": "ミリスチン酸",
+   "name_en": "Myristic acid",
+   "reading": "みりすちんさん",
+   "aliases": [
+    "テトラデカン酸",
+    "C14:0"
+   ],
+   "categories": [
+    "fatty-acid",
+    "long-chain-saturated"
+   ],
+   "kind": "molecule",
+   "formula": "C14H28O2",
+   "mw": 228.38,
+   "smiles": "CCCCCCCCCCCCCC(=O)O",
+   "pubchem_cid": null,
+   "inchikey": "TUNFSRHWOTWDNC-UHFFFAOYSA-N",
+   "sdf": "sdf/myristic-acid.sdf",
+   "sdf_source": "generated",
+   "atoms": 44,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "fatty_acid": {
+    "carbons": 14,
+    "double_bonds": [],
+    "omega": null,
+    "notation": "C14:0"
+   },
+   "note_ja": "炭素14個の飽和脂肪酸。乳脂肪やココナッツ油に含まれる。",
+   "note_reviewed": false,
+   "related": [
+    "lauric-acid",
+    "palmitic-acid"
+   ]
+  },
+  {
+   "id": "palmitic-acid",
+   "name_ja": "パルミチン酸",
+   "name_en": "Palmitic acid",
+   "reading": "ぱるみちんさん",
+   "aliases": [
+    "ヘキサデカン酸",
+    "C16:0"
+   ],
+   "categories": [
+    "fatty-acid",
+    "long-chain-saturated"
+   ],
+   "kind": "molecule",
+   "formula": "C16H32O2",
+   "mw": 256.43,
+   "smiles": "CCCCCCCCCCCCCCCC(=O)O",
+   "pubchem_cid": null,
+   "inchikey": "IPCSVZSSVZVIGE-UHFFFAOYSA-N",
+   "sdf": "sdf/palmitic-acid.sdf",
+   "sdf_source": "generated",
+   "atoms": 50,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "fatty_acid": {
+    "carbons": 16,
+    "double_bonds": [],
+    "omega": null,
+    "notation": "C16:0"
+   },
+   "note_ja": "炭素16個の飽和脂肪酸。パーム油や肉の脂など、動植物の脂肪に広く含まれる。人の体脂肪にも多い。",
+   "note_reviewed": false,
+   "related": [
+    "stearic-acid",
+    "myristic-acid",
+    "palmitoleic-acid"
+   ]
+  },
+  {
+   "id": "stearic-acid",
+   "name_ja": "ステアリン酸",
+   "name_en": "Stearic acid",
+   "reading": "すてありんさん",
+   "aliases": [
+    "オクタデカン酸",
+    "C18:0"
+   ],
+   "categories": [
+    "fatty-acid",
+    "long-chain-saturated"
+   ],
+   "kind": "molecule",
+   "formula": "C18H36O2",
+   "mw": 284.48,
+   "smiles": "CCCCCCCCCCCCCCCCCC(=O)O",
+   "pubchem_cid": null,
+   "inchikey": "QIQXTHQIDYTFRH-UHFFFAOYSA-N",
+   "sdf": "sdf/stearic-acid.sdf",
+   "sdf_source": "generated",
+   "atoms": 56,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "fatty_acid": {
+    "carbons": 18,
+    "double_bonds": [],
+    "omega": null,
+    "notation": "C18:0"
+   },
+   "note_ja": "炭素18個の飽和脂肪酸。牛脂やカカオバターに多い。炭素鎖がまっすぐ伸びるため分子どうしが密に並び、常温で固体の脂になりやすい。",
+   "note_reviewed": false,
+   "related": [
+    "oleic-acid",
+    "palmitic-acid",
+    "linoleic-acid"
+   ]
+  },
+  {
+   "id": "palmitoleic-acid",
+   "name_ja": "パルミトレイン酸",
+   "name_en": "Palmitoleic acid",
+   "reading": "ぱるみとれいんさん",
+   "aliases": [
+    "cis-9-ヘキサデセン酸",
+    "C16:1 n-7"
+   ],
+   "categories": [
+    "fatty-acid",
+    "monounsaturated"
+   ],
+   "kind": "molecule",
+   "formula": "C16H30O2",
+   "mw": 254.41,
+   "smiles": "CCCCCC/C=C\\CCCCCCCC(=O)O",
+   "pubchem_cid": null,
+   "inchikey": "SECPZKHBENQXJG-FPLPWBNLSA-N",
+   "sdf": "sdf/palmitoleic-acid.sdf",
+   "sdf_source": "generated",
+   "atoms": 48,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "fatty_acid": {
+    "carbons": 16,
+    "double_bonds": [
+     {
+      "pos_delta": 9,
+      "geometry": "cis"
+     }
+    ],
+    "omega": 7,
+    "notation": "C16:1 n-7"
+   },
+   "note_ja": "炭素16個で二重結合を1つもつ一価不飽和脂肪酸。マカダミアナッツ油などに含まれる。",
+   "note_reviewed": false,
+   "related": [
+    "palmitic-acid",
+    "oleic-acid"
+   ]
+  },
+  {
+   "id": "oleic-acid",
+   "name_ja": "オレイン酸",
+   "name_en": "Oleic acid",
+   "reading": "おれいんさん",
+   "aliases": [
+    "cis-9-オクタデセン酸",
+    "C18:1 n-9"
+   ],
+   "categories": [
+    "fatty-acid",
+    "monounsaturated"
+   ],
+   "kind": "molecule",
+   "formula": "C18H34O2",
+   "mw": 282.47,
+   "smiles": "CCCCCCCC/C=C\\CCCCCCCC(=O)O",
+   "pubchem_cid": null,
+   "inchikey": "ZQPPMHVWECSIRJ-KTKRTIGZSA-N",
+   "sdf": "sdf/oleic-acid.sdf",
+   "sdf_source": "generated",
+   "atoms": 54,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "fatty_acid": {
+    "carbons": 18,
+    "double_bonds": [
+     {
+      "pos_delta": 9,
+      "geometry": "cis"
+     }
+    ],
+    "omega": 9,
+    "notation": "C18:1 n-9"
+   },
+   "note_ja": "オリーブ油に多い一価不飽和脂肪酸。二重結合はシス形で、分子がそこで折れ曲がる。",
+   "note_reviewed": false,
+   "related": [
+    "elaidic-acid",
+    "stearic-acid",
+    "linoleic-acid"
+   ]
+  },
+  {
+   "id": "elaidic-acid",
+   "name_ja": "エライジン酸",
+   "name_en": "Elaidic acid",
+   "reading": "えらいじんさん",
+   "aliases": [
+    "trans-9-オクタデセン酸",
+    "トランス脂肪酸",
+    "C18:1 trans-9"
+   ],
+   "categories": [
+    "fatty-acid",
+    "monounsaturated"
+   ],
+   "kind": "molecule",
+   "formula": "C18H34O2",
+   "mw": 282.47,
+   "smiles": "CCCCCCCC/C=C/CCCCCCCC(=O)O",
+   "pubchem_cid": null,
+   "inchikey": "ZQPPMHVWECSIRJ-MDZDMXLPSA-N",
+   "sdf": "sdf/elaidic-acid.sdf",
+   "sdf_source": "generated",
+   "atoms": 54,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "fatty_acid": {
+    "carbons": 18,
+    "double_bonds": [
+     {
+      "pos_delta": 9,
+      "geometry": "trans"
+     }
+    ],
+    "omega": 9,
+    "notation": "C18:1 n-9"
+   },
+   "note_ja": "オレイン酸のシス・トランス異性体で、代表的なトランス脂肪酸。油脂を加工（部分水素添加）するときなどに生じる。分子がまっすぐに近く、とりすぎると血中のLDLコレステロールを増やすとされる。",
+   "note_reviewed": false,
+   "related": [
+    "oleic-acid",
+    "stearic-acid"
+   ]
+  },
+  {
+   "id": "linoleic-acid",
+   "name_ja": "リノール酸",
+   "name_en": "Linoleic acid",
+   "reading": "りのーるさん",
+   "aliases": [
+    "cis,cis-9,12-オクタデカジエン酸",
+    "C18:2 n-6"
+   ],
+   "categories": [
+    "fatty-acid",
+    "n-6"
+   ],
+   "kind": "molecule",
+   "formula": "C18H32O2",
+   "mw": 280.45,
+   "smiles": "CCCCC/C=C\\C/C=C\\CCCCCCCC(=O)O",
+   "pubchem_cid": null,
+   "inchikey": "OYHQOLUKZRVURQ-HZJYTTRNSA-N",
+   "sdf": "sdf/linoleic-acid.sdf",
+   "sdf_source": "generated",
+   "atoms": 52,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "fatty_acid": {
+    "carbons": 18,
+    "double_bonds": [
+     {
+      "pos_delta": 9,
+      "geometry": "cis"
+     },
+     {
+      "pos_delta": 12,
+      "geometry": "cis"
+     }
+    ],
+    "omega": 6,
+    "notation": "C18:2 n-6"
+   },
+   "note_ja": "大豆油やコーン油に多いn-6系の多価不飽和脂肪酸。体内でつくれない必須脂肪酸の一つ。",
+   "note_reviewed": false,
+   "related": [
+    "gamma-linolenic-acid",
+    "arachidonic-acid",
+    "oleic-acid",
+    "alpha-linolenic-acid"
+   ]
+  },
+  {
+   "id": "gamma-linolenic-acid",
+   "name_ja": "γ-リノレン酸",
+   "name_en": "gamma-Linolenic acid",
+   "reading": "がんまりのれんさん",
+   "aliases": [
+    "ガンマリノレン酸",
+    "GLA",
+    "C18:3 n-6"
+   ],
+   "categories": [
+    "fatty-acid",
+    "n-6"
+   ],
+   "kind": "molecule",
+   "formula": "C18H30O2",
+   "mw": 278.44,
+   "smiles": "CCCCC/C=C\\C/C=C\\C/C=C\\CCCCC(=O)O",
+   "pubchem_cid": null,
+   "inchikey": "VZCCETWTMQHEPK-QNEBEIHSSA-N",
+   "sdf": "sdf/gamma-linolenic-acid.sdf",
+   "sdf_source": "generated",
+   "atoms": 50,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "fatty_acid": {
+    "carbons": 18,
+    "double_bonds": [
+     {
+      "pos_delta": 6,
+      "geometry": "cis"
+     },
+     {
+      "pos_delta": 9,
+      "geometry": "cis"
+     },
+     {
+      "pos_delta": 12,
+      "geometry": "cis"
+     }
+    ],
+    "omega": 6,
+    "notation": "C18:3 n-6"
+   },
+   "note_ja": "n-6系の多価不飽和脂肪酸。体内でリノール酸からつくられ、アラキドン酸へと変換される途中の物質。月見草油などに含まれる。",
+   "note_reviewed": false,
+   "related": [
+    "linoleic-acid",
+    "arachidonic-acid",
+    "alpha-linolenic-acid"
+   ]
+  },
+  {
+   "id": "arachidonic-acid",
+   "name_ja": "アラキドン酸",
+   "name_en": "Arachidonic acid",
+   "reading": "あらきどんさん",
+   "aliases": [
+    "ARA",
+    "C20:4 n-6"
+   ],
+   "categories": [
+    "fatty-acid",
+    "n-6"
+   ],
+   "kind": "molecule",
+   "formula": "C20H32O2",
+   "mw": 304.47,
+   "smiles": "CCCCC/C=C\\C/C=C\\C/C=C\\C/C=C\\CCCC(=O)O",
+   "pubchem_cid": null,
+   "inchikey": "YZXBAPSDXZZRGB-DOFZRALJSA-N",
+   "sdf": "sdf/arachidonic-acid.sdf",
+   "sdf_source": "generated",
+   "atoms": 54,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "fatty_acid": {
+    "carbons": 20,
+    "double_bonds": [
+     {
+      "pos_delta": 5,
+      "geometry": "cis"
+     },
+     {
+      "pos_delta": 8,
+      "geometry": "cis"
+     },
+     {
+      "pos_delta": 11,
+      "geometry": "cis"
+     },
+     {
+      "pos_delta": 14,
+      "geometry": "cis"
+     }
+    ],
+    "omega": 6,
+    "notation": "C20:4 n-6"
+   },
+   "note_ja": "n-6系の多価不飽和脂肪酸で、肉・卵・魚などに含まれる。細胞膜の成分であり、炎症などに関わる生理活性物質（プロスタグランジンなど）の原料になる。",
+   "note_reviewed": false,
+   "related": [
+    "linoleic-acid",
+    "gamma-linolenic-acid",
+    "epa"
+   ]
+  },
+  {
+   "id": "alpha-linolenic-acid",
+   "name_ja": "α-リノレン酸",
+   "name_en": "alpha-Linolenic acid",
+   "reading": "あるふぁりのれんさん",
+   "aliases": [
+    "アルファリノレン酸",
+    "ALA",
+    "C18:3 n-3"
+   ],
+   "categories": [
+    "fatty-acid",
+    "n-3"
+   ],
+   "kind": "molecule",
+   "formula": "C18H30O2",
+   "mw": 278.44,
+   "smiles": "CC/C=C\\C/C=C\\C/C=C\\CCCCCCCC(=O)O",
+   "pubchem_cid": null,
+   "inchikey": "DTOSIQBPPRVQHS-PDBXOOCHSA-N",
+   "sdf": "sdf/alpha-linolenic-acid.sdf",
+   "sdf_source": "generated",
+   "atoms": 50,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "fatty_acid": {
+    "carbons": 18,
+    "double_bonds": [
+     {
+      "pos_delta": 9,
+      "geometry": "cis"
+     },
+     {
+      "pos_delta": 12,
+      "geometry": "cis"
+     },
+     {
+      "pos_delta": 15,
+      "geometry": "cis"
+     }
+    ],
+    "omega": 3,
+    "notation": "C18:3 n-3"
+   },
+   "note_ja": "えごま油やあまに油に多いn-3系の多価不飽和脂肪酸。体内でつくれない必須脂肪酸の一つで、一部はEPAやDHAに変換される。",
+   "note_reviewed": false,
+   "related": [
+    "linoleic-acid",
+    "epa",
+    "dha",
+    "gamma-linolenic-acid"
+   ]
+  },
+  {
+   "id": "epa",
+   "name_ja": "EPA（エイコサペンタエン酸）",
+   "name_en": "Eicosapentaenoic acid",
+   "reading": "えいこさぺんたえんさん",
+   "aliases": [
+    "イコサペンタエン酸",
+    "IPA",
+    "C20:5 n-3"
+   ],
+   "categories": [
+    "fatty-acid",
+    "n-3"
+   ],
+   "kind": "molecule",
+   "formula": "C20H30O2",
+   "mw": 302.46,
+   "smiles": "CC/C=C\\C/C=C\\C/C=C\\C/C=C\\C/C=C\\CCCC(=O)O",
+   "pubchem_cid": null,
+   "inchikey": "JAZBEHYOTPTENJ-JLNKQSITSA-N",
+   "sdf": "sdf/epa.sdf",
+   "sdf_source": "generated",
+   "atoms": 52,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "fatty_acid": {
+    "carbons": 20,
+    "double_bonds": [
+     {
+      "pos_delta": 5,
+      "geometry": "cis"
+     },
+     {
+      "pos_delta": 8,
+      "geometry": "cis"
+     },
+     {
+      "pos_delta": 11,
+      "geometry": "cis"
+     },
+     {
+      "pos_delta": 14,
+      "geometry": "cis"
+     },
+     {
+      "pos_delta": 17,
+      "geometry": "cis"
+     }
+    ],
+    "omega": 3,
+    "notation": "C20:5 n-3"
+   },
+   "note_ja": "イワシやサバなど青魚に多いn-3系の多価不飽和脂肪酸。血液中の中性脂肪を下げる働きがあり、医薬品としても使われる。",
+   "note_reviewed": false,
+   "related": [
+    "dha",
+    "alpha-linolenic-acid",
+    "arachidonic-acid"
+   ]
+  },
+  {
+   "id": "dha",
+   "name_ja": "DHA（ドコサヘキサエン酸）",
+   "name_en": "Docosahexaenoic acid",
+   "reading": "どこさへきさえんさん",
+   "aliases": [
+    "C22:6 n-3"
+   ],
+   "categories": [
+    "fatty-acid",
+    "n-3"
+   ],
+   "kind": "molecule",
+   "formula": "C22H32O2",
+   "mw": 328.5,
+   "smiles": "CC/C=C\\C/C=C\\C/C=C\\C/C=C\\C/C=C\\C/C=C\\CCC(=O)O",
+   "pubchem_cid": null,
+   "inchikey": "MBMBGCFOFBJSGT-KUBAVDMBSA-N",
+   "sdf": "sdf/dha.sdf",
+   "sdf_source": "generated",
+   "atoms": 56,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "fatty_acid": {
+    "carbons": 22,
+    "double_bonds": [
+     {
+      "pos_delta": 4,
+      "geometry": "cis"
+     },
+     {
+      "pos_delta": 7,
+      "geometry": "cis"
+     },
+     {
+      "pos_delta": 10,
+      "geometry": "cis"
+     },
+     {
+      "pos_delta": 13,
+      "geometry": "cis"
+     },
+     {
+      "pos_delta": 16,
+      "geometry": "cis"
+     },
+     {
+      "pos_delta": 19,
+      "geometry": "cis"
+     }
+    ],
+    "omega": 3,
+    "notation": "C22:6 n-3"
+   },
+   "note_ja": "マグロやサバなど魚の脂に多いn-3系の多価不飽和脂肪酸。脳や網膜の細胞膜に多く含まれる。二重結合を6つもつ。",
+   "note_reviewed": false,
+   "related": [
+    "epa",
+    "alpha-linolenic-acid"
+   ]
+  },
+  {
+   "id": "alpha-d-glucose",
+   "name_ja": "α-D-グルコース",
+   "name_en": "alpha-D-Glucose",
+   "reading": "",
+   "aliases": [
+    "α-D-グルコピラノース",
+    "ブドウ糖",
+    "α-グルコース"
+   ],
+   "categories": [
+    "carbohydrate",
+    "monosaccharide"
+   ],
+   "kind": "molecule",
+   "formula": "C6H12O6",
+   "mw": 180.16,
+   "smiles": "OC[C@H]1O[C@H](O)[C@H](O)[C@@H](O)[C@@H]1O",
+   "pubchem_cid": null,
+   "inchikey": "WQZGKKKJIJFFOK-DVKNGEFBSA-N",
+   "sdf": "sdf/alpha-d-glucose.sdf",
+   "sdf_source": "generated",
+   "atoms": 24,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "note_ja": "ブドウ糖の環状構造の一つ。1番の炭素のヒドロキシ基（-OH）の向きがβ形と逆になっている。α-グルコースがα-1,4結合でつながるとデンプン（アミロース）になる。",
+   "note_reviewed": false,
+   "related": [
+    "beta-d-glucose",
+    "d-glucose-open",
+    "maltose",
+    "amylose-fragment"
+   ]
+  },
+  {
+   "id": "beta-d-glucose",
+   "name_ja": "β-D-グルコース",
+   "name_en": "beta-D-Glucose",
+   "reading": "",
+   "aliases": [
+    "β-D-グルコピラノース",
+    "ブドウ糖",
+    "β-グルコース"
+   ],
+   "categories": [
+    "carbohydrate",
+    "monosaccharide"
+   ],
+   "kind": "molecule",
+   "formula": "C6H12O6",
+   "mw": 180.16,
+   "smiles": "OC[C@H]1O[C@@H](O)[C@H](O)[C@@H](O)[C@@H]1O",
+   "pubchem_cid": null,
+   "inchikey": "WQZGKKKJIJFFOK-VFUOTHLCSA-N",
+   "sdf": "sdf/beta-d-glucose.sdf",
+   "sdf_source": "generated",
+   "atoms": 24,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "note_ja": "ブドウ糖の環状構造の一つで、水溶液中ではα形より多く存在する。β-グルコースがβ-1,4結合でつながるとセルロースになる。",
+   "note_reviewed": false,
+   "related": [
+    "alpha-d-glucose",
+    "d-glucose-open",
+    "cellulose-fragment",
+    "lactose"
+   ]
+  },
+  {
+   "id": "d-glucose-open",
+   "name_ja": "D-グルコース（鎖状）",
+   "name_en": "D-Glucose (open-chain)",
+   "reading": "",
+   "aliases": [
+    "アルデヒド形グルコース",
+    "ブドウ糖"
+   ],
+   "categories": [
+    "carbohydrate",
+    "monosaccharide"
+   ],
+   "kind": "molecule",
+   "formula": "C6H12O6",
+   "mw": 180.16,
+   "smiles": "O=C[C@H](O)[C@@H](O)[C@H](O)[C@H](O)CO",
+   "pubchem_cid": null,
+   "inchikey": "GZCGUPFRVQAUEE-SLPGGIOYSA-N",
+   "sdf": "sdf/d-glucose-open.sdf",
+   "sdf_source": "generated",
+   "atoms": 24,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "note_ja": "水溶液中のグルコースは、わずかにこの鎖状構造をとり、環状のα形・β形と行き来している。鎖の端にアルデヒド基があるため、還元性を示す。",
+   "note_reviewed": false,
+   "related": [
+    "alpha-d-glucose",
+    "beta-d-glucose",
+    "beta-d-fructose"
+   ]
+  },
+  {
+   "id": "beta-d-fructose",
+   "name_ja": "D-フルクトース（β-フラノース）",
+   "name_en": "beta-D-Fructofuranose",
+   "reading": "",
+   "aliases": [
+    "果糖",
+    "β-D-フルクトフラノース",
+    "フルクトース"
+   ],
+   "categories": [
+    "carbohydrate",
+    "monosaccharide"
+   ],
+   "kind": "molecule",
+   "formula": "C6H12O6",
+   "mw": 180.16,
+   "smiles": "OC[C@H]1O[C@](O)(CO)[C@@H](O)[C@@H]1O",
+   "pubchem_cid": null,
+   "inchikey": "RFSUNEUAIZKAJO-ARQDHWQXSA-N",
+   "sdf": "sdf/beta-d-fructose.sdf",
+   "sdf_source": "generated",
+   "atoms": 24,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "note_ja": "果物やはちみつに多い果糖。糖のなかで甘味がもっとも強い。ここでは五員環のβ-フラノース形を示している。ショ糖（スクロース）の中のフルクトースもこの形。",
+   "note_reviewed": false,
+   "related": [
+    "sucrose",
+    "alpha-d-glucose",
+    "d-glucose-open"
+   ]
+  },
+  {
+   "id": "beta-d-galactose",
+   "name_ja": "D-ガラクトース（β-ピラノース）",
+   "name_en": "beta-D-Galactose",
+   "reading": "",
+   "aliases": [
+    "β-D-ガラクトピラノース",
+    "ガラクトース"
+   ],
+   "categories": [
+    "carbohydrate",
+    "monosaccharide"
+   ],
+   "kind": "molecule",
+   "formula": "C6H12O6",
+   "mw": 180.16,
+   "smiles": "OC[C@H]1O[C@@H](O)[C@H](O)[C@@H](O)[C@H]1O",
+   "pubchem_cid": null,
+   "inchikey": "WQZGKKKJIJFFOK-FPRJBGLDSA-N",
+   "sdf": "sdf/beta-d-galactose.sdf",
+   "sdf_source": "generated",
+   "atoms": 24,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "note_ja": "乳糖（ラクトース）を構成する単糖。グルコースとは4番の炭素の-OHの向きだけが違う。ここではβ-ピラノース形を示している。",
+   "note_reviewed": false,
+   "related": [
+    "beta-d-glucose",
+    "lactose"
+   ]
+  },
+  {
+   "id": "sucrose",
+   "name_ja": "スクロース",
+   "name_en": "Sucrose",
+   "reading": "",
+   "aliases": [
+    "ショ糖",
+    "砂糖"
+   ],
+   "categories": [
+    "carbohydrate",
+    "disaccharide"
+   ],
+   "kind": "molecule",
+   "formula": "C12H22O11",
+   "mw": 342.3,
+   "smiles": "OC[C@H]1O[C@@](CO)(O[C@H]2O[C@H](CO)[C@@H](O)[C@H](O)[C@H]2O)[C@@H](O)[C@@H]1O",
+   "pubchem_cid": null,
+   "inchikey": "CZMRCDWAGMRECN-UGDNZRGBSA-N",
+   "sdf": "sdf/sucrose.sdf",
+   "sdf_source": "generated",
+   "atoms": 45,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "note_ja": "砂糖の主成分（ショ糖）。α-グルコースとβ-フルクトースが、それぞれの還元性を示す部分どうしで結合しているため、還元性を示さない。",
+   "note_reviewed": false,
+   "related": [
+    "alpha-d-glucose",
+    "beta-d-fructose",
+    "maltose",
+    "lactose"
+   ]
+  },
+  {
+   "id": "lactose",
+   "name_ja": "ラクトース",
+   "name_en": "Lactose",
+   "reading": "",
+   "aliases": [
+    "乳糖",
+    "β-ラクトース"
+   ],
+   "categories": [
+    "carbohydrate",
+    "disaccharide"
+   ],
+   "kind": "molecule",
+   "formula": "C12H22O11",
+   "mw": 342.3,
+   "smiles": "OC[C@H]1O[C@@H](O[C@H]2[C@H](O)[C@@H](O)[C@H](O)O[C@@H]2CO)[C@H](O)[C@@H](O)[C@H]1O",
+   "pubchem_cid": null,
+   "inchikey": "GUBGYTABKSRVRQ-DCSYEGIMSA-N",
+   "sdf": "sdf/lactose.sdf",
+   "sdf_source": "generated",
+   "atoms": 45,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "note_ja": "母乳や牛乳に含まれる乳糖。ガラクトースとグルコースがβ-1,4結合でつながっている。分解酵素（ラクターゼ）の働きが弱いと、牛乳でおなかがゴロゴロする乳糖不耐症になる。",
+   "note_reviewed": false,
+   "related": [
+    "beta-d-galactose",
+    "beta-d-glucose",
+    "maltose",
+    "sucrose"
+   ]
+  },
+  {
+   "id": "maltose",
+   "name_ja": "マルトース",
+   "name_en": "Maltose",
+   "reading": "",
+   "aliases": [
+    "麦芽糖",
+    "α-マルトース"
+   ],
+   "categories": [
+    "carbohydrate",
+    "disaccharide"
+   ],
+   "kind": "molecule",
+   "formula": "C12H22O11",
+   "mw": 342.3,
+   "smiles": "OC[C@H]1O[C@H](O[C@H]2[C@H](O)[C@@H](O)[C@@H](O)O[C@@H]2CO)[C@H](O)[C@@H](O)[C@@H]1O",
+   "pubchem_cid": null,
+   "inchikey": "GUBGYTABKSRVRQ-ASMJPISFSA-N",
+   "sdf": "sdf/maltose.sdf",
+   "sdf_source": "generated",
+   "atoms": 45,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "note_ja": "麦芽糖。グルコース2分子がα-1,4結合でつながったもので、デンプンが唾液や膵液の酵素（アミラーゼ）で分解されるとできる。",
+   "note_reviewed": false,
+   "related": [
+    "alpha-d-glucose",
+    "amylose-fragment",
+    "sucrose",
+    "lactose"
+   ]
+  },
+  {
+   "id": "amylose-fragment",
+   "name_ja": "アミロース断片（マルトトリオース）",
+   "name_en": "Amylose fragment (maltotriose)",
+   "reading": "",
+   "aliases": [
+    "マルトトリオース",
+    "デンプン",
+    "アミロース"
+   ],
+   "categories": [
+    "carbohydrate",
+    "oligosaccharide"
+   ],
+   "kind": "molecule",
+   "formula": "C18H32O16",
+   "mw": 504.44,
+   "smiles": "OC[C@H]1O[C@H](O[C@H]2[C@H](O)[C@@H](O)[C@@H](O[C@H]3[C@H](O)[C@@H](O)[C@@H](O)O[C@@H]3CO)O[C@@H]2CO)[C@H](O)[C@@H](O)[C@@H]1O",
+   "pubchem_cid": null,
+   "inchikey": "FYGDTMLNYKFZSV-PXXRMHSHSA-N",
+   "sdf": "sdf/amylose-fragment.sdf",
+   "sdf_source": "generated",
+   "atoms": 66,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "note_ja": "デンプンの成分アミロースの一部分のモデル。α-グルコースがα-1,4結合でつながると、鎖がらせん状に巻きやすい。人は消化酵素でこの結合を分解できる。",
+   "note_reviewed": false,
+   "related": [
+    "maltose",
+    "alpha-d-glucose",
+    "cellulose-fragment"
+   ]
+  },
+  {
+   "id": "cellulose-fragment",
+   "name_ja": "セルロース断片（セロトリオース）",
+   "name_en": "Cellulose fragment (cellotriose)",
+   "reading": "",
+   "aliases": [
+    "セロトリオース",
+    "セルロース",
+    "食物繊維"
+   ],
+   "categories": [
+    "carbohydrate",
+    "oligosaccharide"
+   ],
+   "kind": "molecule",
+   "formula": "C18H32O16",
+   "mw": 504.44,
+   "smiles": "OC[C@H]1O[C@@H](O[C@H]2[C@H](O)[C@@H](O)[C@H](O[C@H]3[C@H](O)[C@@H](O)[C@H](O)O[C@@H]3CO)O[C@@H]2CO)[C@H](O)[C@@H](O)[C@@H]1O",
+   "pubchem_cid": null,
+   "inchikey": "FYGDTMLNYKFZSV-CSHPIKHBSA-N",
+   "sdf": "sdf/cellulose-fragment.sdf",
+   "sdf_source": "generated",
+   "atoms": 66,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "note_ja": "植物の細胞壁をつくるセルロースの一部分のモデル。β-グルコースがβ-1,4結合でつながり、まっすぐな鎖になる。人はこの結合を分解する酵素をもたないため、食物繊維として働く。",
+   "note_reviewed": false,
+   "related": [
+    "beta-d-glucose",
+    "amylose-fragment"
+   ]
+  }
+ ]
+}

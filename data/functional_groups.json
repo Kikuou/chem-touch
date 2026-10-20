@@ -1,0 +1,18 @@
+{
+ "note": "Functional groups (spec A-11). SMARTS are matched on the heavy-atom graph (implicit hydrogens). Colours follow the Okabe-Ito palette; the label is always shown so colour is never the only cue. The ether pattern skips acetal/hemiacetal oxygens (sugar ring O, glycosidic O); a separate glycosidic-bond group can be added in M2. M1 lists the groups on the compound card; M2 adds highlighting in the viewers.",
+ "groups": [
+  { "id": "carboxy", "name": "カルボキシ基", "smarts": "[CX3](=O)[OX2H1,OX1-]", "color": "#D55E00" },
+  { "id": "ester", "name": "エステル結合", "smarts": "[#6][CX3](=O)[OX2][#6]", "color": "#CC79A7" },
+  { "id": "amide", "name": "アミド結合", "smarts": "[NX3][CX3](=[OX1])[#6]", "color": "#0072B2" },
+  { "id": "aldehyde", "name": "アルデヒド基（ホルミル基）", "smarts": "[CX3;H1,H2;!$(C[O,N])]=[OX1]", "color": "#E69F00" },
+  { "id": "ketone", "name": "ケトン（カルボニル基）", "smarts": "[#6][CX3](=[OX1])[#6]", "color": "#F0E442" },
+  { "id": "phenol", "name": "フェノール性ヒドロキシ基", "smarts": "[OX2H][c]", "color": "#882255" },
+  { "id": "hydroxy", "name": "ヒドロキシ基", "smarts": "[OX2H][CX4]", "color": "#009E73" },
+  { "id": "amino", "name": "アミノ基", "smarts": "[NX3;H2,H1;!$(N[C,S,P]=[O,S,N])][#6]", "color": "#56B4E9" },
+  { "id": "ether", "name": "エーテル結合", "smarts": "[OX2;!$(O[CX3]=O);!$(O[PX4]);!$(O[CX4][OX2])]([#6])[#6]", "color": "#999933" },
+  { "id": "phosphate", "name": "リン酸エステル", "smarts": "[PX4](=O)([OX2,OX1-])[OX2][#6]", "color": "#AA4499" },
+  { "id": "thiol", "name": "チオール", "smarts": "[SX2H][#6]", "color": "#DDAA33" },
+  { "id": "alkene", "name": "二重結合（C=C）", "smarts": "[CX3]=[CX3]", "color": "#44AA99" },
+  { "id": "benzene", "name": "ベンゼン環", "smarts": "c1ccccc1", "color": "#332288" }
+ ]
+}
