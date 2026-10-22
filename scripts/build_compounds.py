@@ -162,10 +162,47 @@ def heavy_first(mol):
     return Chem.RenumberAtoms(mol, heavy + hyd)
 
 
+def _fa_chain(mol):
+    """Carbon chain of a fatty acid from the carboxyl carbon (C1) to the
+    methyl end, or [] when the molecule is not an unbranched acid."""
+    m = mol.GetSubstructMatches(Chem.MolFromSmarts("[CX3](=O)[OX2H1]"))
+    if len(m) != 1:
+        return []
+    chain = [m[0][0]]
+    while True:
+        cur = mol.GetAtomWithIdx(chain[-1])
+        nxt = [a.GetIdx() for a in cur.GetNeighbors() if a.GetSymbol() == "C" and a.GetIdx() not in chain]
+        if len(nxt) != 1:
+            return chain if not nxt else []
+        chain.append(nxt[0])
+
+
+def _straighten(mol, conf_id, chain):
+    """Textbook chain shape: C-C-C-C dihedrals of sp3-sp3 bonds at 180 deg
+    (zigzag) and the two bonds next to each C=C at +120 / -120 deg. With
+    these skew angles (as low in energy as the other combinations) a trans
+    double bond keeps the chain straight and a cis double bond bends it."""
+    from rdkit.Chem import rdMolTransforms
+    conf = mol.GetConformer(conf_id)
+    sp3 = Chem.HybridizationType.SP3
+    for k in range(len(chain) - 3):
+        b, c = mol.GetAtomWithIdx(chain[k + 1]), mol.GetAtomWithIdx(chain[k + 2])
+        if b.GetHybridization() == sp3 and c.GetHybridization() == sp3:
+            rdMolTransforms.SetDihedralDeg(conf, chain[k], chain[k + 1], chain[k + 2], chain[k + 3], 180.0)
+    for k in range(1, len(chain) - 1):
+        bond = mol.GetBondBetweenAtoms(chain[k], chain[k + 1])
+        if bond.GetBondType() != Chem.BondType.DOUBLE:
+            continue
+        if k >= 2:
+            rdMolTransforms.SetDihedralDeg(conf, chain[k - 2], chain[k - 1], chain[k], chain[k + 1], 120.0)
+        if k + 3 < len(chain):
+            rdMolTransforms.SetDihedralDeg(conf, chain[k], chain[k + 1], chain[k + 2], chain[k + 3], -120.0)
+
+
 def _embed(smiles: str, extended: bool = False):
-    """ETKDG + MMFF94. Normally the lowest-energy conformer is kept; with
-    extended=True (fatty acids) the most stretched one is kept so that the
-    shape of the chain (straight / bent at a cis double bond) is visible."""
+    """ETKDG + MMFF94, lowest-energy conformer. With extended=True (fatty
+    acids) the chain is first set to the textbook shape (see _straighten)
+    and then minimised again."""
     mol = Chem.AddHs(Chem.MolFromSmiles(smiles))
     params = AllChem.ETKDGv3()
     params.randomSeed = SEED
@@ -177,18 +214,31 @@ def _embed(smiles: str, extended: bool = False):
     if not cids:
         raise RuntimeError("embedding failed")
     res = AllChem.MMFFOptimizeMoleculeConfs(mol, maxIters=2000)
-    if extended:
-        heavy = [a.GetIdx() for a in mol.GetAtoms() if a.GetAtomicNum() > 1]
-
-        def span(k):
-            conf = mol.GetConformer(cids[k])
-            pts = [conf.GetAtomPosition(i) for i in heavy]
-            return max((p - q).Length() for p in pts for q in pts)
-        score = [span(k) if res[k][0] == 0 else -1 for k in range(len(cids))]
-        best = max(range(len(cids)), key=score.__getitem__)
-    else:
-        energies = [e if conv == 0 else e + 1e6 for conv, e in res]
-        best = min(range(len(energies)), key=energies.__getitem__)
+    energies = [e if conv == 0 else e + 1e6 for conv, e in res]
+    chain = _fa_chain(mol) if extended else []
+    if chain:
+        want = Chem.MolToInchiKey(Chem.MolFromSmiles(smiles))
+        mp = AllChem.MMFFGetMoleculeProperties(mol)
+        shaped = []
+        for k, cid in enumerate(cids):
+            trial = Chem.Mol(mol, confId=cid)
+            _straighten(trial, trial.GetConformer().GetId(), chain)
+            ff = AllChem.MMFFGetMoleculeForceField(trial, mp, confId=trial.GetConformer().GetId())
+            ff.Minimize(maxIts=2000)
+            # a crowded polyene can fold onto itself and flip a C=C while
+            # minimising: keep the shaped conformer only if the stereo held
+            check = Chem.Mol(trial)
+            Chem.AssignStereochemistryFrom3D(check)
+            if Chem.MolToInchiKey(check) == want:
+                shaped.append((ff.CalcEnergy(), trial.GetConformer()))
+        if shaped:
+            e, conf = min(shaped, key=lambda t: t[0])
+            out = Chem.Mol(mol)
+            out.RemoveAllConformers()
+            out.AddConformer(Chem.Conformer(conf), assignId=True)
+            Chem.SanitizeMol(out)
+            return out
+    best = min(range(len(energies)), key=energies.__getitem__)
     out = Chem.Mol(mol)
     out.RemoveAllConformers()
     out.AddConformer(Chem.Conformer(mol.GetConformer(cids[best])), assignId=True)
@@ -390,7 +440,11 @@ def build_row(row, pubchem, existing, report):
         if pubchem is not None:
             try:
                 pc = lookup_pubchem(pubchem, key, row.get("pubchem_query", ""))
-                if pc.get("cid"):
+                # Long fatty acids keep the RDKit zigzag conformer: one
+                # PubChem conformer can be curled up and hide the straight vs
+                # bent shape that the compare mode is about.
+                long_fa = "fa" in checks and chemcheck.parse_fa(checks["fa"])[0] >= 8
+                if pc.get("cid") and not long_fa:
                     sdf = pubchem.sdf3d(pc["cid"])
                     if sdf:
                         m = Chem.MolFromMolBlock(sdf, removeHs=False)
@@ -406,7 +460,8 @@ def build_row(row, pubchem, existing, report):
                   "name_cid": old["verification"].get("pubchem_name_cid"),
                   "props": {"MolecularFormula": old.get("pubchem_formula"), "MolecularWeight": old.get("mw")}}
             old_sdf = DATA / old.get("sdf", "")
-            if old.get("sdf_source") == "pubchem-3d" and old_sdf.is_file():
+            long_fa = "fa" in checks and chemcheck.parse_fa(checks["fa"])[0] >= 8
+            if old.get("sdf_source") == "pubchem-3d" and old_sdf.is_file() and not long_fa:
                 mol3d = Chem.MolFromMolFile(str(old_sdf), removeHs=False)
                 source = "pubchem-3d"
         if mol3d is None:

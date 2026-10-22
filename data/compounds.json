@@ -1796,7 +1796,7 @@
    "pubchem_cid": 379,
    "inchikey": "WWZKQHOCKIZLMA-UHFFFAOYSA-N",
    "sdf": "sdf/caprylic-acid.sdf",
-   "sdf_source": "pubchem-3d",
+   "sdf_source": "generated",
    "atoms": 26,
    "verification": {
     "pubchem": "verified",
@@ -1837,7 +1837,7 @@
    "pubchem_cid": 8158,
    "inchikey": "FBUKVWPVBMHYJY-UHFFFAOYSA-N",
    "sdf": "sdf/nonanoic-acid.sdf",
-   "sdf_source": "pubchem-3d",
+   "sdf_source": "generated",
    "atoms": 29,
    "verification": {
     "pubchem": "verified",
@@ -2182,7 +2182,7 @@
    "pubchem_cid": 2969,
    "inchikey": "GHVNFZFCNZKVNT-UHFFFAOYSA-N",
    "sdf": "sdf/capric-acid.sdf",
-   "sdf_source": "pubchem-3d",
+   "sdf_source": "generated",
    "atoms": 32,
    "verification": {
     "pubchem": "verified",
@@ -2223,7 +2223,7 @@
    "pubchem_cid": 3893,
    "inchikey": "POULHZVOKOAJMA-UHFFFAOYSA-N",
    "sdf": "sdf/lauric-acid.sdf",
-   "sdf_source": "pubchem-3d",
+   "sdf_source": "generated",
    "atoms": 38,
    "verification": {
     "pubchem": "verified",
@@ -2264,7 +2264,7 @@
    "pubchem_cid": 11005,
    "inchikey": "TUNFSRHWOTWDNC-UHFFFAOYSA-N",
    "sdf": "sdf/myristic-acid.sdf",
-   "sdf_source": "pubchem-3d",
+   "sdf_source": "generated",
    "atoms": 44,
    "verification": {
     "pubchem": "verified",
@@ -2305,7 +2305,7 @@
    "pubchem_cid": 985,
    "inchikey": "IPCSVZSSVZVIGE-UHFFFAOYSA-N",
    "sdf": "sdf/palmitic-acid.sdf",
-   "sdf_source": "pubchem-3d",
+   "sdf_source": "generated",
    "atoms": 50,
    "verification": {
     "pubchem": "verified",
@@ -2389,7 +2389,7 @@
    "pubchem_cid": 445638,
    "inchikey": "SECPZKHBENQXJG-FPLPWBNLSA-N",
    "sdf": "sdf/palmitoleic-acid.sdf",
-   "sdf_source": "pubchem-3d",
+   "sdf_source": "generated",
    "atoms": 48,
    "verification": {
     "pubchem": "verified",
@@ -2435,7 +2435,7 @@
    "pubchem_cid": 445639,
    "inchikey": "ZQPPMHVWECSIRJ-KTKRTIGZSA-N",
    "sdf": "sdf/oleic-acid.sdf",
-   "sdf_source": "pubchem-3d",
+   "sdf_source": "generated",
    "atoms": 54,
    "verification": {
     "pubchem": "verified",
@@ -2483,7 +2483,7 @@
    "pubchem_cid": 637517,
    "inchikey": "ZQPPMHVWECSIRJ-MDZDMXLPSA-N",
    "sdf": "sdf/elaidic-acid.sdf",
-   "sdf_source": "pubchem-3d",
+   "sdf_source": "generated",
    "atoms": 54,
    "verification": {
     "pubchem": "verified",
@@ -2529,7 +2529,7 @@
    "pubchem_cid": 5280450,
    "inchikey": "OYHQOLUKZRVURQ-HZJYTTRNSA-N",
    "sdf": "sdf/linoleic-acid.sdf",
-   "sdf_source": "pubchem-3d",
+   "sdf_source": "generated",
    "atoms": 52,
    "verification": {
     "pubchem": "verified",
@@ -2582,7 +2582,7 @@
    "pubchem_cid": 5280933,
    "inchikey": "VZCCETWTMQHEPK-QNEBEIHSSA-N",
    "sdf": "sdf/gamma-linolenic-acid.sdf",
-   "sdf_source": "pubchem-3d",
+   "sdf_source": "generated",
    "atoms": 50,
    "verification": {
     "pubchem": "verified",
@@ -2632,19 +2632,17 @@
    ],
    "kind": "molecule",
    "formula": "C20H32O2",
-   "mw": 304.5,
+   "mw": 304.47,
    "smiles": "CCCCC/C=C\\C/C=C\\C/C=C\\C/C=C\\CCCC(=O)O",
-   "pubchem_cid": 444899,
+   "pubchem_cid": null,
    "inchikey": "YZXBAPSDXZZRGB-DOFZRALJSA-N",
    "sdf": "sdf/arachidonic-acid.sdf",
-   "sdf_source": "pubchem-3d",
+   "sdf_source": "generated",
    "atoms": 54,
    "verification": {
-    "pubchem": "verified",
-    "stereo": "checked",
-    "pubchem_title": "Arachidonic Acid"
+    "pubchem": "unverified",
+    "stereo": "checked"
    },
-   "pubchem_formula": "C20H32O2",
    "fatty_acid": {
     "carbons": 20,
     "double_bonds": [
@@ -2697,7 +2695,7 @@
    "pubchem_cid": 5280934,
    "inchikey": "DTOSIQBPPRVQHS-PDBXOOCHSA-N",
    "sdf": "sdf/alpha-linolenic-acid.sdf",
-   "sdf_source": "pubchem-3d",
+   "sdf_source": "generated",
    "atoms": 50,
    "verification": {
     "pubchem": "verified",
@@ -2749,19 +2747,17 @@
    ],
    "kind": "molecule",
    "formula": "C20H30O2",
-   "mw": 302.5,
+   "mw": 302.46,
    "smiles": "CC/C=C\\C/C=C\\C/C=C\\C/C=C\\C/C=C\\CCCC(=O)O",
-   "pubchem_cid": 446284,
+   "pubchem_cid": null,
    "inchikey": "JAZBEHYOTPTENJ-JLNKQSITSA-N",
    "sdf": "sdf/epa.sdf",
-   "sdf_source": "pubchem-3d",
+   "sdf_source": "generated",
    "atoms": 52,
    "verification": {
-    "pubchem": "verified",
-    "stereo": "checked",
-    "pubchem_title": "Icosapent"
+    "pubchem": "unverified",
+    "stereo": "checked"
    },
-   "pubchem_formula": "C20H30O2",
    "fatty_acid": {
     "carbons": 20,
     "double_bonds": [
@@ -2816,7 +2812,7 @@
    "pubchem_cid": 445580,
    "inchikey": "MBMBGCFOFBJSGT-KUBAVDMBSA-N",
    "sdf": "sdf/dha.sdf",
-   "sdf_source": "pubchem-3d",
+   "sdf_source": "generated",
    "atoms": 56,
    "verification": {
     "pubchem": "verified",

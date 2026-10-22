@@ -12,6 +12,7 @@ import { renderHome } from './views/home.js';
 import { renderLibrary } from './views/library.js';
 import { renderCompound, renderView } from './views/compound.js';
 import { renderScan } from './views/scan.js';
+import { renderCompare } from './views/compare.js';
 import { renderMore } from './views/more.js';
 import { placeholder, notFound } from './views/placeholder.js';
 
@@ -22,12 +23,9 @@ route('/view', renderView, { tab: 'library', title: '共有された分子' });
 route('/scan', renderScan, { tab: 'home', title: 'QRコードを読み取る' });
 route('/more', renderMore, { tab: 'more', title: 'その他' });
 
-// --- M2: compare (A-13 – A-16), series (B-3)
-route('/compare', placeholder({
-  title: 'くらべる', milestone: 'M2',
-  text: '鏡像体やシス・トランス異性体を、回転を同期させて2つ並べて比べる機能です。',
-  links: [{ label: 'オレイン酸を見る', href: '#/compound/oleic-acid' }, { label: 'エライジン酸を見る', href: '#/compound/elaidic-acid' }],
-}), { tab: 'home', title: 'くらべる' });
+// --- M2: compare (A-13 – A-16)
+route('/compare', renderCompare, { tab: 'home', title: 'くらべる' });
+route('/compare/:preset', renderCompare, { tab: 'home', title: 'くらべる' });
 // --- M3: molecule builder (C)
 route('/build', placeholder({
   title: 'つくる', milestone: 'M3',
