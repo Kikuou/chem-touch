@@ -112,7 +112,7 @@ def main() -> int:
         key = Chem.MolToInchiKey(ref)
         if key != c.get("inchikey"):
             err(cid, f"InChIKey {c.get('inchikey')} != {key} (from SMILES)")
-        if c.get("stereo_note") != "racemic":
+        if c.get("stereo_note") not in ("racemic", "undefined"):
             if Chem.MolToInchiKey(mol3d) != key:
                 err(cid, "InChIKey of the 3D structure differs from the SMILES")
             if not chemcheck.stereo_matches_3d(mol3d, c["smiles"]):

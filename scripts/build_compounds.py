@@ -162,7 +162,7 @@ def heavy_first(mol):
     return Chem.RenumberAtoms(mol, heavy + hyd)
 
 
-def generate_3d(smiles: str, extended: bool = False):
+def _embed(smiles: str, extended: bool = False):
     """ETKDG + MMFF94. Normally the lowest-energy conformer is kept; with
     extended=True (fatty acids) the most stretched one is kept so that the
     shape of the chain (straight / bent at a cis double bond) is visible."""
@@ -192,6 +192,47 @@ def generate_3d(smiles: str, extended: bool = False):
     out = Chem.Mol(mol)
     out.RemoveAllConformers()
     out.AddConformer(Chem.Conformer(mol.GetConformer(cids[best])), assignId=True)
+    # MMFF typing re-flags aromaticity with its own model; restore RDKit's
+    Chem.SanitizeMol(out)
+    return out
+
+
+# single metal ions that sit in the middle of a macrocycle (e.g. Fe in heme)
+CENTRAL_METALS = {"Fe", "Co", "Zn", "Mg", "Cu", "Mn"}
+
+
+def generate_3d(smiles: str, extended: bool = False):
+    """3D conformer for a SMILES. A lone central metal ion (heme iron) is
+    left out of the force-field step and placed at the centre of the
+    nitrogen atoms afterwards, where it sits in the real molecule."""
+    frags = smiles.split(".")
+    metals = []
+    for f in frags:
+        m = Chem.MolFromSmiles(f)
+        if m.GetNumAtoms() == 1 and m.GetAtomWithIdx(0).GetSymbol() in CENTRAL_METALS:
+            metals.append(f)
+    organic = ".".join(f for f in frags if f not in metals)
+    n_count = Chem.MolFromSmiles(organic).GetSubstructMatches(Chem.MolFromSmarts("[#7]"))
+    if not metals or len(n_count) < 4:
+        return _embed(smiles, extended)
+    mol = _embed(organic, extended)
+    rw = Chem.RWMol(mol)
+    conf = mol.GetConformer()
+    n_idx = [a.GetIdx() for a in mol.GetAtoms() if a.GetSymbol() == "N"]
+    cx = sum(conf.GetAtomPosition(i).x for i in n_idx) / len(n_idx)
+    cy = sum(conf.GetAtomPosition(i).y for i in n_idx) / len(n_idx)
+    cz = sum(conf.GetAtomPosition(i).z for i in n_idx) / len(n_idx)
+    for f in metals:
+        src = Chem.MolFromSmiles(f).GetAtomWithIdx(0)
+        a = Chem.Atom(src.GetSymbol())
+        a.SetFormalCharge(src.GetFormalCharge())
+        a.SetNoImplicit(True)
+        idx = rw.AddAtom(a)
+        out = rw.GetMol()
+        out.GetConformer().SetAtomPosition(idx, Point3D(cx, cy, cz))
+        rw = Chem.RWMol(out)
+    out = rw.GetMol()
+    Chem.SanitizeMol(out)
     return out
 
 
@@ -375,7 +416,7 @@ def build_row(row, pubchem, existing, report):
 
         # Checks on the final 3D structure
         extra = chemcheck.run_checks(mol3d, checks, smiles)
-        if "racemic" not in checks and not chemcheck.stereo_matches_3d(mol3d, smiles):
+        if not (set(checks) & chemcheck.SKIP_STEREO) and not chemcheck.stereo_matches_3d(mol3d, smiles):
             raise chemcheck.CheckError("3D coordinates do not reproduce the SMILES stereo")
 
         has_cid = pc["status"] in VERIFIED
@@ -394,7 +435,8 @@ def build_row(row, pubchem, existing, report):
             "verification": {
                 "pubchem": pc["status"],
                 "stereo": "checked" if (set(checks) & {"cip", "ez", "fa", "sugar"}) else
-                          ("racemic" if "racemic" in checks else "no-stereocentre"),
+                          ("racemic" if "racemic" in checks else
+                           "undefined" if "stereo-undefined" in checks else "no-stereocentre"),
             },
         })
         if has_cid:
@@ -405,6 +447,8 @@ def build_row(row, pubchem, existing, report):
             entry["verification"]["pubchem_name_cid"] = pc["name_cid"]
         if "racemic" in checks:
             entry["stereo_note"] = "racemic"
+        elif "stereo-undefined" in checks:
+            entry["stereo_note"] = "undefined"
         entry.update(extra)
         write_sdf(SDF_DIR / f"{cid_}.sdf", mol3d, row["name_en"], entry["sdf_source"])
         report[pc["status"]].append(cid_)

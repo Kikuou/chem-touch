@@ -19,6 +19,10 @@ Check spec syntax (column "checks" in compound_sources.csv, ";"-separated):
                        Fruf) and, for glycosides, the linkage
                        (anomeric position - position on the partner ring)
   racemic              stereocentres are intentionally left unspecified
+                       (a mixture of enantiomers, e.g. 2-butanol, ibuprofen)
+  stereo-undefined     stereo elements are left unspecified because they are
+                       not defined in practice (e.g. the C=N bonds of the
+                       guanidine groups of chlorhexidine, as in PubChem)
 """
 
 from __future__ import annotations
@@ -31,6 +35,10 @@ from rdkit.Chem import rdCIPLabeler
 
 class CheckError(Exception):
     pass
+
+
+# flags that switch off the "every stereo element must be defined" rule
+SKIP_STEREO = {"racemic", "stereo-undefined"}
 
 
 # ---------------------------------------------------------------- helpers
@@ -76,17 +84,30 @@ def parse_checks(text: str) -> dict:
 
 def cip_labels(mol) -> list[str]:
     m = Chem.Mol(mol)
+    _drop_phosphorus_stereo(m)
     rdCIPLabeler.AssignCIPLabels(m)
     return [a.GetProp("_CIPCode") for a in m.GetAtoms() if a.HasProp("_CIPCode")]
 
 
 def unspecified_stereo(mol) -> list[str]:
-    """Potential stereo elements that the structure leaves undefined."""
+    """Potential stereo elements that the structure leaves undefined.
+    Phosphorus is ignored: the oxygens of a phosphate group are equivalent
+    by resonance, so it is not a real stereocentre."""
     out = []
-    for info in Chem.FindPotentialStereo(Chem.RemoveHs(mol)):
-        if info.specified == Chem.StereoSpecified.Unspecified:
-            out.append(f"{info.type} at {info.centeredOn}")
+    m = Chem.RemoveHs(mol)
+    for info in Chem.FindPotentialStereo(m):
+        if info.specified != Chem.StereoSpecified.Unspecified:
+            continue
+        if info.type == Chem.StereoType.Atom_Tetrahedral and m.GetAtomWithIdx(info.centeredOn).GetSymbol() == "P":
+            continue
+        out.append(f"{info.type} at {info.centeredOn}")
     return out
+
+
+def _drop_phosphorus_stereo(mol):
+    for a in mol.GetAtoms():
+        if a.GetSymbol() == "P":
+            a.SetChiralTag(Chem.ChiralType.CHI_UNSPECIFIED)
 
 
 def acyclic_cc_double_bond_geometry(mol) -> list[str]:
@@ -285,6 +306,8 @@ def in_smiles_order(mol, smiles: str):
     specs list labels in SMILES atom order, so this makes them independent
     of how the 3D file numbers its atoms."""
     ref = Chem.MolFromSmiles(smiles)
+    mol = Chem.Mol(mol)
+    Chem.SanitizeMol(mol)  # same aromaticity model as the SMILES
     match = mol.GetSubstructMatch(ref)
     if len(match) != ref.GetNumAtoms():
         raise CheckError("3D structure does not match the SMILES")
@@ -302,7 +325,7 @@ def run_checks(mol, checks: dict, smiles: str | None = None) -> dict:
     extra = {}
     if smiles:
         mol = in_smiles_order(mol, smiles)
-    if "racemic" not in checks:
+    if not (set(checks) & SKIP_STEREO):
         missing = unspecified_stereo(mol)
         if missing:
             raise CheckError("undefined stereo: " + ", ".join(missing))
@@ -331,6 +354,7 @@ def stereo_matches_3d(mol_with_conf, smiles: str) -> bool:
     stereo of the reference SMILES."""
     m = Chem.Mol(mol_with_conf)
     Chem.AssignStereochemistryFrom3D(m)
+    _drop_phosphorus_stereo(m)
     got = Chem.MolToSmiles(Chem.RemoveHs(m))
     want = Chem.MolToSmiles(Chem.MolFromSmiles(smiles))
     return got == want
