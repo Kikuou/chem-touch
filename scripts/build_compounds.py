@@ -146,6 +146,12 @@ def lookup_pubchem(pubchem: "PubChem", key: str, query: str) -> dict:
             name_cid = None
     if cid is None:
         return {"status": "not-found", "name_cid": name_cid}
+    if name_cid is not None and name_cid != cid:
+        # several records can share one InChIKey (tautomers such as the
+        # newer purine / pterin records): prefer the one the name points to
+        name_props = pubchem.properties(name_cid)
+        if name_props.get("InChIKey") == key:
+            cid = name_cid
     props = pubchem.properties(cid)
     if props.get("InChIKey") != key:
         return {"status": "not-found", "name_cid": name_cid}
@@ -162,10 +168,47 @@ def heavy_first(mol):
     return Chem.RenumberAtoms(mol, heavy + hyd)
 
 
-def generate_3d(smiles: str, extended: bool = False):
-    """ETKDG + MMFF94. Normally the lowest-energy conformer is kept; with
-    extended=True (fatty acids) the most stretched one is kept so that the
-    shape of the chain (straight / bent at a cis double bond) is visible."""
+def _fa_chain(mol):
+    """Carbon chain of a fatty acid from the carboxyl carbon (C1) to the
+    methyl end, or [] when the molecule is not an unbranched acid."""
+    m = mol.GetSubstructMatches(Chem.MolFromSmarts("[CX3](=O)[OX2H1]"))
+    if len(m) != 1:
+        return []
+    chain = [m[0][0]]
+    while True:
+        cur = mol.GetAtomWithIdx(chain[-1])
+        nxt = [a.GetIdx() for a in cur.GetNeighbors() if a.GetSymbol() == "C" and a.GetIdx() not in chain]
+        if len(nxt) != 1:
+            return chain if not nxt else []
+        chain.append(nxt[0])
+
+
+def _straighten(mol, conf_id, chain):
+    """Textbook chain shape: C-C-C-C dihedrals of sp3-sp3 bonds at 180 deg
+    (zigzag) and the two bonds next to each C=C at +120 / -120 deg. With
+    these skew angles (as low in energy as the other combinations) a trans
+    double bond keeps the chain straight and a cis double bond bends it."""
+    from rdkit.Chem import rdMolTransforms
+    conf = mol.GetConformer(conf_id)
+    sp3 = Chem.HybridizationType.SP3
+    for k in range(len(chain) - 3):
+        b, c = mol.GetAtomWithIdx(chain[k + 1]), mol.GetAtomWithIdx(chain[k + 2])
+        if b.GetHybridization() == sp3 and c.GetHybridization() == sp3:
+            rdMolTransforms.SetDihedralDeg(conf, chain[k], chain[k + 1], chain[k + 2], chain[k + 3], 180.0)
+    for k in range(1, len(chain) - 1):
+        bond = mol.GetBondBetweenAtoms(chain[k], chain[k + 1])
+        if bond.GetBondType() != Chem.BondType.DOUBLE:
+            continue
+        if k >= 2:
+            rdMolTransforms.SetDihedralDeg(conf, chain[k - 2], chain[k - 1], chain[k], chain[k + 1], 120.0)
+        if k + 3 < len(chain):
+            rdMolTransforms.SetDihedralDeg(conf, chain[k], chain[k + 1], chain[k + 2], chain[k + 3], -120.0)
+
+
+def _embed(smiles: str, extended: bool = False):
+    """ETKDG + MMFF94, lowest-energy conformer. With extended=True (fatty
+    acids) the chain is first set to the textbook shape (see _straighten)
+    and then minimised again."""
     mol = Chem.AddHs(Chem.MolFromSmiles(smiles))
     params = AllChem.ETKDGv3()
     params.randomSeed = SEED
@@ -177,21 +220,75 @@ def generate_3d(smiles: str, extended: bool = False):
     if not cids:
         raise RuntimeError("embedding failed")
     res = AllChem.MMFFOptimizeMoleculeConfs(mol, maxIters=2000)
-    if extended:
-        heavy = [a.GetIdx() for a in mol.GetAtoms() if a.GetAtomicNum() > 1]
-
-        def span(k):
-            conf = mol.GetConformer(cids[k])
-            pts = [conf.GetAtomPosition(i) for i in heavy]
-            return max((p - q).Length() for p in pts for q in pts)
-        score = [span(k) if res[k][0] == 0 else -1 for k in range(len(cids))]
-        best = max(range(len(cids)), key=score.__getitem__)
-    else:
-        energies = [e if conv == 0 else e + 1e6 for conv, e in res]
-        best = min(range(len(energies)), key=energies.__getitem__)
+    energies = [e if conv == 0 else e + 1e6 for conv, e in res]
+    chain = _fa_chain(mol) if extended else []
+    if chain:
+        want = Chem.MolToInchiKey(Chem.MolFromSmiles(smiles))
+        mp = AllChem.MMFFGetMoleculeProperties(mol)
+        shaped = []
+        for k, cid in enumerate(cids):
+            trial = Chem.Mol(mol, confId=cid)
+            _straighten(trial, trial.GetConformer().GetId(), chain)
+            ff = AllChem.MMFFGetMoleculeForceField(trial, mp, confId=trial.GetConformer().GetId())
+            ff.Minimize(maxIts=2000)
+            # a crowded polyene can fold onto itself and flip a C=C while
+            # minimising: keep the shaped conformer only if the stereo held
+            check = Chem.Mol(trial)
+            Chem.AssignStereochemistryFrom3D(check)
+            if Chem.MolToInchiKey(check) == want:
+                shaped.append((ff.CalcEnergy(), trial.GetConformer()))
+        if shaped:
+            e, conf = min(shaped, key=lambda t: t[0])
+            out = Chem.Mol(mol)
+            out.RemoveAllConformers()
+            out.AddConformer(Chem.Conformer(conf), assignId=True)
+            Chem.SanitizeMol(out)
+            return out
+    best = min(range(len(energies)), key=energies.__getitem__)
     out = Chem.Mol(mol)
     out.RemoveAllConformers()
     out.AddConformer(Chem.Conformer(mol.GetConformer(cids[best])), assignId=True)
+    # MMFF typing re-flags aromaticity with its own model; restore RDKit's
+    Chem.SanitizeMol(out)
+    return out
+
+
+# single metal ions that sit in the middle of a macrocycle (e.g. Fe in heme)
+CENTRAL_METALS = {"Fe", "Co", "Zn", "Mg", "Cu", "Mn"}
+
+
+def generate_3d(smiles: str, extended: bool = False):
+    """3D conformer for a SMILES. A lone central metal ion (heme iron) is
+    left out of the force-field step and placed at the centre of the
+    nitrogen atoms afterwards, where it sits in the real molecule."""
+    frags = smiles.split(".")
+    metals = []
+    for f in frags:
+        m = Chem.MolFromSmiles(f)
+        if m.GetNumAtoms() == 1 and m.GetAtomWithIdx(0).GetSymbol() in CENTRAL_METALS:
+            metals.append(f)
+    organic = ".".join(f for f in frags if f not in metals)
+    n_count = Chem.MolFromSmiles(organic).GetSubstructMatches(Chem.MolFromSmarts("[#7]"))
+    if not metals or len(n_count) < 4:
+        return _embed(smiles, extended)
+    mol = _embed(organic, extended)
+    rw = Chem.RWMol(mol)
+    conf = mol.GetConformer()
+    n_idx = [a.GetIdx() for a in mol.GetAtoms() if a.GetSymbol() == "N"]
+    cx = sum(conf.GetAtomPosition(i).x for i in n_idx) / len(n_idx)
+    cy = sum(conf.GetAtomPosition(i).y for i in n_idx) / len(n_idx)
+    cz = sum(conf.GetAtomPosition(i).z for i in n_idx) / len(n_idx)
+    for f in metals:
+        src = Chem.MolFromSmiles(f).GetAtomWithIdx(0)
+        a = Chem.Atom(src.GetSymbol())
+        a.SetFormalCharge(src.GetFormalCharge())
+        a.SetNoImplicit(True)
+        idx = rw.AddAtom(a)
+        out = rw.GetMol()
+        out.GetConformer().SetAtomPosition(idx, Point3D(cx, cy, cz))
+        rw = Chem.RWMol(out)
+    out = rw.GetMol()
+    Chem.SanitizeMol(out)
     return out
 
 
@@ -349,7 +446,11 @@ def build_row(row, pubchem, existing, report):
         if pubchem is not None:
             try:
                 pc = lookup_pubchem(pubchem, key, row.get("pubchem_query", ""))
-                if pc.get("cid"):
+                # Long fatty acids keep the RDKit zigzag conformer: one
+                # PubChem conformer can be curled up and hide the straight vs
+                # bent shape that the compare mode is about.
+                long_fa = "fa" in checks and chemcheck.parse_fa(checks["fa"])[0] >= 8
+                if pc.get("cid") and not long_fa:
                     sdf = pubchem.sdf3d(pc["cid"])
                     if sdf:
                         m = Chem.MolFromMolBlock(sdf, removeHs=False)
@@ -365,7 +466,8 @@ def build_row(row, pubchem, existing, report):
                   "name_cid": old["verification"].get("pubchem_name_cid"),
                   "props": {"MolecularFormula": old.get("pubchem_formula"), "MolecularWeight": old.get("mw")}}
             old_sdf = DATA / old.get("sdf", "")
-            if old.get("sdf_source") == "pubchem-3d" and old_sdf.is_file():
+            long_fa = "fa" in checks and chemcheck.parse_fa(checks["fa"])[0] >= 8
+            if old.get("sdf_source") == "pubchem-3d" and old_sdf.is_file() and not long_fa:
                 mol3d = Chem.MolFromMolFile(str(old_sdf), removeHs=False)
                 source = "pubchem-3d"
         if mol3d is None:
@@ -375,7 +477,7 @@ def build_row(row, pubchem, existing, report):
 
         # Checks on the final 3D structure
         extra = chemcheck.run_checks(mol3d, checks, smiles)
-        if "racemic" not in checks and not chemcheck.stereo_matches_3d(mol3d, smiles):
+        if not (set(checks) & chemcheck.SKIP_STEREO) and not chemcheck.stereo_matches_3d(mol3d, smiles):
             raise chemcheck.CheckError("3D coordinates do not reproduce the SMILES stereo")
 
         has_cid = pc["status"] in VERIFIED
@@ -394,7 +496,8 @@ def build_row(row, pubchem, existing, report):
             "verification": {
                 "pubchem": pc["status"],
                 "stereo": "checked" if (set(checks) & {"cip", "ez", "fa", "sugar"}) else
-                          ("racemic" if "racemic" in checks else "no-stereocentre"),
+                          ("racemic" if "racemic" in checks else
+                           "undefined" if "stereo-undefined" in checks else "no-stereocentre"),
             },
         })
         if has_cid:
@@ -405,6 +508,8 @@ def build_row(row, pubchem, existing, report):
             entry["verification"]["pubchem_name_cid"] = pc["name_cid"]
         if "racemic" in checks:
             entry["stereo_note"] = "racemic"
+        elif "stereo-undefined" in checks:
+            entry["stereo_note"] = "undefined"
         entry.update(extra)
         write_sdf(SDF_DIR / f"{cid_}.sdf", mol3d, row["name_en"], entry["sdf_source"])
         report[pc["status"]].append(cid_)

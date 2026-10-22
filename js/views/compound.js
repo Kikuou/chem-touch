@@ -5,8 +5,8 @@ import { icon } from '../core/icons.js';
 import { compound, compounds, sdf as loadSdf } from '../core/data.js';
 import { openShareSheet, compoundHash, smilesHash } from '../core/share.js';
 import { mountMolPanel } from '../mol/molpanel.js';
-import { matchFunctionalGroups } from '../mol/fgroups.js';
 import { getRDKit } from '../mol/rdkit.js';
+import { faCardHtml, chainSvg, faHelp, chainAtoms, faColor } from './fatty-acid.js';
 
 const CRYSTAL_BOND = {
   diamond: '共有結合（単結合）',
@@ -50,17 +50,6 @@ function factsHtml(c) {
   return `<dl class="facts">${rows.map(([k, val]) => `<dt>${k}</dt><dd>${val}</dd>`).join('')}</dl>`;
 }
 
-async function fillGroups(box, smiles) {
-  try {
-    const found = await matchFunctionalGroups(smiles);
-    box.innerHTML = found.length
-      ? `<div class="fg">${found.map((f) => `<span><i style="background:${f.group.color}"></i>${esc(f.group.name)}${f.matches.length > 1 ? ` ×${f.matches.length}` : ''}</span>`).join('')}</div>`
-      : '<p class="small muted">判定対象の官能基は含まれていません。</p>';
-  } catch (e) {
-    box.innerHTML = '<p class="small muted">官能基を判定できませんでした。</p>';
-  }
-}
-
 export async function renderCompound({ el, params }) {
   const c = await compound(params.id);
   if (!c) {
@@ -79,11 +68,12 @@ export async function renderCompound({ el, params }) {
     </div>
     <div class="molpanel"></div>
     <div class="stack">
+      ${c.fatty_acid && c.categories.includes('fatty-acid') ? faCardHtml(c.fatty_acid) : ''}
       ${c.note_ja ? `<section class="card"><h2 class="section-title" style="margin-top:0">ひとこと解説${c.note_reviewed ? '' : '<span class="draft" title="教員による確認前の下書きです">下書き</span>'}</h2><p class="note">${esc(c.note_ja)}</p></section>` : ''}
-      ${c.smiles ? '<section class="card"><h2 class="section-title" style="margin-top:0">含まれる官能基</h2><div class="fgbox"><p class="small muted">判定中…</p></div></section>' : ''}
       ${related.length ? `<section class="card"><h2 class="section-title" style="margin-top:0">関連する分子</h2><div class="rel">${related.map((r) => `<a href="#/compound/${encodeURIComponent(r.id)}">${esc(r.name_ja)}</a>`).join('')}</div></section>` : ''}
       <section class="card"><h2 class="section-title" style="margin-top:0">データ</h2>${factsHtml(c)}</section>
       <button class="btn primary block" data-act="share2">${icon('qr')}QRコードで共有</button>
+      ${c.kind !== 'crystal' ? `<a class="btn block" href="#/quiz?id=${encodeURIComponent(c.id)}">${icon('quiz')}この分子で官能基クイズ</a>` : ''}
       <p class="credit">構造: ${c.pubchem_cid ? '<a href="https://pubchem.ncbi.nlm.nih.gov/" target="_blank" rel="noopener">PubChem</a>（パブリックドメイン）で照合' : 'PubChem 未照合（RDKit による生成）'}。解説は${c.note_reviewed ? '教員確認済み' : '確認前の下書き'}です。</p>
     </div>`;
   content.querySelector('[data-act="share2"]').addEventListener('click', () => openShareSheet({ title: c.name_ja, hash: compoundHash(c.id) }));
@@ -94,8 +84,37 @@ export async function renderCompound({ el, params }) {
     crystal: c.crystal || null,
     crystalBond: CRYSTAL_BOND[c.crystal],
   });
-  const fgBox = content.querySelector('.fgbox');
-  if (fgBox) fillGroups(fgBox, c.smiles);
+  const faCard = content.querySelector('.fa-card');
+  if (faCard) {
+    const fa = c.fatty_acid;
+    const draw = (mode) => {
+      faCard.querySelector('.fa-chart').innerHTML = chainSvg(fa, mode);
+      faCard.querySelector('.fa-help').textContent = faHelp(fa, mode);
+      faCard.querySelectorAll('[data-fa]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.fa === mode));
+    };
+    draw('n');
+    faCard.addEventListener('click', async (e) => {
+      const b = e.target.closest('button');
+      if (!b) return;
+      if (b.dataset.fa) draw(b.dataset.fa);
+      if (b.hasAttribute('data-fa3d')) {
+        const on = b.getAttribute('aria-pressed') !== 'true';
+        b.setAttribute('aria-pressed', on);
+        await panel.ready;
+        const chain = chainAtoms(panel.graph);
+        if (!on || chain.length !== fa.carbons) { panel.highlight(null); return; }
+        const n = fa.carbons;
+        const w = (m) => chain[n - m]; // omega numbering -> SDF index
+        const omegaRun = [];
+        for (let m = 1; m <= fa.omega; m++) omegaRun.push(w(m));
+        panel.highlight([
+          { color: '#9AA3AE', label: 'ω末端', atoms: [w(1)] },
+          { color: faColor(fa.omega), label: `n-${fa.omega}`, atoms: [w(fa.omega), w(fa.omega + 1)] },
+          { color: faColor(fa.omega), label: '', atoms: omegaRun.slice(1, -1) },
+        ].filter((g) => g.atoms.length), { labels: true });
+      }
+    });
+  }
   return () => panel.destroy();
 }
 
@@ -115,7 +134,6 @@ export async function renderView({ el, query }) {
     <div class="match"></div>
     <div class="molpanel"><p class="empty"><span class="spinner"></span>分子を解析中…</p></div>
     <div class="stack">
-      <section class="card"><h2 class="section-title" style="margin-top:0">含まれる官能基</h2><div class="fgbox"><p class="small muted">判定中…</p></div></section>
       <button class="btn primary block" data-act="share2">${icon('qr')}QRコードで共有</button>
     </div>`;
   content.querySelector('[data-act="share2"]').addEventListener('click', () => openShareSheet({ title, hash: smilesHash(smiles, name) }));
@@ -125,7 +143,6 @@ export async function renderView({ el, query }) {
   const mol = RDKit.get_mol(smiles);
   if (!mol || !mol.is_valid()) {
     content.querySelector('.molpanel').innerHTML = '<p class="empty">この SMILES は解釈できませんでした。</p>';
-    content.querySelector('.fgbox').innerHTML = '';
     return null;
   }
   const key = RDKit.get_inchikey_for_inchi(mol.get_inchi());
@@ -135,6 +152,5 @@ export async function renderView({ el, query }) {
     content.querySelector('.match').innerHTML = `<a class="info" href="#/compound/${encodeURIComponent(hit.id)}" style="margin:0 0 10px">${icon('info')}<span>収録化合物「<b style="font-size:inherit">${esc(hit.name_ja)}</b>」と同じ分子です。詳しい解説を見る</span>${icon('chev')}</a>`;
   }
   const panel = mountMolPanel(content.querySelector('.molpanel'), hit ? { sdf: await loadSdf(hit) } : { smiles });
-  fillGroups(content.querySelector('.fgbox'), smiles);
   return () => panel.destroy();
 }

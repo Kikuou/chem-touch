@@ -84,6 +84,77 @@ assert.match(await other.textContent('.match'), /α-D-グルコース/);
 await other.waitForSelector('.v3d canvas');
 step('#/view?smiles=... recognises the library compound and shows 3D');
 
+// ---- M2 acceptance: compare oleic vs elaidic acid with synced rotation,
+// DHA n-3 position in colour, functional groups, quiz, series
+const m2 = await ctx.newPage();
+await m2.goto(BASE + '#/compare/oleic-elaidic');
+await m2.waitForSelector('.cmp-3d canvas');
+await m2.waitForTimeout(800);
+const cmpNames = await m2.locator('.cmp-name').allTextContents();
+assert.deepEqual(cmpNames.map((t) => t.trim()), ['オレイン酸', 'エライジン酸']);
+const cbox = await m2.locator('.cmp-3d').first().boundingBox();
+await m2.mouse.move(cbox.x + cbox.width / 2, cbox.y + cbox.height / 2);
+await m2.mouse.down();
+await m2.mouse.move(cbox.x + cbox.width / 2 + 70, cbox.y + cbox.height / 2 + 25, { steps: 8 });
+await m2.mouse.up();
+await m2.waitForTimeout(300);
+const views = await m2.evaluate(() => [...document.querySelectorAll('.cmp-3d')].map((e) => e.__viewer3d.viewer.getView().slice(4)));
+assert.ok(Math.abs(views[0][3]) < 0.999, 'left molecule rotated');
+assert.deepEqual(views[0].map((v) => v.toFixed(4)), views[1].map((v) => v.toFixed(4)), 'right follows left');
+step('compare: oleic vs elaidic acid rotate together');
+
+await m2.goto(BASE + '#/compare/alanine-enantiomers');
+await m2.waitForSelector('.cmp-mirror');
+await m2.waitForTimeout(800);
+const mv = await m2.evaluate(() => [...document.querySelectorAll('.cmp-3d')].map((e) => e.__viewer3d.viewer.getView().slice(4)));
+assert.ok(Math.abs(mv[0][1] + mv[1][1]) < 1e-6 && Math.abs(mv[0][0] - mv[1][0]) < 1e-6, 'mirror rotation');
+step('compare: L/D-alanine shown as mirror images');
+
+await m2.goto(BASE + '#/compound/dha');
+await m2.waitForSelector('.fa-card svg');
+assert.match(await m2.textContent('.fa-card'), /n-3/);
+await m2.waitForSelector('.v3d canvas');
+await m2.click('[data-fa3d]');
+await m2.waitForTimeout(300);
+const groups = await m2.evaluate(() => document.querySelector('.v3d').__viewer3d.groups.map((g) => g.label));
+assert.ok(groups.includes('n-3'), 'n-3 marked in 3D');
+step('DHA: n-3 position coloured in the chart and in 3D');
+
+await m2.goto(BASE + '#/compound/aspartame');
+await m2.waitForSelector('.fg button');
+await m2.click('[data-act="fg"]');
+await m2.waitForTimeout(300);
+const fg = await m2.evaluate(() => document.querySelector('.v3d').__viewer3d.groups.length);
+assert.ok(fg >= 5, 'functional groups highlighted');
+step(`functional groups highlighted (${fg} groups on aspartame)`);
+
+await m2.goto(BASE + '#/quiz?id=ethanol');
+await m2.waitForSelector('.quiz-text');
+await m2.waitForSelector('.v2d svg');
+await m2.waitForTimeout(500);
+// the O of ethanol: find it from the drawn label
+const oIdx = await m2.evaluate(() => {
+  const svg = document.querySelector('.v2d svg');
+  const e = [...svg.querySelectorAll('ellipse.hit')].find((el) => {
+    const i = el.getAttribute('class').match(/atom-(\d+)/)[1];
+    // heteroatom labels are drawn as paths whose class is exactly "atom-N"
+    return [...svg.querySelectorAll('path')].some((p) => p.getAttribute('class') === `atom-${i}`);
+  });
+  return e.getAttribute('class').match(/atom-(\d+)/)[1];
+});
+// keep the atom away from the fixed bottom navigation before tapping
+await m2.evaluate(() => document.querySelector('.v2d').scrollIntoView({ block: 'center' }));
+await m2.locator(`.v2d svg ellipse.atom-${oIdx}`).click({ force: true });
+assert.match(await m2.textContent('.quiz-result'), /正解/);
+step('quiz: tapping the O of ethanol answers "hydroxy group"');
+
+await m2.goto(BASE + '#/series?s=alkane');
+await m2.waitForSelector('.series-svg');
+await m2.locator('#n-slider').fill('4');
+await m2.waitForTimeout(400);
+assert.match(await m2.textContent('.series-name'), /ペンタン/);
+step('series: slider changes the molecule');
+
 assert.deepEqual(errors, [], 'no page errors');
 step('no JavaScript errors');
 await browser.close();

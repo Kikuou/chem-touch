@@ -112,7 +112,7 @@ def main() -> int:
         key = Chem.MolToInchiKey(ref)
         if key != c.get("inchikey"):
             err(cid, f"InChIKey {c.get('inchikey')} != {key} (from SMILES)")
-        if c.get("stereo_note") != "racemic":
+        if c.get("stereo_note") not in ("racemic", "undefined"):
             if Chem.MolToInchiKey(mol3d) != key:
                 err(cid, "InChIKey of the 3D structure differs from the SMILES")
             if not chemcheck.stereo_matches_3d(mol3d, c["smiles"]):
@@ -146,6 +146,34 @@ def main() -> int:
                 errors.append(f"{name}[{i}]: needs no, date, title")
             elif not re.match(r"^\d{4}-\d{2}-\d{2}$", str(l["date"])):
                 errors.append(f"{name}[{i}]: date must be YYYY-MM-DD")
+
+    # series.json (B-3): members exist, every value has a source
+    series_path = DATA / "series.json"
+    if series_path.exists():
+        for s in json.loads(series_path.read_text(encoding="utf-8"))["series"]:
+            for m in s["members"]:
+                if m["id"] not in idset:
+                    errors.append(f"series {s['id']}: unknown compound {m['id']}")
+                for key in ("bp", "mp", "sol"):
+                    v = m.get(key)
+                    if v is not None and not (v.get("source") and v.get("raw")):
+                        errors.append(f"series {s['id']}/{m['id']}: {key} has no source")
+
+        # boiling points of a straight-chain homologous series rise with the
+        # carbon number; a drop usually means a wrongly picked value
+        for s in json.loads(series_path.read_text(encoding="utf-8"))["series"]:
+            pts = [(m["carbons"], m["bp"]["value"], m["id"]) for m in s["members"] if m.get("bp")]
+            for (n1, v1, a), (n2, v2, b) in zip(pts, pts[1:]):
+                if v2 < v1:
+                    warnings.append(f"series {s['id']}: boiling point drops from {a} ({v1}) to {b} ({v2}); check the value")
+
+    # comparisons.json (A-15): items exist
+    cmp_path = DATA / "comparisons.json"
+    if cmp_path.exists():
+        for p in json.loads(cmp_path.read_text(encoding="utf-8"))["presets"]:
+            for i in p["items"] + p.get("related", []):
+                if i not in idset:
+                    errors.append(f"comparison {p['id']}: unknown compound {i}")
 
     fg = json.loads((DATA / "functional_groups.json").read_text(encoding="utf-8"))["groups"]
     for g in fg:

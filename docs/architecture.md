@@ -15,16 +15,21 @@ js/core/              全モジュール共通
   share.js            共有 URL、QR 生成、投影用 QR 表示（D-1〜D-4）
   dom.js / icons.js   小さなヘルパー、線画アイコン
 js/mol/               分子表示（M1〜M3 で共用）
-  viewer3d.js         3Dmol.js ラッパー（回転・スタイル・水素・自動回転・原子/結合タップ）
+  viewer3d.js         3Dmol.js ラッパー（回転・スタイル・水素・自動回転・原子/結合タップ、
+                      官能基の色分け、主軸での向きそろえ、鏡像表示、2画面の回転同期）
   structure2d.js      RDKit.js による 2D 構造式（骨格式/全原子、タップ）
   molpanel.js         3D + 2D + 情報表示を連動させた部品（A-1〜A-9）
-  fgroups.js          官能基の SMARTS 判定（M2 のハイライトでも使う）
+  fgroups.js          官能基の SMARTS 判定と色分けグループの作成
   rdkit.js            RDKit.js の遅延読み込み
   elements.js         原子ポップアップ用の最小元素表（周期表データは M4 の data/elements.json）
 js/views/             画面（1画面1ファイル）
   home.js, home-art.js   ホーム（授業帯 + ベントー・グリッド）
   library.js             分子ライブラリ（B-1）
   compound.js            分子詳細 #/compound/<id> と任意分子 #/view?smiles=（A-7, B-2, D-1）
+  fatty-acid.js          脂肪酸の n-/Δ 表記の図と 3D での位置表示（B-4）
+  compare.js             比較モード #/compare（A-13〜A-16）
+  quiz.js                官能基クイズ #/quiz（A-17）
+  series.js              同族体シリーズ #/series（B-3）
   scan.js                QR 読み取り
   more.js                その他（テーマ設定・出典・ライセンス）
   placeholder.js         後続マイルストーンの仮画面
@@ -38,7 +43,7 @@ tests/                Playwright によるスクリーンショットと E2E
 
 | M | 追加・変更するファイル | 触らない前提のもの |
 |---|---|---|
-| M2 比較・官能基・シリーズ | `js/views/compare.js`、`js/views/series.js`、`js/mol/molpanel.js` に官能基ハイライトのオプション、`data/comparisons.json`、`data/series.json`、CSV に §3-5〜3-10 を追記 | `js/core/*`（必要なら関数追加のみ） |
+| M2 比較・官能基・シリーズ（実装済み） | `js/views/compare.js`・`quiz.js`・`series.js`・`fatty-acid.js`、`js/mol/molpanel.js` の官能基凡例、`data/comparisons.json`、`data/series.json`（`scripts/build_series.py`）、CSV に §3-5〜3-10 | `js/core/*`（関数追加のみ） |
 | M3 ビルダー | `js/views/build.js`、`js/mol/conformer.js`（OpenChemLib 等で 3D 化）、`#/view` で 3D が無い場合にそれを使う | ライブラリ・詳細画面 |
 | M4 周期表・電子配置 | `js/periodic/`（新規ディレクトリ）、`data/elements.json`、ルート `#/periodic`・`#/electron` を差し替え | `js/mol/*` |
 

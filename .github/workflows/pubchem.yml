@@ -1,5 +1,7 @@
 # Check the compound list against PubChem and commit the result.
 # GitHub's runners can reach PubChem even when a local network cannot.
+#   - builds data/compounds.json + data/sdf (build_compounds.py) and the
+#     boiling / melting point series (build_series.py)
 #   - runs automatically when compound_sources.csv or the build scripts change
 #     on a branch other than main
 #   - can be started by hand: Actions -> "PubChem check" -> Run workflow
@@ -14,6 +16,7 @@ on:
       - scripts/compound_sources.csv
       - scripts/build_compounds.py
       - scripts/chemcheck.py
+      - scripts/build_series.py
 
 permissions:
   contents: write
@@ -33,6 +36,8 @@ jobs:
       - run: pip install -r scripts/requirements.txt
       - name: Build data with PubChem
         run: python scripts/build_compounds.py
+      - name: Series properties from PubChem
+        run: python scripts/build_series.py
       - name: Validate
         run: python scripts/validate_data.py
       - name: Report

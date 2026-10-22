@@ -1,0 +1,9 @@
+{
+ "note": "Values from PubChem that build_series.py must not use, with the reason. Match on compound id, property (bp/mp/sol) and the original text.",
+ "exclude": [
+  {
+   "id": "lauric-acid", "key": "bp", "raw": "91.4 °C",
+   "reason": "Too low for the normal boiling point (mp 43.8 °C; capric acid 268.7 °C, myristic acid 326.2 °C). Most likely measured at reduced pressure without the pressure being stated."
+  }
+ ]
+}

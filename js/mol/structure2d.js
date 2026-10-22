@@ -62,6 +62,7 @@ export class Structure2D {
       full: this.graph.atoms.map((_, i) => i),
       skeletal: skeletalOk ? heavyIdx : null,
     };
+    this.graphs = { full: this.graph, skeletal: skeletalOk ? molGraph(skel) : null };
     this.views = {};
     this.render();
   }
@@ -73,11 +74,19 @@ export class Structure2D {
     this.render();
   }
 
+  // Colour functional groups: [{color: '#rrggbb', atoms: [SDF indices]}]
+  // (empty array / null switches it off).
+  setGroups(groups) {
+    this.groups = groups && groups.length ? groups : null;
+    this.groupKey = this.groups ? this.groups.map((g) => g.color + g.atoms.join(',')).join('|') : '';
+    this.render();
+  }
+
   // Re-draw (also used when the colour scheme changes).
   render() {
     if (!this.mols) return;
     const mode = this.mode === 'skeletal' && this.canSkeletal ? 'skeletal' : 'full';
-    const key = mode + (isDark() ? ':d' : ':l');
+    const key = mode + (isDark() ? ':d' : ':l') + (this.groupKey || '');
     if (!this.views[key]) this.views[key] = this.draw(mode);
     this.el.innerHTML = this.views[key];
     this.svg = this.el.querySelector('svg');
@@ -89,7 +98,7 @@ export class Structure2D {
     this.points = [...this.svg.querySelectorAll('ellipse[class^="atom-"]')].map((e) => {
       const idx = parseInt(e.getAttribute('class').slice(5), 10);
       e.classList.add('hit');
-      return { el: e, idx, x: +e.getAttribute('cx'), y: +e.getAttribute('cy') };
+      return { el: e, idx, x: +e.getAttribute('cx'), y: +e.getAttribute('cy'), style: e.getAttribute('style') || '' };
     });
     this.paintSelection();
   }
@@ -115,6 +124,26 @@ export class Structure2D {
       clearBackground: false,
     };
     if (isDark()) opts.atomColourPalette = DARK_PALETTE;
+    if (this.groups) {
+      // SDF index -> drawn index, then colour atoms and bonds inside a group
+      const map = mode === 'skeletal' ? this.maps.skeletal : this.maps.full;
+      const inv = new Map(map.map((sdf, i) => [sdf, i]));
+      const owner = new Map();
+      this.groups.forEach((g) => g.atoms.forEach((a) => {
+        if (inv.has(a) && !owner.has(inv.get(a))) owner.set(inv.get(a), g);
+      }));
+      const rgba = (hex, a) => [1, 3, 5].map((k) => parseInt(hex.slice(k, k + 2), 16) / 255).concat([a]);
+      owner.forEach((g, i) => { opts.highlightAtomColors[i] = rgba(g.color, 0.55); });
+      const bonds = [];
+      const bondColors = {};
+      this.graphs[mode].bonds.forEach((b, k) => {
+        const ga = owner.get(b.a);
+        if (ga && ga === owner.get(b.b)) { bonds.push(k); bondColors[k] = rgba(ga.color, 0.55); }
+      });
+      opts.bonds = bonds;
+      opts.highlightBondColors = bondColors;
+      opts.highlightRadius = 0.36;
+    }
     if (mode === 'full') {
       // show every carbon as "C" (A-8: all atoms explicit)
       const labels = {};
@@ -140,8 +169,12 @@ export class Structure2D {
     }
     for (const p of this.points) {
       const on = target !== null && this.activeMap[p.idx] === target;
-      p.el.style.fill = on ? 'rgba(255, 194, 26, 0.6)' : 'rgba(0,0,0,0)';
-      p.el.style.stroke = on ? 'rgba(255, 170, 0, 0.9)' : 'none';
+      if (on) {
+        p.el.style.fill = 'rgba(255, 194, 26, 0.75)';
+        p.el.style.stroke = 'rgba(255, 170, 0, 0.95)';
+      } else {
+        p.el.setAttribute('style', p.style); // group colour or transparent
+      }
     }
   }
 

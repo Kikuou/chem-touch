@@ -22,6 +22,11 @@ export function webglAvailable() {
 }
 
 const hex = (s) => parseInt(s.slice(1), 16);
+// black or white text, whichever reads better on the colour
+function textOn(color) {
+  const [r, g, b] = [1, 3, 5].map((k) => parseInt(color.slice(k, k + 2), 16) / 255);
+  return 0.299 * r + 0.587 * g + 0.114 * b > 0.6 ? '#121417' : '#ffffff';
+}
 function colorscheme() {
   const pal = isDark() ? ATOM_COLORS.dark : ATOM_COLORS.light;
   const map = {};
@@ -62,11 +67,18 @@ export class Viewer3D {
     return this;
   }
 
-  /** @param {string} sdf  @param {object} opts { crystal: 'nacl'|'diamond'|'graphite'|null } */
+  /**
+   * @param {string} sdf
+   * @param {object} opts { crystal: 'nacl'|'diamond'|'graphite'|null,
+   *   orient: 'x' | 'y' = put the long axis horizontal / vertical (compare),
+   *   mirror: true = show the mirror image (x -> -x after orienting),
+   *   zoom: extra zoom after fitting (default 1.2) }
+   */
   load(sdf, opts = {}) {
     const v = this.viewer;
     v.clear();
     this.crystal = opts.crystal || null;
+    if (opts.orient || opts.mirror) sdf = transformSdf(sdf, { orient: opts.orient || false, mirror: !!opts.mirror });
     this.model = v.addModel(sdf, 'sdf', { keepH: true });
     this.atoms = this.model.selectedAtoms({});
     this.hasH = this.atoms.some((a) => a.elem === 'H');
@@ -77,7 +89,7 @@ export class Viewer3D {
     });
     this.applyStyle();
     v.zoomTo();
-    v.zoom(this.crystal ? 0.95 : 1.2);
+    v.zoom(this.crystal ? 0.95 : (opts.zoom ?? 1.2));
     this.home = v.getView();
     v.render();
   }
@@ -102,10 +114,43 @@ export class Viewer3D {
     }
     if (!this.showH) this.model.setStyle({ elem: 'H' }, {});
     v.removeAllShapes();
+    v.removeAllLabels();
     this.selShape = null;
     if (this.crystal === 'nacl') this.drawCell();
+    this.drawGroups();
     if (this.selected !== null) this.drawSelection();
     v.render();
+  }
+
+  // Functional groups (A-10): translucent coloured spheres on the atoms and
+  // an optional short label per occurrence. groups = [{color, label, atoms}]
+  setGroups(groups, { labels = true } = {}) {
+    this.groups = groups && groups.length ? groups : null;
+    this.groupLabels = labels;
+    this.applyStyle();
+  }
+
+  drawGroups() {
+    if (!this.groups) return;
+    for (const g of this.groups) {
+      const pts = g.atoms.map((i) => this.atoms[i]).filter((a) => a && (this.showH || a.elem !== 'H'));
+      if (!pts.length) continue;
+      for (const a of pts) {
+        const r = this.style === 'spacefill' ? (VDW[a.elem] || 1.7) * 1.05 : a.elem === 'H' ? 0.42 : 0.62;
+        this.viewer.addSphere({ center: { x: a.x, y: a.y, z: a.z }, radius: r, color: hex(g.color), opacity: 0.5 });
+      }
+      if (this.groupLabels && g.label) {
+        const heavy = pts.filter((a) => a.elem !== 'H');
+        const use = heavy.length ? heavy : pts;
+        const c = use.reduce((o, a) => ({ x: o.x + a.x / use.length, y: o.y + a.y / use.length, z: o.z + a.z / use.length }), { x: 0, y: 0, z: 0 });
+        this.viewer.addLabel(g.label, {
+          position: c, inFront: true, fontSize: 12, fontColor: textOn(g.color),
+          backgroundColor: hex(g.color), backgroundOpacity: 0.9, borderThickness: 0,
+          showBackground: true, alignment: 'center', screenOffset: { x: 0, y: -14 },
+          font: 'sans-serif',
+        });
+      }
+    }
   }
 
   drawCell() {
@@ -155,6 +200,26 @@ export class Viewer3D {
   }
 
   atom(index) { return this.atoms[index]; }
+
+  // Keep two viewers turning together (A-13). With mirror = true the other
+  // viewer shows the mirror image moving like a reflection in a vertical
+  // mirror between them (A-14); load it with { mirror: true }.
+  syncWith(other, { mirror = false } = {}) {
+    const flip = (view) => (mirror
+      ? [-view[0], view[1], view[2], view[3], view[4], -view[5], -view[6], view[7]]
+      : view.slice());
+    const state = { busy: false };
+    const link = (from, to) => {
+      from.viewer.setViewChangeCallback((view) => {
+        if (state.busy) return;
+        state.busy = true;
+        try { to.viewer.setView(flip(view), true); } finally { state.busy = false; }
+      });
+    };
+    link(this, other);
+    link(other, this);
+    other.viewer.setView(flip(this.viewer.getView()), true);
+  }
 
   distance(i, j) {
     const a = this.atoms[i];
@@ -258,6 +323,97 @@ export class Viewer3D {
     this.el.innerHTML = '';
     this.viewer = null;
   }
+}
+
+// Rewrite the coordinates of a V2000 molfile: centre it, rotate it onto its
+// principal axes (long axis -> x, or -> y with orient: 'y') and optionally
+// mirror it (x -> -x). The rotation keeps handedness (det = +1), so only
+// `mirror` changes it.
+export function transformSdf(sdf, { orient = 'x', mirror = false } = {}) {
+  const lines = sdf.split('\n');
+  const n = parseInt(lines[3].slice(0, 3), 10);
+  const atoms = [];
+  for (let i = 0; i < n; i++) {
+    const l = lines[4 + i];
+    atoms.push({ x: +l.slice(0, 10), y: +l.slice(10, 20), z: +l.slice(20, 30), el: l.slice(31, 34).trim() });
+  }
+  const heavy = atoms.filter((a) => a.el !== 'H');
+  const use = heavy.length >= 2 ? heavy : atoms;
+  const c = [0, 0, 0];
+  use.forEach((a) => { c[0] += a.x / use.length; c[1] += a.y / use.length; c[2] += a.z / use.length; });
+  let R = [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
+  if (orient && use.length >= 2) {
+    const C = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+    use.forEach((a) => {
+      const d = [a.x - c[0], a.y - c[1], a.z - c[2]];
+      for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) C[i][j] += d[i] * d[j];
+    });
+    const { vectors } = jacobi(C);
+    // axes sorted by spread; signs chosen so heteroatoms sit on +x / +y
+    const het = atoms.filter((a) => a.el !== 'C' && a.el !== 'H');
+    const ref = het.length ? het : use;
+    const hc = [0, 0, 0];
+    ref.forEach((a) => { hc[0] += (a.x - c[0]) / ref.length; hc[1] += (a.y - c[1]) / ref.length; hc[2] += (a.z - c[2]) / ref.length; });
+    const ax = vectors.map((v) => (dot(v, hc) < 0 ? v.map((t) => -t) : v));
+    R = orient === 'y'
+      ? [ax[1], ax[0], cross(ax[1], ax[0])] // right-handed frame
+      : [ax[0], ax[1], cross(ax[0], ax[1])];
+  }
+  const out = lines.slice();
+  atoms.forEach((a, i) => {
+    const d = [a.x - c[0], a.y - c[1], a.z - c[2]];
+    let x = dot(R[0], d);
+    const y = dot(R[1], d);
+    const z = dot(R[2], d);
+    if (mirror) x = -x;
+    const l = lines[4 + i];
+    out[4 + i] = fmt(x) + fmt(y) + fmt(z) + l.slice(30);
+  });
+  return out.join('\n');
+}
+
+const fmt = (v) => v.toFixed(4).padStart(10, ' ');
+const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+
+// eigenvectors of a symmetric 3x3 matrix, sorted by eigenvalue (largest first)
+function jacobi(A) {
+  const a = A.map((r) => r.slice());
+  const V = [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
+  for (let sweep = 0; sweep < 50; sweep++) {
+    let off = 0;
+    for (let p = 0; p < 3; p++) for (let q = p + 1; q < 3; q++) off += a[p][q] ** 2;
+    if (off < 1e-12) break;
+    for (let p = 0; p < 3; p++) {
+      for (let q = p + 1; q < 3; q++) {
+        if (Math.abs(a[p][q]) < 1e-15) continue;
+        const th = (a[q][q] - a[p][p]) / (2 * a[p][q]);
+        const t = Math.sign(th || 1) / (Math.abs(th) + Math.sqrt(th * th + 1));
+        const co = 1 / Math.sqrt(t * t + 1);
+        const si = t * co;
+        for (let k = 0; k < 3; k++) {
+          const akp = a[k][p];
+          const akq = a[k][q];
+          a[k][p] = co * akp - si * akq;
+          a[k][q] = si * akp + co * akq;
+        }
+        for (let k = 0; k < 3; k++) {
+          const apk = a[p][k];
+          const aqk = a[q][k];
+          a[p][k] = co * apk - si * aqk;
+          a[q][k] = si * apk + co * aqk;
+        }
+        for (let k = 0; k < 3; k++) {
+          const vkp = V[k][p];
+          const vkq = V[k][q];
+          V[k][p] = co * vkp - si * vkq;
+          V[k][q] = si * vkp + co * vkq;
+        }
+      }
+    }
+  }
+  const order = [0, 1, 2].sort((i, j) => a[j][j] - a[i][i]);
+  return { values: order.map((i) => a[i][i]), vectors: order.map((i) => [V[0][i], V[1][i], V[2][i]]) };
 }
 
 function segDist(px, py, ax, ay, bx, by) {

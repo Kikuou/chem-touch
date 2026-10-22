@@ -29,6 +29,10 @@ export async function categories() {
   return (await getJSON('categories.json')).categories;
 }
 
+export async function comparisons() {
+  return (await getJSON('comparisons.json')).presets;
+}
+
 export async function functionalGroups() {
   return (await getJSON('functional_groups.json')).groups;
 }

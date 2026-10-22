@@ -281,6 +281,13 @@ sub { font-size: .72em; vertical-align: -0.25em; line-height: 0; }
 .fg { display: flex; flex-wrap: wrap; gap: 6px; }
 .fg span { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; border: 1px solid var(--line); border-radius: 99px; padding: 4px 10px 4px 8px; background: var(--surface-2); }
 .fg i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+.fgpanel { margin-top: 10px; }
+.fgpanel .fglegend { padding: 4px 12px 12px; }
+.fgtools { display: flex; gap: 6px; }
+.fg button { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; font-size: 13px; border: 1px solid var(--line); border-radius: 20px; padding: 0 12px 0 10px; background: var(--surface-2); color: var(--text); position: relative; }
+.fg button::after { content: ""; position: absolute; inset: -2px 0; }
+.fg button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-weak); color: var(--accent-ink); font-weight: 600; }
+.fg button i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
 .rel { display: flex; flex-wrap: wrap; gap: 6px; }
 .rel a { min-height: 40px; display: inline-flex; align-items: center; padding: 0 12px; border-radius: 20px; background: var(--accent-weak); color: var(--accent-ink); font-size: 13px; font-weight: 600; }
 .stack { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
@@ -289,6 +296,58 @@ sub { font-size: .72em; vertical-align: -0.25em; line-height: 0; }
 .badge { display: inline-flex; align-items: center; gap: 4px; font-size: 11.5px; border-radius: 6px; padding: 1px 7px; }
 .badge.ok { background: var(--accent-weak); color: var(--accent-ink); }
 .badge.warn { background: var(--warn-bg); color: var(--warn-ink); }
+
+/* ---------------------------------------------------------------- compare */
+.cmp-pick { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; padding: 12px; }
+.cmp-pick label { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.cmp-pick select { width: 100%; min-height: 44px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface-2); color: var(--text); padding: 0 8px; font-size: 15px; }
+.cmp-pairs { display: flex; flex-wrap: wrap; margin-bottom: 10px; border-radius: 16px; }
+.cmp-pairs button { white-space: normal; text-align: center; flex: 1 1 140px; min-height: 44px; font-size: 12.5px; line-height: 1.3; padding: 4px 10px; }
+.cmp-kind { padding: 10px 14px 0; font-size: 12px; font-weight: 700; color: var(--accent-ink); }
+.cmp-stage { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 8px 8px 0; }
+.cmp-stage.mirror { gap: 18px; }
+.cmp-cell { min-width: 0; }
+.cmp-name { display: block; text-align: center; font-weight: 700; font-size: 14px; padding: 4px 2px 6px; min-height: 32px; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+.cmp-3d { position: relative; height: min(64vw, 300px); min-height: 220px; touch-action: none; border-radius: 12px; overflow: hidden; background: var(--surface-2); }
+@media (min-width: 820px) { .cmp-3d { height: 380px; } }
+.cmp-mirror { position: absolute; top: 40px; bottom: 0; left: 50%; width: 0; border-left: 2px dashed var(--accent); pointer-events: none; }
+.cmp-mirror span { position: absolute; top: -26px; left: -12px; font-size: 11px; font-weight: 700; color: var(--accent-ink); background: var(--accent-weak); border-radius: 6px; padding: 1px 5px; }
+.cmp-2d { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 8px; margin-top: 10px; }
+.small2d { height: 150px; min-height: 0; padding: 2px; }
+.cmp-meta { text-align: center; font-size: 12.5px; display: flex; flex-direction: column; }
+.cmp-meta span { color: var(--accent-ink); font-weight: 600; }
+
+/* ---------------------------------------------------------------- fatty acids */
+.fa-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.fa-head b { font-size: 16px; }
+.fa-chart { margin: 8px 0 4px; color: var(--text); }
+.fa-svg { width: 100%; height: auto; display: block; }
+.fa-card .toggle { margin-top: 8px; }
+
+/* ---------------------------------------------------------------- series */
+.series-3d { height: min(48vw, 240px); min-height: 180px; }
+.series-slider { display: flex; align-items: center; gap: 10px; padding: 8px 14px 14px; }
+.series-slider input { flex: 1; height: 44px; accent-color: var(--accent); }
+.series-n { font-weight: 700; font-size: 16px; min-width: 40px; text-align: right; color: var(--accent-ink); }
+.series-charts { margin-top: 10px; }
+.series-charts .chart-bpmp, .series-charts .chart-sol { padding: 8px 10px 0; color: var(--text); }
+.series-svg { width: 100%; height: auto; display: block; margin-bottom: 4px; }
+.series-table { width: calc(100% - 28px); margin: 8px 14px; border-collapse: collapse; font-size: 13.5px; }
+.series-table th { text-align: left; font-weight: 600; color: var(--muted); padding: 6px 4px; white-space: nowrap; }
+.series-table td { padding: 6px 4px; border-top: 1px solid var(--line); }
+.series-table th { border-top: 1px solid var(--line); }
+.series-table a { text-decoration: underline; color: var(--accent-ink); font-size: 12px; }
+@media (min-width: 900px) { .series-charts .chart-bpmp { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; } }
+
+/* ---------------------------------------------------------------- quiz */
+.quiz-score { font-size: 13px; font-weight: 700; color: var(--accent-ink); }
+.quiz-q { margin-bottom: 10px; }
+.quiz-text { font-size: 18px; margin: 4px 0; }
+.quiz-text b { color: var(--accent-ink); }
+.quiz-result > div { margin-top: 8px; padding: 10px 12px; border-radius: 12px; font-weight: 700; display: flex; gap: 8px; align-items: center; }
+.quiz-ok { background: var(--accent-weak); color: var(--accent-ink); }
+.quiz-ng { background: var(--warn-bg); color: var(--warn-ink); }
+.quiz-acts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
 
 /* ---------------------------------------------------------------- share / QR */
 .sheet-backdrop { position: fixed; inset: 0; z-index: 100; background: rgba(0, 0, 0, .45); display: flex; align-items: flex-end; justify-content: center; animation: fade .15s; }

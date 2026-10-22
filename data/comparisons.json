@@ -1,0 +1,69 @@
+{
+ "note": "Compare presets (spec A-15). 'items' are compound ids; with three items the screen offers the pairs. 'mirror': the second molecule is drawn as the mirror image of the first (enantiomers). note_reviewed works like in compounds.json.",
+ "presets": [
+  {
+   "id": "glucose-anomers",
+   "title": "α-グルコース と β-グルコース",
+   "kind": "アノマー（環状構造の異性体）",
+   "items": ["alpha-d-glucose", "beta-d-glucose"],
+   "note_ja": "ちがうのは1番の炭素についた –OH の向きだけ。α形がα-1,4結合でつながるとらせん状のデンプン（アミロース）に、β形がβ-1,4結合でつながるとまっすぐなセルロースになる。人はデンプンを消化できるが、セルロースは消化できない。",
+   "note_reviewed": false,
+   "related": ["amylose-fragment", "cellulose-fragment"]
+  },
+  {
+   "id": "oleic-elaidic",
+   "title": "オレイン酸 と エライジン酸",
+   "kind": "シス・トランス異性体",
+   "items": ["oleic-acid", "elaidic-acid"],
+   "note_ja": "どちらも炭素18個で二重結合を1つもつが、オレイン酸はシス形で分子が折れ曲がり、エライジン酸（トランス脂肪酸）はトランス形でまっすぐに近い。まっすぐな分子は密に並びやすく、固まりやすい。",
+   "note_reviewed": false,
+   "related": ["stearic-acid", "cis-2-butene", "trans-2-butene"]
+  },
+  {
+   "id": "alanine-enantiomers",
+   "title": "L-アラニン と D-アラニン",
+   "kind": "鏡像異性体（鏡像体）",
+   "items": ["l-alanine", "d-alanine"],
+   "mirror": true,
+   "note_ja": "右は左の分子を鏡に映したもの（D-アラニン）。どう回転させても重ね合わせることはできない。人のタンパク質をつくるアミノ酸はL体だけが使われる。",
+   "note_reviewed": false,
+   "related": ["lactic-acid"]
+  },
+  {
+   "id": "catecholamines",
+   "title": "ドーパミン・ノルアドレナリン・アドレナリン",
+   "kind": "体内でつぎつぎに変換される仲間",
+   "items": ["dopamine", "noradrenaline", "adrenaline"],
+   "note_ja": "チロシンからドーパミン → ノルアドレナリン → アドレナリンの順につくられる（カテコールアミン）。ドーパミンに –OH が1つ加わるとノルアドレナリン、さらに N にメチル基がつくとアドレナリンになる。",
+   "note_reviewed": false,
+   "related": ["l-tyrosine"]
+  },
+  {
+   "id": "ethanol-dme",
+   "title": "エタノール と ジメチルエーテル",
+   "kind": "構造異性体",
+   "items": ["ethanol", "dimethyl-ether"],
+   "note_ja": "どちらも分子式は C2H6O で同じだが、原子のつながり方が違う。エタノールはヒドロキシ基をもち常温で液体、ジメチルエーテルはエーテル結合をもち常温で気体と、性質が大きく異なる。",
+   "note_reviewed": false,
+   "related": ["methanol", "diethyl-ether"]
+  },
+  {
+   "id": "propanols",
+   "title": "1-プロパノール と 2-プロパノール",
+   "kind": "構造異性体（位置異性体）",
+   "items": ["1-propanol", "2-propanol"],
+   "note_ja": "–OH がつく炭素の位置だけが違う。1-プロパノールは第一級アルコール、2-プロパノールは第二級アルコールで、酸化するとそれぞれアルデヒド（プロパナール）とケトン（アセトン）になる。",
+   "note_reviewed": false,
+   "related": ["acetone", "2-methyl-2-propanol"]
+  },
+  {
+   "id": "c18-fatty-acids",
+   "title": "ステアリン酸・オレイン酸・リノール酸",
+   "kind": "不飽和度と分子の形",
+   "items": ["stearic-acid", "oleic-acid", "linoleic-acid"],
+   "note_ja": "いずれも炭素18個の脂肪酸。二重結合が0個のステアリン酸はまっすぐ、シス形の二重結合が1個のオレイン酸、2個のリノール酸と増えるほど折れ曲がる。折れ曲がった分子は密に並びにくいため、不飽和脂肪酸の多い油は常温で液体になりやすい。",
+   "note_reviewed": false,
+   "related": ["alpha-linolenic-acid", "elaidic-acid"]
+  }
+ ]
+}

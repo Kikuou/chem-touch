@@ -98,6 +98,45 @@ for (const scheme of ['light', 'dark']) {
     await p.waitForSelector('.v2d svg');
     await p.waitForTimeout(600);
     await shot(p, 'view-smiles');
+
+    // ---- M2
+    await p.goto(BASE + '#/compound/aspartame');
+    await p.waitForSelector('.fg button');
+    await p.waitForSelector('.v3d canvas');
+    await p.click('[data-act="fg"]');
+    await p.waitForTimeout(600);
+    await p.locator('.molpanel').screenshot({ path: OUT + 'm2-functional-groups.png' });
+
+    for (const id of ['oleic-elaidic', 'alanine-enantiomers', 'glucose-anomers']) {
+      await p.goto(BASE + '#/compare/' + id);
+      await p.waitForSelector('.cmp-3d canvas');
+      await p.waitForTimeout(1000);
+      await shot(p, 'm2-compare-' + id);
+    }
+
+    await p.goto(BASE + '#/compound/dha');
+    await p.waitForSelector('.fa-card svg');
+    await p.waitForSelector('.v3d canvas');
+    await p.click('[data-fa3d]');
+    await p.waitForTimeout(500);
+    await p.locator('.v3d').screenshot({ path: OUT + 'm2-dha-3d.png' });
+    await p.locator('.fa-card').screenshot({ path: OUT + 'm2-dha-chart.png' });
+
+    await p.goto(BASE + '#/quiz?id=lactic-acid');
+    await p.waitForSelector('.v2d svg');
+    await p.waitForTimeout(600);
+    await shot(p, 'm2-quiz');
+
+    await p.goto(BASE + '#/series?s=alkanol&n=3');
+    await p.waitForSelector('.series-svg');
+    await p.waitForSelector('.series-3d canvas');
+    await p.waitForTimeout(800);
+    await shot(p, 'm2-series', { fullPage: true });
+
+    await p.goto(BASE + '#/library?cat=amino-acid');
+    await p.waitForSelector('.item');
+    await p.waitForTimeout(2500);
+    await shot(p, 'm2-library-amino-acids');
   }
   await p.context().close();
 }
