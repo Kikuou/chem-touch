@@ -18,6 +18,28 @@
       "raw": "-161.50 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/167",
+      "candidates": [
+       {
+        "v": -161.5,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -161.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -161.1,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -161.5,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -161.5,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -25,6 +47,32 @@
       "raw": "-182.566 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/167",
+      "candidates": [
+       {
+        "v": -182.6,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -183.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -182.4,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": -182.2,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -182.5,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -182.5,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -33,7 +81,15 @@
       },
       "raw": "In water, 22 mg/L at 25 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/167"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/167",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 0.0022
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       }
+      ]
      }
     },
     {
@@ -44,6 +100,24 @@
       "raw": "-88.6 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/941",
+      "candidates": [
+       {
+        "v": -88.6,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -89.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -88.6,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -88.6,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -51,6 +125,24 @@
       "raw": "-182.794 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/941",
+      "candidates": [
+       {
+        "v": -182.8,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -183.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -173.3,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -172.0,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -59,7 +151,15 @@
       },
       "raw": "In water, 60.2 mg/L at 25 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/941"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/941",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 0.00602
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       }
+      ]
      }
     },
     {
@@ -70,6 +170,32 @@
       "raw": "-42.1 °C at 1 atm",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1672",
+      "candidates": [
+       {
+        "v": -42.1,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -42.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -42.1,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -42.2,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": -42.1,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": -42.2,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -77,6 +203,36 @@
       "raw": "-187.6 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1672",
+      "candidates": [
+       {
+        "v": -187.6,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -189.7,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -189.9,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": -187.7,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -187.8,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": -187.6,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": -187.8,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "sol": null
@@ -89,6 +245,28 @@
       "raw": "-0.50 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/944",
+      "candidates": [
+       {
+        "v": -0.5,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -0.5,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -0.5,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -0.6,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": -0.6,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -96,6 +274,32 @@
       "raw": "-138.3 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/944",
+      "candidates": [
+       {
+        "v": -138.3,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -138.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -138.4,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -138.3,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": -138.3,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": -138.3,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -104,7 +308,15 @@
       },
       "raw": "In water, 61.2 mg/L at 25 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/944"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/944",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 0.00612
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       }
+      ]
      }
     },
     {
@@ -115,6 +327,36 @@
       "raw": "36.06 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/109",
+      "candidates": [
+       {
+        "v": 36.1,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 36.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 36.0,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": 36.1,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 36.1,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": 36.1,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": 36.1,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -122,6 +364,36 @@
       "raw": "-129.67 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/109",
+      "candidates": [
+       {
+        "v": -129.7,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -129.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -129.0,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": -130.0,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -130.0,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": -129.8,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": -130.0,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -130,7 +402,15 @@
       },
       "raw": "In water, 38 mg/L at 25 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/109"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/109",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 0.0038
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       }
+      ]
      }
     },
     {
@@ -141,6 +421,36 @@
       "raw": "68.73 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/91",
+      "candidates": [
+       {
+        "v": 68.7,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 69.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 68.7,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": 68.9,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 68.9,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": 68.7,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": 68.9,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -148,6 +458,32 @@
       "raw": "-95.35 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/91",
+      "candidates": [
+       {
+        "v": -95.3,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -95.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -93.5,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": -95.0,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -95.0,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": -95.3,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -156,7 +492,21 @@
       },
       "raw": "In water, 9.5 mg/L at 25 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/91"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/91",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 0.00095
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": {
+         "g_per_100ml": 0.0013
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       }
+      ]
      }
     },
     {
@@ -167,6 +517,36 @@
       "raw": "98.38 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/90",
+      "candidates": [
+       {
+        "v": 98.4,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 98.4,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 98.0,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": 98.4,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 98.3,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": 98.5,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": 98.3,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -174,6 +554,36 @@
       "raw": "-90.549 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/90",
+      "candidates": [
+       {
+        "v": -90.5,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -90.7,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -90.6,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": -90.6,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -90.6,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": -91.6,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": -90.6,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -182,7 +592,15 @@
       },
       "raw": "In water, 3.40 mg/L at 25 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/90"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/90",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 0.00034
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       }
+      ]
      }
     },
     {
@@ -193,6 +611,36 @@
       "raw": "125.62 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/108",
+      "candidates": [
+       {
+        "v": 125.6,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 126.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 125.0,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": 125.6,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 125.6,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": 125.8,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": 125.6,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -200,6 +648,32 @@
       "raw": "-56.73 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/108",
+      "candidates": [
+       {
+        "v": -56.7,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -56.8,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -56.8,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": -56.8,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -56.7,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": -56.7,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -208,7 +682,15 @@
       },
       "raw": "In water, 0.66 mg/L at 25 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/108"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/108",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 6.6e-05
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       }
+      ]
      }
     },
     {
@@ -219,6 +701,36 @@
       "raw": "150.47 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/107",
+      "candidates": [
+       {
+        "v": 150.5,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 150.8,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 149.0,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": 150.8,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 150.6,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": 150.8,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": 150.6,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -226,6 +738,36 @@
       "raw": "-53.47 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/107",
+      "candidates": [
+       {
+        "v": -53.5,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -51.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -51.0,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": -51.1,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -51.1,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": -53.5,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": -51.1,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -234,7 +776,15 @@
       },
       "raw": "In water, 0.220 mg/L at 25 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/107"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/107",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 2.2e-05
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       }
+      ]
      }
     }
    ]
@@ -251,6 +801,36 @@
       "raw": "64.7 °C at 760 mm Hg",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/93",
+      "candidates": [
+       {
+        "v": 64.7,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 65.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 64.0,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": 64.6,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 63.9,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": 64.6,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": 63.9,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -258,6 +838,36 @@
       "raw": "-97.8 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/93",
+      "candidates": [
+       {
+        "v": -97.8,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -98.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -97.6,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": -97.8,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -97.8,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": -97.5,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": -97.8,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -266,7 +876,27 @@
       },
       "raw": "Miscible with water at 25 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/93"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/93",
+      "candidates": [
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       }
+      ]
      }
     },
     {
@@ -277,6 +907,40 @@
       "raw": "78.24 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/82",
+      "candidates": [
+       {
+        "v": 78.2,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 78.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 78.2,
+        "source": "DrugBank"
+       },
+       {
+        "v": 78.5,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 78.0,
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       },
+       {
+        "v": 78.3,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": 78.3,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": 78.3,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -284,6 +948,40 @@
       "raw": "-114.14 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/82",
+      "candidates": [
+       {
+        "v": -114.1,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -114.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -114.1,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": -114.1,
+        "source": "DrugBank"
+       },
+       {
+        "v": -114.1,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -113.9,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": -114.1,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": -113.9,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -292,7 +990,21 @@
       },
       "raw": "In water, miscible /1X10+6 mg/L/ at 25 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/82"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/82",
+      "candidates": [
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       }
+      ]
      }
     },
     {
@@ -303,6 +1015,40 @@
       "raw": "97.2 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/115",
+      "candidates": [
+       {
+        "v": 97.2,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 97.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 97.2,
+        "source": "DrugBank"
+       },
+       {
+        "v": 97.2,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 97.0,
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       },
+       {
+        "v": 97.2,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": 97.2,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": 97.2,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -310,6 +1056,40 @@
       "raw": "-127 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/115",
+      "candidates": [
+       {
+        "v": -127.0,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -127.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -126.1,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": -126.1,
+        "source": "DrugBank"
+       },
+       {
+        "v": -126.2,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -126.7,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": -127.0,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": -126.7,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -318,7 +1098,15 @@
       },
       "raw": "Solubility in water: miscible",
       "source": "ILO-WHO International Chemical Safety Cards (ICSCs)",
-      "url": "https://chemicalsafety.ilo.org/dyn/icsc/showcard.display?p_card_id=0553"
+      "url": "https://chemicalsafety.ilo.org/dyn/icsc/showcard.display?p_card_id=0553",
+      "candidates": [
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       }
+      ]
      }
     },
     {
@@ -329,6 +1117,40 @@
       "raw": "117.6 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/48",
+      "candidates": [
+       {
+        "v": 117.6,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 117.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 117.7,
+        "source": "DrugBank"
+       },
+       {
+        "v": 117.7,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 117.7,
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       },
+       {
+        "v": 117.2,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": 117.7,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": 117.2,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -336,6 +1158,40 @@
       "raw": "-88.6 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/48",
+      "candidates": [
+       {
+        "v": -88.6,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -90.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -89.8,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": -89.8,
+        "source": "DrugBank"
+       },
+       {
+        "v": -89.4,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -89.4,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": -88.6,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": -89.4,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -344,7 +1200,27 @@
       },
       "raw": "In water, 68 g/L at 25 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/48"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/48",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 6.8
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": {
+         "g_per_100ml": 6.32
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       }
+      ]
      }
     },
     {
@@ -355,6 +1231,28 @@
       "raw": "137.5 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/111",
+      "candidates": [
+       {
+        "v": 137.5,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 138.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 136.0,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": 137.8,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 136.0,
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -362,6 +1260,24 @@
       "raw": "-79 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/111",
+      "candidates": [
+       {
+        "v": -79.0,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -79.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -78.9,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": -78.9,
+        "source": "CAMEO Chemicals"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -370,7 +1286,15 @@
       },
       "raw": "In water, 22,000 mg/L at 25 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/111"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/111",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 2.2
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       }
+      ]
      }
     },
     {
@@ -381,6 +1305,32 @@
       "raw": "157 °C at  760 mm Hg",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/565",
+      "candidates": [
+       {
+        "v": 157.0,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 157.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 156.0,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": 157.1,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 157.0,
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       },
+       {
+        "v": 157.2,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -388,6 +1338,28 @@
       "raw": "-44.6 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/565",
+      "candidates": [
+       {
+        "v": -44.6,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -44.6,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -44.6,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": -44.6,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -46.7,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -396,7 +1368,21 @@
       },
       "raw": "In water, 5,900 mg/L at 25 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/565"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/565",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 0.59
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       }
+      ]
      }
     },
     {
@@ -407,6 +1393,32 @@
       "raw": "175.8 °C at 760 mm Hg",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1077",
+      "candidates": [
+       {
+        "v": 175.8,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 175.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 175.0,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": 176.1,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 175.0,
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       },
+       {
+        "v": 175.8,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -414,6 +1426,28 @@
       "raw": "-34.6 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1077",
+      "candidates": [
+       {
+        "v": -34.6,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -34.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -34.1,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": -33.9,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -34.6,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -422,7 +1456,27 @@
       },
       "raw": "1.0 g/L of water at 18 °C; 2.85 g/L of water at 100 °C; 5.15 g/L of water at 130 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1077"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1077",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 0.1
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": {
+         "g_per_100ml": 0.167
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       }
+      ]
      }
     },
     {
@@ -433,6 +1487,32 @@
       "raw": "194.7 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/700",
+      "candidates": [
+       {
+        "v": 194.7,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 194.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 194.0,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": 195.0,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 195.0,
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       },
+       {
+        "v": 194.5,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -440,6 +1520,28 @@
       "raw": "-14.7 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/700",
+      "candidates": [
+       {
+        "v": -14.7,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -15.5,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -15.5,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": -15.0,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -14.8,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -448,7 +1550,15 @@
       },
       "raw": "In water, 540 mg/L at 25 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/700"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/700",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 0.054
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       }
+      ]
      }
     },
     {
@@ -459,6 +1569,32 @@
       "raw": "213.3 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5145",
+      "candidates": [
+       {
+        "v": 213.3,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 215.0,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 213.0,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": 212.8,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 213.0,
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       },
+       {
+        "v": 213.5,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -466,6 +1602,20 @@
       "raw": "-5 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5145",
+      "candidates": [
+       {
+        "v": -5.0,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -5.0,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": -5.0,
+        "source": "CAMEO Chemicals"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -474,7 +1624,21 @@
       },
       "raw": "In water, 140 mg/L at 25 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5145"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5145",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 0.014
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       }
+      ]
      }
     }
    ]
@@ -491,6 +1655,36 @@
       "raw": "101 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1646",
+      "candidates": [
+       {
+        "v": 101.0,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 101.0,
+        "source": "DrugBank"
+       },
+       {
+        "v": 100.7,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 101.0,
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       },
+       {
+        "v": 106.7,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": 101.0,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": 106.7,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -498,6 +1692,32 @@
       "raw": "8.3 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1646",
+      "candidates": [
+       {
+        "v": 8.3,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 8.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 8.4,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": 8.3,
+        "source": "DrugBank"
+       },
+       {
+        "v": 8.4,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 8.3,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -506,7 +1726,27 @@
       },
       "raw": "Miscible with water",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1646"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1646",
+      "candidates": [
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       }
+      ]
      }
     },
     {
@@ -517,6 +1757,40 @@
       "raw": "117.9 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/40",
+      "candidates": [
+       {
+        "v": 117.9,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 118.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 117.9,
+        "source": "DrugBank"
+       },
+       {
+        "v": 117.8,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 118.0,
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       },
+       {
+        "v": 117.8,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": 117.9,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": 117.8,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -524,6 +1798,40 @@
       "raw": "16.635 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/40",
+      "candidates": [
+       {
+        "v": 16.6,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 16.7,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 16.6,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": 16.6,
+        "source": "DrugBank"
+       },
+       {
+        "v": 16.6,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 16.7,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": 16.6,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": 16.7,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -532,7 +1840,27 @@
       },
       "raw": "Miscible with water",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/40"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/40",
+      "candidates": [
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       }
+      ]
      }
     },
     {
@@ -543,6 +1871,40 @@
       "raw": "141.1 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1192",
+      "candidates": [
+       {
+        "v": 141.1,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 141.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 141.1,
+        "source": "DrugBank"
+       },
+       {
+        "v": 140.7,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 138.5,
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       },
+       {
+        "v": 141.1,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": 141.1,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": 141.1,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -550,6 +1912,40 @@
       "raw": "-21.5 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1192",
+      "candidates": [
+       {
+        "v": -21.5,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -21.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -20.7,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": -20.7,
+        "source": "DrugBank"
+       },
+       {
+        "v": -21.5,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -21.5,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": -21.5,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": -15.0,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -558,7 +1954,21 @@
       },
       "raw": "In water, 1.0X10+6 mg/L at 25 °C /miscible/",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1192"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1192",
+      "candidates": [
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       }
+      ]
      }
     },
     {
@@ -569,6 +1979,32 @@
       "raw": "163.5 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/940",
+      "candidates": [
+       {
+        "v": 163.5,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 164.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 163.7,
+        "source": "DrugBank"
+       },
+       {
+        "v": 163.5,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 164.0,
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       },
+       {
+        "v": 163.5,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -576,6 +2012,32 @@
       "raw": "-7.9 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/940",
+      "candidates": [
+       {
+        "v": -7.9,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -7.9,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -5.7,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": -5.7,
+        "source": "DrugBank"
+       },
+       {
+        "v": -7.9,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -5.1,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -584,7 +2046,27 @@
       },
       "raw": "In water, 6.00X10+4 mg/L at 25 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/940"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/940",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 6.0
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       }
+      ]
      }
     },
     {
@@ -595,6 +2077,32 @@
       "raw": "186-187 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5390",
+      "candidates": [
+       {
+        "v": 186.0,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 186.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 186.1,
+        "source": "DrugBank"
+       },
+       {
+        "v": 185.0,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 186.0,
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       },
+       {
+        "v": 186.4,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -602,6 +2110,28 @@
       "raw": "-34.5 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5390",
+      "candidates": [
+       {
+        "v": -34.5,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -34.5,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -34.0,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": -34.0,
+        "source": "DrugBank"
+       },
+       {
+        "v": -34.5,
+        "source": "CAMEO Chemicals"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -610,7 +2140,21 @@
       },
       "raw": "In water, 2.4X10+4 mg/L at 25 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5390"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5390",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 2.4
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       }
+      ]
      }
     },
     {
@@ -621,6 +2165,32 @@
       "raw": "205.8 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/6813",
+      "candidates": [
+       {
+        "v": 205.8,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 205.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 202.0,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": 202.2,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 205.0,
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       },
+       {
+        "v": 205.0,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -628,6 +2198,28 @@
       "raw": "-3.4 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/6813",
+      "candidates": [
+       {
+        "v": -3.4,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -3.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -4.0,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": -2.8,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -3.0,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -636,7 +2228,21 @@
       },
       "raw": "In water, 1.03X10+4 mg/L at 25 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/6813"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/6813",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 1.03
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       }
+      ]
      }
     },
     {
@@ -647,6 +2253,32 @@
       "raw": "222.2 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5546",
+      "candidates": [
+       {
+        "v": 222.2,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 223.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 222.0,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": 222.2,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 223.0,
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       },
+       {
+        "v": 222.2,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -654,6 +2286,24 @@
       "raw": "-7.17 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5546",
+      "candidates": [
+       {
+        "v": -7.2,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -7.5,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -7.5,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": -8.9,
+        "source": "CAMEO Chemicals"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -662,7 +2312,21 @@
       },
       "raw": "Solubility in water = 0.2419 g/100 mL water at 15 °C; soluble in ethanol, ether, DMF, dimethyl sulfoxide.",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5546"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5546",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 0.242
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": {
+         "g_per_100ml": 0.282
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       }
+      ]
      }
     },
     {
@@ -673,6 +2337,28 @@
       "raw": "239 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/821",
+      "candidates": [
+       {
+        "v": 239.0,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 239.0,
+        "source": "DrugBank"
+       },
+       {
+        "v": 239.7,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 240.0,
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       },
+       {
+        "v": 240.0,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -680,6 +2366,24 @@
       "raw": "16.5 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/821",
+      "candidates": [
+       {
+        "v": 16.5,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 16.5,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": 16.3,
+        "source": "DrugBank"
+       },
+       {
+        "v": 16.1,
+        "source": "CAMEO Chemicals"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -688,7 +2392,21 @@
       },
       "raw": "Very slightly sol in water (0.068 g/100 g at 20 °C); freely sol in alcohol, chloroform, ether, carbon disulfide, petroleum ether, glacial acetic acid",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/821"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/821",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 0.068
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": {
+         "g_per_100ml": 0.0789
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       }
+      ]
      }
     },
     {
@@ -699,6 +2417,24 @@
       "raw": "254.5 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5554",
+      "candidates": [
+       {
+        "v": 254.5,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 255.6,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 254.0,
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       },
+       {
+        "v": 254.0,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -706,6 +2442,16 @@
       "raw": "12.4 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5554",
+      "candidates": [
+       {
+        "v": 12.4,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 12.3,
+        "source": "Human Metabolome Database (HMDB)"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -714,7 +2460,15 @@
       },
       "raw": "In water, 284 mg/L at 30 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5554"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5554",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 0.0284
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       }
+      ]
      }
     }
    ]
@@ -731,6 +2485,40 @@
       "raw": "117.9 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/40",
+      "candidates": [
+       {
+        "v": 117.9,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 118.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 117.9,
+        "source": "DrugBank"
+       },
+       {
+        "v": 117.8,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 118.0,
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       },
+       {
+        "v": 117.8,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": 117.9,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": 117.8,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -738,6 +2526,40 @@
       "raw": "16.635 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/40",
+      "candidates": [
+       {
+        "v": 16.6,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 16.7,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 16.6,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": 16.6,
+        "source": "DrugBank"
+       },
+       {
+        "v": 16.6,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 16.7,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": 16.6,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": 16.7,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -746,7 +2568,27 @@
       },
       "raw": "Miscible with water",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/40"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/40",
+      "candidates": [
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       }
+      ]
      }
     },
     {
@@ -757,6 +2599,40 @@
       "raw": "141.1 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1192",
+      "candidates": [
+       {
+        "v": 141.1,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 141.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 141.1,
+        "source": "DrugBank"
+       },
+       {
+        "v": 140.7,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 138.5,
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       },
+       {
+        "v": 141.1,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": 141.1,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": 141.1,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -764,6 +2640,40 @@
       "raw": "-21.5 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1192",
+      "candidates": [
+       {
+        "v": -21.5,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -21.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -20.7,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": -20.7,
+        "source": "DrugBank"
+       },
+       {
+        "v": -21.5,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -21.5,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": -21.5,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       },
+       {
+        "v": -15.0,
+        "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -772,7 +2682,21 @@
       },
       "raw": "In water, 1.0X10+6 mg/L at 25 °C /miscible/",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1192"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1192",
+      "candidates": [
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       }
+      ]
      }
     },
     {
@@ -783,6 +2707,32 @@
       "raw": "163.5 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/940",
+      "candidates": [
+       {
+        "v": 163.5,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 164.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 163.7,
+        "source": "DrugBank"
+       },
+       {
+        "v": 163.5,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 164.0,
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       },
+       {
+        "v": 163.5,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -790,6 +2740,32 @@
       "raw": "-7.9 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/940",
+      "candidates": [
+       {
+        "v": -7.9,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -7.9,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -5.7,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": -5.7,
+        "source": "DrugBank"
+       },
+       {
+        "v": -7.9,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -5.1,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -798,7 +2774,27 @@
       },
       "raw": "In water, 6.00X10+4 mg/L at 25 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/940"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/940",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 6.0
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       }
+      ]
      }
     },
     {
@@ -809,6 +2805,32 @@
       "raw": "186-187 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5390",
+      "candidates": [
+       {
+        "v": 186.0,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 186.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 186.1,
+        "source": "DrugBank"
+       },
+       {
+        "v": 185.0,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 186.0,
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       },
+       {
+        "v": 186.4,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -816,6 +2838,28 @@
       "raw": "-34.5 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5390",
+      "candidates": [
+       {
+        "v": -34.5,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -34.5,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -34.0,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": -34.0,
+        "source": "DrugBank"
+       },
+       {
+        "v": -34.5,
+        "source": "CAMEO Chemicals"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -824,7 +2868,21 @@
       },
       "raw": "In water, 2.4X10+4 mg/L at 25 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5390"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5390",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 2.4
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       }
+      ]
      }
     },
     {
@@ -835,6 +2893,32 @@
       "raw": "205.8 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/6813",
+      "candidates": [
+       {
+        "v": 205.8,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 205.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 202.0,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": 202.2,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 205.0,
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       },
+       {
+        "v": 205.0,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -842,6 +2926,28 @@
       "raw": "-3.4 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/6813",
+      "candidates": [
+       {
+        "v": -3.4,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -3.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -4.0,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": -2.8,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": -3.0,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -850,7 +2956,21 @@
       },
       "raw": "In water, 1.03X10+4 mg/L at 25 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/6813"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/6813",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 1.03
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": {
+         "miscible": true
+        },
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       }
+      ]
      }
     },
     {
@@ -861,6 +2981,32 @@
       "raw": "222.2 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5546",
+      "candidates": [
+       {
+        "v": 222.2,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 223.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 222.0,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": 222.2,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 223.0,
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       },
+       {
+        "v": 222.2,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -868,6 +3014,24 @@
       "raw": "-7.17 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5546",
+      "candidates": [
+       {
+        "v": -7.2,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": -7.5,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": -7.5,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": -8.9,
+        "source": "CAMEO Chemicals"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -876,7 +3040,21 @@
       },
       "raw": "Solubility in water = 0.2419 g/100 mL water at 15 °C; soluble in ethanol, ether, DMF, dimethyl sulfoxide.",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5546"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5546",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 0.242
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": {
+         "g_per_100ml": 0.282
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       }
+      ]
      }
     },
     {
@@ -887,6 +3065,28 @@
       "raw": "239 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/821",
+      "candidates": [
+       {
+        "v": 239.0,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 239.0,
+        "source": "DrugBank"
+       },
+       {
+        "v": 239.7,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 240.0,
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       },
+       {
+        "v": 240.0,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -894,6 +3094,24 @@
       "raw": "16.5 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/821",
+      "candidates": [
+       {
+        "v": 16.5,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 16.5,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": 16.3,
+        "source": "DrugBank"
+       },
+       {
+        "v": 16.1,
+        "source": "CAMEO Chemicals"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -902,7 +3120,21 @@
       },
       "raw": "Very slightly sol in water (0.068 g/100 g at 20 °C); freely sol in alcohol, chloroform, ether, carbon disulfide, petroleum ether, glacial acetic acid",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/821"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/821",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 0.068
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": {
+         "g_per_100ml": 0.0789
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       }
+      ]
      }
     },
     {
@@ -913,6 +3145,24 @@
       "raw": "254.5 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5554",
+      "candidates": [
+       {
+        "v": 254.5,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 255.6,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 254.0,
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       },
+       {
+        "v": 254.0,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -920,6 +3170,16 @@
       "raw": "12.4 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5554",
+      "candidates": [
+       {
+        "v": 12.4,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 12.3,
+        "source": "Human Metabolome Database (HMDB)"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -928,7 +3188,15 @@
       },
       "raw": "In water, 284 mg/L at 30 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5554"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5554",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 0.0284
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       }
+      ]
      }
     },
     {
@@ -939,6 +3207,28 @@
       "raw": "268.7 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/2751",
+      "candidates": [
+       {
+        "v": 268.7,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 268.0,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": 268.7,
+        "source": "DrugBank"
+       },
+       {
+        "v": 267.8,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 268.0,
+        "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -946,6 +3236,24 @@
       "raw": "31.5 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/2751",
+      "candidates": [
+       {
+        "v": 31.5,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 31.9,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": 31.9,
+        "source": "DrugBank"
+       },
+       {
+        "v": 31.5,
+        "source": "CAMEO Chemicals"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -954,17 +3262,37 @@
       },
       "raw": "Practically insol in water (0.015 g/100 g at 20 °C); sol in ethanol; ether; chloroform; benzene; carbon disulfide; dilute nitric acid",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/2751"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/2751",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 0.015
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": {
+         "g_per_100ml": 0.00618
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       }
+      ]
      }
     },
     {
      "id": "lauric-acid",
      "carbons": 12,
      "bp": {
-      "value": 91.4,
-      "raw": "91.4 °C",
-      "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/6814",
+      "value": 298.9,
+      "raw": "298.9 °C",
+      "source": "DrugBank",
+      "url": "https://go.drugbank.com/drugs/DB03017",
+      "candidates": [
+       {
+        "v": 298.9,
+        "source": "DrugBank"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -972,6 +3300,28 @@
       "raw": "43.8 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/6814",
+      "candidates": [
+       {
+        "v": 43.8,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 48.0,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 44.0,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": 43.2,
+        "source": "DrugBank"
+       },
+       {
+        "v": 43.9,
+        "source": "CAMEO Chemicals"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -980,7 +3330,15 @@
       },
       "raw": "In water, 4.81 mg/L at 25 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/6814"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/6814",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 0.000481
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       }
+      ]
      }
     },
     {
@@ -991,6 +3349,16 @@
       "raw": "326.2 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5686",
+      "candidates": [
+       {
+        "v": 326.2,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 326.2,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -998,6 +3366,24 @@
       "raw": "53.9 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5686",
+      "candidates": [
+       {
+        "v": 53.9,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 53.9,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": 53.9,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 54.0,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -1006,7 +3392,15 @@
       },
       "raw": "In water, 22 mg/L at 30 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5686"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5686",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 0.0022
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       }
+      ]
      }
     },
     {
@@ -1017,6 +3411,20 @@
       "raw": "351.5 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5001",
+      "candidates": [
+       {
+        "v": 351.5,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 351.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 351.5,
+        "source": "DrugBank"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -1024,6 +3432,24 @@
       "raw": "62.49 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5001",
+      "candidates": [
+       {
+        "v": 62.5,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 63.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 61.8,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": 61.8,
+        "source": "DrugBank"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -1032,7 +3458,15 @@
       },
       "raw": "In water, 0.04 mg/L at 25 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5001"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5001",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 4e-06
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       }
+      ]
      }
     },
     {
@@ -1043,6 +3477,24 @@
       "raw": "371 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/2000",
+      "candidates": [
+       {
+        "v": 371.0,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 383.0,
+        "source": "DrugBank"
+       },
+       {
+        "v": 382.8,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 382.8,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       }
+      ],
       "unit": "°C"
      },
      "mp": {
@@ -1050,6 +3502,36 @@
       "raw": "69.3 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/2000",
+      "candidates": [
+       {
+        "v": 69.3,
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": 69.0,
+        "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+       },
+       {
+        "v": 68.8,
+        "source": "Human Metabolome Database (HMDB)"
+       },
+       {
+        "v": 68.8,
+        "source": "DrugBank"
+       },
+       {
+        "v": 69.3,
+        "source": "CAMEO Chemicals"
+       },
+       {
+        "v": 69.3,
+        "source": "Occupational Safety and Health Administration (OSHA)"
+       },
+       {
+        "v": 69.3,
+        "source": "PAC Chemical Database, U.S. Department of Energy"
+       }
+      ],
       "unit": "°C"
      },
      "sol": {
@@ -1058,7 +3540,21 @@
       },
       "raw": "In water, 0.568 mg/L at 25 °C",
       "source": "Hazardous Substances Data Bank (HSDB)",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/2000"
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/2000",
+      "candidates": [
+       {
+        "v": {
+         "g_per_100ml": 5.68e-05
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       },
+       {
+        "v": {
+         "g_per_100ml": 5.97e-05
+        },
+        "source": "Hazardous Substances Data Bank (HSDB)"
+       }
+      ]
      }
     }
    ]
