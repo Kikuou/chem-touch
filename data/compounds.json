@@ -2646,17 +2646,19 @@
    ],
    "kind": "molecule",
    "formula": "C20H32O2",
-   "mw": 304.47,
+   "mw": 304.5,
    "smiles": "CCCCC/C=C\\C/C=C\\C/C=C\\C/C=C\\CCCC(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 444899,
    "inchikey": "YZXBAPSDXZZRGB-DOFZRALJSA-N",
    "sdf": "sdf/arachidonic-acid.sdf",
    "sdf_source": "generated",
    "atoms": 54,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "Arachidonic Acid"
    },
+   "pubchem_formula": "C20H32O2",
    "fatty_acid": {
     "carbons": 20,
     "double_bonds": [
@@ -2761,17 +2763,19 @@
    ],
    "kind": "molecule",
    "formula": "C20H30O2",
-   "mw": 302.46,
+   "mw": 302.5,
    "smiles": "CC/C=C\\C/C=C\\C/C=C\\C/C=C\\C/C=C\\CCCC(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 446284,
    "inchikey": "JAZBEHYOTPTENJ-JLNKQSITSA-N",
    "sdf": "sdf/epa.sdf",
    "sdf_source": "generated",
    "atoms": 52,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "Icosapent"
    },
+   "pubchem_formula": "C20H30O2",
    "fatty_acid": {
     "carbons": 20,
     "double_bonds": [
@@ -4489,16 +4493,15 @@
    "formula": "C19H19N7O6",
    "mw": 441.4,
    "smiles": "Nc1nc2ncc(CNc3ccc(C(=O)N[C@@H](CCC(=O)O)C(=O)O)cc3)nc2c(=O)[nH]1",
-   "pubchem_cid": 6037,
+   "pubchem_cid": 135398658,
    "inchikey": "OVBPIULPVIDEAO-LBPRGKRZSA-N",
    "sdf": "sdf/folic-acid.sdf",
    "sdf_source": "pubchem-3d",
    "atoms": 51,
    "verification": {
-    "pubchem": "structure-only",
+    "pubchem": "verified",
     "stereo": "checked",
-    "pubchem_title": "CID 6037",
-    "pubchem_name_cid": 135398658
+    "pubchem_title": "Folic Acid"
    },
    "pubchem_formula": "C19H19N7O6",
    "note_ja": "水溶性ビタミンで、細胞が分裂するときのDNA合成に必要。妊娠初期に十分とると、胎児の神経管閉鎖障害のリスクを下げられる。",
@@ -4725,15 +4728,15 @@
    "formula": "C10H13N4O8P",
    "mw": 348.21,
    "smiles": "O=c1[nH]cnc2c1ncn2[C@@H]1O[C@H](COP(=O)(O)O)[C@@H](O)[C@H]1O",
-   "pubchem_cid": 8582,
+   "pubchem_cid": 135398640,
    "inchikey": "GRSZFWQUAKGDAV-KQYNXXCUSA-N",
    "sdf": "sdf/inosinic-acid.sdf",
    "sdf_source": "pubchem-3d",
    "atoms": 36,
    "verification": {
-    "pubchem": "structure-only",
+    "pubchem": "verified",
     "stereo": "checked",
-    "pubchem_name_cid": 135398640
+    "pubchem_title": "Inosinic Acid"
    },
    "pubchem_formula": "C10H13N4O8P",
    "note_ja": "かつお節や肉のうま味の成分（核酸系うま味物質）。グルタミン酸と組み合わせると、うま味が強くなる（相乗効果）。",
@@ -4762,15 +4765,15 @@
    "formula": "C10H14N5O8P",
    "mw": 363.22,
    "smiles": "Nc1nc2c(ncn2[C@@H]2O[C@H](COP(=O)(O)O)[C@@H](O)[C@H]2O)c(=O)[nH]1",
-   "pubchem_cid": 6804,
+   "pubchem_cid": 135398631,
    "inchikey": "RQFCJASXJCIDSX-UUOKFMHZSA-N",
    "sdf": "sdf/guanylic-acid.sdf",
    "sdf_source": "pubchem-3d",
    "atoms": 38,
    "verification": {
-    "pubchem": "structure-only",
+    "pubchem": "verified",
     "stereo": "checked",
-    "pubchem_name_cid": 135398631
+    "pubchem_title": "Guanosine Monophosphate"
    },
    "pubchem_formula": "C10H14N5O8P",
    "note_ja": "干ししいたけのうま味の成分（核酸系うま味物質）。グルタミン酸と組み合わせると、うま味が強くなる。",
@@ -5003,10 +5006,9 @@
    "sdf_source": "generated",
    "atoms": 75,
    "verification": {
-    "pubchem": "structure-only",
+    "pubchem": "verified",
     "stereo": "undefined",
-    "pubchem_title": "Heme b",
-    "pubchem_name_cid": 26945
+    "pubchem_title": "Heme b"
    },
    "pubchem_formula": "C34H32FeN4O4",
    "stereo_note": "undefined",
@@ -5646,16 +5648,15 @@
    "formula": "C22H30Cl2N10",
    "mw": 505.4,
    "smiles": "NC(=NCCCCCCN=C(N)N=C(N)Nc1ccc(Cl)cc1)N=C(N)Nc1ccc(Cl)cc1",
-   "pubchem_cid": 2713,
+   "pubchem_cid": 9552079,
    "inchikey": "GHXZTYHSJHQHIJ-UHFFFAOYSA-N",
    "sdf": "sdf/chlorhexidine.sdf",
    "sdf_source": "pubchem-3d",
    "atoms": 64,
    "verification": {
-    "pubchem": "structure-only",
+    "pubchem": "verified",
     "stereo": "undefined",
-    "pubchem_title": "Chlorohexidine",
-    "pubchem_name_cid": 9552079
+    "pubchem_title": "Chlorhexidine"
    },
    "pubchem_formula": "C22H30Cl2N10",
    "stereo_note": "undefined",
