@@ -1,6 +1,6 @@
 {
  "version": 1,
- "pubchem": "offline",
+ "pubchem": "online",
  "credit": "Structures checked against PubChem (https://pubchem.ncbi.nlm.nih.gov/) where marked verified. 3D coordinates generated with RDKit (ETKDG + MMFF94) unless sdf_source is pubchem-3d.",
  "compounds": [
   {
@@ -116,7 +116,9 @@
     "炭酸ガス"
    ],
    "categories": [
-    "basic"
+    "basic",
+    "drug",
+    "medical-gas"
    ],
    "kind": "molecule",
    "formula": "CO2",
@@ -151,7 +153,9 @@
     "酸素分子"
    ],
    "categories": [
-    "basic"
+    "basic",
+    "drug",
+    "medical-gas"
    ],
    "kind": "molecule",
    "formula": "O2",
@@ -1050,7 +1054,9 @@
     "酒精"
    ],
    "categories": [
-    "alcohol"
+    "alcohol",
+    "drug",
+    "disinfectant"
    ],
    "kind": "molecule",
    "formula": "C2H6O",
@@ -1073,7 +1079,8 @@
     "methanol",
     "acetaldehyde",
     "acetic-acid",
-    "dimethyl-ether"
+    "dimethyl-ether",
+    "2-propanol"
    ]
   },
   {
@@ -1324,7 +1331,9 @@
     "IPA"
    ],
    "categories": [
-    "alcohol"
+    "alcohol",
+    "drug",
+    "disinfectant"
    ],
    "kind": "molecule",
    "formula": "C3H8O",
@@ -1902,7 +1911,9 @@
     "(S)-2-ヒドロキシプロパン酸"
    ],
    "categories": [
-    "carboxylic-acid"
+    "carboxylic-acid",
+    "biomolecule",
+    "metabolism"
    ],
    "kind": "molecule",
    "formula": "C3H6O3",
@@ -1923,7 +1934,8 @@
    "note_reviewed": false,
    "related": [
     "propionic-acid",
-    "citric-acid"
+    "citric-acid",
+    "pyruvic-acid"
    ]
   },
   {
@@ -1933,7 +1945,9 @@
    "reading": "くえんさん",
    "aliases": [],
    "categories": [
-    "carboxylic-acid"
+    "carboxylic-acid",
+    "food",
+    "food-function"
    ],
    "kind": "molecule",
    "formula": "C6H8O7",
@@ -3241,17 +3255,19 @@
    ],
    "kind": "molecule",
    "formula": "C57H104O6",
-   "mw": 885.45,
+   "mw": 885.4,
    "smiles": "CCCCCCCC/C=C\\CCCCCCCC(=O)OCC(COC(=O)CCCCCCC/C=C\\CCCCCCCC)OC(=O)CCCCCCC/C=C\\CCCCCCCC",
-   "pubchem_cid": null,
+   "pubchem_cid": 5497163,
    "inchikey": "PHYFQTYBJUILEZ-IUPFWZBJSA-N",
    "sdf": "sdf/triolein.sdf",
    "sdf_source": "generated",
    "atoms": 167,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "no-stereocentre"
+    "pubchem": "verified",
+    "stereo": "no-stereocentre",
+    "pubchem_title": "Triolein"
    },
+   "pubchem_formula": "C57H104O6",
    "note_ja": "グリセリンにオレイン酸が3分子エステル結合した油脂（トリアシルグリセロール）。オリーブ油の主成分の一つ。食事からとる脂肪の大部分はこのようなトリアシルグリセロールで、体内では脂肪組織にエネルギーとして蓄えられる。",
    "note_reviewed": false,
    "related": [
@@ -3272,17 +3288,19 @@
    ],
    "kind": "molecule",
    "formula": "C27H46O",
-   "mw": 386.66,
+   "mw": 386.7,
    "smiles": "CC(C)CCC[C@@H](C)[C@H]1CC[C@H]2[C@@H]3CC=C4C[C@@H](O)CC[C@]4(C)[C@H]3CC[C@]12C",
-   "pubchem_cid": null,
+   "pubchem_cid": 5997,
    "inchikey": "HVYWMOMLDIMFJA-DPAQBDIFSA-N",
    "sdf": "sdf/cholesterol.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 74,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "Cholesterol"
    },
+   "pubchem_formula": "C27H46O",
    "note_ja": "4つの環がつながったステロイド骨格をもつ脂質。細胞膜の成分であり、ステロイドホルモンや胆汁酸、ビタミンDの原料になる。血液中ではリポタンパク質（LDL・HDL）に入って運ばれる。",
    "note_reviewed": false,
    "related": [
@@ -3308,17 +3326,19 @@
    ],
    "kind": "molecule",
    "formula": "C42H82NO8P",
-   "mw": 760.09,
+   "mw": 760.1,
    "smiles": "CCCCCCCC/C=C\\CCCCCCCC(=O)O[C@H](COC(=O)CCCCCCCCCCCCCCC)COP(=O)([O-])OCC[N+](C)(C)C",
-   "pubchem_cid": null,
+   "pubchem_cid": 5497103,
    "inchikey": "WTJKGGKOPKCXLL-VYOBOKEXSA-N",
    "sdf": "sdf/popc.sdf",
    "sdf_source": "generated",
    "atoms": 134,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "1-Palmitoyl-2-oleoyl-sn-glycero-3-phosphocholine"
    },
+   "pubchem_formula": "C42H82NO8P",
    "note_ja": "細胞膜をつくるリン脂質の代表で、レシチンとも呼ばれる。水になじむ頭部（コリンとリン酸）と、水をはじく2本の脂肪酸の尾をもち、膜の中で二重層をつくる。ここではパルミチン酸とオレイン酸をもつ分子種を示している。",
    "note_reviewed": false,
    "related": [
@@ -3346,15 +3366,17 @@
    "formula": "C2H5NO2",
    "mw": 75.07,
    "smiles": "NCC(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 750,
    "inchikey": "DHMQDGOQFOQNFH-UHFFFAOYSA-N",
    "sdf": "sdf/glycine.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 10,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "no-stereocentre"
+    "pubchem": "verified",
+    "stereo": "no-stereocentre",
+    "pubchem_title": "Glycine"
    },
+   "pubchem_formula": "C2H5NO2",
    "note_ja": "もっとも単純なアミノ酸。中心の炭素に水素が2つついているため、アミノ酸で唯一、鏡像体がない。コラーゲンに多く含まれる。",
    "note_reviewed": false,
    "related": [
@@ -3380,15 +3402,17 @@
    "formula": "C3H7NO2",
    "mw": 89.09,
    "smiles": "C[C@H](N)C(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 5950,
    "inchikey": "QNAYBMKLOCPYGJ-REOHCLBHSA-N",
    "sdf": "sdf/l-alanine.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 13,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "L-Alanine"
    },
+   "pubchem_formula": "C3H7NO2",
    "note_ja": "側鎖がメチル基のアミノ酸。タンパク質をつくるアミノ酸はL体で、鏡に映した形のD-アラニンとは重ね合わせることができない。",
    "note_reviewed": false,
    "related": [
@@ -3418,15 +3442,17 @@
    "formula": "C5H11NO2",
    "mw": 117.15,
    "smiles": "CC(C)[C@H](N)C(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 6287,
    "inchikey": "KZSNJWFQEVHDMF-BYPYZUCNSA-N",
    "sdf": "sdf/l-valine.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 19,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "L-Valine"
    },
+   "pubchem_formula": "C5H11NO2",
    "note_ja": "必須アミノ酸の一つ。ロイシン・イソロイシンとともに枝分かれした側鎖をもつ分岐鎖アミノ酸（BCAA）で、筋肉で多く使われる。",
    "note_reviewed": false,
    "related": [
@@ -3454,15 +3480,17 @@
    "formula": "C6H13NO2",
    "mw": 131.17,
    "smiles": "CC(C)C[C@H](N)C(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 6106,
    "inchikey": "ROHFNLRQFUQHCH-YFKPBYRVSA-N",
    "sdf": "sdf/l-leucine.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 22,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "L-Leucine"
    },
+   "pubchem_formula": "C6H13NO2",
    "note_ja": "必須アミノ酸の一つで、分岐鎖アミノ酸（BCAA）。筋肉のタンパク質の合成を促す働きがある。",
    "note_reviewed": false,
    "related": [
@@ -3490,15 +3518,17 @@
    "formula": "C6H13NO2",
    "mw": 131.17,
    "smiles": "CC[C@H](C)[C@H](N)C(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 6306,
    "inchikey": "AGPKZVBTJJNPAG-WHFBIAKZSA-N",
    "sdf": "sdf/l-isoleucine.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 22,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "L-Isoleucine"
    },
+   "pubchem_formula": "C6H13NO2",
    "note_ja": "必須アミノ酸の一つで、分岐鎖アミノ酸（BCAA）。ロイシンとは分子式が同じ構造異性体で、側鎖にも不斉炭素がある。",
    "note_reviewed": false,
    "related": [
@@ -3524,15 +3554,17 @@
    "formula": "C5H9NO2",
    "mw": 115.13,
    "smiles": "O=C(O)[C@@H]1CCCN1",
-   "pubchem_cid": null,
+   "pubchem_cid": 145742,
    "inchikey": "ONIBWKKTOPOVIA-BYPYZUCNSA-N",
    "sdf": "sdf/l-proline.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 17,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "L-Proline"
    },
+   "pubchem_formula": "C5H9NO2",
    "note_ja": "側鎖がアミノ基とつながって環をつくっている特殊なアミノ酸。コラーゲンに多く、タンパク質の鎖を折り曲げる働きがある。",
    "note_reviewed": false,
    "related": [
@@ -3559,15 +3591,17 @@
    "formula": "C9H11NO2",
    "mw": 165.19,
    "smiles": "N[C@@H](Cc1ccccc1)C(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 6140,
    "inchikey": "COLNVLDHVKWLRT-QMMMGPOBSA-N",
    "sdf": "sdf/l-phenylalanine.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 23,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "L-Phenylalanine"
    },
+   "pubchem_formula": "C9H11NO2",
    "note_ja": "必須アミノ酸の一つで、側鎖にベンゼン環をもつ。体内でチロシンに変えられる。この変換がうまくいかない先天性の病気がフェニルケトン尿症。",
    "note_reviewed": false,
    "related": [
@@ -3593,17 +3627,19 @@
    ],
    "kind": "molecule",
    "formula": "C11H12N2O2",
-   "mw": 204.23,
+   "mw": 204.22,
    "smiles": "N[C@@H](Cc1c[nH]c2ccccc12)C(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 6305,
    "inchikey": "QIVBCDIJIAJPQS-VIFPVBQESA-N",
    "sdf": "sdf/l-tryptophan.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 27,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "L-Tryptophan"
    },
+   "pubchem_formula": "C11H12N2O2",
    "note_ja": "必須アミノ酸の一つで、側鎖にインドール環をもつ。脳内で神経伝達物質のセロトニンや、睡眠に関わるメラトニンの原料になる。",
    "note_reviewed": false,
    "related": [
@@ -3629,17 +3665,19 @@
    ],
    "kind": "molecule",
    "formula": "C5H11NO2S",
-   "mw": 149.22,
+   "mw": 149.21,
    "smiles": "CSCC[C@H](N)C(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 6137,
    "inchikey": "FFEARJCKVFRZRR-BYPYZUCNSA-N",
    "sdf": "sdf/l-methionine.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 20,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "L-Methionine"
    },
+   "pubchem_formula": "C5H11NO2S",
    "note_ja": "硫黄を含む必須アミノ酸。タンパク質が合成されるとき、最初に置かれるアミノ酸でもある。",
    "note_reviewed": false,
    "related": [
@@ -3664,15 +3702,17 @@
    "formula": "C3H7NO3",
    "mw": 105.09,
    "smiles": "N[C@@H](CO)C(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 5951,
    "inchikey": "MTCFGRXMJLQNBG-REOHCLBHSA-N",
    "sdf": "sdf/l-serine.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 14,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "L-Serine"
    },
+   "pubchem_formula": "C3H7NO3",
    "note_ja": "側鎖にヒドロキシ基をもつアミノ酸。リン脂質の材料にもなる。",
    "note_reviewed": false,
    "related": [
@@ -3701,15 +3741,17 @@
    "formula": "C4H9NO3",
    "mw": 119.12,
    "smiles": "C[C@@H](O)[C@H](N)C(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 6288,
    "inchikey": "AYFVYJQAPQTCCC-GBXIJSLDSA-N",
    "sdf": "sdf/l-threonine.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 17,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "L-Threonine"
    },
+   "pubchem_formula": "C4H9NO3",
    "note_ja": "側鎖にヒドロキシ基をもつ必須アミノ酸。不斉炭素を2つもつ。",
    "note_reviewed": false,
    "related": [
@@ -3734,15 +3776,17 @@
    "formula": "C3H7NO2S",
    "mw": 121.16,
    "smiles": "N[C@@H](CS)C(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 5862,
    "inchikey": "XUJNEKJLAYXESH-REOHCLBHSA-N",
    "sdf": "sdf/l-cysteine.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 14,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "L-(+)-Cysteine"
    },
+   "pubchem_formula": "C3H7NO2S",
    "note_ja": "側鎖にチオール基（-SH）をもつアミノ酸。2つのシステインがS-S結合（ジスルフィド結合）でつながり、タンパク質の形を保つ。L体だが、硫黄があるためR/S表記ではR体になる。",
    "note_reviewed": false,
    "related": [
@@ -3768,15 +3812,17 @@
    "formula": "C9H11NO3",
    "mw": 181.19,
    "smiles": "N[C@@H](Cc1ccc(O)cc1)C(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 6057,
    "inchikey": "OUYCCCASQSFEME-QMMMGPOBSA-N",
    "sdf": "sdf/l-tyrosine.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 24,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "L-Tyrosine"
    },
+   "pubchem_formula": "C9H11NO3",
    "note_ja": "側鎖にフェノール性ヒドロキシ基をもつアミノ酸。ドーパミン・ノルアドレナリン・アドレナリンや、甲状腺ホルモン、メラニン色素の原料になる。",
    "note_reviewed": false,
    "related": [
@@ -3804,15 +3850,17 @@
    "formula": "C4H8N2O3",
    "mw": 132.12,
    "smiles": "NC(=O)C[C@H](N)C(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 6267,
    "inchikey": "DCXYFEDJOCDNAF-REOHCLBHSA-N",
    "sdf": "sdf/l-asparagine.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 17,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "(-)-Asparagine"
    },
+   "pubchem_formula": "C4H8N2O3",
    "note_ja": "側鎖にアミド基をもつアミノ酸。アスパラガスから初めて見つかった。",
    "note_reviewed": false,
    "related": [
@@ -3836,17 +3884,19 @@
    ],
    "kind": "molecule",
    "formula": "C5H10N2O3",
-   "mw": 146.15,
+   "mw": 146.14,
    "smiles": "NC(=O)CC[C@H](N)C(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 5961,
    "inchikey": "ZDXPYRJPNDTMRX-VKHMYHEASA-N",
    "sdf": "sdf/l-glutamine.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 20,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "L-Glutamine"
    },
+   "pubchem_formula": "C5H10N2O3",
    "note_ja": "血液中にもっとも多いアミノ酸。側鎖にアミド基をもち、小腸の細胞や免疫細胞のエネルギー源になる。",
    "note_reviewed": false,
    "related": [
@@ -3872,15 +3922,17 @@
    "formula": "C4H7NO4",
    "mw": 133.1,
    "smiles": "N[C@@H](CC(=O)O)C(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 5960,
    "inchikey": "CKLJMWTZIZZHCS-REOHCLBHSA-N",
    "sdf": "sdf/l-aspartic-acid.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 16,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "L-Aspartic Acid"
    },
+   "pubchem_formula": "C4H7NO4",
    "note_ja": "側鎖にカルボキシ基をもつ酸性アミノ酸。甘味料アスパルテームの材料の一つ。",
    "note_reviewed": false,
    "related": [
@@ -3907,15 +3959,17 @@
    "formula": "C5H9NO4",
    "mw": 147.13,
    "smiles": "N[C@@H](CCC(=O)O)C(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 33032,
    "inchikey": "WHUUTDBJXJRKMK-VKHMYHEASA-N",
    "sdf": "sdf/l-glutamic-acid.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 19,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "L-Glutamic Acid"
    },
+   "pubchem_formula": "C5H9NO4",
    "note_ja": "側鎖にカルボキシ基をもつ酸性アミノ酸。昆布のうま味の成分で、脳では興奮性の神経伝達物質として働く。",
    "note_reviewed": false,
    "related": [
@@ -3944,15 +3998,17 @@
    "formula": "C6H14N2O2",
    "mw": 146.19,
    "smiles": "NCCCC[C@H](N)C(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 5962,
    "inchikey": "KDXKERNSBIXSRK-YFKPBYRVSA-N",
    "sdf": "sdf/l-lysine.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 24,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "L-Lysine"
    },
+   "pubchem_formula": "C6H14N2O2",
    "note_ja": "側鎖にアミノ基をもつ塩基性の必須アミノ酸。穀類に少ないため、米や小麦中心の食事では不足しやすい。",
    "note_reviewed": false,
    "related": [
@@ -3978,15 +4034,17 @@
    "formula": "C6H14N4O2",
    "mw": 174.2,
    "smiles": "NC(N)=NCCC[C@H](N)C(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 6322,
    "inchikey": "ODKSFYDXXFIFQN-BYPYZUCNSA-N",
    "sdf": "sdf/l-arginine.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 26,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "L-Arginine"
    },
+   "pubchem_formula": "C6H14N4O2",
    "note_ja": "側鎖にグアニジノ基をもつ塩基性アミノ酸。尿素回路で働き、血管を広げる一酸化窒素の原料にもなる。",
    "note_reviewed": false,
    "related": [
@@ -4011,17 +4069,19 @@
    ],
    "kind": "molecule",
    "formula": "C6H9N3O2",
-   "mw": 155.16,
+   "mw": 155.15,
    "smiles": "N[C@@H](Cc1c[nH]cn1)C(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 6274,
    "inchikey": "HNDVDQJCIGZPNO-YFKPBYRVSA-N",
    "sdf": "sdf/l-histidine.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 20,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "L-Histidine"
    },
+   "pubchem_formula": "C6H9N3O2",
    "note_ja": "側鎖にイミダゾール環をもつ必須アミノ酸。体内でヒスタミンに変えられる。",
    "note_reviewed": false,
    "related": [
@@ -4046,15 +4106,17 @@
    "formula": "C3H7NO2",
    "mw": 89.09,
    "smiles": "C[C@@H](N)C(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 71080,
    "inchikey": "QNAYBMKLOCPYGJ-UWTATZPHSA-N",
    "sdf": "sdf/d-alanine.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 13,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "D-Alanine"
    },
+   "pubchem_formula": "C3H7NO2",
    "note_ja": "L-アラニンの鏡像体。人のタンパク質には使われないが、細菌の細胞壁などに含まれる。L体と並べると、鏡に映した関係であることがわかる。",
    "note_reviewed": false,
    "related": [
@@ -4081,15 +4143,17 @@
    "formula": "C5H8NNaO4",
    "mw": 169.11,
    "smiles": "N[C@@H](CCC(=O)O)C(=O)[O-].[Na+]",
-   "pubchem_cid": null,
+   "pubchem_cid": 85314,
    "inchikey": "LPUQAYUQRXPFSQ-DFWYDOINSA-M",
    "sdf": "sdf/monosodium-glutamate.sdf",
    "sdf_source": "generated",
    "atoms": 19,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "structure-only",
+    "stereo": "checked",
+    "pubchem_name_cid": 23689119
    },
+   "pubchem_formula": "C5H8NNaO4",
    "note_ja": "L-グルタミン酸のナトリウム塩で、うま味調味料の主成分。水に溶けるとグルタミン酸イオンになり、舌のうま味受容体で感じられる。",
    "note_reviewed": false,
    "related": [
@@ -4115,15 +4179,17 @@
    "formula": "C4H8N2O3",
    "mw": 132.12,
    "smiles": "NCC(=O)NCC(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 11163,
    "inchikey": "YMAWOPBAYDPSLA-UHFFFAOYSA-N",
    "sdf": "sdf/glycylglycine.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 17,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "no-stereocentre"
+    "pubchem": "verified",
+    "stereo": "no-stereocentre",
+    "pubchem_title": "Glycylglycine"
    },
+   "pubchem_formula": "C4H8N2O3",
    "note_ja": "グリシン2分子がペプチド結合（アミド結合）でつながったジペプチド。アミノ酸がこの結合で多数つながったものがタンパク質。",
    "note_reviewed": false,
    "related": [
@@ -4145,17 +4211,19 @@
    ],
    "kind": "molecule",
    "formula": "C20H30O",
-   "mw": 286.46,
+   "mw": 286.5,
    "smiles": "CC1=C(/C=C/C(C)=C/C=C/C(C)=C/CO)C(C)(C)CCC1",
-   "pubchem_cid": null,
+   "pubchem_cid": 445354,
    "inchikey": "FPIPGXGPPPQFEQ-OVSJKPMPSA-N",
    "sdf": "sdf/retinol.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 51,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "Retinol"
    },
+   "pubchem_formula": "C20H30O",
    "note_ja": "脂溶性ビタミン。目の網膜で光を感じる物質（ロドプシン）の材料になり、不足すると夜盲症になる。β-カロテンは体内でビタミンAに変わる。",
    "note_reviewed": false,
    "related": [
@@ -4179,15 +4247,17 @@
    "formula": "C12H17N4OS+",
    "mw": 265.36,
    "smiles": "Cc1ncc(C[n+]2csc(CCO)c2C)c(N)n1",
-   "pubchem_cid": null,
+   "pubchem_cid": 1130,
    "inchikey": "JZRWCGZRTZMZEH-UHFFFAOYSA-N",
    "sdf": "sdf/thiamine.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 35,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "no-stereocentre"
+    "pubchem": "verified",
+    "stereo": "no-stereocentre",
+    "pubchem_title": "Thiamine"
    },
+   "pubchem_formula": "C12H17N4OS+",
    "note_ja": "水溶性ビタミン。糖質からエネルギーを取り出す酵素を助ける。不足すると脚気になる。豚肉や玄米に多い。",
    "note_reviewed": false,
    "related": [
@@ -4209,17 +4279,19 @@
    ],
    "kind": "molecule",
    "formula": "C17H20N4O6",
-   "mw": 376.37,
+   "mw": 376.4,
    "smiles": "Cc1cc2nc3c(=O)[nH]c(=O)nc-3n(C[C@H](O)[C@H](O)[C@H](O)CO)c2cc1C",
-   "pubchem_cid": null,
+   "pubchem_cid": 493570,
    "inchikey": "AUNGANRZJHBGPY-SCRDCRAPSA-N",
    "sdf": "sdf/riboflavin.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 47,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "Riboflavin"
    },
+   "pubchem_formula": "C17H20N4O6",
    "note_ja": "水溶性ビタミンで、黄色の色素。脂質などの代謝に関わる酵素を助ける。不足すると口内炎や皮膚炎が起こりやすい。",
    "note_reviewed": false,
    "related": [
@@ -4243,15 +4315,17 @@
    "formula": "C8H11NO3",
    "mw": 169.18,
    "smiles": "Cc1ncc(CO)c(CO)c1O",
-   "pubchem_cid": null,
+   "pubchem_cid": 1054,
    "inchikey": "LXNHXLLTXMVWPM-UHFFFAOYSA-N",
    "sdf": "sdf/pyridoxine.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 23,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "no-stereocentre"
+    "pubchem": "verified",
+    "stereo": "no-stereocentre",
+    "pubchem_title": "Pyridoxine"
    },
+   "pubchem_formula": "C8H11NO3",
    "note_ja": "水溶性ビタミン。アミノ酸の代謝に関わる酵素を助けるため、タンパク質を多くとるほど必要量が増える。",
    "note_reviewed": false,
    "related": [
@@ -4276,15 +4350,17 @@
    "formula": "C6H8O6",
    "mw": 176.12,
    "smiles": "O=C1O[C@H]([C@@H](O)CO)C(O)=C1O",
-   "pubchem_cid": null,
+   "pubchem_cid": 54670067,
    "inchikey": "CIWBSHSKHKDKBQ-JLAZNSOCSA-N",
    "sdf": "sdf/ascorbic-acid.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 20,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "L-Ascorbic Acid"
    },
+   "pubchem_formula": "C6H8O6",
    "note_ja": "水溶性ビタミン。コラーゲンの合成に必要で、不足すると壊血病になる。酸化されやすく、ほかの物質の酸化を防ぐ（抗酸化作用）ため、食品の酸化防止剤にも使われる。",
    "note_reviewed": false,
    "related": [
@@ -4307,17 +4383,19 @@
    ],
    "kind": "molecule",
    "formula": "C27H44O",
-   "mw": 384.65,
+   "mw": 384.6,
    "smiles": "C=C1CC[C@H](O)C/C1=C/C=C1\\CCC[C@]2(C)[C@@H]([C@H](C)CCCC(C)C)CC[C@@H]12",
-   "pubchem_cid": null,
+   "pubchem_cid": 5280795,
    "inchikey": "QYSXJUFSXHHAJI-YRZJJWOYSA-N",
    "sdf": "sdf/cholecalciferol.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 72,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "Vitamin D3"
    },
+   "pubchem_formula": "C27H44O",
    "note_ja": "脂溶性ビタミン。皮膚で紫外線を浴びるとコレステロールの仲間からつくられる。腸でのカルシウムの吸収を助け、骨を丈夫にする。",
    "note_reviewed": false,
    "related": [
@@ -4340,17 +4418,19 @@
    ],
    "kind": "molecule",
    "formula": "C29H50O2",
-   "mw": 430.72,
+   "mw": 430.7,
    "smiles": "Cc1c(C)c2c(c(C)c1O)CC[C@@](C)(CCC[C@H](C)CCC[C@H](C)CCCC(C)C)O2",
-   "pubchem_cid": null,
+   "pubchem_cid": 14985,
    "inchikey": "GVJHHUAWPYXKBD-IEOSBIPESA-N",
    "sdf": "sdf/alpha-tocopherol.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 81,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "alpha-Tocopherol"
    },
+   "pubchem_formula": "C29H50O2",
    "note_ja": "脂溶性ビタミン。細胞膜の脂質が酸化されるのを防ぐ抗酸化作用がある。植物油やナッツに多い。",
    "note_reviewed": false,
    "related": [
@@ -4373,17 +4453,19 @@
    ],
    "kind": "molecule",
    "formula": "C31H46O2",
-   "mw": 450.71,
+   "mw": 450.7,
    "smiles": "CC1=C(C/C=C(\\C)CCC[C@H](C)CCC[C@H](C)CCCC(C)C)C(=O)c2ccccc2C1=O",
-   "pubchem_cid": null,
+   "pubchem_cid": 5284607,
    "inchikey": "MBWXNTAXLNYFJB-NKFFZRIASA-N",
    "sdf": "sdf/phylloquinone.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 79,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "Phylloquinone"
    },
+   "pubchem_formula": "C31H46O2",
    "note_ja": "脂溶性ビタミン。血液を固める因子をつくるのに必要。緑黄色野菜に多い。新生児は不足しやすいため、ビタミンK2のシロップが与えられる。",
    "note_reviewed": false,
    "related": [
@@ -4407,15 +4489,18 @@
    "formula": "C19H19N7O6",
    "mw": 441.4,
    "smiles": "Nc1nc2ncc(CNc3ccc(C(=O)N[C@@H](CCC(=O)O)C(=O)O)cc3)nc2c(=O)[nH]1",
-   "pubchem_cid": null,
+   "pubchem_cid": 6037,
    "inchikey": "OVBPIULPVIDEAO-LBPRGKRZSA-N",
    "sdf": "sdf/folic-acid.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 51,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "structure-only",
+    "stereo": "checked",
+    "pubchem_title": "CID 6037",
+    "pubchem_name_cid": 135398658
    },
+   "pubchem_formula": "C19H19N7O6",
    "note_ja": "水溶性ビタミンで、細胞が分裂するときのDNA合成に必要。妊娠初期に十分とると、胎児の神経管閉鎖障害のリスクを下げられる。",
    "note_reviewed": false,
    "related": [
@@ -4437,15 +4522,17 @@
    "formula": "C8H10N4O2",
    "mw": 194.19,
    "smiles": "Cn1c(=O)c2c(ncn2C)n(C)c1=O",
-   "pubchem_cid": null,
+   "pubchem_cid": 2519,
    "inchikey": "RYYVLZVUVIJVGH-UHFFFAOYSA-N",
    "sdf": "sdf/caffeine.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 24,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "no-stereocentre"
+    "pubchem": "verified",
+    "stereo": "no-stereocentre",
+    "pubchem_title": "Caffeine"
    },
+   "pubchem_formula": "C8H10N4O2",
    "note_ja": "コーヒーや茶に含まれる苦味成分。脳の神経を興奮させて眠気を抑えるほか、利尿作用がある。とりすぎると不眠や動悸の原因になる。",
    "note_reviewed": false,
    "related": [
@@ -4469,17 +4556,19 @@
    ],
    "kind": "molecule",
    "formula": "C22H18O11",
-   "mw": 458.38,
+   "mw": 458.4,
    "smiles": "O=C(O[C@@H]1Cc2c(O)cc(O)cc2O[C@@H]1c1cc(O)c(O)c(O)c1)c1cc(O)c(O)c(O)c1",
-   "pubchem_cid": null,
+   "pubchem_cid": 65064,
    "inchikey": "WMBWREPUVVBILR-WIYYLYMNSA-N",
    "sdf": "sdf/egcg.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 51,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "Epigallocatechin Gallate"
    },
+   "pubchem_formula": "C22H18O11",
    "note_ja": "緑茶に多いカテキン（ポリフェノール）の一種で、渋味の成分。フェノール性ヒドロキシ基を多くもち、抗酸化作用がある。",
    "note_reviewed": false,
    "related": [
@@ -4499,17 +4588,19 @@
    ],
    "kind": "molecule",
    "formula": "C18H27NO3",
-   "mw": 305.42,
+   "mw": 305.4,
    "smiles": "COc1cc(CNC(=O)CCCC/C=C/C(C)C)ccc1O",
-   "pubchem_cid": null,
+   "pubchem_cid": 1548943,
    "inchikey": "YKPUWZUDDOIDPM-SOFGYWHQSA-N",
    "sdf": "sdf/capsaicin.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 49,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "Capsaicin"
    },
+   "pubchem_formula": "C18H27NO3",
    "note_ja": "唐辛子の辛味の成分。舌の温度を感じる受容体を刺激するため、熱さや痛みとして感じられる。",
    "note_reviewed": false,
    "related": []
@@ -4529,17 +4620,19 @@
    ],
    "kind": "molecule",
    "formula": "C40H56",
-   "mw": 536.89,
+   "mw": 536.9,
    "smiles": "CC1=C(/C=C/C(C)=C/C=C/C(C)=C/C=C/C=C(C)/C=C/C=C(C)/C=C/C2=C(C)CCCC2(C)C)C(C)(C)CCC1",
-   "pubchem_cid": null,
+   "pubchem_cid": 5280489,
    "inchikey": "OENHQHLEOONYIE-JLTXGRSLSA-N",
    "sdf": "sdf/beta-carotene.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 96,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "Beta-Carotene"
    },
+   "pubchem_formula": "C40H56",
    "note_ja": "にんじんやかぼちゃの橙色の色素。共役二重結合が長く連なっているため色がつく。体内で2つに切られてビタミンA（レチノール）になる。",
    "note_reviewed": false,
    "related": [
@@ -4561,17 +4654,19 @@
    ],
    "kind": "molecule",
    "formula": "C40H56",
-   "mw": 536.89,
+   "mw": 536.9,
    "smiles": "CC(C)=CCC/C(C)=C/C=C/C(C)=C/C=C/C(C)=C/C=C/C=C(C)/C=C/C=C(C)/C=C/C=C(\\C)CCC=C(C)C",
-   "pubchem_cid": null,
+   "pubchem_cid": 446925,
    "inchikey": "OAIJSZIZWZSQBC-GYZMGTAESA-N",
    "sdf": "sdf/lycopene.sdf",
    "sdf_source": "generated",
    "atoms": 96,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "Lycopene"
    },
+   "pubchem_formula": "C40H56",
    "note_ja": "トマトの赤色の色素。β-カロテンと同じカロテノイドの仲間だが、両端が環になっていない。抗酸化作用がある。",
    "note_reviewed": false,
    "related": [
@@ -4593,17 +4688,19 @@
    ],
    "kind": "molecule",
    "formula": "C15H11O6+",
-   "mw": 287.25,
+   "mw": 287.24,
    "smiles": "Oc1cc(O)c2cc(O)c(-c3ccc(O)c(O)c3)[o+]c2c1",
-   "pubchem_cid": null,
+   "pubchem_cid": 128861,
    "inchikey": "VEVZSMAEJFVWIL-UHFFFAOYSA-O",
    "sdf": "sdf/cyanidin.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 32,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "no-stereocentre"
+    "pubchem": "verified",
+    "stereo": "no-stereocentre",
+    "pubchem_title": "2-(3,4-Dihydroxyphenyl)-3,5,7-trihydroxy-1-Benzopyrylium"
    },
+   "pubchem_formula": "C15H11O6+",
    "note_ja": "アントシアニン（赤紫色の色素）の色を担う部分。ベリー類や紫キャベツに含まれ、酸性で赤、アルカリ性で青と、pHによって色が変わる。",
    "note_reviewed": false,
    "related": [
@@ -4628,15 +4725,17 @@
    "formula": "C10H13N4O8P",
    "mw": 348.21,
    "smiles": "O=c1[nH]cnc2c1ncn2[C@@H]1O[C@H](COP(=O)(O)O)[C@@H](O)[C@H]1O",
-   "pubchem_cid": null,
+   "pubchem_cid": 8582,
    "inchikey": "GRSZFWQUAKGDAV-KQYNXXCUSA-N",
    "sdf": "sdf/inosinic-acid.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 36,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "structure-only",
+    "stereo": "checked",
+    "pubchem_name_cid": 135398640
    },
+   "pubchem_formula": "C10H13N4O8P",
    "note_ja": "かつお節や肉のうま味の成分（核酸系うま味物質）。グルタミン酸と組み合わせると、うま味が強くなる（相乗効果）。",
    "note_reviewed": false,
    "related": [
@@ -4663,15 +4762,17 @@
    "formula": "C10H14N5O8P",
    "mw": 363.22,
    "smiles": "Nc1nc2c(ncn2[C@@H]2O[C@H](COP(=O)(O)O)[C@@H](O)[C@H]2O)c(=O)[nH]1",
-   "pubchem_cid": null,
+   "pubchem_cid": 6804,
    "inchikey": "RQFCJASXJCIDSX-UUOKFMHZSA-N",
    "sdf": "sdf/guanylic-acid.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 38,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "structure-only",
+    "stereo": "checked",
+    "pubchem_name_cid": 135398631
    },
+   "pubchem_formula": "C10H14N5O8P",
    "note_ja": "干ししいたけのうま味の成分（核酸系うま味物質）。グルタミン酸と組み合わせると、うま味が強くなる。",
    "note_reviewed": false,
    "related": [
@@ -4695,15 +4796,17 @@
    "formula": "C6H8O2",
    "mw": 112.13,
    "smiles": "C/C=C/C=C/C(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 643460,
    "inchikey": "WSWCOQWTEOXDQX-MQQKCMAXSA-N",
    "sdf": "sdf/sorbic-acid.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 16,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "Sorbic Acid"
    },
+   "pubchem_formula": "C6H8O2",
    "note_ja": "カビや酵母の増殖を抑える保存料。チーズやハム、ジャムなどに使われる。",
    "note_reviewed": false,
    "related": [
@@ -4724,15 +4827,17 @@
    "formula": "C7H6O2",
    "mw": 122.12,
    "smiles": "O=C(O)c1ccccc1",
-   "pubchem_cid": null,
+   "pubchem_cid": 243,
    "inchikey": "WPYMKLBDIGXBTP-UHFFFAOYSA-N",
    "sdf": "sdf/benzoic-acid.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 15,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "no-stereocentre"
+    "pubchem": "verified",
+    "stereo": "no-stereocentre",
+    "pubchem_title": "Benzoic Acid"
    },
+   "pubchem_formula": "C7H6O2",
    "note_ja": "ベンゼン環にカルボキシ基がついたもっとも単純な芳香族カルボン酸。ナトリウム塩が清涼飲料水などの保存料に使われる。",
    "note_reviewed": false,
    "related": [
@@ -4752,17 +4857,19 @@
    ],
    "kind": "molecule",
    "formula": "C14H18N2O5",
-   "mw": 294.31,
+   "mw": 294.3,
    "smiles": "COC(=O)[C@H](Cc1ccccc1)NC(=O)[C@@H](N)CC(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 134601,
    "inchikey": "IAOZJIPTCAWIRG-QWRGUYRKSA-N",
    "sdf": "sdf/aspartame.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 39,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "Aspartame"
    },
+   "pubchem_formula": "C14H18N2O5",
    "note_ja": "アスパラギン酸とフェニルアラニンからできた人工甘味料。砂糖の約200倍の甘さがある。フェニルアラニンを含むため、フェニルケトン尿症の人は注意が必要。",
    "note_reviewed": false,
    "related": [
@@ -4787,15 +4894,17 @@
    "formula": "C10H16N5O13P3",
    "mw": 507.18,
    "smiles": "Nc1ncnc2c1ncn2[C@@H]1O[C@H](COP(=O)(O)OP(=O)(O)OP(=O)(O)O)[C@@H](O)[C@H]1O",
-   "pubchem_cid": null,
+   "pubchem_cid": 5957,
    "inchikey": "ZKHQWZAMYRWXGA-KQYNXXCUSA-N",
    "sdf": "sdf/atp.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 47,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "5'-Atp"
    },
+   "pubchem_formula": "C10H16N5O13P3",
    "note_ja": "細胞のエネルギーの通貨。リン酸どうしの結合が切れてADPになるときに放出されるエネルギーが、筋肉の収縮などさまざまな生命活動に使われる。",
    "note_reviewed": false,
    "related": [
@@ -4817,15 +4926,17 @@
    "formula": "CH4N2O",
    "mw": 60.06,
    "smiles": "NC(N)=O",
-   "pubchem_cid": null,
+   "pubchem_cid": 1176,
    "inchikey": "XSQUKJJJFZCRTK-UHFFFAOYSA-N",
    "sdf": "sdf/urea.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 8,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "no-stereocentre"
+    "pubchem": "verified",
+    "stereo": "no-stereocentre",
+    "pubchem_title": "Urea"
    },
+   "pubchem_formula": "CH4N2O",
    "note_ja": "タンパク質（アミノ酸）の分解でできた有毒なアンモニアを、肝臓で無毒な形に変えたもの。腎臓から尿として排出される。保湿剤としてハンドクリームにも使われる。",
    "note_reviewed": false,
    "related": [
@@ -4849,15 +4960,17 @@
    "formula": "C3H4O3",
    "mw": 88.06,
    "smiles": "CC(=O)C(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 1060,
    "inchikey": "LCTONWCANYUPML-UHFFFAOYSA-N",
    "sdf": "sdf/pyruvic-acid.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 10,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "no-stereocentre"
+    "pubchem": "verified",
+    "stereo": "no-stereocentre",
+    "pubchem_title": "Pyruvic Acid"
    },
+   "pubchem_formula": "C3H4O3",
    "note_ja": "ブドウ糖が分解される途中（解糖系）でできる物質。酸素が十分あるとミトコンドリアで完全に分解され、不足すると乳酸に変えられる。",
    "note_reviewed": false,
    "related": [
@@ -4884,15 +4997,18 @@
    "formula": "C34H32FeN4O4",
    "mw": 616.5,
    "smiles": "C=CC1=C(C)c2cc3[n-]c(cc4[n-]c(cc5nc(cc1n2)C(C)=C5C=C)c(C)c4CCC(=O)O)c(CCC(=O)O)c3C.[Fe+2]",
-   "pubchem_cid": null,
+   "pubchem_cid": 4973,
    "inchikey": "KABFMIBPWCXCRK-UHFFFAOYSA-L",
    "sdf": "sdf/heme.sdf",
    "sdf_source": "generated",
    "atoms": 75,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "undefined"
+    "pubchem": "structure-only",
+    "stereo": "undefined",
+    "pubchem_title": "Heme b",
+    "pubchem_name_cid": 26945
    },
+   "pubchem_formula": "C34H32FeN4O4",
    "stereo_note": "undefined",
    "note_ja": "ヘモグロビンやミオグロビンで酸素と結びつく部分。ポルフィリン環の中心に鉄イオン（Fe²⁺）がある。食品中のヘム鉄は、植物性食品の非ヘム鉄より吸収されやすい。",
    "note_reviewed": false,
@@ -4913,17 +5029,19 @@
    ],
    "kind": "molecule",
    "formula": "C9H13NO3",
-   "mw": 183.21,
+   "mw": 183.2,
    "smiles": "CNC[C@H](O)c1ccc(O)c(O)c1",
-   "pubchem_cid": null,
+   "pubchem_cid": 5816,
    "inchikey": "UCTWMZQNUQWSLP-VIFPVBQESA-N",
    "sdf": "sdf/adrenaline.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 26,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "Epinephrine"
    },
+   "pubchem_formula": "C9H13NO3",
    "note_ja": "副腎髄質から分泌されるホルモン。心拍数や血糖値を上げ、体を「闘争か逃走か」の状態にする。アナフィラキシーの治療薬としても使われる。",
    "note_reviewed": false,
    "related": [
@@ -4948,15 +5066,17 @@
    "formula": "C8H11NO3",
    "mw": 169.18,
    "smiles": "NC[C@H](O)c1ccc(O)c(O)c1",
-   "pubchem_cid": null,
+   "pubchem_cid": 439260,
    "inchikey": "SFLSHLFXELFNJZ-QMMMGPOBSA-N",
    "sdf": "sdf/noradrenaline.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 23,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "Norepinephrine"
    },
+   "pubchem_formula": "C8H11NO3",
    "note_ja": "交感神経の神経伝達物質。血管を収縮させて血圧を上げる。アドレナリンとはN-メチル基の有無だけが違う。",
    "note_reviewed": false,
    "related": [
@@ -4980,15 +5100,17 @@
    "formula": "C8H11NO2",
    "mw": 153.18,
    "smiles": "NCCc1ccc(O)c(O)c1",
-   "pubchem_cid": null,
+   "pubchem_cid": 681,
    "inchikey": "VYFYYTLLBUKUHU-UHFFFAOYSA-N",
    "sdf": "sdf/dopamine.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 22,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "no-stereocentre"
+    "pubchem": "verified",
+    "stereo": "no-stereocentre",
+    "pubchem_title": "Dopamine"
    },
+   "pubchem_formula": "C8H11NO2",
    "note_ja": "脳の神経伝達物質で、運動の調節や意欲・快感に関わる。ドーパミンをつくる神経細胞が減るとパーキンソン病になる。",
    "note_reviewed": false,
    "related": [
@@ -5012,17 +5134,19 @@
    ],
    "kind": "molecule",
    "formula": "C10H12N2O",
-   "mw": 176.22,
+   "mw": 176.21,
    "smiles": "NCCc1c[nH]c2ccc(O)cc12",
-   "pubchem_cid": null,
+   "pubchem_cid": 5202,
    "inchikey": "QZAYGJVTTNCVMB-UHFFFAOYSA-N",
    "sdf": "sdf/serotonin.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 25,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "no-stereocentre"
+    "pubchem": "verified",
+    "stereo": "no-stereocentre",
+    "pubchem_title": "Serotonin"
    },
+   "pubchem_formula": "C10H12N2O",
    "note_ja": "トリプトファンからつくられる神経伝達物質。気分や睡眠に関わり、うつ病の治療薬の多くはセロトニンの働きを強める。",
    "note_reviewed": false,
    "related": [
@@ -5044,15 +5168,17 @@
    "formula": "C7H16NO2+",
    "mw": 146.21,
    "smiles": "CC(=O)OCC[N+](C)(C)C",
-   "pubchem_cid": null,
+   "pubchem_cid": 187,
    "inchikey": "OIPILFWXSMYKGL-UHFFFAOYSA-N",
    "sdf": "sdf/acetylcholine.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 26,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "no-stereocentre"
+    "pubchem": "verified",
+    "stereo": "no-stereocentre",
+    "pubchem_title": "Acetylcholine"
    },
+   "pubchem_formula": "C7H16NO2+",
    "note_ja": "副交感神経や、運動神経と筋肉のつなぎ目で働く神経伝達物質。脳では記憶にも関わる。",
    "note_reviewed": false,
    "related": [
@@ -5074,15 +5200,17 @@
    "formula": "C5H9N3",
    "mw": 111.15,
    "smiles": "NCCc1cnc[nH]1",
-   "pubchem_cid": null,
+   "pubchem_cid": 774,
    "inchikey": "NTYJJOPFIAHURM-UHFFFAOYSA-N",
    "sdf": "sdf/histamine.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 17,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "no-stereocentre"
+    "pubchem": "verified",
+    "stereo": "no-stereocentre",
+    "pubchem_title": "Histamine"
    },
+   "pubchem_formula": "C5H9N3",
    "note_ja": "ヒスチジンからつくられ、アレルギー反応でかゆみやくしゃみを起こす物質。抗ヒスタミン薬はこの働きを抑える。鮮度の落ちた魚に多くなると食中毒の原因になる。",
    "note_reviewed": false,
    "related": [
@@ -5108,15 +5236,17 @@
    "formula": "C4H9NO2",
    "mw": 103.12,
    "smiles": "NCCCC(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 119,
    "inchikey": "BTCSSZJGUNDROE-UHFFFAOYSA-N",
    "sdf": "sdf/gaba.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 16,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "no-stereocentre"
+    "pubchem": "verified",
+    "stereo": "no-stereocentre",
+    "pubchem_title": "Gamma-Aminobutyric Acid"
    },
+   "pubchem_formula": "C4H9NO2",
    "note_ja": "脳で神経の興奮を抑える神経伝達物質。グルタミン酸からつくられる。GABAを加えた食品も売られている。",
    "note_reviewed": false,
    "related": [
@@ -5138,17 +5268,19 @@
    ],
    "kind": "molecule",
    "formula": "C21H30O5",
-   "mw": 362.47,
+   "mw": 362.5,
    "smiles": "C[C@]12CCC(=O)C=C1CC[C@@H]1[C@@H]2[C@@H](O)C[C@@]2(C)[C@H]1CC[C@]2(O)C(=O)CO",
-   "pubchem_cid": null,
+   "pubchem_cid": 5754,
    "inchikey": "JYGXADMDTFJGBT-VWUMJDOOSA-N",
    "sdf": "sdf/cortisol.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 56,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "Cortisol"
    },
+   "pubchem_formula": "C21H30O5",
    "note_ja": "副腎皮質から分泌されるステロイドホルモン。ストレスを受けると増え、血糖値を上げる。炎症を抑える作用があり、薬（ヒドロコルチゾン）としても使われる。",
    "note_reviewed": false,
    "related": [
@@ -5173,17 +5305,19 @@
    ],
    "kind": "molecule",
    "formula": "C18H24O2",
-   "mw": 272.39,
+   "mw": 272.4,
    "smiles": "C[C@]12CC[C@@H]3c4ccc(O)cc4CC[C@H]3[C@@H]1CC[C@@H]2O",
-   "pubchem_cid": null,
+   "pubchem_cid": 5757,
    "inchikey": "VOXZDWNPVJITMN-ZBRFXRBCSA-N",
    "sdf": "sdf/estradiol.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 44,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "Estradiol"
    },
+   "pubchem_formula": "C18H24O2",
    "note_ja": "代表的な女性ホルモン（エストロゲン）。コレステロールからつくられるステロイドホルモンで、ステロイド骨格の1つの環がベンゼン環になっている。骨の健康にも関わる。",
    "note_reviewed": false,
    "related": [
@@ -5207,17 +5341,19 @@
    ],
    "kind": "molecule",
    "formula": "C19H28O2",
-   "mw": 288.43,
+   "mw": 288.4,
    "smiles": "C[C@]12CC[C@H]3[C@@H](CCC4=CC(=O)CC[C@@]43C)[C@@H]1CC[C@@H]2O",
-   "pubchem_cid": null,
+   "pubchem_cid": 6013,
    "inchikey": "MUMGGOZAMZWBJJ-DYKIIFRCSA-N",
    "sdf": "sdf/testosterone.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 49,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "Testosterone"
    },
+   "pubchem_formula": "C19H28O2",
    "note_ja": "代表的な男性ホルモン（アンドロゲン）。筋肉や骨の発達を促す。エストラジオールとくらべると、ステロイド骨格の一部だけが違う。",
    "note_reviewed": false,
    "related": [
@@ -5240,15 +5376,17 @@
    "formula": "C13H16N2O2",
    "mw": 232.28,
    "smiles": "COc1ccc2[nH]cc(CCNC(C)=O)c2c1",
-   "pubchem_cid": null,
+   "pubchem_cid": 896,
    "inchikey": "DRLFMBDRBRZALE-UHFFFAOYSA-N",
    "sdf": "sdf/melatonin.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 33,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "no-stereocentre"
+    "pubchem": "verified",
+    "stereo": "no-stereocentre",
+    "pubchem_title": "Melatonin"
    },
+   "pubchem_formula": "C13H16N2O2",
    "note_ja": "脳の松果体から夜に分泌されるホルモンで、眠気を促し体内時計を調節する。セロトニンからつくられる。",
    "note_reviewed": false,
    "related": [
@@ -5272,15 +5410,17 @@
    "formula": "C9H8O4",
    "mw": 180.16,
    "smiles": "CC(=O)Oc1ccccc1C(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 2244,
    "inchikey": "BSYNRYMUTXBXSQ-UHFFFAOYSA-N",
    "sdf": "sdf/aspirin.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 21,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "no-stereocentre"
+    "pubchem": "verified",
+    "stereo": "no-stereocentre",
+    "pubchem_title": "Aspirin"
    },
+   "pubchem_formula": "C9H8O4",
    "note_ja": "もっとも古くからある解熱鎮痛薬の一つ。少量では血液を固まりにくくするため、心筋梗塞や脳梗塞の予防にも使われる。胃腸障害に注意が必要。",
    "note_reviewed": false,
    "related": [
@@ -5305,15 +5445,17 @@
    "formula": "C8H9NO2",
    "mw": 151.16,
    "smiles": "CC(=O)Nc1ccc(O)cc1",
-   "pubchem_cid": null,
+   "pubchem_cid": 1983,
    "inchikey": "RZVAJINKPMORJF-UHFFFAOYSA-N",
    "sdf": "sdf/acetaminophen.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 20,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "no-stereocentre"
+    "pubchem": "verified",
+    "stereo": "no-stereocentre",
+    "pubchem_title": "Acetaminophen"
    },
+   "pubchem_formula": "C8H9NO2",
    "note_ja": "解熱鎮痛薬。子どもにも使われる。過量に服用すると肝臓に重い障害を起こすことがある。",
    "note_reviewed": false,
    "related": [
@@ -5335,15 +5477,17 @@
    "formula": "C13H18O2",
    "mw": 206.28,
    "smiles": "CC(C)Cc1ccc(C(C)C(=O)O)cc1",
-   "pubchem_cid": null,
+   "pubchem_cid": 3672,
    "inchikey": "HEFNNWSXXWATRW-UHFFFAOYSA-N",
    "sdf": "sdf/ibuprofen.sdf",
    "sdf_source": "generated",
    "atoms": 33,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "racemic"
+    "pubchem": "verified",
+    "stereo": "racemic",
+    "pubchem_title": "Ibuprofen, (+-)-"
    },
+   "pubchem_formula": "C13H18O2",
    "stereo_note": "racemic",
    "note_ja": "炎症を抑えて痛みや熱を下げる非ステロイド性抗炎症薬（NSAIDs）。不斉炭素をもち、薬は鏡像体の混合物（ラセミ体）だが、効果があるのは主にS体。3Dモデルは一方の鏡像体を表示している。",
    "note_reviewed": false,
@@ -5368,15 +5512,17 @@
    "formula": "C16H18N2O4S",
    "mw": 334.4,
    "smiles": "CC1(C)S[C@@H]2[C@H](NC(=O)Cc3ccccc3)C(=O)N2[C@H]1C(=O)O",
-   "pubchem_cid": null,
+   "pubchem_cid": 5904,
    "inchikey": "JGSARLDLIJGVTE-MBNYWOFBSA-N",
    "sdf": "sdf/penicillin-g.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 41,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "checked"
+    "pubchem": "verified",
+    "stereo": "checked",
+    "pubchem_title": "Penicillin G"
    },
+   "pubchem_formula": "C16H18N2O4S",
    "note_ja": "最初に実用化された抗生物質。4員環のβ-ラクタム環が、細菌の細胞壁をつくる酵素を妨げる。アレルギーに注意が必要。",
    "note_reviewed": false,
    "related": []
@@ -5396,17 +5542,19 @@
    ],
    "kind": "molecule",
    "formula": "C3H5N3O9",
-   "mw": 227.08,
+   "mw": 227.09,
    "smiles": "O=[N+]([O-])OCC(CO[N+](=O)[O-])O[N+](=O)[O-]",
-   "pubchem_cid": null,
+   "pubchem_cid": 4510,
    "inchikey": "SNIOPGDIGTZGOP-UHFFFAOYSA-N",
    "sdf": "sdf/nitroglycerin.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 20,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "no-stereocentre"
+    "pubchem": "verified",
+    "stereo": "no-stereocentre",
+    "pubchem_title": "Nitroglycerin"
    },
+   "pubchem_formula": "C3H5N3O9",
    "note_ja": "グリセリンの3つのヒドロキシ基を硝酸エステルにしたもの。ダイナマイトの原料だが、体内で一酸化窒素を出して血管を広げるため、狭心症の薬（舌下錠）として使われる。",
    "note_reviewed": false,
    "related": [
@@ -5427,17 +5575,19 @@
    ],
    "kind": "molecule",
    "formula": "H2O2",
-   "mw": 34.01,
+   "mw": 34.02,
    "smiles": "OO",
-   "pubchem_cid": null,
+   "pubchem_cid": 784,
    "inchikey": "MHAJPDPJQMAIIY-UHFFFAOYSA-N",
    "sdf": "sdf/hydrogen-peroxide.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 4,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "no-stereocentre"
+    "pubchem": "verified",
+    "stereo": "no-stereocentre",
+    "pubchem_title": "Hydrogen Peroxide"
    },
+   "pubchem_formula": "H2O2",
    "note_ja": "約3%の水溶液がオキシドールで、傷の消毒に使われる。分解すると酸素を発生して泡が出る。",
    "note_reviewed": false,
    "related": [
@@ -5459,18 +5609,20 @@
     "disinfectant"
    ],
    "kind": "molecule",
-   "formula": "HClO",
+   "formula": "ClHO",
    "mw": 52.46,
    "smiles": "OCl",
-   "pubchem_cid": null,
+   "pubchem_cid": 24341,
    "inchikey": "QWPPOHNGKGFGJK-UHFFFAOYSA-N",
    "sdf": "sdf/hypochlorous-acid.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 3,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "no-stereocentre"
+    "pubchem": "verified",
+    "stereo": "no-stereocentre",
+    "pubchem_title": "Hypochlorous Acid"
    },
+   "pubchem_formula": "ClHO",
    "note_ja": "強い酸化力で細菌やウイルスを不活化する。ナトリウム塩の次亜塩素酸ナトリウムは塩素系漂白剤や、ノロウイルスの消毒に使われる。酸性の洗剤と混ぜると有毒な塩素が発生するので危険。",
    "note_reviewed": false,
    "related": [
@@ -5492,17 +5644,20 @@
    ],
    "kind": "molecule",
    "formula": "C22H30Cl2N10",
-   "mw": 505.46,
+   "mw": 505.4,
    "smiles": "NC(=NCCCCCCN=C(N)N=C(N)Nc1ccc(Cl)cc1)N=C(N)Nc1ccc(Cl)cc1",
-   "pubchem_cid": null,
+   "pubchem_cid": 2713,
    "inchikey": "GHXZTYHSJHQHIJ-UHFFFAOYSA-N",
    "sdf": "sdf/chlorhexidine.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 64,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "undefined"
+    "pubchem": "structure-only",
+    "stereo": "undefined",
+    "pubchem_title": "Chlorohexidine",
+    "pubchem_name_cid": 9552079
    },
+   "pubchem_formula": "C22H30Cl2N10",
    "stereo_note": "undefined",
    "note_ja": "医療現場で手指や皮膚の消毒に広く使われる消毒薬（グルコン酸塩として使用）。皮膚に残って効果が続く。",
    "note_reviewed": false,
@@ -5529,15 +5684,17 @@
    "formula": "N2O",
    "mw": 44.01,
    "smiles": "[N-]=[N+]=O",
-   "pubchem_cid": null,
+   "pubchem_cid": 948,
    "inchikey": "GQPLMRYTRLFLPF-UHFFFAOYSA-N",
    "sdf": "sdf/nitrous-oxide.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 3,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "no-stereocentre"
+    "pubchem": "verified",
+    "stereo": "no-stereocentre",
+    "pubchem_title": "Nitrous Oxide"
    },
+   "pubchem_formula": "N2O",
    "note_ja": "笑気とも呼ばれる麻酔ガス。歯科治療などで、酸素と混ぜて吸入させ、不安や痛みをやわらげる。",
    "note_reviewed": false,
    "related": [
@@ -5562,15 +5719,17 @@
    "formula": "CO",
    "mw": 28.01,
    "smiles": "[C-]#[O+]",
-   "pubchem_cid": null,
+   "pubchem_cid": 281,
    "inchikey": "UGFAIRIUMAVXCW-UHFFFAOYSA-N",
    "sdf": "sdf/carbon-monoxide.sdf",
-   "sdf_source": "generated",
+   "sdf_source": "pubchem-3d",
    "atoms": 2,
    "verification": {
-    "pubchem": "unverified",
-    "stereo": "no-stereocentre"
+    "pubchem": "verified",
+    "stereo": "no-stereocentre",
+    "pubchem_title": "Carbon Monoxide"
    },
+   "pubchem_formula": "CO",
    "note_ja": "炭素を含むものが不完全燃焼すると発生する無色無臭の有毒ガス。ヘモグロビンのヘムに酸素よりはるかに強く結びつき、酸素を運べなくする（一酸化炭素中毒）。",
    "note_reviewed": false,
    "related": [
