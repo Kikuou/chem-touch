@@ -6,7 +6,7 @@
 //   - all-atom mode draws the molblock with every hydrogen -> index = SDF index
 //   - skeletal mode removes the hydrogens -> heavy atom i keeps index i
 // Every drawn atom is mapped back to its SDF index through `map`.
-import { getRDKit, molGraph } from './rdkit.js';
+import { getRDKit, molGraph, depict } from './rdkit.js';
 import { isDark } from '../core/dom.js';
 
 const DARK_PALETTE = {
@@ -47,14 +47,10 @@ export class Structure2D {
     const skel = RDKit.get_mol(full.get_molblock(), JSON.stringify({ removeHs: true }));
     const skeletalOk = skel && skel.is_valid() && skel.get_num_atoms() === heavyIdx.length;
 
-    full.set_new_coords(true);
-    full.normalize_depiction();
-    full.straighten_depiction();
+    depict(full);
     this.mols = { full, skel: skeletalOk ? skel : null };
     if (skeletalOk) {
-      skel.set_new_coords(true);
-      skel.normalize_depiction();
-      skel.straighten_depiction();
+      depict(skel);
     } else if (skel) {
       skel.delete();
     }

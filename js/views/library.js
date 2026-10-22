@@ -4,7 +4,7 @@ import { icon } from '../core/icons.js';
 import { compounds, categories } from '../core/data.js';
 import { search } from '../core/search.js';
 import { setQuery } from '../core/router.js';
-import { getRDKit, preloadRDKit } from '../mol/rdkit.js';
+import { getRDKit, preloadRDKit, depict } from '../mol/rdkit.js';
 
 const DARK = { '-1': [0.86, 0.88, 0.87], 6: [0.86, 0.88, 0.87], 7: [0.45, 0.66, 1], 8: [1, 0.45, 0.47], 17: [0.35, 0.82, 0.48] };
 const thumbCache = new Map();
@@ -37,9 +37,7 @@ async function fillThumbs(root, list) {
       if (!thumbCache.has(key)) {
         const m = RDKit.get_mol(c.smiles);
         if (!m) continue;
-        m.set_new_coords(true);
-        m.normalize_depiction();
-        m.straighten_depiction();
+        depict(m);
         const o = { width: 128, height: 104, backgroundColour: [0, 0, 0, 0], bondLineWidth: 1.4, padding: 0.06, clearBackground: false };
         if (isDark()) o.atomColourPalette = DARK;
         thumbCache.set(key, m.get_svg_with_highlights(JSON.stringify(o)));

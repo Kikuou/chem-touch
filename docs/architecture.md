@@ -6,6 +6,8 @@
 
 ```
 index.html            エントリ（下部タブを含む）
+sw.js                 サービスワーカー（オフライン対応。アプリ本体はネットワーク優先、vendor/ は保存優先）
+manifest.webmanifest  PWA の設定（名前・アイコン・テーマ色）
 css/app.css           デザイントークン（ライト/ダーク）と全画面のスタイル
 js/main.js            ルート表（画面を追加するときはここに1行足す）
 js/core/              全モジュール共通
@@ -13,6 +15,7 @@ js/core/              全モジュール共通
   data.js             data/*.json と SDF の読み込み（キャッシュ）
   search.js           キーワード検索（ひらがな/カタカナ・全角/半角・α/alpha の揺れ吸収）
   share.js            共有 URL、QR 生成、投影用 QR 表示（D-1〜D-4）
+  present.js          教員提示モード（html.presenting、?present=1、P/Q キー、右下の操作ボタン）
   dom.js / icons.js   小さなヘルパー、線画アイコン
 js/mol/               分子表示（M1〜M3 で共用）
   viewer3d.js         3Dmol.js ラッパー（回転・スタイル・水素・自動回転・原子/結合タップ、

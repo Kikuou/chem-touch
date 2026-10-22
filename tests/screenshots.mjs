@@ -19,6 +19,7 @@ async function page(scheme = 'light') {
     hasTouch: true,
     colorScheme: scheme,
     locale: 'ja-JP',
+    serviceWorkers: 'block', // page.route() must see every request
   });
   const p = await ctx.newPage();
   p.on('pageerror', (e) => console.error('[pageerror]', e.message));
@@ -208,6 +209,30 @@ for (const scheme of ['light', 'dark']) {
     await shot(p, 'm3-build-dark');
   }
   await p.context().close();
+}
+
+// M5: teacher presentation mode on a projector-sized screen
+{
+  const ctx = await browser.newContext({ viewport: { width: 1280, height: 720 }, deviceScaleFactor: 1, locale: 'ja-JP', serviceWorkers: 'block' });
+  const p = await ctx.newPage();
+  p.on('pageerror', (e) => console.error('[pageerror]', e.message));
+  for (const [hash, name, sel] of [
+    ['?present=1#/compound/alpha-d-glucose', 'm5-present-glucose', '.v3d canvas'],
+    ['?present=1#/compare/oleic-elaidic', 'm5-present-compare', '.cmp-3d canvas'],
+    ['?present=1#/periodic?view=en&fit=0', 'm5-present-periodic', '.pt-el'],
+    ['?present=1#/bond?type=covalent&m=co2', 'm5-present-lewis', '.lewis'],
+  ]) {
+    await p.goto(BASE + hash);
+    await p.waitForSelector(sel);
+    // the automatic rotation is too heavy for the software WebGL used here
+    await p.evaluate(() => document.querySelectorAll('[data-act="spin"][aria-pressed="true"]').forEach((b) => b.click()));
+    await p.waitForTimeout(3000);
+    await shot(p, name);
+  }
+  await p.click('.present-bar [data-act="qr"]');
+  await p.waitForSelector('.present .qr svg');
+  await shot(p, 'm5-present-qr');
+  await ctx.close();
 }
 
 await browser.close();
