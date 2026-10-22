@@ -46,6 +46,7 @@
    "mp": 13.81,
    "state": "Gas",
    "pubchem_block": "Nonmetal",
+   "mass_text": null,
    "metallic": "nonmetal",
    "shells": [
     1
@@ -74,6 +75,7 @@
    "mp": 0.95,
    "state": "Gas",
    "pubchem_block": "Noble gas",
+   "mass_text": null,
    "metallic": "nonmetal",
    "shells": [
     2
@@ -100,6 +102,7 @@
    "mp": 453.65,
    "state": "Solid",
    "pubchem_block": "Alkali metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -127,6 +130,7 @@
    "mp": 1560.0,
    "state": "Solid",
    "pubchem_block": "Alkaline earth metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -154,6 +158,7 @@
    "mp": 2348.0,
    "state": "Solid",
    "pubchem_block": "Metalloid",
+   "mass_text": null,
    "metallic": "metalloid",
    "shells": [
     2,
@@ -181,6 +186,7 @@
    "mp": 3823.0,
    "state": "Solid",
    "pubchem_block": "Nonmetal",
+   "mass_text": null,
    "metallic": "nonmetal",
    "shells": [
     2,
@@ -209,6 +215,7 @@
    "mp": 63.15,
    "state": "Gas",
    "pubchem_block": "Nonmetal",
+   "mass_text": null,
    "metallic": "nonmetal",
    "shells": [
     2,
@@ -238,6 +245,7 @@
    "mp": 54.36,
    "state": "Gas",
    "pubchem_block": "Nonmetal",
+   "mass_text": null,
    "metallic": "nonmetal",
    "shells": [
     2,
@@ -267,6 +275,7 @@
    "mp": 53.53,
    "state": "Gas",
    "pubchem_block": "Halogen",
+   "mass_text": null,
    "metallic": "nonmetal",
    "shells": [
     2,
@@ -295,6 +304,7 @@
    "mp": 24.56,
    "state": "Gas",
    "pubchem_block": "Noble gas",
+   "mass_text": null,
    "metallic": "nonmetal",
    "shells": [
     2,
@@ -322,6 +332,7 @@
    "mp": 370.95,
    "state": "Solid",
    "pubchem_block": "Alkali metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -359,6 +370,7 @@
    "mp": 923.0,
    "state": "Solid",
    "pubchem_block": "Alkaline earth metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -396,6 +408,7 @@
    "mp": 933.437,
    "state": "Solid",
    "pubchem_block": "Post-transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -424,6 +437,7 @@
    "mp": 1687.0,
    "state": "Solid",
    "pubchem_block": "Metalloid",
+   "mass_text": null,
    "metallic": "metalloid",
    "shells": [
     2,
@@ -452,6 +466,7 @@
    "mp": 317.3,
    "state": "Solid",
    "pubchem_block": "Nonmetal",
+   "mass_text": null,
    "metallic": "nonmetal",
    "shells": [
     2,
@@ -490,6 +505,7 @@
    "mp": 388.36,
    "state": "Solid",
    "pubchem_block": "Nonmetal",
+   "mass_text": null,
    "metallic": "nonmetal",
    "shells": [
     2,
@@ -528,6 +544,7 @@
    "mp": 171.65,
    "state": "Gas",
    "pubchem_block": "Halogen",
+   "mass_text": null,
    "metallic": "nonmetal",
    "shells": [
     2,
@@ -566,6 +583,7 @@
    "mp": 83.8,
    "state": "Gas",
    "pubchem_block": "Noble gas",
+   "mass_text": null,
    "metallic": "nonmetal",
    "shells": [
     2,
@@ -594,6 +612,7 @@
    "mp": 336.53,
    "state": "Solid",
    "pubchem_block": "Alkali metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -632,6 +651,7 @@
    "mp": 1115.0,
    "state": "Solid",
    "pubchem_block": "Alkaline earth metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -670,6 +690,7 @@
    "mp": 1814.0,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -697,6 +718,7 @@
    "mp": 1941.0,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -724,6 +746,7 @@
    "mp": 2183.0,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -751,6 +774,7 @@
    "mp": 2180.0,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -788,6 +812,7 @@
    "mp": 1519.0,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -825,6 +850,7 @@
    "mp": 1811.0,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -862,6 +888,7 @@
    "mp": 1768.0,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -899,6 +926,7 @@
    "mp": 1728.0,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -926,6 +954,7 @@
    "mp": 1357.77,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -963,6 +992,7 @@
    "mp": 692.68,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -1000,6 +1030,7 @@
    "mp": 302.91,
    "state": "Solid",
    "pubchem_block": "Post-transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -1027,6 +1058,7 @@
    "mp": 1211.4,
    "state": "Solid",
    "pubchem_block": "Metalloid",
+   "mass_text": null,
    "metallic": "metalloid",
    "shells": [
     2,
@@ -1054,6 +1086,7 @@
    "mp": 1090.0,
    "state": "Solid",
    "pubchem_block": "Metalloid",
+   "mass_text": null,
    "metallic": "metalloid",
    "shells": [
     2,
@@ -1081,6 +1114,7 @@
    "mp": 493.65,
    "state": "Solid",
    "pubchem_block": "Nonmetal",
+   "mass_text": null,
    "metallic": "nonmetal",
    "shells": [
     2,
@@ -1118,6 +1152,7 @@
    "mp": 265.95,
    "state": "Liquid",
    "pubchem_block": "Halogen",
+   "mass_text": null,
    "metallic": "nonmetal",
    "shells": [
     2,
@@ -1145,6 +1180,7 @@
    "mp": 115.79,
    "state": "Gas",
    "pubchem_block": "Noble gas",
+   "mass_text": null,
    "metallic": "nonmetal",
    "shells": [
     2,
@@ -1172,6 +1208,7 @@
    "mp": 312.46,
    "state": "Solid",
    "pubchem_block": "Alkali metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -1200,6 +1237,7 @@
    "mp": 1050.0,
    "state": "Solid",
    "pubchem_block": "Alkaline earth metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -1228,6 +1266,7 @@
    "mp": 1795.0,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -1256,6 +1295,7 @@
    "mp": 2128.0,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -1284,6 +1324,7 @@
    "mp": 2750.0,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -1312,6 +1353,7 @@
    "mp": 2896.0,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -1350,6 +1392,7 @@
    "mp": 2430.0,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -1378,6 +1421,7 @@
    "mp": 2607.0,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -1406,6 +1450,7 @@
    "mp": 2237.0,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -1434,6 +1479,7 @@
    "mp": 1828.05,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -1461,6 +1507,7 @@
    "mp": 1234.93,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -1489,6 +1536,7 @@
    "mp": 594.22,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -1517,6 +1565,7 @@
    "mp": 429.75,
    "state": "Solid",
    "pubchem_block": "Post-transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -1545,6 +1594,7 @@
    "mp": 505.08,
    "state": "Solid",
    "pubchem_block": "Post-transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -1573,6 +1623,7 @@
    "mp": 903.78,
    "state": "Solid",
    "pubchem_block": "Metalloid",
+   "mass_text": null,
    "metallic": "metalloid",
    "shells": [
     2,
@@ -1601,6 +1652,7 @@
    "mp": 722.66,
    "state": "Solid",
    "pubchem_block": "Metalloid",
+   "mass_text": null,
    "metallic": "metalloid",
    "shells": [
     2,
@@ -1629,6 +1681,7 @@
    "mp": 386.85,
    "state": "Solid",
    "pubchem_block": "Halogen",
+   "mass_text": null,
    "metallic": "nonmetal",
    "shells": [
     2,
@@ -1667,6 +1720,7 @@
    "mp": 161.36,
    "state": "Gas",
    "pubchem_block": "Noble gas",
+   "mass_text": null,
    "metallic": "nonmetal",
    "shells": [
     2,
@@ -1695,6 +1749,7 @@
    "mp": 301.59,
    "state": "Solid",
    "pubchem_block": "Alkali metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -1724,6 +1779,7 @@
    "mp": 1000.0,
    "state": "Solid",
    "pubchem_block": "Alkaline earth metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -1753,6 +1809,7 @@
    "mp": 1191.0,
    "state": "Solid",
    "pubchem_block": "Lanthanide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -1782,6 +1839,7 @@
    "mp": 1071.0,
    "state": "Solid",
    "pubchem_block": "Lanthanide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -1811,6 +1869,7 @@
    "mp": 1204.0,
    "state": "Solid",
    "pubchem_block": "Lanthanide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -1840,6 +1899,7 @@
    "mp": 1294.0,
    "state": "Solid",
    "pubchem_block": "Lanthanide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -1869,6 +1929,7 @@
    "mp": 1315.0,
    "state": "Solid",
    "pubchem_block": "Lanthanide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -1898,6 +1959,7 @@
    "mp": 1347.0,
    "state": "Solid",
    "pubchem_block": "Lanthanide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -1927,6 +1989,7 @@
    "mp": 1095.0,
    "state": "Solid",
    "pubchem_block": "Lanthanide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -1956,6 +2019,7 @@
    "mp": 1586.0,
    "state": "Solid",
    "pubchem_block": "Lanthanide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -1985,6 +2049,7 @@
    "mp": 1629.0,
    "state": "Solid",
    "pubchem_block": "Lanthanide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2014,6 +2079,7 @@
    "mp": 1685.0,
    "state": "Solid",
    "pubchem_block": "Lanthanide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2043,6 +2109,7 @@
    "mp": 1747.0,
    "state": "Solid",
    "pubchem_block": "Lanthanide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2072,6 +2139,7 @@
    "mp": 1802.0,
    "state": "Solid",
    "pubchem_block": "Lanthanide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2101,6 +2169,7 @@
    "mp": 1818.0,
    "state": "Solid",
    "pubchem_block": "Lanthanide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2130,6 +2199,7 @@
    "mp": 1092.0,
    "state": "Solid",
    "pubchem_block": "Lanthanide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2159,6 +2229,7 @@
    "mp": 1936.0,
    "state": "Solid",
    "pubchem_block": "Lanthanide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2188,6 +2259,7 @@
    "mp": 2506.0,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2217,6 +2289,7 @@
    "mp": 3290.0,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2246,6 +2319,7 @@
    "mp": 3695.0,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2275,6 +2349,7 @@
    "mp": 3459.0,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2304,6 +2379,7 @@
    "mp": 3306.0,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2333,6 +2409,7 @@
    "mp": 2719.0,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2362,6 +2439,7 @@
    "mp": 2041.55,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2391,6 +2469,7 @@
    "mp": 1337.33,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2420,6 +2499,7 @@
    "mp": 234.32,
    "state": "Liquid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2449,6 +2529,7 @@
    "mp": 577.0,
    "state": "Solid",
    "pubchem_block": "Post-transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2478,6 +2559,7 @@
    "mp": 600.61,
    "state": "Solid",
    "pubchem_block": "Post-transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2507,6 +2589,7 @@
    "mp": 544.55,
    "state": "Solid",
    "pubchem_block": "Post-transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2536,6 +2619,7 @@
    "mp": 527.0,
    "state": "Solid",
    "pubchem_block": "Metalloid",
+   "mass_text": null,
    "metallic": "metalloid",
    "shells": [
     2,
@@ -2565,6 +2649,7 @@
    "mp": 575.0,
    "state": "Solid",
    "pubchem_block": "Halogen",
+   "mass_text": null,
    "metallic": "nonmetal",
    "shells": [
     2,
@@ -2594,6 +2679,7 @@
    "mp": 202.0,
    "state": "Gas",
    "pubchem_block": "Noble gas",
+   "mass_text": null,
    "metallic": "nonmetal",
    "shells": [
     2,
@@ -2623,6 +2709,7 @@
    "mp": 300.0,
    "state": "Solid",
    "pubchem_block": "Alkali metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2653,6 +2740,7 @@
    "mp": 973.0,
    "state": "Solid",
    "pubchem_block": "Alkaline earth metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2683,6 +2771,7 @@
    "mp": 1324.0,
    "state": "Solid",
    "pubchem_block": "Actinide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2713,6 +2802,7 @@
    "mp": 2023.0,
    "state": "Solid",
    "pubchem_block": "Actinide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2743,6 +2833,7 @@
    "mp": 1845.0,
    "state": "Solid",
    "pubchem_block": "Actinide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2773,6 +2864,7 @@
    "mp": 1408.0,
    "state": "Solid",
    "pubchem_block": "Actinide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2803,6 +2895,7 @@
    "mp": 917.0,
    "state": "Solid",
    "pubchem_block": "Actinide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2833,6 +2926,7 @@
    "mp": 913.0,
    "state": "Solid",
    "pubchem_block": "Actinide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2863,6 +2957,7 @@
    "mp": 1449.0,
    "state": "Solid",
    "pubchem_block": "Actinide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2893,6 +2988,7 @@
    "mp": 1618.0,
    "state": "Solid",
    "pubchem_block": "Actinide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2923,6 +3019,7 @@
    "mp": 1323.0,
    "state": "Solid",
    "pubchem_block": "Actinide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2953,6 +3050,7 @@
    "mp": 1173.0,
    "state": "Solid",
    "pubchem_block": "Actinide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -2983,6 +3081,7 @@
    "mp": 1133.0,
    "state": "Solid",
    "pubchem_block": "Actinide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -3013,6 +3112,7 @@
    "mp": 1800.0,
    "state": "Solid",
    "pubchem_block": "Actinide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -3043,6 +3143,7 @@
    "mp": 1100.0,
    "state": "Solid",
    "pubchem_block": "Actinide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -3073,6 +3174,7 @@
    "mp": 1100.0,
    "state": "Solid",
    "pubchem_block": "Actinide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -3103,6 +3205,7 @@
    "mp": 1900.0,
    "state": "Solid",
    "pubchem_block": "Actinide",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -3133,6 +3236,7 @@
    "mp": null,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -3163,6 +3267,7 @@
    "mp": null,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -3193,6 +3298,7 @@
    "mp": null,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -3223,6 +3329,7 @@
    "mp": null,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -3253,6 +3360,7 @@
    "mp": null,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -3283,6 +3391,7 @@
    "mp": null,
    "state": "Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -3313,6 +3422,7 @@
    "mp": null,
    "state": "Expected to be a Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -3343,6 +3453,7 @@
    "mp": null,
    "state": "Expected to be a Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -3373,6 +3484,7 @@
    "mp": null,
    "state": "Expected to be a Solid",
    "pubchem_block": "Transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -3403,6 +3515,7 @@
    "mp": null,
    "state": "Expected to be a Solid",
    "pubchem_block": "Post-transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -3433,6 +3546,7 @@
    "mp": null,
    "state": "Expected to be a Solid",
    "pubchem_block": "Post-transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -3463,6 +3577,7 @@
    "mp": null,
    "state": "Expected to be a Solid",
    "pubchem_block": "Post-transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -3493,6 +3608,7 @@
    "mp": null,
    "state": "Expected to be a Solid",
    "pubchem_block": "Post-transition metal",
+   "mass_text": null,
    "metallic": "metal",
    "shells": [
     2,
@@ -3523,6 +3639,7 @@
    "mp": null,
    "state": "Expected to be a Solid",
    "pubchem_block": "Halogen",
+   "mass_text": null,
    "metallic": "nonmetal",
    "shells": [
     2,
@@ -3553,6 +3670,7 @@
    "mp": null,
    "state": "Expected to be a Gas",
    "pubchem_block": "Noble gas",
+   "mass_text": null,
    "metallic": "nonmetal",
    "shells": [
     2,

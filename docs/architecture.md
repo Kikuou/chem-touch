@@ -40,7 +40,14 @@ js/views/             画面（1画面1ファイル）
   series.js              同族体シリーズ #/series（B-3）
   scan.js                QR 読み取り
   more.js                その他（テーマ設定・出典・ライセンス）
-  placeholder.js         後続マイルストーンの仮画面
+  placeholder.js         存在しないページ（404）
+js/periodic/          周期表・電子配置・結合（M4。js/core/ だけを使い、js/mol/ は import しない）
+  atoms.js            元素データの読み込み、殻・オービタル・イオン・数値の表示
+  shellsvg.js         電子殻モデルの SVG（K・L・M・N 殻、4か所に1個ずつ置いてから対にする）
+  table.js            周期表 #/periodic（分類・傾向ヒートマップ・栄養ミネラル・人体の元素組成・縮小表示）
+  detail.js           元素の詳細 #/periodic/<記号>（データ・ミネラル・含む収録化合物）
+  electron.js         電子配置ビルダー #/electron/<記号>（判定・おまかせ配置・オービタル・イオン化）
+  bond.js             電子と結合 #/bond（Na→Cl の電子移動アニメーション → NaCl 結晶、電子式）
 data/                 静的データ（scripts/ が生成。§4）
 scripts/              データ生成・検証（Python + RDKit。本番では動かない）
 vendor/               外部ライブラリ（バージョン固定）
@@ -53,7 +60,7 @@ tests/                Playwright によるスクリーンショットと E2E
 |---|---|---|
 | M2 比較・官能基・シリーズ（実装済み） | `js/views/compare.js`・`quiz.js`・`series.js`・`fatty-acid.js`、`js/mol/molpanel.js` の官能基凡例、`data/comparisons.json`、`data/series.json`（`scripts/build_series.py`）、CSV に §3-5〜3-10 | `js/core/*`（関数追加のみ） |
 | M3 ビルダー（実装済み） | `js/views/build.js`、`js/mol/assemble.js`・`conformer*.js`・`editor2d.js`・`similar.js`・`mymols.js`、`#/view` は収録外の分子を `conformerFor()` で 3D 化 | ライブラリ・詳細画面 |
-| M4 周期表・電子配置 | `js/periodic/`（新規ディレクトリ）、`data/elements.json`、ルート `#/periodic`・`#/electron` を差し替え | `js/mol/*` |
+| M4 周期表・電子配置（実装済み） | `js/periodic/`、`data/elements.json`（`scripts/build_elements.py`）、ルート `#/periodic`・`#/periodic/:sym`・`#/electron/:sym`・`#/bond` | `js/mol/*` |
 
 M1〜M3（分子系）と M4（周期表系）は `js/core/` だけを共有し、互いに import しない。
 

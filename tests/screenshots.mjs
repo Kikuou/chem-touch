@@ -173,6 +173,39 @@ for (const scheme of ['light', 'dark']) {
     await p.waitForSelector('.mine .thumb svg');
     await p.waitForTimeout(500);
     await shot(p, 'm3-mine');
+
+    // M4: periodic table, electrons, bonds
+    for (const [hash, name, full] of [
+      ['#/periodic?view=class&fit=0', 'm4-periodic', false],
+      ['#/periodic?view=en&fit=1', 'm4-periodic-en-fit', false],
+      ['#/periodic?view=class&filter=mineral&fit=0', 'm4-periodic-minerals', false],
+      ['#/periodic/Fe', 'm4-element-fe', true],
+      ['#/bond?type=covalent&m=h2o', 'm4-lewis-h2o', false],
+    ]) {
+      await p.goto(BASE + hash);
+      await p.waitForSelector('.pt-el, .el-hero, .lewis');
+      await p.waitForTimeout(500);
+      await shot(p, name, { fullPage: full });
+    }
+    await p.goto(BASE + '#/electron/Na');
+    await p.waitForSelector('.e-svg svg');
+    await p.click('[data-act="auto"]');
+    await p.waitForSelector('.ok-card');
+    await shot(p, 'm4-electron-na', { fullPage: true });
+    await p.goto(BASE + '#/bond?type=ionic');
+    await p.waitForSelector('.bond-svg');
+    await p.click('[data-act="give"]');
+    await p.waitForSelector('[data-act="crystal"]:not([hidden])');
+    await shot(p, 'm4-ionic-nacl');
+  }
+  if (scheme === 'dark') {
+    await p.goto(BASE + '#/periodic?view=class&fit=1');
+    await p.waitForSelector('.pt-el');
+    await p.waitForTimeout(400);
+    await shot(p, 'm4-periodic-dark');
+    await p.goto(BASE + '#/build?mode=assemble&n=18&end=cooh&b=9c');
+    await p.waitForSelector('.build-match .match-hit');
+    await shot(p, 'm3-build-dark');
   }
   await p.context().close();
 }

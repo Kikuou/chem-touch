@@ -58,3 +58,8 @@ export function sdf(c) {
   }
   return sdfCache.get(c.id);
 }
+
+// data/elements.json (M4: periodic table, electron configuration)
+export async function elements() {
+  return getJSON('elements.json');
+}

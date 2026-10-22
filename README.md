@@ -24,7 +24,7 @@
 | M1 | 化合物データ生成（§3-1〜3-4、85件）、3D/2D ビューア A-1〜A-9、ライブラリ B-1〜B-2、共有 D-1〜D-4 | 実装済み（PubChem 照合は GitHub Actions で実行） |
 | M2 | 残りの化合物（§3-5〜3-10、71件）、官能基ハイライト A-10〜A-12、比較 A-13〜A-16、クイズ A-17、シリーズ B-3、脂肪酸表示 B-4 | 実装済み |
 | M3 | 分子ビルダー C-1〜C-9（組み立て・自由作図・マイ分子）、作った分子の 3D 化と共有 | 実装済み |
-| M4 | 周期表・電子配置 | 未着手 |
+| M4 | 周期表 F-1〜F-6、電子配置ビルダー E-1〜E-5、結合への橋渡し E-6（Na→Cl の電子移動・電子式） | 実装済み |
 
 ## GitHub Pages での公開（初回のみ）
 1. リポジトリを **Public** にする（無料プランの GitHub Pages は公開リポジトリが必要）
@@ -55,6 +55,17 @@ python3 -m http.server 8000
 | `data/comparisons.json` | 比較プリセット（解説文つき、`note_reviewed` 方式） | 教員・開発者 |
 | `data/series.json` | 同族体シリーズの沸点・融点・溶解度（`scripts/build_series.py` が PubChem から取得。値ごとに出典） | 編集しない |
 | `data/schedule.json` | ホームの授業帯（空配列 `[]` なら帯を隠す）。書式は `data/schedule.example.json` | 教員 |
+| `scripts/element_names_ja.csv` | 元素記号と日本語名（1〜118） | 開発者 |
+| `scripts/element_notes.json` | 元素の用途・体内での役割、栄養ミネラル（はたらき・欠乏症・過剰症・食品）、人体の元素組成の順位、陰イオン名。すべて下書き。確認したら `"reviewed": true` にする | 教員 |
+| `data/elements.json` | 周期表のデータ（`scripts/build_elements.py` が PubChem の周期表と上の2ファイルから生成） | 編集しない |
+
+### 元素データ（M4）
+- 原子量・電子配置・電気陰性度（ポーリング）・原子半径（ファンデルワールス半径）・第一イオン化エネルギー・融点・常温での状態・金属/非金属の区分は、[PubChem の周期表](https://pubchem.ncbi.nlm.nih.gov/periodic-table/)（パブリックドメイン）から `scripts/build_elements.py` が取得する
+  - PubChem に値がないもの（超重元素の電気陰性度など）は空欄（null）。推定値は入れない
+- 周期・族・ブロック・族名（アルカリ金属など）・K/L/M/N 殻の電子数は、スクリプトが計算する
+  - 原子番号 1〜20 の殻の電子数は、PubChem の電子配置と「K2 L8 M8 N2」の規則の両方で求め、一致しなければエラーにする
+- ランタノイド・アクチノイドは表の下に置き、3族の欄に「La–Lu」「Ac–Lr」と表示する（日本の教科書と同じ）
+- PubChem に届く環境（GitHub Actions の「PubChem check」）で実行する。手元で `--offline` を付けると、取得済みの値を残したまま日本語名や解説だけを更新できる
 
 ### 化合物を追加・修正する
 1. `scripts/compound_sources.csv` に1行追加する（`id` は英小文字ケバブケース）。
@@ -86,11 +97,13 @@ python3 -m http.server 8000
 python scripts/validate_data.py   # データ検証（SMILES・SDF・原子数・ID・立体化学・シリーズ・比較）
 python tests/test_series_parse.py # PubChem の物性値テキストの読み取りテスト
 node tests/test_assemble.mjs      # ビルダーの組み立て（SMILES・日本語名・シス/トランス・価標の規則）
+python tests/test_elements.py     # 周期表の配置（周期・族）と電子殻の計算
 npm install                       # Playwright（スクリーンショットと E2E 用）
 python3 -m http.server 8000 &
 npm run e2e                       # 受け入れシナリオ（M1: 検索→3D回転→骨格式/全原子→QR共有→共有URL、
                                   #   M2: 比較の同期回転・鏡像、DHA の n-3、官能基、クイズ、シリーズ、
-                                  #   M3: オレイン酸の組み立て→3D→共有、マイ分子、3D 生成、自由作図）
+                                  #   M3: オレイン酸の組み立て→3D→共有、マイ分子、3D 生成、自由作図、
+                                  #   M4: 周期表・元素詳細、Na の電子配置→Na⁺→Cl へ電子を渡す→NaCl 結晶、電子式）
 npm run screenshots               # 375px 幅のスクリーンショットを docs/screenshots/ に保存
 ```
 

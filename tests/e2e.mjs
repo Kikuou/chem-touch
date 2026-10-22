@@ -1,4 +1,4 @@
-// Acceptance scenarios of milestones M1–M3 (spec §8), on a 375px phone viewport.
+// Acceptance scenarios of milestones M1–M4 (spec §8), on a 375px phone viewport.
 // M1:
 //   search "グルコース" -> open -> rotate 3D -> skeletal/all-atom switch ->
 //   2D atom tap highlights 3D -> QR share -> the shared URL opens the same molecule
@@ -219,6 +219,60 @@ const ed = await m2.locator('.ocl-host').boundingBox();
 await m2.touchscreen.tap(ed.x + ed.width * 0.75, ed.y + ed.height * 0.2);
 await m2.waitForFunction(() => /C4H/.test(document.querySelector('.build-facts').textContent), null, { timeout: 5000 });
 step(`free drawing: SMILES input and drawing by touch (${(await m2.textContent('.build-facts')).trim()})`);
+
+// ---- M4 acceptance: build the electron configuration of Na, give an
+// electron to Cl, go to the NaCl crystal; periodic table, detail, Lewis formulas
+await m2.goto(BASE + '#/periodic');
+await m2.waitForSelector('.pt-el');
+assert.equal(await m2.locator('.pt-el').count(), 118);
+await m2.click('[data-view="en"]');
+assert.match(await m2.textContent('a.pt-el[href="#/periodic/F"]'), /3\.98/);
+await m2.click('[data-filter="mineral"]');
+assert.equal(await m2.locator('.pt-el:not(.dim)').count(), 16);
+step('periodic table: 118 elements, electronegativity heat map (F 3.98), 16 nutrition minerals');
+
+await m2.goto(BASE + '#/periodic/Fe');
+await m2.waitForSelector('.el-hero');
+assert.match(await m2.textContent('.mineral'), /鉄欠乏性貧血/);
+assert.match(await m2.textContent('.content'), /ヘム/);
+step('element detail: Fe shows mineral information and the compound heme');
+
+await m2.goto(BASE + '#/electron/Na');
+await m2.waitForSelector('.e-svg svg');
+// a wrong answer first: everything on the K shell is refused at 3
+for (let i = 0; i < 3; i++) await m2.click('[data-add="0"]');
+assert.match(await m2.textContent('.toast'), /最大 2 個/);
+for (let i = 0; i < 8; i++) await m2.click('[data-add="1"]');
+await m2.click('[data-act="check"]');
+assert.match(await m2.textContent('.e-result'), /残っています/);
+// the last electron by tapping the M shell ring
+const ringM = m2.locator('.ring-hit[data-ring="2"]');
+const rb = await ringM.boundingBox();
+await m2.touchscreen.tap(rb.x + rb.width / 2, rb.y + 2);
+await m2.click('[data-act="check"]');
+assert.match(await m2.textContent('.e-result'), /正解/);
+assert.match(await m2.textContent('.e-result'), /価電子1 個/);
+step('electron builder: Na = K2 L8 M1 (capacity and missing electrons explained)');
+
+await m2.click('[data-act="lose"]');
+assert.match(await m2.textContent('.e-result'), /ネオン（Ne）と同じ電子配置/);
+step('ionisation: Na -> Na+ has the electron arrangement of Ne');
+
+await m2.click('a.bridge');
+await m2.waitForURL(/#\/bond\?type=ionic/);
+await m2.click('[data-act="give"]');
+await m2.waitForSelector('[data-act="crystal"]:not([hidden])');
+assert.match(await m2.textContent('.bond-labels'), /Ar と同じ/);
+await m2.click('[data-act="crystal"]');
+await m2.waitForURL(/#\/compound\/nacl-crystal/);
+await m2.waitForSelector('.v3d canvas');
+step('Na gives its electron to Cl (Na+ / Cl-) -> NaCl crystal in 3D');
+
+await m2.goto(BASE + '#/bond?type=covalent&m=nh3');
+await m2.waitForSelector('.lewis');
+assert.equal(await m2.locator('.lewis .lp-shared').count(), 6);
+assert.equal(await m2.locator('.lewis .lp-lone').count(), 2);
+step('covalent: NH3 electron-dot formula with 3 shared pairs and 1 lone pair');
 
 assert.deepEqual(errors, [], 'no page errors');
 step('no JavaScript errors');

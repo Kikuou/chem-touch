@@ -219,6 +219,7 @@ def main(argv=None) -> int:
         }
         for k in PUBCHEM_FIELDS:
             e[k] = None
+        e["mass_text"] = None
         if pub:
             cell = pub[z]
             if cell["Symbol"] != sym:
@@ -226,8 +227,9 @@ def main(argv=None) -> int:
             for k, col in PUBCHEM_FIELDS.items():
                 v = cell.get(col, "")
                 e[k] = number(v) if k in NUMERIC else (v.strip() or None)
+            e["mass_text"] = (cell.get("AtomicMass") or "").strip() or None  # as written by PubChem
         elif z in old:  # keep the values fetched earlier
-            for k in PUBCHEM_FIELDS:
+            for k in [*PUBCHEM_FIELDS, "mass_text"]:
                 e[k] = old[z].get(k)
         e["metallic"] = METALLIC.get(e["pubchem_block"] or "")
         e["shells"] = shells_from_config(e["config"]) if e["config"] else None
