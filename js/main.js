@@ -4,8 +4,8 @@
 //   js/core/   router, data loading, search, sharing — shared by everything
 //   js/mol/    molecule viewers (3D/2D), RDKit loader — M1–M3
 //   js/views/  one file per screen
-// Later milestones add their screens here: M2 compare, M3 build,
-// M4 periodic table / electron configuration.
+//   js/periodic/  periodic table, electron configuration, bonds — M4
+//                 (uses only js/core/, never js/mol/)
 import { route, startRouter } from './core/router.js';
 import { hydrateIcons } from './core/icons.js';
 import { renderHome } from './views/home.js';
@@ -17,7 +17,11 @@ import { renderQuiz } from './views/quiz.js';
 import { renderSeries } from './views/series.js';
 import { renderBuild } from './views/build.js';
 import { renderMore } from './views/more.js';
-import { placeholder, notFound } from './views/placeholder.js';
+import { renderPeriodic } from './periodic/table.js';
+import { renderElement } from './periodic/detail.js';
+import { renderElectron, renderElectronHome } from './periodic/electron.js';
+import { renderBond } from './periodic/bond.js';
+import { notFound } from './views/placeholder.js';
 
 route('/', renderHome, { tab: 'home' });
 route('/library', renderLibrary, { tab: 'library', title: '分子をさがす' });
@@ -35,15 +39,12 @@ route('/quiz', renderQuiz, { tab: 'more', title: '官能基クイズ' });
 route('/series', renderSeries, { tab: 'more', title: '同族体シリーズ' });
 // --- M3: molecule builder (C)
 route('/build', renderBuild, { tab: 'build', title: 'つくる' });
-// --- M4: periodic table (F) and electron configuration (E)
-route('/periodic', placeholder({
-  title: '周期表', milestone: 'M4',
-  text: '元素の詳細、原子半径や電気陰性度の傾向、栄養ミネラルを表示する周期表です。',
-}), { tab: 'periodic', title: '周期表' });
-route('/electron', placeholder({
-  title: '電子配置', milestone: 'M4',
-  text: 'K・L・M・N殻に電子を置いて電子配置を学ぶ機能です。',
-}), { tab: 'home', title: '電子配置' });
+// --- M4: periodic table (F), electron configuration (E), bonds (E-6)
+route('/periodic', renderPeriodic, { tab: 'periodic', title: '周期表' });
+route('/periodic/:sym', renderElement, { tab: 'periodic', title: '元素' });
+route('/electron', renderElectronHome, { tab: 'periodic', title: '電子配置' });
+route('/electron/:sym', renderElectron, { tab: 'periodic', title: '電子配置' });
+route('/bond', renderBond, { tab: 'periodic', title: '電子と結合' });
 
 route('/404', notFound, {});
 

@@ -175,6 +175,28 @@ def main() -> int:
                 if i not in idset:
                     errors.append(f"comparison {p['id']}: unknown compound {i}")
 
+    # elements.json (M4): 1-118 in order, shells add up, sourced values present
+    el_path = DATA / "elements.json"
+    if el_path.exists():
+        doc = json.loads(el_path.read_text(encoding="utf-8"))
+        els = doc["elements"]
+        if [e["z"] for e in els] != list(range(1, 119)):
+            errors.append("elements.json: must list Z = 1..118 in order")
+        if len({e["symbol"] for e in els}) != len(els):
+            errors.append("elements.json: duplicate symbols")
+        fetched = doc.get("source", {}).get("status") == "fetched"
+        if not fetched:
+            warnings.append("elements.json: PubChem values not fetched yet (run build_elements.py with network)")
+        for e in els:
+            if e["shells"] is not None and sum(e["shells"]) != e["z"]:
+                errors.append(f"elements.json {e['symbol']}: shells do not add up to Z")
+            if e["z"] <= 20 and not e["shells"]:
+                errors.append(f"elements.json {e['symbol']}: Z <= 20 needs shells")
+            if fetched and (not e["name_en"] or (e["z"] <= 92 and e["mass"] is None)):
+                errors.append(f"elements.json {e['symbol']}: missing PubChem name or atomic mass")
+            if "note_ja" in e and not isinstance(e.get("note_reviewed"), bool):
+                errors.append(f"elements.json {e['symbol']}: note_reviewed must be true/false")
+
     fg = json.loads((DATA / "functional_groups.json").read_text(encoding="utf-8"))["groups"]
     for g in fg:
         if Chem.MolFromSmarts(g["smarts"]) is None:

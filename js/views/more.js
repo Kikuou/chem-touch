@@ -37,7 +37,9 @@ export function renderMore({ el }) {
       <a href="#/build">${icon('build')}<span>つくる（分子ビルダー・マイ分子）</span></a>
       <a href="#/quiz">${icon('quiz')}<span>官能基クイズ</span></a>
       <a href="#/series">${icon('chart')}<span>同族体シリーズ（沸点・融点）</span></a>
-      <a href="#/electron">${icon('shell')}<span>電子配置（準備中）</span></a>
+      <a href="#/periodic">${icon('table')}<span>周期表（傾向・栄養ミネラル）</span></a>
+      <a href="#/electron">${icon('shell')}<span>電子配置ビルダー</span></a>
+      <a href="#/bond">${icon('atom')}<span>電子と結合（イオン結合・共有結合）</span></a>
       <a href="#/scan">${icon('qr')}<span>QRコードを読み取る</span></a>
     </div>
     <h2 class="section-title">このアプリについて</h2>
@@ -45,6 +47,7 @@ export function renderMore({ el }) {
       <p>ケミタッチ（仮称）は、旭川市立大学 共通教養科目「化学」のための学習アプリです。ログインは不要で、個人情報やアクセス記録は収集しません。端末（ブラウザ）に保存するのは表示設定と、自分で保存した「マイ分子」だけです。</p>
       <h3>データの出典</h3>
       <ul>
+        <li>元素の原子量・電子配置・電気陰性度・原子半径・イオン化エネルギー・融点は <a href="https://pubchem.ncbi.nlm.nih.gov/periodic-table/" target="_blank" rel="noopener">PubChem の周期表</a>（パブリックドメイン）の値です。元素の用途・栄養ミネラルの説明は確認前の下書きです。</li>
         <li>化合物の構造は <a href="https://pubchem.ncbi.nlm.nih.gov/" target="_blank" rel="noopener">PubChem</a>（米国国立医学図書館、パブリックドメイン）で照合しています。照合前のデータには「未照合」と表示します。</li>
         <li>3D座標は PubChem の3D配座、または RDKit（ETKDG + MMFF94）で生成したものです。ビルダーで作った分子は、端末内で OpenChemLib により3D座標を計算します。</li>
         <li>「ひとこと解説」に「下書き」と表示されているものは、教員による確認前の文章です。</li>

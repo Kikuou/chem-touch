@@ -218,6 +218,7 @@ function assembleView(root, state0, { onState }) {
   const slider = root.querySelector('.build-slider');
   let matchToken = 0;
   let timer = null;
+  let shownSmiles = null;
 
   function current() {
     const smiles = A.toSmiles(s);
@@ -253,13 +254,18 @@ function assembleView(root, state0, { onState }) {
     root.querySelector('[data-act="draw"]').href = `#/build?mode=draw&smiles=${encodeURIComponent(smiles)}`;
     onState(s);
 
+    if (smiles === shownSmiles) return; // e.g. only the tool changed
+    shownSmiles = smiles;
+    // results of the previous molecule must not stay on screen meanwhile
+    root.querySelector('.build-match').innerHTML = '<p class="small muted"><span class="spinner"></span>さがしています…</p>';
     clearTimeout(timer);
     const token = ++matchToken;
     timer = setTimeout(async () => {
       const RDKit = await getRDKit().catch(() => null);
       if (!RDKit || token !== matchToken) return;
       root.querySelector('.build-2d').innerHTML = svg2d(RDKit, smiles);
-      root.querySelector('.build-facts').innerHTML = await factsHtml(smiles);
+      const facts = await factsHtml(smiles);
+      if (token === matchToken) root.querySelector('.build-facts').innerHTML = facts;
       const html = await matchesHtml(smiles);
       if (token === matchToken) root.querySelector('.build-match').innerHTML = html;
     }, 150);
