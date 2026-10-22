@@ -2,10 +2,11 @@
 
 旭川市立大学 共通教養科目「化学」向け、スマホで触れる化学学習 Web アプリ。
 
-- 3D 分子ビューア（栄養・看護系の主要化合物を収録、2D 構造式と連動）
-- 分子ライブラリ（カテゴリ・キーワード検索）
+- 3D 分子ビューア（2D 構造式と連動、官能基の色分け）
+- 分子ライブラリ（化合物 156 件：化学基礎・有機化合物・脂肪酸・糖質・脂質・アミノ酸・ビタミン・食品成分・生体物質・医薬品）
+- 比較モード（回転の同期、鏡像体の鏡像表示）、官能基クイズ、同族体シリーズ（沸点・融点・溶解度）、脂肪酸の n-3/n-6 表示
 - URL / QR での共有、投影用の大きな QR 表示
-- （今後）比較モード、分子ビルダー、電子配置ビルダー、インタラクティブ周期表
+- （今後）分子ビルダー、電子配置ビルダー、インタラクティブ周期表
 
 静的サイト（GitHub Pages）として無料で運用する。ログイン・個人情報・アクセス解析なし。
 
@@ -21,7 +22,7 @@
 |---|---|---|
 | M0 | 雛形・ハッシュルーティング・下部タブ・ホーム・Pages 自動デプロイ | 実装済み |
 | M1 | 化合物データ生成（§3-1〜3-4、85件）、3D/2D ビューア A-1〜A-9、ライブラリ B-1〜B-2、共有 D-1〜D-4 | 実装済み（PubChem 照合は GitHub Actions で実行） |
-| M2 | 残りの化合物、官能基ハイライト・比較・クイズ、シリーズ | 未着手 |
+| M2 | 残りの化合物（§3-5〜3-10、71件）、官能基ハイライト A-10〜A-12、比較 A-13〜A-16、クイズ A-17、シリーズ B-3、脂肪酸表示 B-4 | 実装済み |
 | M3 | 分子ビルダー | 未着手 |
 | M4 | 周期表・電子配置 | 未着手 |
 
@@ -50,13 +51,16 @@ python3 -m http.server 8000
 | `data/compounds.json` | アプリが読むデータ（スクリプトが生成） | 解説文 `note_ja` / `note_reviewed` は直接編集してよい |
 | `data/sdf/<id>.sdf` | 3D 座標（スクリプトが生成） | 編集しない |
 | `data/categories.json` | ライブラリのカテゴリ | 教員・開発者 |
-| `data/functional_groups.json` | 官能基の SMARTS・色・名前 | 開発者 |
+| `data/functional_groups.json` | 官能基の SMARTS・色・名前・3D ラベル | 開発者 |
+| `data/comparisons.json` | 比較プリセット（解説文つき、`note_reviewed` 方式） | 教員・開発者 |
+| `data/series.json` | 同族体シリーズの沸点・融点・溶解度（`scripts/build_series.py` が PubChem から取得。値ごとに出典） | 編集しない |
 | `data/schedule.json` | ホームの授業帯（空配列 `[]` なら帯を隠す）。書式は `data/schedule.example.json` | 教員 |
 
 ### 化合物を追加・修正する
 1. `scripts/compound_sources.csv` に1行追加する（`id` は英小文字ケバブケース）。
    立体化学のある分子は `checks` 列に期待値を書く（書式は `scripts/chemcheck.py` の冒頭を参照）。
    - 例: `cip=S`（乳酸）、`ez=Z`（cis-2-ブテン）、`fa=18:9Z`（オレイン酸）、`sugar=a-D-Glcp`（α-D-グルコース）
+   - 鏡像体の混合物は `racemic`、実際に立体を区別しないもの（クロルヘキシジンの C=N など）は `stereo-undefined`
 2. 生成と検証を実行する
    ```sh
    pip install -r scripts/requirements.txt
@@ -79,10 +83,12 @@ python3 -m http.server 8000
 
 ## テスト
 ```sh
-python scripts/validate_data.py   # データ検証（SMILES・SDF・原子数・ID・立体化学）
+python scripts/validate_data.py   # データ検証（SMILES・SDF・原子数・ID・立体化学・シリーズ・比較）
+python tests/test_series_parse.py # PubChem の物性値テキストの読み取りテスト
 npm install                       # Playwright（スクリーンショットと E2E 用）
 python3 -m http.server 8000 &
-npm run e2e                       # 受け入れシナリオ（検索→3D回転→骨格式/全原子→QR共有→共有URL）
+npm run e2e                       # 受け入れシナリオ（M1: 検索→3D回転→骨格式/全原子→QR共有→共有URL、
+                                  #   M2: 比較の同期回転・鏡像、DHA の n-3、官能基、クイズ、シリーズ）
 npm run screenshots               # 375px 幅のスクリーンショットを docs/screenshots/ に保存
 ```
 

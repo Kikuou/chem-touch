@@ -8,6 +8,8 @@ import { getRDKit, preloadRDKit } from '../mol/rdkit.js';
 
 const DARK = { '-1': [0.86, 0.88, 0.87], 6: [0.86, 0.88, 0.87], 7: [0.45, 0.66, 1], 8: [1, 0.45, 0.47], 17: [0.35, 0.82, 0.48] };
 const thumbCache = new Map();
+// library categories that have a homologous series (B-3)
+const SERIES_OF = { alkane: 'alkane', alcohol: 'alkanol', 'carboxylic-acid': 'carboxylic-acid', 'fatty-acid': 'saturated-fatty-acid' };
 
 function itemHtml(c) {
   return `<a class="item" href="#/compound/${encodeURIComponent(c.id)}">
@@ -94,6 +96,7 @@ export async function renderLibrary({ el, query }) {
     } else if (cat) {
       const c = catById.get(cat);
       shown = list.filter((x) => x.categories.includes(cat));
+
       if (!shown.length) {
         results.innerHTML = `<p class="empty">${esc(c ? c.label : cat)}の分子は準備中です。<br><span class="small">${c && c.planned ? `（${esc(c.planned)} で追加予定）` : ''}</span></p>`;
       } else if (c && c.subs) {
@@ -116,6 +119,9 @@ export async function renderLibrary({ el, query }) {
           <b>${esc(c.label)}</b><span>${counts[c.id] ? `${counts[c.id]}件・` : ''}${esc(c.desc)}${c.planned ? '（準備中）' : ''}</span>
         </button>`).join('')}</div>
         <p class="credit" style="margin-top:16px">収録: ${list.length}件。構造データは PubChem（パブリックドメイン）での照合と RDKit による3D座標生成にもとづきます。</p>`;
+    }
+    if (!q && cat && SERIES_OF[cat]) {
+      results.insertAdjacentHTML('afterbegin', `<a class="info series-hint" href="#/series?s=${SERIES_OF[cat]}" style="margin:0 0 10px">${icon('chart')}<span>炭素数による沸点・融点の変化を見る（同族体シリーズ）</span>${icon('chev')}</a>`);
     }
     if (shown.length) {
       preloadRDKit();
