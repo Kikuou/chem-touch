@@ -29,6 +29,7 @@ S = [
     ("In water, 7.3 g/L at 25 °C", {"g_per_100ml": 0.73}),
     ("Soluble in ethanol", None),
     ("Immiscible with water; 0.0057 g/100 mL", {"g_per_100ml": 0.0057}),
+    ("In water, 22,000 mg/L at 25 °C", {"g_per_100ml": 2.2}),
 ]
 
 fails = 0
@@ -59,6 +60,21 @@ best = pick_value(record, "bp")
 ok = best and best["value"] == 78.4 and best["source"].startswith("Hazardous")
 fails += not ok
 print(("ok  " if ok else "FAIL"), "pick_value prefers HSDB:", best)
+
+# an outlier from the preferred source is dropped (lauric acid in HSDB)
+record2 = {"Record": {"RecordNumber": 3893, "Reference": [
+    {"ReferenceNumber": 1, "SourceName": "Hazardous Substances Data Bank (HSDB)"},
+    {"ReferenceNumber": 2, "SourceName": "CRC Handbook of Chemistry and Physics"},
+    {"ReferenceNumber": 3, "SourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)"}],
+    "Section": [{"TOCHeading": "Boiling Point", "Information": [
+        {"ReferenceNumber": 1, "Value": {"StringWithMarkup": [{"String": "91.4 °C"}]}},
+        {"ReferenceNumber": 1, "Value": {"StringWithMarkup": [{"String": "298.9 °C"}]}},
+        {"ReferenceNumber": 2, "Value": {"StringWithMarkup": [{"String": "297.8 °C"}]}},
+        {"ReferenceNumber": 3, "Value": {"StringWithMarkup": [{"String": "299 °C"}]}}]}]}}
+best = pick_value(record2, "bp")
+ok = best and best["value"] == 298.9
+fails += not ok
+print(("ok  " if ok else "FAIL"), "outlier dropped:", best and best["value"])
 
 print(f"\n{fails} failures")
 sys.exit(1 if fails else 0)

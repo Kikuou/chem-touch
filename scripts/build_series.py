@@ -8,7 +8,9 @@ point and water solubility taken from PubChem (spec B-3, section 4-4).
 
 Every value keeps its source: the PubChem data source (e.g. HSDB, CRC
 Handbook) and the original text. A value is left out (null) when no
-parsable, sourced value exists -- nothing is estimated.
+parsable, sourced value exists -- nothing is estimated. With three or more
+entries, values far from their median (more than 10 deg C or 10 %) are
+dropped before the most trusted source is chosen.
 
 Needs network access to PubChem; on GitHub Actions it runs after
 build_compounds.py (see .github/workflows/pubchem.yml).
@@ -64,6 +66,7 @@ NUM = r"[-−–]?\d+(?:\.\d+)?"
 # ------------------------------------------------------------------ parsing
 
 def _norm(s: str) -> str:
+    s = re.sub(r"(\d),(\d{3})(?!\d)", r"\1\2", s)  # 22,000 -> 22000
     return (s.replace("−", "-").replace("–", "-").replace("°", "°")
             .replace("deg C", "°C").replace("deg F", "°F").replace("° C", "°C").replace("° F", "°F"))
 
@@ -162,6 +165,14 @@ def pick_value(record: dict, key: str):
             }))
     if not candidates:
         return None
+    if key != "sol" and len(candidates) >= 3:
+        # drop outliers (e.g. a boiling point quoted without its reduced
+        # pressure) before choosing by source: keep values near the median
+        vals = sorted(c[2]["value"] for c in candidates)
+        med = vals[len(vals) // 2]
+        tol = max(10.0, abs(med) * 0.1)
+        kept = [c for c in candidates if abs(c[2]["value"] - med) <= tol]
+        candidates = kept or candidates
     best = min(candidates, key=lambda c: (c[0], c[1]))[2]
     if key != "sol":
         best.pop("solubility", None)
