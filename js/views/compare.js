@@ -7,6 +7,7 @@ import { esc, formulaHtml, onThemeChange, prefs } from '../core/dom.js';
 import { icon } from '../core/icons.js';
 import { compound, compounds, comparisons, categories, sdf as loadSdf } from '../core/data.js';
 import { navigate } from '../core/router.js';
+import { isPresent } from '../core/present.js';
 import { openShareSheet } from '../core/share.js';
 import { Viewer3D, webglAvailable } from '../mol/viewer3d.js';
 import { Structure2D } from '../mol/structure2d.js';
@@ -155,6 +156,10 @@ export async function renderCompare({ el, params, query }) {
       viewers.push(v);
     }
     viewers[0].syncWith(viewers[1], { mirror });
+    if (isPresent()) {
+      viewers[0].setSpin(true);
+      el.querySelector('[data-act="spin"]')?.setAttribute('aria-pressed', 'true');
+    }
   } else {
     el.querySelectorAll('.cmp-3d').forEach((b) => { b.innerHTML = '<div class="loading">この端末では3D表示が使えません。</div>'; });
   }

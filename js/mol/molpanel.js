@@ -2,6 +2,7 @@
 // through SDF atom indices (spec A-1 – A-9). Used by the compound detail
 // screen and by #/view; M2 (compare) and M3 (builder) can mount it too.
 import { esc, el, onThemeChange, prefs } from '../core/dom.js';
+import { isPresent } from '../core/present.js';
 import { icon } from '../core/icons.js';
 import { Viewer3D, webglAvailable } from './viewer3d.js';
 import { Structure2D } from './structure2d.js';
@@ -239,6 +240,11 @@ export function mountMolPanel(root, o) {
     if (!v.hasH) root.querySelector('[data-act="h"]')?.setAttribute('disabled', '');
     box.append(el('<div class="hint">ドラッグで回転・ピンチで拡大・ダブルタップで戻す</div>'));
     v3 = v;
+    // presentation mode (projector): rotate by itself
+    if (isPresent() && !o.crystal) {
+      v.setSpin(true);
+      root.querySelector('[data-act="spin"]')?.setAttribute('aria-pressed', 'true');
+    }
   }
 
   async function init2D() {

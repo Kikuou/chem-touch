@@ -567,6 +567,42 @@ svg.shells { display: block; margin: 0 auto; max-width: 100%; height: auto; }
 .lp-lone-k { width: 10px; height: 10px; border-radius: 50%; border: 2.2px solid #D55E00; display: inline-block; }
 .lewis-card h2 { font-size: 18px; }
 
+/* --- teacher presentation mode (M5, spec 5-2): html.presenting --- */
+.present-bar { position: fixed; right: 16px; bottom: 16px; z-index: 90; display: flex; gap: 8px; }
+.present-bar .pbtn { display: inline-flex; align-items: center; gap: 8px; min-height: 52px; padding: 0 18px; border-radius: 26px; background: var(--inverse-bg); color: var(--inverse-fg); font-size: 16px; font-weight: 700; box-shadow: var(--shadow); }
+.present-bar .pbtn svg { width: 22px; height: 22px; }
+html.presenting .nav { display: none; }
+html.presenting #app { padding-bottom: 96px; }
+html.presenting .page { max-width: 1400px; }
+html.presenting .page.wide { max-width: 1600px; }
+html.presenting .credit, html.presenting .v3d .hint, html.presenting .tool-help, html.presenting .e-help { display: none; }
+html.presenting .topbar .brand { font-size: 30px !important; }
+html.presenting .subbar h1 { font-size: 26px; }
+html.presenting .mol-title h2 { font-size: 44px; }
+html.presenting .mol-title .en, html.presenting .mol-title .fm { font-size: 22px; }
+html.presenting .note, html.presenting .bond-text { font-size: 22px; line-height: 1.75; }
+html.presenting .facts { font-size: 18px; }
+html.presenting .info { font-size: 18px; }
+html.presenting .section-title { font-size: 18px; }
+html.presenting .viewers { grid-template-columns: 1.4fr 1fr; align-items: start; }
+html.presenting .v3d { height: min(72vh, 760px); }
+html.presenting .cmp-3d { height: min(60vh, 640px); }
+html.presenting .cmp-name { font-size: 22px; }
+html.presenting .series-3d { height: min(50vh, 520px); }
+html.presenting .pt { --cell: 62px; }
+html.presenting .pt:not(.fit) .pt-el b { font-size: 24px; }
+html.presenting .pt:not(.fit) .pt-el .z, html.presenting .pt:not(.fit) .pt-el .v { font-size: 13px; }
+html.presenting .el-hero h2 { font-size: 40px; }
+html.presenting .e-svg svg { width: min(100%, 560px); }
+html.presenting .el-head h2 { font-size: 34px; }
+html.presenting .e-pool { font-size: 22px; }
+html.presenting .bond-svg { max-width: 960px; margin: 0 auto; }
+html.presenting .bond-labels { font-size: 20px; }
+html.presenting .bond-labels b { font-size: 28px; }
+html.presenting .lewis { max-width: 620px; }
+html.presenting .build-name h2 { font-size: 34px; }
+html.presenting .quiz-text { font-size: 24px; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }

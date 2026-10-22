@@ -1,6 +1,7 @@
 // "その他": display settings, about, data sources and licences.
 import { prefs } from '../core/dom.js';
 import { icon } from '../core/icons.js';
+import { isPresent, setPresent } from '../core/present.js';
 
 const LIBS = [
   ['3Dmol.js', '2.5.4', 'BSD-3-Clause', '3D分子表示', 'https://3dmol.csb.pitt.edu/'],
@@ -29,7 +30,13 @@ export function renderMore({ el }) {
           ${[['auto', '自動'], ['light', 'ライト'], ['dark', 'ダーク']].map(([k, l]) => `<button data-theme="${k}" aria-pressed="${theme === k}">${l}</button>`).join('')}
         </div>
       </div>
+      <div class="row">${icon('expand')}<span>教員提示モード<br><span class="small muted">文字と3Dを大きく・自動回転・QRを大きく</span></span>
+        <div class="seg" role="group" aria-label="教員提示モード">
+          <button data-present="0" aria-pressed="${!isPresent()}">オフ</button><button data-present="1" aria-pressed="${isPresent()}">オン</button>
+        </div>
+      </div>
     </div>
+    <p class="small muted" style="margin:6px 4px 0">提示モードは、PC のキーボードの <b>P</b> キーや、URL の末尾に <code>?present=1</code> を付けて開くことでも切り替えられます。提示中は <b>Q</b> キーでそのページの QR コードを大きく表示します。</p>
     <h2 class="section-title">機能</h2>
     <div class="menu">
       <a href="#/library">${icon('hex')}<span>分子ライブラリ</span></a>
@@ -60,6 +67,12 @@ export function renderMore({ el }) {
     </div>
   </div>`;
   el.addEventListener('click', (e) => {
+    const p = e.target.closest('[data-present]');
+    if (p) {
+      setPresent(p.dataset.present === '1');
+      el.querySelectorAll('[data-present]').forEach((x) => x.setAttribute('aria-pressed', x === p));
+      return;
+    }
     const b = e.target.closest('[data-theme]');
     if (!b) return;
     el.querySelectorAll('[data-theme]').forEach((x) => x.setAttribute('aria-pressed', x === b));

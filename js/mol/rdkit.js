@@ -32,3 +32,16 @@ export function molGraph(mol) {
   const bonds = (m.bonds || []).map((b, i) => ({ a: b.atoms[0], b: b.atoms[1], order: b.bo ?? db.bo, aromatic: aromatic.has(i) }));
   return { atoms, bonds };
 }
+
+// New 2D coordinates for drawing. normalize/straighten only tidy the
+// picture; RDKit throws in them for some molecules with one heavy atom and
+// explicit hydrogens (water, ammonia, methane, HCl), so a failure is ignored.
+export function depict(mol) {
+  mol.set_new_coords(true);
+  try {
+    mol.normalize_depiction();
+    mol.straighten_depiction();
+  } catch (e) {
+    // keep the coordinates from set_new_coords
+  }
+}

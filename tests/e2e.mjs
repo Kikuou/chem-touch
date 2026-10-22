@@ -1,4 +1,4 @@
-// Acceptance scenarios of milestones M1–M4 (spec §8), on a 375px phone viewport.
+// Acceptance scenarios of milestones M1–M5 (spec §8), on a 375px phone viewport.
 // M1:
 //   search "グルコース" -> open -> rotate 3D -> skeletal/all-atom switch ->
 //   2D atom tap highlights 3D -> QR share -> the shared URL opens the same molecule
@@ -8,7 +8,8 @@ import assert from 'node:assert/strict';
 
 const BASE = process.env.BASE_URL || 'http://localhost:8000/';
 const browser = await chromium.launch({ args: ['--enable-unsafe-swiftshader', '--use-angle=swiftshader'] });
-const ctx = await browser.newContext({ viewport: { width: 375, height: 812 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, locale: 'ja-JP' });
+// the service worker is tested on its own at the end (offline use)
+const ctx = await browser.newContext({ viewport: { width: 375, height: 812 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, locale: 'ja-JP', serviceWorkers: 'block' });
 const errors = [];
 ctx.on('page', (p) => p.on('pageerror', (e) => errors.push(e.message)));
 const page = await ctx.newPage();
@@ -84,6 +85,30 @@ await other.waitForSelector('.match .info');
 assert.match(await other.textContent('.match'), /α-D-グルコース/);
 await other.waitForSelector('.v3d canvas');
 step('#/view?smiles=... recognises the library compound and shows 3D');
+
+// every library molecule can be drawn in 2D, all-atom and skeletal
+// (RDKit throws while tidying some one-heavy-atom molecules such as water)
+const draw2d = await page.evaluate(async () => {
+  const { Structure2D } = await import('./js/mol/structure2d.js');
+  const list = (await (await fetch('data/compounds.json')).json()).compounds.filter((c) => c.kind !== 'crystal');
+  const box = document.createElement('div');
+  const bad = [];
+  for (const c of list) {
+    const s = new Structure2D(box, {});
+    try {
+      await s.setMolecule({ molblock: await (await fetch('data/' + c.sdf)).text() });
+      s.setMode('full');
+      if (s.canSkeletal) s.setMode('skeletal');
+      if (!box.querySelector('svg')) bad.push(c.id);
+    } catch (e) {
+      bad.push(c.id);
+    }
+    s.destroy?.();
+  }
+  return { n: list.length, bad };
+});
+assert.deepEqual(draw2d.bad, [], `2D drawing failed: ${draw2d.bad.join(', ')}`);
+step(`all ${draw2d.n} library molecules draw a 2D structure (all-atom and skeletal)`);
 
 // ---- M2 acceptance: compare oleic vs elaidic acid with synced rotation,
 // DHA n-3 position in colour, functional groups, quiz, series
@@ -273,6 +298,38 @@ await m2.waitForSelector('.lewis');
 assert.equal(await m2.locator('.lewis .lp-shared').count(), 6);
 assert.equal(await m2.locator('.lewis .lp-lone').count(), 2);
 step('covalent: NH3 electron-dot formula with 3 shared pairs and 1 lone pair');
+
+// ---- M5: teacher presentation mode and offline use
+await m2.goto(BASE + '?present=1#/compound/water');
+await m2.waitForSelector('.v3d canvas');
+assert.equal(await m2.evaluate(() => document.documentElement.classList.contains('presenting')), true);
+assert.equal(await m2.isVisible('.nav'), false);
+await m2.waitForFunction(() => document.querySelector('[data-act="spin"]')?.getAttribute('aria-pressed') === 'true');
+await m2.click('.present-bar [data-act="qr"]');
+await m2.waitForSelector('.present .qr svg');
+await m2.keyboard.press('Escape');
+await m2.click('.present-bar [data-act="exit"]');
+assert.equal(await m2.isVisible('.nav'), true);
+step('presentation mode: ?present=1 -> large view, auto rotation, big QR, exit button');
+await m2.close(); // stop the rotating 3D view (software WebGL in CI is CPU heavy)
+
+const off = await browser.newContext({ viewport: { width: 375, height: 812 }, isMobile: true, hasTouch: true, locale: 'ja-JP' });
+const op = await off.newPage();
+op.on('pageerror', (e) => errors.push(e.message));
+await op.goto(BASE + '#/compound/water');
+await op.waitForSelector('.v3d canvas');
+await op.evaluate(() => navigator.serviceWorker.ready);
+await op.waitForFunction(() => !!navigator.serviceWorker.controller, null, { timeout: 15000 });
+await op.reload(); // controlled by the worker now; RDKit etc. pass through it
+await op.waitForSelector('.v3d canvas');
+await op.waitForTimeout(1500); // let the worker finish caching
+await off.setOffline(true);
+await op.goto(BASE + '#/compound/water');
+await op.reload();
+await op.waitForSelector('.v3d canvas', { timeout: 20000 });
+assert.match(await op.textContent('.mol-title h2'), /水/);
+step('offline: a page opened once loads again without network (service worker)');
+await off.close();
 
 assert.deepEqual(errors, [], 'no page errors');
 step('no JavaScript errors');

@@ -8,7 +8,7 @@ import { esc, el as h, formulaHtml, isDark, prefs, toast } from '../core/dom.js'
 import { icon } from '../core/icons.js';
 import { setQuery, navigate } from '../core/router.js';
 import { openShareSheet, smilesHash } from '../core/share.js';
-import { getRDKit, molGraph, preloadRDKit } from '../mol/rdkit.js';
+import { getRDKit, molGraph, preloadRDKit, depict } from '../mol/rdkit.js';
 import * as A from '../mol/assemble.js';
 import { libraryMatches, formulaOf } from '../mol/similar.js';
 import { listMyMols, saveMyMol, renameMyMol, deleteMyMol } from '../mol/mymols.js';
@@ -41,9 +41,7 @@ const GROUP_TEXT = { oh: 'OH', nh2: 'NH₂', me: 'CH₃', oxo: 'O' };
 export function svg2d(RDKit, smiles, { width = 340, height = 200 } = {}) {
   const m = RDKit.get_mol(smiles);
   if (!m) return '';
-  m.set_new_coords(true);
-  m.normalize_depiction();
-  m.straighten_depiction();
+  depict(m);
   const o = { width, height, backgroundColour: [0, 0, 0, 0], bondLineWidth: 1.6, padding: 0.08, clearBackground: false, addStereoAnnotation: false };
   if (isDark()) o.atomColourPalette = DARK;
   const svg = m.get_svg_with_highlights(JSON.stringify(o));

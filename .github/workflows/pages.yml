@@ -24,7 +24,7 @@ jobs:
       - name: Collect site files
         run: |
           mkdir _site
-          cp -r index.html css js data vendor icons _site/
+          cp -r index.html sw.js manifest.webmanifest css js data vendor icons _site/
           rm -f _site/data/build_report.md
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

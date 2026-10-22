@@ -6,8 +6,9 @@
 //   js/views/  one file per screen
 //   js/periodic/  periodic table, electron configuration, bonds — M4
 //                 (uses only js/core/, never js/mol/)
-import { route, startRouter } from './core/router.js';
+import { route, startRouter, parseHash } from './core/router.js';
 import { hydrateIcons } from './core/icons.js';
+import { initPresent, syncPresentFromUrl } from './core/present.js';
 import { renderHome } from './views/home.js';
 import { renderLibrary } from './views/library.js';
 import { renderCompound, renderView } from './views/compound.js';
@@ -49,12 +50,26 @@ route('/bond', renderBond, { tab: 'periodic', title: '電子と結合' });
 route('/404', notFound, {});
 
 hydrateIcons(document.querySelector('.nav'));
+initPresent();
 const tabs = [...document.querySelectorAll('.nav a')];
 startRouter(document.getElementById('app'), {
   onRouteChange({ tab }) {
+    syncPresentFromUrl(parseHash().query);
     tabs.forEach((a) => {
       if (a.dataset.tab === tab) a.setAttribute('aria-current', 'page');
       else a.removeAttribute('aria-current');
     });
   },
 });
+
+// Offline use (PWA): register the service worker, then hand it the files
+// this first visit already loaded so they are cached too.
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').then(async () => {
+      const reg = await navigator.serviceWorker.ready;
+      const urls = performance.getEntriesByType('resource').map((e) => e.name).filter((u) => u.startsWith(location.origin));
+      reg.active?.postMessage({ type: 'cache', urls: [location.href.split('#')[0], ...urls] });
+    }).catch(() => {});
+  });
+}
