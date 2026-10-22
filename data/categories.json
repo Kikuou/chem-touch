@@ -1,0 +1,34 @@
+{
+ "note": "Library categories. 'subs' are optional sub-groups shown as headings. 'planned' marks categories whose compounds arrive in a later milestone.",
+ "categories": [
+  { "id": "basic", "label": "化学基礎", "desc": "身近な分子と結晶" },
+  { "id": "alkane", "label": "アルカン", "desc": "メタン〜ノナン・異性体" },
+  { "id": "alkene-alkyne", "label": "アルケン・アルキン", "desc": "二重結合・三重結合" },
+  { "id": "alcohol", "label": "アルコール", "desc": "第一級・第二級・第三級" },
+  { "id": "carboxylic-acid", "label": "カルボン酸・エステル", "desc": "ギ酸〜ノナン酸ほか" },
+  { "id": "aldehyde-ketone", "label": "アルデヒド・ケトン", "desc": "カルボニル化合物" },
+  { "id": "ether", "label": "エーテル", "desc": "エーテル結合" },
+  { "id": "fatty-acid", "label": "脂肪酸", "desc": "飽和・不飽和・n-3/n-6",
+    "subs": [
+     { "id": "short-chain", "label": "短鎖脂肪酸" },
+     { "id": "medium-chain", "label": "中鎖脂肪酸" },
+     { "id": "long-chain-saturated", "label": "長鎖飽和脂肪酸" },
+     { "id": "monounsaturated", "label": "一価不飽和脂肪酸" },
+     { "id": "n-6", "label": "n-6系脂肪酸" },
+     { "id": "n-3", "label": "n-3系脂肪酸" }
+    ] },
+  { "id": "carbohydrate", "label": "糖質", "desc": "単糖・二糖・多糖の断片",
+    "subs": [
+     { "id": "monosaccharide", "label": "単糖" },
+     { "id": "disaccharide", "label": "二糖" },
+     { "id": "oligosaccharide", "label": "多糖の断片" }
+    ] },
+  { "id": "crystal", "label": "結晶", "desc": "イオン結晶・共有結合の結晶" },
+  { "id": "amino-acid", "label": "アミノ酸", "desc": "タンパク質をつくる20種", "planned": "M2" },
+  { "id": "lipid", "label": "脂質", "desc": "油脂・コレステロール", "planned": "M2" },
+  { "id": "vitamin", "label": "ビタミン", "desc": "脂溶性・水溶性", "planned": "M2" },
+  { "id": "food", "label": "食品成分", "desc": "カフェイン・色素・添加物", "planned": "M2" },
+  { "id": "biomolecule", "label": "生体物質", "desc": "ホルモン・神経伝達物質", "planned": "M2" },
+  { "id": "drug", "label": "医薬品・消毒薬", "desc": "医療で使う化合物", "planned": "M2" }
+ ]
+}

@@ -1,0 +1,50 @@
+# Check the compound list against PubChem and commit the result.
+# GitHub's runners can reach PubChem even when a local network cannot.
+#   - runs automatically when compound_sources.csv or the build scripts change
+#     on a branch other than main
+#   - can be started by hand: Actions -> "PubChem check" -> Run workflow
+#     (choose the branch; the updated data is committed to that branch)
+name: PubChem check
+
+on:
+  workflow_dispatch:
+  push:
+    branches-ignore: [main]
+    paths:
+      - scripts/compound_sources.csv
+      - scripts/build_compounds.py
+      - scripts/chemcheck.py
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pubchem-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r scripts/requirements.txt
+      - name: Build data with PubChem
+        run: python scripts/build_compounds.py
+      - name: Validate
+        run: python scripts/validate_data.py
+      - name: Report
+        run: cat data/build_report.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Commit updated data
+        run: |
+          if git diff --quiet -- data; then
+            echo "no data changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          git commit -m "Update compound data from PubChem check"
+          git push

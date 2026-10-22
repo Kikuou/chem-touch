@@ -2,16 +2,101 @@
 
 旭川市立大学 共通教養科目「化学」向け、スマホで触れる化学学習 Web アプリ。
 
-- 3D 分子ビューア（栄養・看護系の主要化合物を収録、比較・官能基表示）
-- 分子ビルダーと URL / QR での共有
-- 電子配置ビルダー、インタラクティブ周期表
+- 3D 分子ビューア（栄養・看護系の主要化合物を収録、2D 構造式と連動）
+- 分子ライブラリ（カテゴリ・キーワード検索）
+- URL / QR での共有、投影用の大きな QR 表示
+- （今後）比較モード、分子ビルダー、電子配置ビルダー、インタラクティブ周期表
 
-静的サイト（GitHub Pages）として無料で運用する。ログイン・個人情報なし。
+静的サイト（GitHub Pages）として無料で運用する。ログイン・個人情報・アクセス解析なし。
 
 ## ドキュメント
 - 仕様書: [docs/spec.md](docs/spec.md)
-- 開発ルール（サーバー版フェーズ用）: [docs/dev_rules.md](docs/dev_rules.md)
+- 構成とモジュール境界: [docs/architecture.md](docs/architecture.md)
+- 開発ルール（サーバー版フェーズ用。静的サイトには適用しない）: [docs/dev_rules.md](docs/dev_rules.md)
 - ホーム画面モック: [mockups/home_final.png](mockups/home_final.png)
+- スクリーンショット（375px）: [docs/screenshots/](docs/screenshots/)
 
 ## ステータス
-仕様策定済み。実装はマイルストーン M0（雛形・Pages デプロイ）から順に進める。
+| M | 内容 | 状態 |
+|---|---|---|
+| M0 | 雛形・ハッシュルーティング・下部タブ・ホーム・Pages 自動デプロイ | 実装済み |
+| M1 | 化合物データ生成（§3-1〜3-4、85件）、3D/2D ビューア A-1〜A-9、ライブラリ B-1〜B-2、共有 D-1〜D-4 | 実装済み（PubChem 照合は GitHub Actions で実行） |
+| M2 | 残りの化合物、官能基ハイライト・比較・クイズ、シリーズ | 未着手 |
+| M3 | 分子ビルダー | 未着手 |
+| M4 | 周期表・電子配置 | 未着手 |
+
+## GitHub Pages での公開（初回のみ）
+1. リポジトリを **Public** にする（無料プランの GitHub Pages は公開リポジトリが必要）
+2. GitHub のリポジトリ画面で **Settings → Pages** を開く
+3. **Build and deployment → Source** で **GitHub Actions** を選ぶ
+4. `main` ブランチに変更が入ると `.github/workflows/pages.yml` が自動で走り、
+   `https://<ユーザー名>.github.io/chem-touch/` で公開される
+   （Actions タブの「Deploy to GitHub Pages」から手動実行も可能）
+
+## 手元で動かす
+ビルドは不要。リポジトリのルートで静的サーバーを起動してブラウザで開く。
+
+```sh
+python3 -m http.server 8000
+# → http://localhost:8000/
+```
+
+`file://` で直接開くと ES Modules と fetch が動かないので、必ずサーバー経由で開く。
+
+## 化合物データ
+| ファイル | 内容 | 誰が編集するか |
+|---|---|---|
+| `scripts/compound_sources.csv` | 化合物の元リスト（id・名前・別名・カテゴリ・SMILES・立体化学チェック・関連化合物） | 教員・開発者 |
+| `data/compounds.json` | アプリが読むデータ（スクリプトが生成） | 解説文 `note_ja` / `note_reviewed` は直接編集してよい |
+| `data/sdf/<id>.sdf` | 3D 座標（スクリプトが生成） | 編集しない |
+| `data/categories.json` | ライブラリのカテゴリ | 教員・開発者 |
+| `data/functional_groups.json` | 官能基の SMARTS・色・名前 | 開発者 |
+| `data/schedule.json` | ホームの授業帯（空配列 `[]` なら帯を隠す）。書式は `data/schedule.example.json` | 教員 |
+
+### 化合物を追加・修正する
+1. `scripts/compound_sources.csv` に1行追加する（`id` は英小文字ケバブケース）。
+   立体化学のある分子は `checks` 列に期待値を書く（書式は `scripts/chemcheck.py` の冒頭を参照）。
+   - 例: `cip=S`（乳酸）、`ez=Z`（cis-2-ブテン）、`fa=18:9Z`（オレイン酸）、`sugar=a-D-Glcp`（α-D-グルコース）
+2. 生成と検証を実行する
+   ```sh
+   pip install -r scripts/requirements.txt
+   python scripts/build_compounds.py      # PubChem に届けば照合、届かなければ RDKit のみ
+   python scripts/validate_data.py
+   ```
+   PubChem に届かない環境では、ブランチに push すると GitHub Actions の「PubChem check」が
+   PubChem で照合し、結果を同じブランチにコミットする（Actions タブから手動実行も可）。
+3. 解説文は `data/compounds.json` の `note_ja` を直接直す。確認済みにしたら `note_reviewed` を `true` にする
+   （スクリプトを再実行しても `note_ja` と `note_reviewed` は保持される）。
+
+照合結果は `data/build_report.md` にまとまる。`verification.pubchem` の意味:
+
+| 値 | 意味 |
+|---|---|
+| `verified` | 同じ InChIKey の PubChem レコードがあり、CSV の名前検索も同じ CID を返した |
+| `structure-only` | 構造は PubChem にあるが、名前検索は別のレコードを返した（要確認） |
+| `not-found` | 同じ InChIKey のレコードが PubChem にない |
+| `unverified` | PubChem に問い合わせていない（オフライン生成） |
+
+## テスト
+```sh
+python scripts/validate_data.py   # データ検証（SMILES・SDF・原子数・ID・立体化学）
+npm install                       # Playwright（スクリーンショットと E2E 用）
+python3 -m http.server 8000 &
+npm run e2e                       # 受け入れシナリオ（検索→3D回転→骨格式/全原子→QR共有→共有URL）
+npm run screenshots               # 375px 幅のスクリーンショットを docs/screenshots/ に保存
+```
+
+## 使用ライブラリとライセンス
+外部ライブラリはバージョンを固定して `vendor/` に同梱している（CDN を使わない）。
+
+| ライブラリ | バージョン | ライセンス | 用途 | 選定理由 |
+|---|---|---|---|---|
+| [3Dmol.js](https://3dmol.csb.pitt.edu/) | 2.5.4 | BSD-3-Clause | 3D 分子表示 | WebGL で軽量、スマホのタッチ回転・ピンチに標準対応、SDF をそのまま読める。比較モード（M2）用の視点同期 API もある |
+| [RDKit.js](https://www.rdkit.org/) (MinimalLib) | 2026.03.6 | BSD-3-Clause | 2D 構造式・SMILES 解析・官能基判定（SMARTS）・InChIKey | 化合物データの生成（Python 版 RDKit）と同じエンジンで、骨格式/全原子の描画・立体の楔表示が正確。WASM（約 7 MB）は分子画面でのみ遅延読み込み |
+| [qrcode-generator](https://github.com/kazuhikoarase/qrcode-generator) | 2.0.4 | MIT | QR コード生成 | 依存なし・軽量（約 50 KB）・SVG 出力で投影しても鮮明 |
+| [jsQR](https://github.com/cozmo/jsQR) | 1.4.0 | Apache-2.0 | QR 読み取り（iPhone 等） | BarcodeDetector のない Safari 用の代替。読み取り画面でのみ読み込む |
+
+ライセンス本文は `vendor/<ライブラリ>/LICENSE` にある。
+データ生成には [RDKit](https://www.rdkit.org/)（Python, BSD-3-Clause）を使う。開発用に [Playwright](https://playwright.dev/)（Apache-2.0）を使う（配信物には含まれない）。
+
+化合物の構造は [PubChem](https://pubchem.ncbi.nlm.nih.gov/)（パブリックドメイン）で照合する。

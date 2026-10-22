@@ -1,0 +1,57 @@
+// Entry point: route table and bottom navigation.
+//
+// Module boundaries (see docs/architecture.md):
+//   js/core/   router, data loading, search, sharing — shared by everything
+//   js/mol/    molecule viewers (3D/2D), RDKit loader — M1–M3
+//   js/views/  one file per screen
+// Later milestones add their screens here: M2 compare, M3 build,
+// M4 periodic table / electron configuration.
+import { route, startRouter } from './core/router.js';
+import { hydrateIcons } from './core/icons.js';
+import { renderHome } from './views/home.js';
+import { renderLibrary } from './views/library.js';
+import { renderCompound, renderView } from './views/compound.js';
+import { renderScan } from './views/scan.js';
+import { renderMore } from './views/more.js';
+import { placeholder, notFound } from './views/placeholder.js';
+
+route('/', renderHome, { tab: 'home' });
+route('/library', renderLibrary, { tab: 'library', title: '分子をさがす' });
+route('/compound/:id', renderCompound, { tab: 'library', title: '分子' });
+route('/view', renderView, { tab: 'library', title: '共有された分子' });
+route('/scan', renderScan, { tab: 'home', title: 'QRコードを読み取る' });
+route('/more', renderMore, { tab: 'more', title: 'その他' });
+
+// --- M2: compare (A-13 – A-16), series (B-3)
+route('/compare', placeholder({
+  title: 'くらべる', milestone: 'M2',
+  text: '鏡像体やシス・トランス異性体を、回転を同期させて2つ並べて比べる機能です。',
+  links: [{ label: 'オレイン酸を見る', href: '#/compound/oleic-acid' }, { label: 'エライジン酸を見る', href: '#/compound/elaidic-acid' }],
+}), { tab: 'home', title: 'くらべる' });
+// --- M3: molecule builder (C)
+route('/build', placeholder({
+  title: 'つくる', milestone: 'M3',
+  text: '炭素鎖の長さ・二重結合・官能基を選んで分子を組み立て、3Dで表示・共有する機能です。',
+}), { tab: 'build', title: 'つくる' });
+// --- M4: periodic table (F) and electron configuration (E)
+route('/periodic', placeholder({
+  title: '周期表', milestone: 'M4',
+  text: '元素の詳細、原子半径や電気陰性度の傾向、栄養ミネラルを表示する周期表です。',
+}), { tab: 'periodic', title: '周期表' });
+route('/electron', placeholder({
+  title: '電子配置', milestone: 'M4',
+  text: 'K・L・M・N殻に電子を置いて電子配置を学ぶ機能です。',
+}), { tab: 'home', title: '電子配置' });
+
+route('/404', notFound, {});
+
+hydrateIcons(document.querySelector('.nav'));
+const tabs = [...document.querySelectorAll('.nav a')];
+startRouter(document.getElementById('app'), {
+  onRouteChange({ tab }) {
+    tabs.forEach((a) => {
+      if (a.dataset.tab === tab) a.setAttribute('aria-current', 'page');
+      else a.removeAttribute('aria-current');
+    });
+  },
+});
