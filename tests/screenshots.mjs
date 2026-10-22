@@ -137,6 +137,42 @@ for (const scheme of ['light', 'dark']) {
     await p.waitForSelector('.item');
     await p.waitForTimeout(2500);
     await shot(p, 'm2-library-amino-acids');
+
+    // M3: builder
+    await p.evaluate(() => localStorage.removeItem('chemtouch:mymols'));
+    await p.goto(BASE + '#/build?mode=assemble&n=18&end=cooh&b=9c');
+    await p.waitForSelector('.build-match .match-hit');
+    await p.locator('.chain-wrap').evaluate((e) => { e.scrollLeft = 150; });
+    await p.waitForTimeout(400);
+    await shot(p, 'm3-build-oleic', { fullPage: true });
+    await p.goto(BASE + '#/build?mode=assemble&n=4&b=2t&g=1oh');
+    await p.waitForSelector('.build-2d svg');
+    await p.waitForTimeout(800);
+    await p.locator('.build-card').nth(1).screenshot({ path: OUT + 'm3-build-tools.png' });
+    await p.goto(BASE + '#/view?from=build&name=' + encodeURIComponent('cis-9-オクタデセン酸') + '&smiles=' + encodeURIComponent('CCCCCCCC/C=C\\CCCCCCCC(=O)O'));
+    await p.waitForSelector('.v3d canvas');
+    await p.waitForTimeout(1000);
+    await shot(p, 'm3-view-built');
+    await p.goto(BASE + '#/view?from=build&name=' + encodeURIComponent('trans-3-ペンテン-2-オン') + '&smiles=' + encodeURIComponent('C/C=C/C(C)=O'));
+    await p.waitForSelector('.v3d canvas', { timeout: 60000 });
+    await p.waitForTimeout(1000);
+    await shot(p, 'm3-view-generated', { fullPage: true });
+    await p.goto(BASE + '#/build?mode=draw&smiles=' + encodeURIComponent('CC(=O)Oc1ccccc1C(=O)O'));
+    await p.waitForSelector('.build-match .section-title');
+    await p.waitForTimeout(800);
+    await shot(p, 'm3-draw');
+    await p.evaluate(() => {
+      const now = Date.now();
+      localStorage.setItem('chemtouch:mymols', JSON.stringify([
+        { id: 'a', name: '自作のオレイン酸', smiles: 'CCCCCCCC/C=C\\CCCCCCCC(=O)O', build: { n: '18', end: 'cooh', b: '9c' }, created: now, updated: now },
+        { id: 'b', name: 'trans-2-ブテン-1-オール', smiles: 'C/C=C/CO', build: { n: '4', b: '2t', g: '1oh' }, created: now, updated: now },
+        { id: 'c', name: '描いたアスピリン', smiles: 'CC(=O)Oc1ccccc1C(=O)O', created: now, updated: now },
+      ]));
+    });
+    await p.goto(BASE + '#/build?mode=mine');
+    await p.waitForSelector('.mine .thumb svg');
+    await p.waitForTimeout(500);
+    await shot(p, 'm3-mine');
   }
   await p.context().close();
 }

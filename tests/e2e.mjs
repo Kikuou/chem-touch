@@ -1,4 +1,5 @@
-// Acceptance scenario of milestone M1 (spec §8), on a 375px phone viewport:
+// Acceptance scenarios of milestones M1–M3 (spec §8), on a 375px phone viewport.
+// M1:
 //   search "グルコース" -> open -> rotate 3D -> skeletal/all-atom switch ->
 //   2D atom tap highlights 3D -> QR share -> the shared URL opens the same molecule
 //   python3 -m http.server 8000 &  ;  npm run e2e
@@ -154,6 +155,70 @@ await m2.locator('#n-slider').fill('4');
 await m2.waitForTimeout(400);
 assert.match(await m2.textContent('.series-name'), /ペンタン/);
 step('series: slider changes the molecule');
+
+// ---- M3 acceptance: assemble oleic acid (C18, cis double bond at 9),
+// show it in 3D and share it; my molecules; 3D for a new molecule; free drawing
+await m2.goto(BASE + '#/');
+await m2.evaluate(() => Object.keys(localStorage).filter((k) => k.startsWith('chemtouch:build') || k === 'chemtouch:mymols').forEach((k) => localStorage.removeItem(k)));
+await m2.goto(BASE + '#/build?mode=assemble');
+await m2.waitForSelector('.chain-ed');
+await m2.locator('.build-slider').fill('18');
+await m2.click('[data-end="cooh"]');
+await m2.click('[data-tool="cis"]');
+const bond9 = m2.locator('[data-bond="9"]');
+await bond9.scrollIntoViewIfNeeded();
+const b9 = await bond9.boundingBox();
+await m2.touchscreen.tap(b9.x + b9.width / 2, b9.y + b9.height / 2);
+assert.equal((await m2.textContent('.build-name h2')).trim(), 'cis-9-オクタデセン酸');
+await m2.waitForSelector('.build-match .match-hit');
+assert.match(await m2.textContent('.build-match .match-hit'), /オレイン酸/);
+assert.match(m2.url(), /n=18&end=cooh&b=9c/);
+step('build: C18 + -COOH + cis double bond at C9 -> "cis-9-オクタデセン酸" = オレイン酸');
+
+// the valence rule: C=O on a carbon of the double bond is refused
+await m2.click('[data-tool="oxo"]');
+await m2.locator('[data-atom="9"]').click({ force: true });
+assert.match(await m2.textContent('.toast'), /5本以上/);
+step('build: a fifth bond on carbon is refused with an explanation');
+
+await m2.click('[data-act="save"]');
+await m2.fill('.sheet input', '自作のオレイン酸');
+await m2.click('.sheet button[type="submit"]');
+await m2.click('[data-act="view"]');
+await m2.waitForURL(/#\/view\?/);
+await m2.waitForSelector('.v3d canvas');
+assert.match(await m2.textContent('.match'), /オレイン酸/);
+step('build -> 3D view (library 3D model of oleic acid)');
+
+await m2.click('[data-act="share2"]');
+const builtUrl = (await m2.textContent('.sheet .url')).trim();
+await m2.keyboard.press('Escape');
+const m3 = await ctx.newPage();
+await m3.goto(builtUrl);
+await m3.waitForSelector('.v3d canvas');
+assert.match(await m3.textContent('.match'), /オレイン酸/);
+await m3.close();
+step(`shared URL of the built molecule opens it: ${builtUrl.replace(/^.*#/, '#')}`);
+
+await m2.goto(BASE + '#/build?mode=mine');
+await m2.waitForSelector('.mine');
+assert.match(await m2.textContent('.mine .nm'), /自作のオレイン酸/);
+step('my molecules: the saved molecule is listed');
+
+await m2.goto(BASE + '#/view?from=build&smiles=' + encodeURIComponent('C/C=C/C(C)=O'));
+await m2.waitForSelector('.v3d canvas', { timeout: 60000 });
+assert.equal(await m2.isVisible('.gen-credit'), true);
+step('3D model computed in the browser for a molecule outside the library (stereo checked)');
+
+await m2.goto(BASE + '#/build?mode=draw');
+await m2.waitForSelector('.ocl-host canvas, .ocl-host [data-openchemlib-canvas-editor]');
+await m2.fill('.smiles-in', 'OCC');
+await m2.click('.smiles-row button');
+await m2.waitForFunction(() => /C2H6O/.test(document.querySelector('.build-facts').textContent));
+const ed = await m2.locator('.ocl-host').boundingBox();
+await m2.touchscreen.tap(ed.x + ed.width * 0.75, ed.y + ed.height * 0.2);
+await m2.waitForFunction(() => /C4H/.test(document.querySelector('.build-facts').textContent), null, { timeout: 5000 });
+step(`free drawing: SMILES input and drawing by touch (${(await m2.textContent('.build-facts')).trim()})`);
 
 assert.deepEqual(errors, [], 'no page errors');
 step('no JavaScript errors');

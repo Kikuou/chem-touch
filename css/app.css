@@ -387,6 +387,62 @@ sub { font-size: .72em; vertical-align: -0.25em; line-height: 0; }
 table.lic { width: 100%; border-collapse: collapse; font-size: 13px; }
 table.lic th, table.lic td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
 
+/* --- builder (M3, spec C) --- */
+.build-modes { justify-content: center; }
+.build-modes .seg { width: 100%; max-width: 420px; }
+.build-modes .seg button { flex: 1; }
+.build-card { padding: 14px; margin-bottom: 12px; }
+.build-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 36px; }
+.build-row b { font-size: 15px; }
+.stepper { display: flex; align-items: center; gap: 4px; }
+.stepper .iconbtn { font-size: 22px; font-weight: 600; border: 1px solid var(--line); border-radius: 12px; }
+.build-n { min-width: 56px; text-align: center; font-size: 17px; font-weight: 700; }
+.build-slider { width: 100%; height: 44px; accent-color: var(--accent); }
+.build-scale { display: flex; justify-content: space-between; margin-top: -6px; }
+.tool-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 6px; }
+.tool-grid .chip { flex-direction: column; justify-content: center; gap: 0; padding: 4px 2px; min-height: 52px; border-radius: 14px; line-height: 1.2; }
+.tool-grid .chip b { font-size: 14px; }
+.tool-grid .chip small { font-size: 10.5px; font-weight: 500; opacity: .8; white-space: nowrap; }
+.end-grid { grid-template-columns: repeat(3, 1fr); }
+.tool-help { margin: 8px 2px 4px; min-height: 2.6em; }
+.chain-wrap { overflow-x: auto; overscroll-behavior-x: contain; margin: 0 -14px; padding: 0 14px; -webkit-overflow-scrolling: touch; }
+.chain-ed { display: block; touch-action: pan-x; }
+.chain-ed .cb { stroke: var(--chain); stroke-width: 2.4; stroke-linecap: round; }
+.chain-ed .cb.multi { stroke: var(--accent); }
+.chain-ed .cbl { font-size: 10px; fill: var(--accent-ink); text-anchor: middle; font-weight: 600; }
+.chain-ed .gb { stroke: var(--muted); stroke-width: 2; }
+.chain-ed .gb.dbl { stroke-dasharray: none; stroke-width: 4; }
+.chain-ed .gl { font-size: 13px; font-weight: 700; text-anchor: middle; fill: var(--text); paint-order: stroke; stroke: var(--surface); stroke-width: 5px; }
+.chain-ed .gl-oh, .chain-ed .gl-oxo { fill: #D55E00; }
+.chain-ed .gl-nh2 { fill: #0072B2; }
+.chain-ed .gl.end { text-decoration: underline; }
+.chain-ed .ca { fill: var(--surface); stroke: var(--chain); stroke-width: 1.6; }
+.chain-ed .cn { font-size: 12px; font-weight: 700; text-anchor: middle; fill: var(--text); pointer-events: none; }
+.chain-ed .hit-a { fill: transparent; cursor: pointer; }
+.chain-ed .hit-b { stroke: transparent; stroke-width: 24; stroke-linecap: round; cursor: pointer; }
+.chain-ed .hit-a.off, .chain-ed .hit-b.off { cursor: default; }
+.chain-ed .hit-a:not(.off):active { fill: var(--accent-weak); fill-opacity: .7; }
+.build-result { padding: 14px; }
+.build-name h2 { font-size: 20px; line-height: 1.35; overflow-wrap: anywhere; }
+.build-facts { margin: 4px 0; font-size: 14px; }
+.build-facts .fm { font-weight: 700; }
+.build-notes p { margin: 4px 0; color: var(--muted); }
+.build-notes b { color: var(--text); }
+.build-2d { margin: 8px 0 0; height: auto; min-height: 120px; }
+.build-2d svg { width: 100%; height: auto; max-height: 220px; }
+.build-result .section-title { margin: 14px 0 6px; }
+.match-hit { margin: 0 0 6px; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.btn[aria-disabled="true"] { opacity: .5; }
+.smiles-row { display: flex; gap: 8px; margin-bottom: 10px; }
+.smiles-in { flex: 1; min-width: 0; min-height: 44px; border: 1px solid var(--line); border-radius: 12px; padding: 0 12px; background: var(--surface); color: var(--text); font-family: var(--mono); font-size: 14px; }
+.ocl-host { position: relative; overflow: hidden; border-radius: 16px; border: 1px solid var(--line); background: #fff; }
+.mine-acts { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 4px; }
+.mine-acts .chip { min-height: 36px; padding: 0 12px; }
+.mine .tx code { font-size: 11px; overflow-wrap: anywhere; }
+.field { display: flex; flex-direction: column; gap: 4px; margin-top: 12px; }
+.field input { min-height: 44px; border: 1px solid var(--line); border-radius: 12px; padding: 0 12px; background: var(--surface-2); color: var(--text); font-size: 16px; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }

@@ -15,6 +15,7 @@ import { renderScan } from './views/scan.js';
 import { renderCompare } from './views/compare.js';
 import { renderQuiz } from './views/quiz.js';
 import { renderSeries } from './views/series.js';
+import { renderBuild } from './views/build.js';
 import { renderMore } from './views/more.js';
 import { placeholder, notFound } from './views/placeholder.js';
 
@@ -33,10 +34,7 @@ route('/quiz', renderQuiz, { tab: 'more', title: '官能基クイズ' });
 // --- M2: homologous series (B-3)
 route('/series', renderSeries, { tab: 'more', title: '同族体シリーズ' });
 // --- M3: molecule builder (C)
-route('/build', placeholder({
-  title: 'つくる', milestone: 'M3',
-  text: '炭素鎖の長さ・二重結合・官能基を選んで分子を組み立て、3Dで表示・共有する機能です。',
-}), { tab: 'build', title: 'つくる' });
+route('/build', renderBuild, { tab: 'build', title: 'つくる' });
 // --- M4: periodic table (F) and electron configuration (E)
 route('/periodic', placeholder({
   title: '周期表', milestone: 'M4',

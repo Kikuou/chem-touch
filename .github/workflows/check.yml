@@ -20,3 +20,7 @@ jobs:
       - run: pip install -r scripts/requirements.txt
       - run: python scripts/validate_data.py
       - run: python tests/test_series_parse.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node tests/test_assemble.mjs

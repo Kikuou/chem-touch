@@ -1,11 +1,13 @@
 // Molecule detail (spec A-7, B-2, D-1): #/compound/<id> and #/view?smiles=...
-import { esc, formulaHtml } from '../core/dom.js';
+import { esc, formulaHtml, toast } from '../core/dom.js';
 import { goBack } from '../core/router.js';
 import { icon } from '../core/icons.js';
 import { compound, compounds, sdf as loadSdf } from '../core/data.js';
 import { openShareSheet, compoundHash, smilesHash } from '../core/share.js';
 import { mountMolPanel } from '../mol/molpanel.js';
-import { getRDKit } from '../mol/rdkit.js';
+import { getRDKit, molGraph } from '../mol/rdkit.js';
+import { conformerFor } from '../mol/conformer.js';
+import { formulaOf } from '../mol/similar.js';
 import { faCardHtml, chainSvg, faHelp, chainAtoms, faColor } from './fatty-acid.js';
 
 const CRYSTAL_BOND = {
@@ -118,25 +120,45 @@ export async function renderCompound({ el, params }) {
   return () => panel.destroy();
 }
 
-// #/view?smiles=...&name=... — any molecule shared by URL (spec D-1)
+// #/view?smiles=...&name=... — any molecule shared by URL (spec D-1) or
+// made in the builder (C-8: the 3D model is computed in the browser).
+//   &from=build|draw|mine  came from the builder (back goes there)
 export async function renderView({ el, query }) {
   const smiles = (query.get('smiles') || '').trim().slice(0, 500);
   const name = (query.get('name') || '').trim().slice(0, 80);
-  const title = name || '共有された分子';
+  const from = query.get('from') || '';
+  const title = name || (from ? 'つくった分子' : '共有された分子');
   const content = shell(el, title);
+  if (from) {
+    // the back button returns to the builder even when the page was opened directly
+    const back = el.querySelector('[data-act="back"]');
+    back.replaceWith(back.cloneNode(true));
+    el.querySelector('[data-act="back"]').addEventListener('click', () => goBack(from === 'mine' ? '#/build?mode=mine' : '#/build'));
+  }
   el.querySelector('[data-act="share"]').addEventListener('click', () => openShareSheet({ title, hash: smilesHash(smiles, name) }));
   if (!smiles) {
     content.innerHTML = '<p class="empty">URL に分子（SMILES）が含まれていません。</p>';
     return null;
   }
   content.innerHTML = `
-    <div class="mol-title"><h2>${esc(title)}</h2><div class="en"><code>${esc(smiles)}</code></div></div>
+    <div class="mol-title"><h2>${esc(title)}</h2><div class="en"><code>${esc(smiles)}</code></div><div class="fm"></div></div>
     <div class="match"></div>
     <div class="molpanel"><p class="empty"><span class="spinner"></span>分子を解析中…</p></div>
     <div class="stack">
       <button class="btn primary block" data-act="share2">${icon('qr')}QRコードで共有</button>
+      <div class="two">
+        <button class="btn" data-act="save">${icon('star')}マイ分子に保存</button>
+        <a class="btn" href="#/build?mode=draw&smiles=${encodeURIComponent(smiles)}">${icon('build')}描いて編集</a>
+      </div>
+      <p class="credit gen-credit" hidden>3D 座標はこの端末で計算しました（OpenChemLib の配座生成 + MMFF94s+ 最適化）。立体（シス/トランス・R/S）が SMILES と一致することを RDKit で確認しています。</p>
     </div>`;
   content.querySelector('[data-act="share2"]').addEventListener('click', () => openShareSheet({ title, hash: smilesHash(smiles, name) }));
+  content.querySelector('[data-act="save"]').addEventListener('click', async () => {
+    const { saveMyMol } = await import('../mol/mymols.js');
+    const { askName } = await import('./build.js');
+    const nm = await askName('マイ分子に保存', title);
+    if (nm) { saveMyMol({ name: nm, smiles }); toast('マイ分子に保存しました'); }
+  });
 
   // Is it one of the library compounds? Then we can show its 3D model.
   const RDKit = await getRDKit();
@@ -146,11 +168,25 @@ export async function renderView({ el, query }) {
     return null;
   }
   const key = RDKit.get_inchikey_for_inchi(mol.get_inchi());
+  const f = formulaOf(molGraph(mol));
   mol.delete();
+  if (f) content.querySelector('.fm').innerHTML = `${formulaHtml(f.formula)}<span class="muted" style="font-weight:400">　分子量 ${f.mw.toFixed(2)}</span>`;
   const hit = (await compounds()).find((c) => c.inchikey && c.inchikey === key);
   if (hit) {
     content.querySelector('.match').innerHTML = `<a class="info" href="#/compound/${encodeURIComponent(hit.id)}" style="margin:0 0 10px">${icon('info')}<span>収録化合物「<b style="font-size:inherit">${esc(hit.name_ja)}</b>」と同じ分子です。詳しい解説を見る</span>${icon('chev')}</a>`;
   }
-  const panel = mountMolPanel(content.querySelector('.molpanel'), hit ? { sdf: await loadSdf(hit) } : { smiles });
+  let sdfText = hit ? await loadSdf(hit) : null;
+  let no3d = '';
+  if (!sdfText) {
+    content.querySelector('.molpanel').innerHTML = '<p class="empty"><span class="spinner"></span>3Dモデルを計算中…<br><span class="small">数秒かかることがあります</span></p>';
+    try {
+      sdfText = (await conformerFor(smiles)).sdf;
+      content.querySelector('.gen-credit').hidden = false;
+    } catch (e) {
+      no3d = `3Dモデルを作れませんでした（${e.message}）。構造式は表示できます。`;
+    }
+    if (!content.isConnected) return null;
+  }
+  const panel = mountMolPanel(content.querySelector('.molpanel'), sdfText ? { sdf: sdfText } : { smiles, no3d });
   return () => panel.destroy();
 }
