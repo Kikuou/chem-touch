@@ -23,7 +23,7 @@
 | M0 | 雛形・ハッシュルーティング・下部タブ・ホーム・Pages 自動デプロイ | 実装済み |
 | M1 | 化合物データ生成（§3-1〜3-4、85件）、3D/2D ビューア A-1〜A-9、ライブラリ B-1〜B-2、共有 D-1〜D-4 | 実装済み（PubChem 照合は GitHub Actions で実行） |
 | M2 | 残りの化合物（§3-5〜3-10、71件）、官能基ハイライト A-10〜A-12、比較 A-13〜A-16、クイズ A-17、シリーズ B-3、脂肪酸表示 B-4 | 実装済み |
-| M3 | 分子ビルダー | 未着手 |
+| M3 | 分子ビルダー C-1〜C-9（組み立て・自由作図・マイ分子）、作った分子の 3D 化と共有 | 実装済み |
 | M4 | 周期表・電子配置 | 未着手 |
 
 ## GitHub Pages での公開（初回のみ）
@@ -85,10 +85,12 @@ python3 -m http.server 8000
 ```sh
 python scripts/validate_data.py   # データ検証（SMILES・SDF・原子数・ID・立体化学・シリーズ・比較）
 python tests/test_series_parse.py # PubChem の物性値テキストの読み取りテスト
+node tests/test_assemble.mjs      # ビルダーの組み立て（SMILES・日本語名・シス/トランス・価標の規則）
 npm install                       # Playwright（スクリーンショットと E2E 用）
 python3 -m http.server 8000 &
 npm run e2e                       # 受け入れシナリオ（M1: 検索→3D回転→骨格式/全原子→QR共有→共有URL、
-                                  #   M2: 比較の同期回転・鏡像、DHA の n-3、官能基、クイズ、シリーズ）
+                                  #   M2: 比較の同期回転・鏡像、DHA の n-3、官能基、クイズ、シリーズ、
+                                  #   M3: オレイン酸の組み立て→3D→共有、マイ分子、3D 生成、自由作図）
 npm run screenshots               # 375px 幅のスクリーンショットを docs/screenshots/ に保存
 ```
 
@@ -99,10 +101,29 @@ npm run screenshots               # 375px 幅のスクリーンショットを d
 |---|---|---|---|---|
 | [3Dmol.js](https://3dmol.csb.pitt.edu/) | 2.5.4 | BSD-3-Clause | 3D 分子表示 | WebGL で軽量、スマホのタッチ回転・ピンチに標準対応、SDF をそのまま読める。比較モード（M2）用の視点同期 API もある |
 | [RDKit.js](https://www.rdkit.org/) (MinimalLib) | 2026.03.6 | BSD-3-Clause | 2D 構造式・SMILES 解析・官能基判定（SMARTS）・InChIKey | 化合物データの生成（Python 版 RDKit）と同じエンジンで、骨格式/全原子の描画・立体の楔表示が正確。WASM（約 7 MB）は分子画面でのみ遅延読み込み |
+| [OpenChemLib JS](https://github.com/cheminfo/openchemlib-js) | 9.25.1 | BSD-3-Clause | ビルダーの自由作図エディタ（C-6）、作った分子の 3D 配座生成（C-8） | 下記「ビルダーのライブラリ選定」 |
 | [qrcode-generator](https://github.com/kazuhikoarase/qrcode-generator) | 2.0.4 | MIT | QR コード生成 | 依存なし・軽量（約 50 KB）・SVG 出力で投影しても鮮明 |
 | [jsQR](https://github.com/cozmo/jsQR) | 1.4.0 | Apache-2.0 | QR 読み取り（iPhone 等） | BarcodeDetector のない Safari 用の代替。読み取り画面でのみ読み込む |
 
 ライセンス本文は `vendor/<ライブラリ>/LICENSE` にある。
+
+### ビルダーのライブラリ選定（M3）
+- **3D 配座の生成: OpenChemLib JS**（`ConformerGenerator` + `ForceFieldMMFF94` の MMFF94s+ で 500 ステップ最適化）
+  - RDKit.js（MinimalLib）は 3D 座標を生成できない（2D 座標のみ）ため、仕様の候補のうち OpenChemLib を採用した
+  - 計算は Web Worker で行い、画面は固まらない。開発環境（PC のヘッドレスブラウザ）で 1.4〜4 秒。スマホ実機では未計測
+  - 生成後に RDKit.js で InChIKey を比べ、原子のつながりと、SMILES で指定したシス/トランス・R/S が 3D 座標でも保たれていることを確認する。合わなければ乱数の種を変えて最大3回やり直し、だめなら 2D だけを表示する
+  - 乱数の種は固定（42）なので、同じ共有 URL はどの端末でも同じ形の 3D になる
+  - 収録化合物と同じ分子なら、PubChem で照合済みの 3D 座標を使う
+  - 配座生成に必要なデータ（ねじれ角の統計・MMFF94 パラメータ）だけを `resources-conformer.json` として同梱した。元の `resources.json` から毒性予測などの不要な表を除いたもので、約 950 KB（gzip で約 290 KB）。本体は約 1.1 MB（gzip で約 340 KB）。どちらも「つくる」画面と、収録されていない分子の 3D 表示のときだけ読み込む
+- **2D 自由作図エディタ: OpenChemLib の CanvasEditor**
+  - 候補の比較
+    - Ketcher: React 製で数 MB と大きく、スマホ向けの画面ではない
+    - JSME: GWT 製で古く、タッチ操作が限られる
+    - OpenChemLib: Pointer Events で指の操作に対応し、3D 生成と同じライブラリなので追加の読み込みがない
+  - 弱点はツールバーのボタンが小さい（約 20 px）こと。そこで CSS の `transform: scale()` で最大 1.6 倍に拡大して表示している（ボタン約 32 px）
+    - CSS の `zoom` ではタップ位置がずれたため、`transform` を使っている
+    - 拡大すると、読み込んだ分子が画面の右に寄ってしまう。そのため `js/mol/editor2d.js` で中央に移し直している
+  - 仕様のタップ領域 44 px には届かないため、組み立てモードを主な操作にした。自由作図は環のある分子や、組み立てで作れない分子の「上級者・教員用」という位置づけ
 データ生成には [RDKit](https://www.rdkit.org/)（Python, BSD-3-Clause）を使う。開発用に [Playwright](https://playwright.dev/)（Apache-2.0）を使う（配信物には含まれない）。
 
 化合物の構造は [PubChem](https://pubchem.ncbi.nlm.nih.gov/)（パブリックドメイン）で照合する。

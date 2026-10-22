@@ -26,7 +26,8 @@ const BOND_NAMES = { 1: '単結合', 2: '二重結合', 3: '三重結合' };
 /**
  * @param {HTMLElement} root
  * @param {object} o  { sdf?: string, smiles?: string, crystal?: string, crystalBond?: string,
- *                      groups?: boolean (functional-group legend, default true) }
+ *                      groups?: boolean (functional-group legend, default true),
+ *                      no3d?: string (message shown when there is no SDF) }
  * @returns {{ ready, groupsReady, highlight(groups), onTap(fn), destroy() }}
  */
 export function mountMolPanel(root, o) {
@@ -52,7 +53,7 @@ export function mountMolPanel(root, o) {
         </div>
         <div class="info" hidden aria-live="polite"></div>
       </section>` : `
-      <section class="panel"><div class="v3d" style="height:auto;min-height:0"><p class="empty small">この分子の3Dモデルはまだありません。<br>（ビルダーで作った分子の3D化は M3 で対応予定）</p></div></section>`}
+      <section class="panel"><div class="v3d" style="height:auto;min-height:0"><p class="empty small">${esc(o.no3d || 'この分子の3Dモデルはありません。')}</p></div></section>`}
       ${has2D ? `
       <section class="panel" aria-label="構造式">
         <div class="panel-h"><b>構造式</b>
