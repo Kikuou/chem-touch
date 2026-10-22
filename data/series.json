@@ -13,65 +13,229 @@
     {
      "id": "methane",
      "carbons": 1,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": -161.5,
+      "raw": "-161.50 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/167",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -182.6,
+      "raw": "-182.566 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/167",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 0.0022
+      },
+      "raw": "In water, 22 mg/L at 25 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/167"
+     }
     },
     {
      "id": "ethane",
      "carbons": 2,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": -88.6,
+      "raw": "-88.6 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/941",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -182.8,
+      "raw": "-182.794 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/941",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 0.00602
+      },
+      "raw": "In water, 60.2 mg/L at 25 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/941"
+     }
     },
     {
      "id": "propane",
      "carbons": 3,
-     "bp": null,
-     "mp": null,
+     "bp": {
+      "value": -42.1,
+      "raw": "-42.1 °C at 1 atm",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1672",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -187.6,
+      "raw": "-187.6 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1672",
+      "unit": "°C"
+     },
      "sol": null
     },
     {
      "id": "butane",
      "carbons": 4,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": -0.5,
+      "raw": "-0.50 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/944",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -138.3,
+      "raw": "-138.3 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/944",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 0.00612
+      },
+      "raw": "In water, 61.2 mg/L at 25 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/944"
+     }
     },
     {
      "id": "pentane",
      "carbons": 5,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 36.1,
+      "raw": "36.06 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/109",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -129.7,
+      "raw": "-129.67 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/109",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 0.0038
+      },
+      "raw": "In water, 38 mg/L at 25 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/109"
+     }
     },
     {
      "id": "hexane",
      "carbons": 6,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 68.7,
+      "raw": "68.73 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/91",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -95.3,
+      "raw": "-95.35 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/91",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 0.00095
+      },
+      "raw": "In water, 9.5 mg/L at 25 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/91"
+     }
     },
     {
      "id": "heptane",
      "carbons": 7,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 98.4,
+      "raw": "98.38 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/90",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -90.5,
+      "raw": "-90.549 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/90",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 0.00034
+      },
+      "raw": "In water, 3.40 mg/L at 25 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/90"
+     }
     },
     {
      "id": "octane",
      "carbons": 8,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 125.6,
+      "raw": "125.62 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/108",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -56.7,
+      "raw": "-56.73 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/108",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 6.6e-05
+      },
+      "raw": "In water, 0.66 mg/L at 25 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/108"
+     }
     },
     {
      "id": "nonane",
      "carbons": 9,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 150.5,
+      "raw": "150.47 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/107",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -53.5,
+      "raw": "-53.47 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/107",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 2.2e-05
+      },
+      "raw": "In water, 0.220 mg/L at 25 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/107"
+     }
     }
    ]
   },
@@ -82,65 +246,236 @@
     {
      "id": "methanol",
      "carbons": 1,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 64.7,
+      "raw": "64.7 °C at 760 mm Hg",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/93",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -97.8,
+      "raw": "-97.8 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/93",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "miscible": true
+      },
+      "raw": "Miscible with water at 25 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/93"
+     }
     },
     {
      "id": "ethanol",
      "carbons": 2,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 78.2,
+      "raw": "78.24 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/82",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -114.1,
+      "raw": "-114.14 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/82",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "miscible": true
+      },
+      "raw": "In water, miscible /1X10+6 mg/L/ at 25 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/82"
+     }
     },
     {
      "id": "1-propanol",
      "carbons": 3,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 97.2,
+      "raw": "97.2 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/115",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -127.0,
+      "raw": "-127 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/115",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "miscible": true
+      },
+      "raw": "Solubility in water: miscible",
+      "source": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+      "url": "https://chemicalsafety.ilo.org/dyn/icsc/showcard.display?p_card_id=0553"
+     }
     },
     {
      "id": "1-butanol",
      "carbons": 4,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 117.6,
+      "raw": "117.6 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/48",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -88.6,
+      "raw": "-88.6 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/48",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 6.8
+      },
+      "raw": "In water, 68 g/L at 25 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/48"
+     }
     },
     {
      "id": "1-pentanol",
      "carbons": 5,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 137.5,
+      "raw": "137.5 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/111",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -79.0,
+      "raw": "-79 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/111",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 0.0
+      },
+      "raw": "In water, 22,000 mg/L at 25 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/111"
+     }
     },
     {
      "id": "1-hexanol",
      "carbons": 6,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 157.0,
+      "raw": "157 °C at  760 mm Hg",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/565",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -44.6,
+      "raw": "-44.6 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/565",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 0.09
+      },
+      "raw": "In water, 5,900 mg/L at 25 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/565"
+     }
     },
     {
      "id": "1-heptanol",
      "carbons": 7,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 175.8,
+      "raw": "175.8 °C at 760 mm Hg",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1077",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -34.6,
+      "raw": "-34.6 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1077",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 0.1
+      },
+      "raw": "1.0 g/L of water at 18 °C; 2.85 g/L of water at 100 °C; 5.15 g/L of water at 130 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1077"
+     }
     },
     {
      "id": "1-octanol",
      "carbons": 8,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 194.7,
+      "raw": "194.7 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/700",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -14.7,
+      "raw": "-14.7 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/700",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 0.054
+      },
+      "raw": "In water, 540 mg/L at 25 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/700"
+     }
     },
     {
      "id": "1-nonanol",
      "carbons": 9,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 213.3,
+      "raw": "213.3 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5145",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -5.0,
+      "raw": "-5 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5145",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 0.014
+      },
+      "raw": "In water, 140 mg/L at 25 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5145"
+     }
     }
    ]
   },
@@ -151,65 +486,236 @@
     {
      "id": "formic-acid",
      "carbons": 1,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 101.0,
+      "raw": "101 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1646",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": 8.3,
+      "raw": "8.3 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1646",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "miscible": true
+      },
+      "raw": "Miscible with water",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1646"
+     }
     },
     {
      "id": "acetic-acid",
      "carbons": 2,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 117.9,
+      "raw": "117.9 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/40",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": 16.6,
+      "raw": "16.635 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/40",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "miscible": true
+      },
+      "raw": "Miscible with water",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/40"
+     }
     },
     {
      "id": "propionic-acid",
      "carbons": 3,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 141.1,
+      "raw": "141.1 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1192",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -21.5,
+      "raw": "-21.5 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1192",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "miscible": true
+      },
+      "raw": "In water, 1.0X10+6 mg/L at 25 °C /miscible/",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1192"
+     }
     },
     {
      "id": "butyric-acid",
      "carbons": 4,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 163.5,
+      "raw": "163.5 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/940",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -7.9,
+      "raw": "-7.9 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/940",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 6.0
+      },
+      "raw": "In water, 6.00X10+4 mg/L at 25 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/940"
+     }
     },
     {
      "id": "pentanoic-acid",
      "carbons": 5,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 186.0,
+      "raw": "186-187 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5390",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -34.5,
+      "raw": "-34.5 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5390",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 2.4
+      },
+      "raw": "In water, 2.4X10+4 mg/L at 25 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5390"
+     }
     },
     {
      "id": "hexanoic-acid",
      "carbons": 6,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 205.8,
+      "raw": "205.8 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/6813",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -3.4,
+      "raw": "-3.4 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/6813",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 1.03
+      },
+      "raw": "In water, 1.03X10+4 mg/L at 25 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/6813"
+     }
     },
     {
      "id": "heptanoic-acid",
      "carbons": 7,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 222.2,
+      "raw": "222.2 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5546",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -7.2,
+      "raw": "-7.17 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5546",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 0.242
+      },
+      "raw": "Solubility in water = 0.2419 g/100 mL water at 15 °C; soluble in ethanol, ether, DMF, dimethyl sulfoxide.",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5546"
+     }
     },
     {
      "id": "caprylic-acid",
      "carbons": 8,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 239.0,
+      "raw": "239 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/821",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": 16.5,
+      "raw": "16.5 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/821",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 0.068
+      },
+      "raw": "Very slightly sol in water (0.068 g/100 g at 20 °C); freely sol in alcohol, chloroform, ether, carbon disulfide, petroleum ether, glacial acetic acid",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/821"
+     }
     },
     {
      "id": "nonanoic-acid",
      "carbons": 9,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 254.5,
+      "raw": "254.5 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5554",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": 12.4,
+      "raw": "12.4 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5554",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 0.0284
+      },
+      "raw": "In water, 284 mg/L at 30 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5554"
+     }
     }
    ]
   },
@@ -220,93 +726,340 @@
     {
      "id": "acetic-acid",
      "carbons": 2,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 117.9,
+      "raw": "117.9 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/40",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": 16.6,
+      "raw": "16.635 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/40",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "miscible": true
+      },
+      "raw": "Miscible with water",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/40"
+     }
     },
     {
      "id": "propionic-acid",
      "carbons": 3,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 141.1,
+      "raw": "141.1 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1192",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -21.5,
+      "raw": "-21.5 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1192",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "miscible": true
+      },
+      "raw": "In water, 1.0X10+6 mg/L at 25 °C /miscible/",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/1192"
+     }
     },
     {
      "id": "butyric-acid",
      "carbons": 4,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 163.5,
+      "raw": "163.5 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/940",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -7.9,
+      "raw": "-7.9 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/940",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 6.0
+      },
+      "raw": "In water, 6.00X10+4 mg/L at 25 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/940"
+     }
     },
     {
      "id": "pentanoic-acid",
      "carbons": 5,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 186.0,
+      "raw": "186-187 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5390",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -34.5,
+      "raw": "-34.5 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5390",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 2.4
+      },
+      "raw": "In water, 2.4X10+4 mg/L at 25 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5390"
+     }
     },
     {
      "id": "hexanoic-acid",
      "carbons": 6,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 205.8,
+      "raw": "205.8 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/6813",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -3.4,
+      "raw": "-3.4 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/6813",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 1.03
+      },
+      "raw": "In water, 1.03X10+4 mg/L at 25 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/6813"
+     }
     },
     {
      "id": "heptanoic-acid",
      "carbons": 7,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 222.2,
+      "raw": "222.2 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5546",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": -7.2,
+      "raw": "-7.17 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5546",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 0.242
+      },
+      "raw": "Solubility in water = 0.2419 g/100 mL water at 15 °C; soluble in ethanol, ether, DMF, dimethyl sulfoxide.",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5546"
+     }
     },
     {
      "id": "caprylic-acid",
      "carbons": 8,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 239.0,
+      "raw": "239 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/821",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": 16.5,
+      "raw": "16.5 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/821",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 0.068
+      },
+      "raw": "Very slightly sol in water (0.068 g/100 g at 20 °C); freely sol in alcohol, chloroform, ether, carbon disulfide, petroleum ether, glacial acetic acid",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/821"
+     }
     },
     {
      "id": "nonanoic-acid",
      "carbons": 9,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 254.5,
+      "raw": "254.5 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5554",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": 12.4,
+      "raw": "12.4 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5554",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 0.0284
+      },
+      "raw": "In water, 284 mg/L at 30 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5554"
+     }
     },
     {
      "id": "capric-acid",
      "carbons": 10,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 268.7,
+      "raw": "268.7 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/2751",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": 31.5,
+      "raw": "31.5 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/2751",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 0.015
+      },
+      "raw": "Practically insol in water (0.015 g/100 g at 20 °C); sol in ethanol; ether; chloroform; benzene; carbon disulfide; dilute nitric acid",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/2751"
+     }
     },
     {
      "id": "lauric-acid",
      "carbons": 12,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 91.4,
+      "raw": "91.4 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/6814",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": 43.8,
+      "raw": "43.8 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/6814",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 0.000481
+      },
+      "raw": "In water, 4.81 mg/L at 25 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/6814"
+     }
     },
     {
      "id": "myristic-acid",
      "carbons": 14,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 326.2,
+      "raw": "326.2 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5686",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": 53.9,
+      "raw": "53.9 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5686",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 0.0022
+      },
+      "raw": "In water, 22 mg/L at 30 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5686"
+     }
     },
     {
      "id": "palmitic-acid",
      "carbons": 16,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 351.5,
+      "raw": "351.5 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5001",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": 62.5,
+      "raw": "62.49 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5001",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 4e-06
+      },
+      "raw": "In water, 0.04 mg/L at 25 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5001"
+     }
     },
     {
      "id": "stearic-acid",
      "carbons": 18,
-     "bp": null,
-     "mp": null,
-     "sol": null
+     "bp": {
+      "value": 371.0,
+      "raw": "371 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/2000",
+      "unit": "°C"
+     },
+     "mp": {
+      "value": 69.3,
+      "raw": "69.3 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/2000",
+      "unit": "°C"
+     },
+     "sol": {
+      "solubility": {
+       "g_per_100ml": 5.68e-05
+      },
+      "raw": "In water, 0.568 mg/L at 25 °C",
+      "source": "Hazardous Substances Data Bank (HSDB)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/2000"
+     }
     }
    ]
   }
