@@ -147,6 +147,26 @@ def main() -> int:
             elif not re.match(r"^\d{4}-\d{2}-\d{2}$", str(l["date"])):
                 errors.append(f"{name}[{i}]: date must be YYYY-MM-DD")
 
+    # series.json (B-3): members exist, every value has a source
+    series_path = DATA / "series.json"
+    if series_path.exists():
+        for s in json.loads(series_path.read_text(encoding="utf-8"))["series"]:
+            for m in s["members"]:
+                if m["id"] not in idset:
+                    errors.append(f"series {s['id']}: unknown compound {m['id']}")
+                for key in ("bp", "mp", "sol"):
+                    v = m.get(key)
+                    if v is not None and not (v.get("source") and v.get("raw")):
+                        errors.append(f"series {s['id']}/{m['id']}: {key} has no source")
+
+    # comparisons.json (A-15): items exist
+    cmp_path = DATA / "comparisons.json"
+    if cmp_path.exists():
+        for p in json.loads(cmp_path.read_text(encoding="utf-8"))["presets"]:
+            for i in p["items"] + p.get("related", []):
+                if i not in idset:
+                    errors.append(f"comparison {p['id']}: unknown compound {i}")
+
     fg = json.loads((DATA / "functional_groups.json").read_text(encoding="utf-8"))["groups"]
     for g in fg:
         if Chem.MolFromSmarts(g["smarts"]) is None:

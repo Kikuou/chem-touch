@@ -34,6 +34,7 @@ export function renderMore({ el }) {
       <a href="#/library">${icon('hex')}<span>分子ライブラリ</span></a>
       <a href="#/compare">${icon('compare')}<span>くらべる</span></a>
       <a href="#/quiz">${icon('quiz')}<span>官能基クイズ</span></a>
+      <a href="#/series">${icon('chart')}<span>同族体シリーズ（沸点・融点）</span></a>
       <a href="#/electron">${icon('shell')}<span>電子配置（準備中）</span></a>
       <a href="#/scan">${icon('qr')}<span>QRコードを読み取る</span></a>
     </div>

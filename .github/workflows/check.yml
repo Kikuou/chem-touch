@@ -19,3 +19,4 @@ jobs:
           python-version: "3.12"
       - run: pip install -r scripts/requirements.txt
       - run: python scripts/validate_data.py
+      - run: python tests/test_series_parse.py
