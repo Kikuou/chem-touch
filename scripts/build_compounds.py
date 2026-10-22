@@ -146,6 +146,12 @@ def lookup_pubchem(pubchem: "PubChem", key: str, query: str) -> dict:
             name_cid = None
     if cid is None:
         return {"status": "not-found", "name_cid": name_cid}
+    if name_cid is not None and name_cid != cid:
+        # several records can share one InChIKey (tautomers such as the
+        # newer purine / pterin records): prefer the one the name points to
+        name_props = pubchem.properties(name_cid)
+        if name_props.get("InChIKey") == key:
+            cid = name_cid
     props = pubchem.properties(cid)
     if props.get("InChIKey") != key:
         return {"status": "not-found", "name_cid": name_cid}
