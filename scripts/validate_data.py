@@ -159,6 +159,14 @@ def main() -> int:
                     if v is not None and not (v.get("source") and v.get("raw")):
                         errors.append(f"series {s['id']}/{m['id']}: {key} has no source")
 
+        # boiling points of a straight-chain homologous series rise with the
+        # carbon number; a drop usually means a wrongly picked value
+        for s in json.loads(series_path.read_text(encoding="utf-8"))["series"]:
+            pts = [(m["carbons"], m["bp"]["value"], m["id"]) for m in s["members"] if m.get("bp")]
+            for (n1, v1, a), (n2, v2, b) in zip(pts, pts[1:]):
+                if v2 < v1:
+                    warnings.append(f"series {s['id']}: boiling point drops from {a} ({v1}) to {b} ({v2}); check the value")
+
     # comparisons.json (A-15): items exist
     cmp_path = DATA / "comparisons.json"
     if cmp_path.exists():

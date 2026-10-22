@@ -76,5 +76,10 @@ ok = best and best["value"] == 298.9
 fails += not ok
 print(("ok  " if ok else "FAIL"), "outlier dropped:", best and best["value"])
 
+best = pick_value(record2, "bp", exclude=["91.4 °C", "298.9 °C"])
+ok = best and best["value"] == 297.8 and len(best["candidates"]) == 2
+fails += not ok
+print(("ok  " if ok else "FAIL"), "excluded texts skipped:", best and best["value"])
+
 print(f"\n{fails} failures")
 sys.exit(1 if fails else 0)

@@ -10,7 +10,9 @@ Every value keeps its source: the PubChem data source (e.g. HSDB, CRC
 Handbook) and the original text. A value is left out (null) when no
 parsable, sourced value exists -- nothing is estimated. With three or more
 entries, values far from their median (more than 10 deg C or 10 %) are
-dropped before the most trusted source is chosen.
+dropped before the most trusted source is chosen. Values listed in
+scripts/series_exclude.json (with a reason) are never used. The other
+parsable entries are kept as "candidates" so a teacher can review them.
 
 Needs network access to PubChem; on GitHub Actions it runs after
 build_compounds.py (see .github/workflows/pubchem.yml).
@@ -142,8 +144,10 @@ def _walk(sections, heading):
         yield from _walk(sec.get("Section"), heading)
 
 
-def pick_value(record: dict, key: str):
-    """Best sourced value of one property from a PUG View record."""
+def pick_value(record: dict, key: str, exclude=()):
+    """Best sourced value of one property from a PUG View record.
+    `exclude`: original texts that must not be used (series_exclude.json).
+    The other parsable entries are returned as 'candidates' for review."""
     rec = record.get("Record", {})
     refs = {r.get("ReferenceNumber"): r for r in rec.get("Reference", [])}
     cid = rec.get("RecordNumber")
@@ -152,6 +156,8 @@ def pick_value(record: dict, key: str):
         ref = refs.get(info.get("ReferenceNumber"), {})
         source = ref.get("SourceName", "PubChem")
         for text in _strings(info):
+            if text in exclude:
+                continue
             value = parse_solubility(text) if key == "sol" else parse_temperature(text, key)
             if value is None:
                 continue
@@ -173,7 +179,11 @@ def pick_value(record: dict, key: str):
         tol = max(10.0, abs(med) * 0.1)
         kept = [c for c in candidates if abs(c[2]["value"] - med) <= tol]
         candidates = kept or candidates
-    best = min(candidates, key=lambda c: (c[0], c[1]))[2]
+    best = dict(min(candidates, key=lambda c: (c[0], c[1]))[2])
+    best["candidates"] = [
+        {"v": c[2]["value"] if key != "sol" else c[2]["solubility"], "source": c[2]["source"]}
+        for c in sorted(candidates, key=lambda c: (c[0], c[1]))[:8]
+    ]
     if key != "sol":
         best.pop("solubility", None)
         best["unit"] = "°C"
@@ -209,6 +219,7 @@ def main(argv=None) -> int:
         for s0 in json.loads((DATA / "series.json").read_text(encoding="utf-8"))["series"]:
             for m in s0["members"]:
                 old[(s0["id"], m["id"])] = m
+    excl = json.loads((ROOT / "scripts" / "series_exclude.json").read_text(encoding="utf-8"))["exclude"]
     cache: dict[tuple[int, str], dict | None] = {}
     out = []
     missing = []
@@ -229,7 +240,8 @@ def main(argv=None) -> int:
                         except Exception as e:  # noqa: BLE001
                             print(f"! {cid_} {heading}: {e}", file=sys.stderr)
                             cache[k] = None
-                    entry[key] = pick_value(cache[k], key) if cache[k] else None
+                    skip = [e["raw"] for e in excl if e["id"] == cid_ and e["key"] == key]
+                    entry[key] = pick_value(cache[k], key, skip) if cache[k] else None
             for key in HEADINGS:
                 if entry[key] is None:
                     missing.append(f"{cid_}:{key}")
