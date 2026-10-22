@@ -317,6 +317,16 @@ sub { font-size: .72em; vertical-align: -0.25em; line-height: 0; }
 .cmp-meta { text-align: center; font-size: 12.5px; display: flex; flex-direction: column; }
 .cmp-meta span { color: var(--accent-ink); font-weight: 600; }
 
+/* ---------------------------------------------------------------- quiz */
+.quiz-score { font-size: 13px; font-weight: 700; color: var(--accent-ink); }
+.quiz-q { margin-bottom: 10px; }
+.quiz-text { font-size: 18px; margin: 4px 0; }
+.quiz-text b { color: var(--accent-ink); }
+.quiz-result > div { margin-top: 8px; padding: 10px 12px; border-radius: 12px; font-weight: 700; display: flex; gap: 8px; align-items: center; }
+.quiz-ok { background: var(--accent-weak); color: var(--accent-ink); }
+.quiz-ng { background: var(--warn-bg); color: var(--warn-ink); }
+.quiz-acts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+
 /* ---------------------------------------------------------------- share / QR */
 .sheet-backdrop { position: fixed; inset: 0; z-index: 100; background: rgba(0, 0, 0, .45); display: flex; align-items: flex-end; justify-content: center; animation: fade .15s; }
 .sheet { width: 100%; max-width: 520px; background: var(--surface); border-radius: 22px 22px 0 0; padding: 10px 16px calc(16px + var(--safe-b)); max-height: 92dvh; overflow-y: auto; animation: up .2s ease-out; }

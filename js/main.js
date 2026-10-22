@@ -13,6 +13,7 @@ import { renderLibrary } from './views/library.js';
 import { renderCompound, renderView } from './views/compound.js';
 import { renderScan } from './views/scan.js';
 import { renderCompare } from './views/compare.js';
+import { renderQuiz } from './views/quiz.js';
 import { renderMore } from './views/more.js';
 import { placeholder, notFound } from './views/placeholder.js';
 
@@ -26,6 +27,8 @@ route('/more', renderMore, { tab: 'more', title: 'その他' });
 // --- M2: compare (A-13 – A-16)
 route('/compare', renderCompare, { tab: 'home', title: 'くらべる' });
 route('/compare/:preset', renderCompare, { tab: 'home', title: 'くらべる' });
+// --- M2: functional-group quiz (A-17)
+route('/quiz', renderQuiz, { tab: 'more', title: '官能基クイズ' });
 // --- M3: molecule builder (C)
 route('/build', placeholder({
   title: 'つくる', milestone: 'M3',

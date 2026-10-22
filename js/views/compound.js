@@ -71,6 +71,7 @@ export async function renderCompound({ el, params }) {
       ${related.length ? `<section class="card"><h2 class="section-title" style="margin-top:0">関連する分子</h2><div class="rel">${related.map((r) => `<a href="#/compound/${encodeURIComponent(r.id)}">${esc(r.name_ja)}</a>`).join('')}</div></section>` : ''}
       <section class="card"><h2 class="section-title" style="margin-top:0">データ</h2>${factsHtml(c)}</section>
       <button class="btn primary block" data-act="share2">${icon('qr')}QRコードで共有</button>
+      ${c.kind !== 'crystal' ? `<a class="btn block" href="#/quiz?id=${encodeURIComponent(c.id)}">${icon('quiz')}この分子で官能基クイズ</a>` : ''}
       <p class="credit">構造: ${c.pubchem_cid ? '<a href="https://pubchem.ncbi.nlm.nih.gov/" target="_blank" rel="noopener">PubChem</a>（パブリックドメイン）で照合' : 'PubChem 未照合（RDKit による生成）'}。解説は${c.note_reviewed ? '教員確認済み' : '確認前の下書き'}です。</p>
     </div>`;
   content.querySelector('[data-act="share2"]').addEventListener('click', () => openShareSheet({ title: c.name_ja, hash: compoundHash(c.id) }));
