@@ -5,7 +5,6 @@ import { icon } from '../core/icons.js';
 import { compound, compounds, sdf as loadSdf } from '../core/data.js';
 import { openShareSheet, compoundHash, smilesHash } from '../core/share.js';
 import { mountMolPanel } from '../mol/molpanel.js';
-import { matchFunctionalGroups } from '../mol/fgroups.js';
 import { getRDKit } from '../mol/rdkit.js';
 
 const CRYSTAL_BOND = {
@@ -50,17 +49,6 @@ function factsHtml(c) {
   return `<dl class="facts">${rows.map(([k, val]) => `<dt>${k}</dt><dd>${val}</dd>`).join('')}</dl>`;
 }
 
-async function fillGroups(box, smiles) {
-  try {
-    const found = await matchFunctionalGroups(smiles);
-    box.innerHTML = found.length
-      ? `<div class="fg">${found.map((f) => `<span><i style="background:${f.group.color}"></i>${esc(f.group.name)}${f.matches.length > 1 ? ` ×${f.matches.length}` : ''}</span>`).join('')}</div>`
-      : '<p class="small muted">判定対象の官能基は含まれていません。</p>';
-  } catch (e) {
-    box.innerHTML = '<p class="small muted">官能基を判定できませんでした。</p>';
-  }
-}
-
 export async function renderCompound({ el, params }) {
   const c = await compound(params.id);
   if (!c) {
@@ -80,7 +68,6 @@ export async function renderCompound({ el, params }) {
     <div class="molpanel"></div>
     <div class="stack">
       ${c.note_ja ? `<section class="card"><h2 class="section-title" style="margin-top:0">ひとこと解説${c.note_reviewed ? '' : '<span class="draft" title="教員による確認前の下書きです">下書き</span>'}</h2><p class="note">${esc(c.note_ja)}</p></section>` : ''}
-      ${c.smiles ? '<section class="card"><h2 class="section-title" style="margin-top:0">含まれる官能基</h2><div class="fgbox"><p class="small muted">判定中…</p></div></section>' : ''}
       ${related.length ? `<section class="card"><h2 class="section-title" style="margin-top:0">関連する分子</h2><div class="rel">${related.map((r) => `<a href="#/compound/${encodeURIComponent(r.id)}">${esc(r.name_ja)}</a>`).join('')}</div></section>` : ''}
       <section class="card"><h2 class="section-title" style="margin-top:0">データ</h2>${factsHtml(c)}</section>
       <button class="btn primary block" data-act="share2">${icon('qr')}QRコードで共有</button>
@@ -94,8 +81,6 @@ export async function renderCompound({ el, params }) {
     crystal: c.crystal || null,
     crystalBond: CRYSTAL_BOND[c.crystal],
   });
-  const fgBox = content.querySelector('.fgbox');
-  if (fgBox) fillGroups(fgBox, c.smiles);
   return () => panel.destroy();
 }
 
@@ -115,7 +100,6 @@ export async function renderView({ el, query }) {
     <div class="match"></div>
     <div class="molpanel"><p class="empty"><span class="spinner"></span>分子を解析中…</p></div>
     <div class="stack">
-      <section class="card"><h2 class="section-title" style="margin-top:0">含まれる官能基</h2><div class="fgbox"><p class="small muted">判定中…</p></div></section>
       <button class="btn primary block" data-act="share2">${icon('qr')}QRコードで共有</button>
     </div>`;
   content.querySelector('[data-act="share2"]').addEventListener('click', () => openShareSheet({ title, hash: smilesHash(smiles, name) }));
@@ -125,7 +109,6 @@ export async function renderView({ el, query }) {
   const mol = RDKit.get_mol(smiles);
   if (!mol || !mol.is_valid()) {
     content.querySelector('.molpanel').innerHTML = '<p class="empty">この SMILES は解釈できませんでした。</p>';
-    content.querySelector('.fgbox').innerHTML = '';
     return null;
   }
   const key = RDKit.get_inchikey_for_inchi(mol.get_inchi());
@@ -135,6 +118,5 @@ export async function renderView({ el, query }) {
     content.querySelector('.match').innerHTML = `<a class="info" href="#/compound/${encodeURIComponent(hit.id)}" style="margin:0 0 10px">${icon('info')}<span>収録化合物「<b style="font-size:inherit">${esc(hit.name_ja)}</b>」と同じ分子です。詳しい解説を見る</span>${icon('chev')}</a>`;
   }
   const panel = mountMolPanel(content.querySelector('.molpanel'), hit ? { sdf: await loadSdf(hit) } : { smiles });
-  fillGroups(content.querySelector('.fgbox'), smiles);
   return () => panel.destroy();
 }

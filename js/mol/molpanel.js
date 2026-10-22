@@ -6,6 +6,7 @@ import { icon } from '../core/icons.js';
 import { Viewer3D, webglAvailable } from './viewer3d.js';
 import { Structure2D } from './structure2d.js';
 import { element } from './elements.js';
+import { matchFunctionalGroups, highlightGroups } from './fgroups.js';
 
 // formal charges from "M  CHG" lines of a molfile (used when there is no
 // RDKit graph, e.g. for crystals)
@@ -24,8 +25,9 @@ const BOND_NAMES = { 1: '単結合', 2: '二重結合', 3: '三重結合' };
 
 /**
  * @param {HTMLElement} root
- * @param {object} o  { sdf?: string, smiles?: string, crystal?: string, crystalBond?: string }
- * @returns {{ destroy(): void }}
+ * @param {object} o  { sdf?: string, smiles?: string, crystal?: string, crystalBond?: string,
+ *                      groups?: boolean (functional-group legend, default true) }
+ * @returns {{ ready, groupsReady, highlight(groups), onTap(fn), destroy() }}
  */
 export function mountMolPanel(root, o) {
   const has3D = !!o.sdf;
@@ -63,7 +65,17 @@ export function mountMolPanel(root, o) {
         ${has3D ? '' : '<div class="info" hidden aria-live="polite"></div>'}
         <p class="small muted" style="padding:0 14px 12px">${has3D ? '原子をタップすると3Dと構造式の両方で光ります。' : '原子をタップすると名前を表示します。'}</p>
       </section>` : ''}
-    </div>`;
+    </div>
+    ${has2D && o.groups !== false ? `
+    <section class="panel fgpanel" aria-label="含まれる官能基">
+      <div class="panel-h"><b>含まれる官能基</b>
+        <div class="fgtools" hidden>
+          <button class="toggle" data-act="fg" aria-pressed="false">色分け</button>
+          <button class="toggle" data-act="fglabel" aria-pressed="true" disabled>ラベル</button>
+        </div>
+      </div>
+      <div class="fglegend"><p class="small muted">判定中…</p></div>
+    </section>` : ''}`;
 
   const info = root.querySelector('.info');
   let v3 = null;
@@ -71,6 +83,12 @@ export function mountMolPanel(root, o) {
   let graph = null; // atoms/bonds with aromaticity, SDF order
   let destroyed = false;
   const charges = sdfCharges(o.sdf);
+  let found = [];        // functional groups found in this molecule
+  let fgOn = false;
+  let fgOnly = null;     // Set of group ids to show, null = all
+  let fgLabels = true;
+  let external = null;   // highlight set by a caller (quiz, fatty-acid view)
+  let tapHandler = null; // caller may intercept atom taps (quiz)
 
   function showInfo(html) {
     if (!info) return;
@@ -92,6 +110,7 @@ export function mountMolPanel(root, o) {
     showInfo(`<b>${esc(e.symbol)}</b><span>${esc(e.ja)}（${esc(e.en)}）${chgText}</span>`);
   }
   function selectAtom(i) {
+    if (tapHandler && tapHandler(i) === true) return;
     v3?.select(i);
     v2?.select(i);
     atomInfo(i);
@@ -139,7 +158,60 @@ export function mountMolPanel(root, o) {
       v3.setSpin(on);
     }
     if (act === 'reset' && v3) v3.reset();
+    if (act === 'fg') {
+      fgOn = !fgOn;
+      if (!fgOn) fgOnly = null;
+      applyGroups();
+    }
+    if (act === 'fglabel') {
+      fgLabels = !fgLabels;
+      applyGroups();
+    }
+    if (t.dataset.fg) {
+      const id = t.dataset.fg;
+      // a legend chip shows that group alone; tapping it again shows all
+      if (fgOn && fgOnly && fgOnly.size === 1 && fgOnly.has(id)) fgOnly = null;
+      else fgOnly = new Set([id]);
+      fgOn = true;
+      applyGroups();
+    }
   });
+
+  function applyGroups() {
+    const groups = external || (fgOn ? highlightGroups(found, graph, fgOnly) : null);
+    v3?.setGroups(groups, { labels: external ? false : fgLabels });
+    v2?.setGroups(groups);
+    const tb = root.querySelector('[data-act="fg"]');
+    if (tb) tb.setAttribute('aria-pressed', fgOn);
+    const lb = root.querySelector('[data-act="fglabel"]');
+    if (lb) {
+      lb.setAttribute('aria-pressed', fgLabels);
+      lb.toggleAttribute('disabled', !fgOn || !has3D);
+    }
+    root.querySelectorAll('[data-fg]').forEach((c) => {
+      c.setAttribute('aria-pressed', fgOn && (!fgOnly || fgOnly.has(c.dataset.fg)));
+    });
+  }
+
+  async function initGroups() {
+    const box = root.querySelector('.fglegend');
+    if (!box) return;
+    try {
+      found = await matchFunctionalGroups(has3D ? { molblock: o.sdf } : { smiles: o.smiles });
+    } catch (e) {
+      box.innerHTML = '<p class="small muted">官能基を判定できませんでした。</p>';
+      return;
+    }
+    if (destroyed) return;
+    if (!found.length) {
+      box.innerHTML = '<p class="small muted">判定対象の官能基は含まれていません。</p>';
+      return;
+    }
+    root.querySelector('.fgtools').hidden = false;
+    box.innerHTML = `<div class="fg">${found.map((f) => `
+      <button data-fg="${esc(f.group.id)}" aria-pressed="false"><i style="background:${f.group.color}"></i>${esc(f.group.name)}${f.matches.length > 1 ? ` ×${f.matches.length}` : ''}</button>`).join('')}</div>
+      <p class="small muted" style="margin-top:8px">名前をタップすると、その官能基だけを色分けします。</p>`;
+  }
 
   async function init3D() {
     const box = root.querySelector('.v3d');
@@ -195,9 +267,22 @@ export function mountMolPanel(root, o) {
     has3D ? init3D() : null,
     has2D ? init2D() : null,
   ]);
+  const groupsReady = ready.then(() => (has2D && o.groups !== false ? initGroups() : null)).then(() => found);
 
   return {
     ready,
+    groupsReady,
+    get graph() { return graph; },
+    get found() { return found; },
+    // Show a caller-defined highlight ([{color, label, atoms}]) instead of
+    // the functional-group colours; null returns to normal.
+    highlight(groups) {
+      external = groups && groups.length ? groups : null;
+      applyGroups();
+    },
+    // fn(sdfIndex) -> true to swallow the tap (no selection / pop-up)
+    onTap(fn) { tapHandler = fn; },
+    showMessage(html) { showInfo(html); },
     destroy() {
       destroyed = true;
       stopTheme();

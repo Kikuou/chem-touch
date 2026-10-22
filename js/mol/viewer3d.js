@@ -22,6 +22,11 @@ export function webglAvailable() {
 }
 
 const hex = (s) => parseInt(s.slice(1), 16);
+// black or white text, whichever reads better on the colour
+function textOn(color) {
+  const [r, g, b] = [1, 3, 5].map((k) => parseInt(color.slice(k, k + 2), 16) / 255);
+  return 0.299 * r + 0.587 * g + 0.114 * b > 0.6 ? '#121417' : '#ffffff';
+}
 function colorscheme() {
   const pal = isDark() ? ATOM_COLORS.dark : ATOM_COLORS.light;
   const map = {};
@@ -102,10 +107,43 @@ export class Viewer3D {
     }
     if (!this.showH) this.model.setStyle({ elem: 'H' }, {});
     v.removeAllShapes();
+    v.removeAllLabels();
     this.selShape = null;
     if (this.crystal === 'nacl') this.drawCell();
+    this.drawGroups();
     if (this.selected !== null) this.drawSelection();
     v.render();
+  }
+
+  // Functional groups (A-10): translucent coloured spheres on the atoms and
+  // an optional short label per occurrence. groups = [{color, label, atoms}]
+  setGroups(groups, { labels = true } = {}) {
+    this.groups = groups && groups.length ? groups : null;
+    this.groupLabels = labels;
+    this.applyStyle();
+  }
+
+  drawGroups() {
+    if (!this.groups) return;
+    for (const g of this.groups) {
+      const pts = g.atoms.map((i) => this.atoms[i]).filter((a) => a && (this.showH || a.elem !== 'H'));
+      if (!pts.length) continue;
+      for (const a of pts) {
+        const r = this.style === 'spacefill' ? (VDW[a.elem] || 1.7) * 1.05 : a.elem === 'H' ? 0.42 : 0.62;
+        this.viewer.addSphere({ center: { x: a.x, y: a.y, z: a.z }, radius: r, color: hex(g.color), opacity: 0.5 });
+      }
+      if (this.groupLabels) {
+        const heavy = pts.filter((a) => a.elem !== 'H');
+        const use = heavy.length ? heavy : pts;
+        const c = use.reduce((o, a) => ({ x: o.x + a.x / use.length, y: o.y + a.y / use.length, z: o.z + a.z / use.length }), { x: 0, y: 0, z: 0 });
+        this.viewer.addLabel(g.label, {
+          position: c, inFront: true, fontSize: 12, fontColor: textOn(g.color),
+          backgroundColor: hex(g.color), backgroundOpacity: 0.9, borderThickness: 0,
+          showBackground: true, alignment: 'center', screenOffset: { x: 0, y: -14 },
+          font: 'sans-serif',
+        });
+      }
+    }
   }
 
   drawCell() {
