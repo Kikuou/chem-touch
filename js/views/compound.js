@@ -6,6 +6,7 @@ import { compound, compounds, sdf as loadSdf } from '../core/data.js';
 import { openShareSheet, compoundHash, smilesHash } from '../core/share.js';
 import { mountMolPanel } from '../mol/molpanel.js';
 import { getRDKit } from '../mol/rdkit.js';
+import { faCardHtml, chainSvg, faHelp, chainAtoms, faColor } from './fatty-acid.js';
 
 const CRYSTAL_BOND = {
   diamond: '共有結合（単結合）',
@@ -67,6 +68,7 @@ export async function renderCompound({ el, params }) {
     </div>
     <div class="molpanel"></div>
     <div class="stack">
+      ${c.fatty_acid && c.categories.includes('fatty-acid') ? faCardHtml(c.fatty_acid) : ''}
       ${c.note_ja ? `<section class="card"><h2 class="section-title" style="margin-top:0">ひとこと解説${c.note_reviewed ? '' : '<span class="draft" title="教員による確認前の下書きです">下書き</span>'}</h2><p class="note">${esc(c.note_ja)}</p></section>` : ''}
       ${related.length ? `<section class="card"><h2 class="section-title" style="margin-top:0">関連する分子</h2><div class="rel">${related.map((r) => `<a href="#/compound/${encodeURIComponent(r.id)}">${esc(r.name_ja)}</a>`).join('')}</div></section>` : ''}
       <section class="card"><h2 class="section-title" style="margin-top:0">データ</h2>${factsHtml(c)}</section>
@@ -82,6 +84,37 @@ export async function renderCompound({ el, params }) {
     crystal: c.crystal || null,
     crystalBond: CRYSTAL_BOND[c.crystal],
   });
+  const faCard = content.querySelector('.fa-card');
+  if (faCard) {
+    const fa = c.fatty_acid;
+    const draw = (mode) => {
+      faCard.querySelector('.fa-chart').innerHTML = chainSvg(fa, mode);
+      faCard.querySelector('.fa-help').textContent = faHelp(fa, mode);
+      faCard.querySelectorAll('[data-fa]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.fa === mode));
+    };
+    draw('n');
+    faCard.addEventListener('click', async (e) => {
+      const b = e.target.closest('button');
+      if (!b) return;
+      if (b.dataset.fa) draw(b.dataset.fa);
+      if (b.hasAttribute('data-fa3d')) {
+        const on = b.getAttribute('aria-pressed') !== 'true';
+        b.setAttribute('aria-pressed', on);
+        await panel.ready;
+        const chain = chainAtoms(panel.graph);
+        if (!on || chain.length !== fa.carbons) { panel.highlight(null); return; }
+        const n = fa.carbons;
+        const w = (m) => chain[n - m]; // omega numbering -> SDF index
+        const omegaRun = [];
+        for (let m = 1; m <= fa.omega; m++) omegaRun.push(w(m));
+        panel.highlight([
+          { color: '#9AA3AE', label: 'ω末端', atoms: [w(1)] },
+          { color: faColor(fa.omega), label: `n-${fa.omega}`, atoms: [w(fa.omega), w(fa.omega + 1)] },
+          { color: faColor(fa.omega), label: '', atoms: omegaRun.slice(1, -1) },
+        ].filter((g) => g.atoms.length), { labels: true });
+      }
+    });
+  }
   return () => panel.destroy();
 }
 

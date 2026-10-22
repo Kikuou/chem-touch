@@ -88,6 +88,7 @@ export function mountMolPanel(root, o) {
   let fgOnly = null;     // Set of group ids to show, null = all
   let fgLabels = true;
   let external = null;   // highlight set by a caller (quiz, fatty-acid view)
+  let externalLabels = false;
   let tapHandler = null; // caller may intercept atom taps (quiz)
 
   function showInfo(html) {
@@ -179,7 +180,7 @@ export function mountMolPanel(root, o) {
 
   function applyGroups() {
     const groups = external || (fgOn ? highlightGroups(found, graph, fgOnly) : null);
-    v3?.setGroups(groups, { labels: external ? false : fgLabels });
+    v3?.setGroups(groups, { labels: external ? externalLabels : fgLabels });
     v2?.setGroups(groups);
     const tb = root.querySelector('[data-act="fg"]');
     if (tb) tb.setAttribute('aria-pressed', fgOn);
@@ -276,8 +277,9 @@ export function mountMolPanel(root, o) {
     get found() { return found; },
     // Show a caller-defined highlight ([{color, label, atoms}]) instead of
     // the functional-group colours; null returns to normal.
-    highlight(groups) {
+    highlight(groups, { labels = false } = {}) {
       external = groups && groups.length ? groups : null;
+      externalLabels = labels;
       applyGroups();
     },
     // fn(sdfIndex) -> true to swallow the tap (no selection / pop-up)

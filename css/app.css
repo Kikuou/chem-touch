@@ -317,6 +317,13 @@ sub { font-size: .72em; vertical-align: -0.25em; line-height: 0; }
 .cmp-meta { text-align: center; font-size: 12.5px; display: flex; flex-direction: column; }
 .cmp-meta span { color: var(--accent-ink); font-weight: 600; }
 
+/* ---------------------------------------------------------------- fatty acids */
+.fa-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.fa-head b { font-size: 16px; }
+.fa-chart { margin: 8px 0 4px; color: var(--text); }
+.fa-svg { width: 100%; height: auto; display: block; }
+.fa-card .toggle { margin-top: 8px; }
+
 /* ---------------------------------------------------------------- quiz */
 .quiz-score { font-size: 13px; font-weight: 700; color: var(--accent-ink); }
 .quiz-q { margin-bottom: 10px; }

@@ -139,7 +139,7 @@ export class Viewer3D {
         const r = this.style === 'spacefill' ? (VDW[a.elem] || 1.7) * 1.05 : a.elem === 'H' ? 0.42 : 0.62;
         this.viewer.addSphere({ center: { x: a.x, y: a.y, z: a.z }, radius: r, color: hex(g.color), opacity: 0.5 });
       }
-      if (this.groupLabels) {
+      if (this.groupLabels && g.label) {
         const heavy = pts.filter((a) => a.elem !== 'H');
         const use = heavy.length ? heavy : pts;
         const c = use.reduce((o, a) => ({ x: o.x + a.x / use.length, y: o.y + a.y / use.length, z: o.z + a.z / use.length }), { x: 0, y: 0, z: 0 });
