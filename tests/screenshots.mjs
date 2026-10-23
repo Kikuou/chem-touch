@@ -141,12 +141,12 @@ for (const scheme of ['light', 'dark']) {
 
     // M3: builder
     await p.evaluate(() => localStorage.removeItem('chemtouch:mymols'));
-    await p.goto(BASE + '#/build?mode=assemble&n=18&end=cooh&b=9c');
+    await p.goto(BASE + '#/build/chain?n=18&end=cooh&b=9c');
     await p.waitForSelector('.build-match .match-hit');
     await p.locator('.chain-wrap').evaluate((e) => { e.scrollLeft = 150; });
     await p.waitForTimeout(400);
     await shot(p, 'm3-build-oleic', { fullPage: true });
-    await p.goto(BASE + '#/build?mode=assemble&n=4&b=2t&g=1oh');
+    await p.goto(BASE + '#/build/chain?n=4&b=2t&g=1oh');
     await p.waitForSelector('.build-2d svg');
     await p.waitForTimeout(800);
     await p.locator('.build-card').nth(1).screenshot({ path: OUT + 'm3-build-tools.png' });
@@ -158,7 +158,7 @@ for (const scheme of ['light', 'dark']) {
     await p.waitForSelector('.v3d canvas', { timeout: 60000 });
     await p.waitForTimeout(1000);
     await shot(p, 'm3-view-generated', { fullPage: true });
-    await p.goto(BASE + '#/build?mode=draw&smiles=' + encodeURIComponent('CC(=O)Oc1ccccc1C(=O)O'));
+    await p.goto(BASE + '#/build/advanced?smiles=' + encodeURIComponent('CC(=O)Oc1ccccc1C(=O)O'));
     await p.waitForSelector('.build-match .section-title');
     await p.waitForTimeout(800);
     await shot(p, 'm3-draw');
@@ -170,10 +170,45 @@ for (const scheme of ['light', 'dark']) {
         { id: 'c', name: '描いたアスピリン', smiles: 'CC(=O)Oc1ccccc1C(=O)O', created: now, updated: now },
       ]));
     });
-    await p.goto(BASE + '#/build?mode=mine');
+    await p.goto(BASE + '#/build/mine');
     await p.waitForSelector('.mine .thumb svg');
     await p.waitForTimeout(500);
     await shot(p, 'm3-mine');
+
+    // つくる (reworked): top, 書き方くらべ, かんたん作図, 書きかえ練習
+    await p.evaluate(() => Object.keys(localStorage).filter((k) => /^chemtouch:(sketch|practice|notation)/.test(k)).forEach((k) => localStorage.removeItem(k)));
+    await p.goto(BASE + '#/build');
+    await p.waitForSelector('.bt-card');
+    await shot(p, 't-build-top');
+    await p.goto(BASE + '#/build/notation?id=acetic-acid');
+    await p.waitForSelector('.nt-big svg');
+    await p.waitForTimeout(1200);
+    await shot(p, 't-notation-acetic', { fullPage: true });
+    await p.goto(BASE + '#/build/notation?id=ethyl-acetate&step=2');
+    await p.waitForSelector('.nt-big svg');
+    await p.click('[data-k="rational"] .nt-a >> text=COO');
+    await p.waitForTimeout(1200);
+    await shot(p, 't-notation-highlight');
+    await p.goto(BASE + '#/build/draw?smiles=' + encodeURIComponent('CC(=O)O'));
+    await p.waitForSelector('.sk-info .build-match .info, .sk-info .build-match p');
+    await p.waitForTimeout(500);
+    await shot(p, 't-draw', { fullPage: true });
+    for (const [mode, focus] of [['choose', '2-propanol'], ['blocks', 'ethyl-acetate'], ['draw', 'acetic-acid']]) {
+      await p.goto(BASE + `#/build/practice?mode=${mode}&focus=${focus}`);
+      await p.waitForSelector('.pr-setup');
+      if (mode === 'choose') await shot(p, 't-practice-setup');
+      await p.click('[data-act="start"]');
+      await p.waitForSelector('.pr-q');
+      if (mode === 'blocks') {
+        for (const b of ['CH3', 'COO', 'C2H5']) await p.click(`.pr-key[data-b="${b}"]`);
+        await p.click('[data-act="check"]');
+      }
+      if (mode === 'choose') {
+        await p.locator('.pr-opt').first().click();
+      }
+      await p.waitForTimeout(600);
+      await shot(p, `t-practice-${mode}`, { fullPage: true });
+    }
 
     // M4: periodic table, electrons, bonds
     for (const [hash, name, full] of [
@@ -204,9 +239,13 @@ for (const scheme of ['light', 'dark']) {
     await p.waitForSelector('.pt-el');
     await p.waitForTimeout(400);
     await shot(p, 'm4-periodic-dark');
-    await p.goto(BASE + '#/build?mode=assemble&n=18&end=cooh&b=9c');
+    await p.goto(BASE + '#/build/chain?n=18&end=cooh&b=9c');
     await p.waitForSelector('.build-match .match-hit');
     await shot(p, 'm3-build-dark');
+    await p.goto(BASE + '#/build/notation?id=ethyl-acetate&step=3');
+    await p.waitForSelector('.nt-big svg');
+    await p.waitForTimeout(1200);
+    await shot(p, 't-notation-dark');
   }
   await p.context().close();
 }

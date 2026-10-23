@@ -25,3 +25,4 @@ jobs:
         with:
           node-version: "22"
       - run: node tests/test_assemble.mjs
+      - run: node tests/test_notation.mjs

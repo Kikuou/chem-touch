@@ -1,19 +1,23 @@
-// Molecule builder (spec C): #/build
-//   ?mode=assemble&n=18&end=cooh&b=9c   assembly: chain + multiple bonds + groups (C-1 – C-5)
-//   ?mode=draw&smiles=...                free drawing with the OpenChemLib editor, SMILES input (C-6, C-7)
-//   ?mode=mine                           my molecules saved in this browser (C-9)
+// つくる (spec C, reworked): #/build
+//   #/build                              three ways in: 書き方くらべ, 書きかえ練習, かんたん作図
+//   #/build/notation?id=...              書き方くらべ (views/notation.js)
+//   #/build/practice                     書きかえ練習 (views/practice.js)
+//   #/build/draw?smiles=...              かんたん作図 (views/sketch.js)
+//   #/build/chain?n=18&end=cooh&b=9c     炭素鎖から始める: chain + multiple bonds + groups (C-1 – C-5)
+//   #/build/advanced?smiles=...          上級エディタ: OpenChemLib editor, SMILES input (C-6, C-7)
+//   #/build/mine                         my molecules saved in this browser (C-9)
+// Old URLs (#/build?mode=assemble|draw|mine) are redirected.
 // "3Dで見る" opens #/view?smiles=..., which makes the 3D model (C-8) and
 // offers sharing (D-3).
 import { esc, el as h, formulaHtml, isDark, prefs, toast } from '../core/dom.js';
 import { icon } from '../core/icons.js';
-import { setQuery, navigate } from '../core/router.js';
+import { setQuery, navigate, goBack } from '../core/router.js';
 import { openShareSheet, smilesHash } from '../core/share.js';
 import { getRDKit, molGraph, preloadRDKit, depict } from '../mol/rdkit.js';
 import * as A from '../mol/assemble.js';
 import { libraryMatches, formulaOf } from '../mol/similar.js';
 import { listMyMols, saveMyMol, renameMyMol, deleteMyMol } from '../mol/mymols.js';
 
-const MODES = [['assemble', '組み立て'], ['draw', '自由作図'], ['mine', 'マイ分子']];
 const TOOLS = [
   ['cis', 'C=C', 'シス', 'bond'],
   ['trans', 'C=C', 'トランス', 'bond'],
@@ -80,7 +84,7 @@ export function askName(title, value) {
   });
 }
 
-function viewHash(smiles, name, extra = {}) {
+export function viewHash(smiles, name, extra = {}) {
   const p = new URLSearchParams({ smiles });
   if (name) p.set('name', name);
   for (const [k, v] of Object.entries(extra)) p.set(k, v);
@@ -88,7 +92,7 @@ function viewHash(smiles, name, extra = {}) {
 }
 
 // "近い収録化合物" card (C-5)
-async function matchesHtml(smiles) {
+export async function matchesHtml(smiles) {
   const r = await libraryMatches(smiles).catch(() => null);
   if (!r) return '';
   const link = (c) => `<a href="#/compound/${encodeURIComponent(c.id)}">${esc(c.name_ja)}</a>`;
@@ -102,7 +106,7 @@ async function matchesHtml(smiles) {
   return out;
 }
 
-async function factsHtml(smiles) {
+export async function factsHtml(smiles) {
   const RDKit = await getRDKit();
   const m = RDKit.get_mol(smiles);
   if (!m) return '';
@@ -210,7 +214,7 @@ function assembleView(root, state0, { onState }) {
         <button class="btn" data-act="save">${icon('star')}マイ分子に保存</button>
         <button class="btn" data-act="share">${icon('qr')}QRで共有</button>
       </div>
-      <a class="btn block" data-act="draw">${icon('build')}自由作図で続きを描く</a>
+      <a class="btn block" data-act="draw">${icon('build')}かんたん作図で続きを描く</a>
     </div>`;
 
   const slider = root.querySelector('.build-slider');
@@ -249,7 +253,7 @@ function assembleView(root, state0, { onState }) {
     if (sc.length) notes.push(`${sc.map((i) => `C${i}`).join('・')} は不斉炭素原子です。鏡像異性体（R/S）は指定していません。`);
     root.querySelector('.build-notes').innerHTML = notes.map((t) => `<p>${t}</p>`).join('');
     root.querySelector('[data-act="view"]').href = viewHash(smiles, current().name, { from: 'build' });
-    root.querySelector('[data-act="draw"]').href = `#/build?mode=draw&smiles=${encodeURIComponent(smiles)}`;
+    root.querySelector('[data-act="draw"]').href = `#/build/draw?smiles=${encodeURIComponent(smiles)}`;
     onState(s);
 
     if (smiles === shownSmiles) return; // e.g. only the tool changed
@@ -349,7 +353,7 @@ async function drawView(root, smiles0, { onSmiles }) {
     onSmiles(smi);
     const viewBtn = root.querySelector('[data-act="view"]');
     viewBtn.setAttribute('aria-disabled', String(!smi));
-    viewBtn.href = smi ? viewHash(smi, '', { from: 'draw' }) : '#/build?mode=draw';
+    viewBtn.href = smi ? viewHash(smi, '', { from: 'draw' }) : '#/build/advanced';
     root.querySelector('.smiles-in').value = smi;
     clearTimeout(timer);
     const t = ++token;
@@ -421,7 +425,7 @@ async function drawView(root, smiles0, { onSmiles }) {
 async function mineView(root) {
   const list = listMyMols();
   if (!list.length) {
-    root.innerHTML = `<p class="empty">まだ保存した分子はありません。<br><span class="small">組み立て・自由作図で作った分子を「マイ分子に保存」すると、ここに並びます。<br>保存先はこの端末のブラウザだけです。</span></p>`;
+    root.innerHTML = `<p class="empty">まだ保存した分子はありません。<br><span class="small">かんたん作図や炭素鎖の組み立てで作った分子を「マイ分子に保存」すると、ここに並びます。<br>保存先はこの端末のブラウザだけです。</span></p>`;
     return null;
   }
   const date = (t) => new Date(t).toLocaleDateString('ja-JP', { month: 'numeric', day: 'numeric' });
@@ -435,7 +439,7 @@ async function mineView(root) {
           <div class="en"><code>${esc(m.smiles)}</code></div>
           <div class="mine-acts">
             <a class="chip" href="${esc(viewHash(m.smiles, m.name, { from: 'mine' }))}">3D</a>
-            <a class="chip" href="${esc(m.build ? `#/build?mode=assemble&${new URLSearchParams(m.build)}` : `#/build?mode=draw&smiles=${encodeURIComponent(m.smiles)}`)}">編集</a>
+            <a class="chip" href="${esc(m.build ? `#/build/chain?${new URLSearchParams(m.build)}` : `#/build/draw?smiles=${encodeURIComponent(m.smiles)}`)}">編集</a>
             <button class="chip" data-act="rename">名前</button>
             <button class="chip" data-act="delete">削除</button>
           </div>
@@ -469,28 +473,79 @@ async function mineView(root) {
 
 // ------------------------------------------------------------ screen
 
-export async function renderBuild({ el, query }) {
-  let mode = query.get('mode') || prefs.get('build:mode', 'assemble');
-  if (!MODES.some((m) => m[0] === mode)) mode = 'assemble';
-  prefs.set('build:mode', mode);
-  preloadRDKit();
+// ------------------------------------------------------------ screens
+
+// sub screen frame: back button, title
+function subShell(el, title, { back = '#/build' } = {}) {
   el.innerHTML = `
   <div class="page wide">
-    <header class="topbar"><h1 class="brand" style="font-size:20px">つくる</h1></header>
-    <div class="subbar build-modes">
-      <div class="seg" role="tablist" aria-label="つくり方">
-        ${MODES.map(([k, l]) => `<button role="tab" data-mode="${k}" aria-pressed="${k === mode}" aria-selected="${k === mode}">${l}</button>`).join('')}
-      </div>
+    <div class="subbar">
+      <button class="iconbtn" data-act="back" aria-label="戻る">${icon('back')}</button>
+      <h1>${esc(title)}</h1>
+      <span class="iconbtn" aria-hidden="true"></span>
     </div>
     <div class="content build-content"></div>
   </div>`;
-  el.querySelector('.build-modes').addEventListener('click', (e) => {
-    const b = e.target.closest('[data-mode]');
-    if (b && b.dataset.mode !== mode) navigate(`#/build?mode=${b.dataset.mode}`, { replace: true });
-  });
-  const content = el.querySelector('.build-content');
+  el.querySelector('[data-act="back"]').addEventListener('click', () => goBack(back));
+  return el.querySelector('.build-content');
+}
 
-  if (mode === 'assemble') {
+// #/build: three ways in (書き方くらべ, 書きかえ練習, かんたん作図)
+export async function renderBuild({ el, query }) {
+  // old URLs (?mode=assemble|draw|mine) keep working
+  const mode = query.get('mode');
+  if (mode) {
+    const rest = new URLSearchParams(query);
+    rest.delete('mode');
+    const sub = { assemble: 'chain', draw: 'advanced', mine: 'mine' }[mode] || '';
+    navigate(`#/build${sub ? `/${sub}` : ''}${rest.toString() ? `?${rest}` : ''}`, { replace: true });
+    return null;
+  }
+  preloadRDKit();
+  const recent = listMyMols().slice(0, 4);
+  el.innerHTML = `
+  <div class="page">
+    <header class="topbar"><h1 class="brand" style="font-size:20px">つくる</h1>
+      <div class="btns"><a class="cb" href="#/build/mine" aria-label="マイ分子">${icon('star')}</a></div>
+    </header>
+    <div class="build-top">
+      <a class="bt-card hero" href="#/build/notation">
+        <div class="bt-art">${notationArt()}</div>
+        <div><b>書き方くらべ</b><span>同じ分子を、構造式・簡略構造式・骨格構造式・示性式で見くらべる</span></div>
+      </a>
+      <a class="bt-card" href="#/build/practice">
+        <div class="bt-art small">${practiceArt()}</div>
+        <div><b>書きかえ練習</b><span>出された書き方を見て、別の書き方で答える</span></div>
+      </a>
+      <a class="bt-card" href="#/build/draw">
+        <div class="bt-art small">${drawArt()}</div>
+        <div><b>かんたん作図</b><span>指で線をのばして分子を描く。3D でも見られる</span></div>
+      </a>
+    </div>
+    ${recent.length ? `<h2 class="section-title">マイ分子</h2><div class="chips-row" style="padding:0">${recent.map((m) => `<a class="chip" href="${esc(viewHash(m.smiles, m.name, { from: 'mine' }))}">${esc(m.name)}</a>`).join('')}<a class="chip" href="#/build/mine">すべて ›</a></div>` : ''}
+    <p class="small muted" style="margin-top:16px">炭素鎖の組み立て（炭素数・二重結合・官能基を選ぶ）は、かんたん作図の「ほか」→「炭素鎖から始める」にあります。</p>
+  </div>`;
+  return null;
+}
+
+function notationArt() {
+  return `<svg viewBox="0 0 120 60" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M10 46L36 31L62 46L88 31"/><path d="M86 31V9M91 31V9"/></g><text x="88" y="6" font-size="9" font-weight="700" fill="#FF8A80" text-anchor="middle">O</text><text x="104" y="40" font-size="9" font-weight="700" fill="#FF8A80">OH</text></svg>`;
+}
+function practiceArt() {
+  return `<svg viewBox="0 0 80 54" aria-hidden="true"><text x="4" y="24" font-size="11" font-weight="800" fill="currentColor">C₂H₅OH</text><path d="M30 31v10" stroke="currentColor" stroke-width="2" fill="none" marker-end="url(#none)"/><path d="M26 38l4 5 4-5" stroke="currentColor" stroke-width="2" fill="none"/><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M40 50L52 43L64 50"/></g><text x="66" y="52" font-size="8" font-weight="700" fill="var(--danger)">OH</text></svg>`;
+}
+function drawArt() {
+  let dots = '';
+  for (let c = 0; c < 6; c++) for (let r = 0; r < 4; r++) dots += `<circle cx="${6 + c * 13}" cy="${6 + r * 14 + (c % 2 ? 7 : 0)}" r="1.4"/>`;
+  return `<svg viewBox="0 0 80 60" aria-hidden="true"><g fill="var(--line)">${dots}</g><path d="M6 41L19 34L32 41L45 34" stroke="var(--accent)" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`;
+}
+
+// #/build/<sub>
+export async function renderBuildSub({ el, params, query }) {
+  const sub = params.sub;
+  preloadRDKit();
+  if (sub === 'chain') {
+    const content = subShell(el, '炭素鎖から始める', { back: '#/build/draw' });
     let s = query.get('n') ? A.decodeState(query) : null;
     if (!s) {
       const last = prefs.get('build:last', '');
@@ -499,19 +554,37 @@ export async function renderBuild({ el, query }) {
     return assembleView(content, s, {
       onState: (st) => {
         const q = A.encodeState(st);
-        setQuery({ mode: 'assemble', ...q });
+        setQuery(q);
         prefs.set('build:last', new URLSearchParams(q).toString());
       },
     });
   }
-  if (mode === 'draw') {
+  if (sub === 'advanced') {
+    const content = subShell(el, '上級エディタ', { back: '#/build/draw' });
     const smiles0 = query.get('smiles') || prefs.get('build:draw', '');
     return drawView(content, smiles0, {
       onSmiles: (smi) => {
-        setQuery(smi ? { mode: 'draw', smiles: smi } : { mode: 'draw' });
+        setQuery(smi ? { smiles: smi } : {});
         prefs.set('build:draw', smi || null);
       },
     });
   }
-  return mineView(content);
+  if (sub === 'mine') {
+    const content = subShell(el, 'マイ分子');
+    return mineView(content);
+  }
+  if (sub === 'draw') {
+    const { renderSketch } = await import('./sketch.js');
+    return renderSketch({ el, query, subShell });
+  }
+  if (sub === 'notation') {
+    const { renderNotation } = await import('./notation.js');
+    return renderNotation({ el, query, subShell });
+  }
+  if (sub === 'practice') {
+    const { renderPractice } = await import('./practice.js');
+    return renderPractice({ el, query, subShell });
+  }
+  navigate('#/build', { replace: true });
+  return null;
 }

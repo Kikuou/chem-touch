@@ -34,7 +34,10 @@
 | カテゴリ | `#/library?cat=fatty-acid` |
 | 比較 | `#/compare/oleic-elaidic`、`#/compare/alanine-enantiomers` |
 | 同族体シリーズ | `#/series?s=alkane` |
-| 組み立てた分子 | `#/build?mode=assemble&n=18&end=cooh&b=9c`（オレイン酸の組み立て） |
+| 書き方くらべ | `#/build/notation?id=acetic-acid`（`&step=3` で骨格構造式から） |
+| 書きかえ練習 | `#/build/practice?mode=choose`（`blocks` で示性式を並べる、`draw` で描く。`&focus=ethanol` で最初の問題を指定） |
+| 描いた分子 | `#/build/draw?smiles=CCO` |
+| 組み立てた分子 | `#/build/chain?n=18&end=cooh&b=9c`（オレイン酸の組み立て） |
 | 任意の分子（SMILES） | `#/view?smiles=CCO&name=エタノール` |
 | 元素 | `#/periodic/Na`、電子配置は `#/electron/Na` |
 | 周期表の傾向 | `#/periodic?view=en`（電気陰性度）、`?filter=mineral`（栄養ミネラル） |
@@ -47,6 +50,15 @@
 4. 「電子を1個とる」で Na⁺ にして、Ne と同じ電子配置になることを確認
 5. 「イオン結合へ」→ Na の電子を Cl に渡すアニメーション → 塩化ナトリウムの結晶を 3D で回す
 6. 時間があれば「共有結合」タブで H₂O の電子式を見て、水の 3D へ
+
+### 1-3b. 1コマの流れの例（有機化合物の構造式の書き方）
+1. `#/build/notation?id=ethanol` を映す。スライダーを右へ動かし、構造式 → 構造式（結合角を考えた書き方）→ 簡略構造式 → 骨格構造式 と、何を省いていくかを確認する
+2. 示性式の「OH」をタップ → どの書き方でも同じ O が光ることを見せる。「ほかの分子」で酢酸・酢酸エチルなどに切り替える
+3. Q キーで QR を出し、学生は「書きかえ練習」→「えらぶ」を 10 問（まちがいの選択肢には、分子式が同じ異性体が優先して出ます）
+4. 慣れたら「並べる」（示性式をブロックで組み立てる。結合の数が合わないと理由が出ます）、「描く」（骨格構造式を指で描く）
+5. 書き方が違っても同じ分子なら正解です。鏡像異性体（R/S）は区別しません
+
+練習に出す分子は `data/practice.json` で変えられます（炭素数 6 まで。編集のしかたは「3.」と同じ）。
 
 ### 1-4. ホームの授業帯（今週の授業）
 `data/schedule.json` に授業の回・日付・単元名・リンクを書くと、ホームの最上部に「今週の授業」が出ます（空の `[]` なら帯は出ません）。書き方は `data/schedule.example.json` を見てください。
@@ -86,7 +98,7 @@
 
 カテゴリの id: `basic` `alkane` `alkene-alkyne` `alcohol` `carboxylic-acid` `aldehyde-ketone` `ether` `fatty-acid` `carbohydrate` `amino-acid` `lipid` `vitamin` `food` `biomolecule` `drug`（小分類は `data/categories.json`）
 
-**SMILES の調べ方**: PubChem（https://pubchem.ncbi.nlm.nih.gov/）で化合物を開き、「Isomeric SMILES」をコピーします。アプリの「つくる」→「自由作図」で描いて、表示された SMILES を使うこともできます。
+**SMILES の調べ方**: PubChem（https://pubchem.ncbi.nlm.nih.gov/）で化合物を開き、「Isomeric SMILES」をコピーします。アプリの「つくる」→「かんたん作図」で描くと、アドレス欄の `smiles=` の後ろに SMILES が出ます（「ほか」→「上級エディタ」でも表示されます）。
 
 **立体の確認 `checks`**（立体のある分子だけ。書いておくと、PubChem の構造と食い違ったときにエラーで知らせます）
 - 不斉炭素: `cip=S`（R/S）
