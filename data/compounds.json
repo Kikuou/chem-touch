@@ -1,6 +1,6 @@
 {
  "version": 1,
- "pubchem": "online",
+ "pubchem": "offline",
  "credit": "Structures checked against PubChem (https://pubchem.ncbi.nlm.nih.gov/) where marked verified. 3D coordinates generated with RDKit (ETKDG + MMFF94) unless sdf_source is pubchem-3d.",
  "compounds": [
   {
@@ -329,7 +329,8 @@
     "C6H6"
    ],
    "categories": [
-    "basic"
+    "basic",
+    "aromatic"
    ],
    "kind": "molecule",
    "formula": "C6H6",
@@ -5737,6 +5738,1199 @@
     "carbon-dioxide",
     "heme",
     "oxygen"
+   ]
+  },
+  {
+   "id": "2-methylpentane",
+   "name_ja": "2-メチルペンタン",
+   "name_en": "2-Methylpentane",
+   "reading": "",
+   "aliases": [
+    "イソヘキサン",
+    "C6H14"
+   ],
+   "categories": [
+    "alkane"
+   ],
+   "kind": "molecule",
+   "formula": "C6H14",
+   "mw": 86.18,
+   "smiles": "CCCC(C)C",
+   "pubchem_cid": null,
+   "inchikey": "AFABGHUZZDYHJO-UHFFFAOYSA-N",
+   "sdf": "sdf/2-methylpentane.sdf",
+   "sdf_source": "generated",
+   "atoms": 20,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "ヘキサン（C6H14）の構造異性体の一つ。主鎖の2番目の炭素にメチル基が枝分かれしている。",
+   "note_reviewed": false,
+   "related": [
+    "hexane",
+    "3-methylpentane",
+    "2-2-dimethylbutane"
+   ]
+  },
+  {
+   "id": "3-methylpentane",
+   "name_ja": "3-メチルペンタン",
+   "name_en": "3-Methylpentane",
+   "reading": "",
+   "aliases": [
+    "C6H14"
+   ],
+   "categories": [
+    "alkane"
+   ],
+   "kind": "molecule",
+   "formula": "C6H14",
+   "mw": 86.18,
+   "smiles": "CCC(C)CC",
+   "pubchem_cid": null,
+   "inchikey": "PFEOZHBOMNWTJB-UHFFFAOYSA-N",
+   "sdf": "sdf/3-methylpentane.sdf",
+   "sdf_source": "generated",
+   "atoms": 20,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "ヘキサンの構造異性体の一つ。主鎖（炭素5個）の中央の炭素にメチル基がついている。",
+   "note_reviewed": false,
+   "related": [
+    "hexane",
+    "2-methylpentane",
+    "2-3-dimethylbutane"
+   ]
+  },
+  {
+   "id": "2-2-dimethylbutane",
+   "name_ja": "2,2-ジメチルブタン",
+   "name_en": "2,2-Dimethylbutane",
+   "reading": "",
+   "aliases": [
+    "ネオヘキサン",
+    "C6H14"
+   ],
+   "categories": [
+    "alkane"
+   ],
+   "kind": "molecule",
+   "formula": "C6H14",
+   "mw": 86.18,
+   "smiles": "CCC(C)(C)C",
+   "pubchem_cid": null,
+   "inchikey": "HNRMPXKDFBEGFZ-UHFFFAOYSA-N",
+   "sdf": "sdf/2-2-dimethylbutane.sdf",
+   "sdf_source": "generated",
+   "atoms": 20,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "ヘキサンの構造異性体の一つ。主鎖の2番目の炭素に2つのメチル基がついている。",
+   "note_reviewed": false,
+   "related": [
+    "hexane",
+    "2-3-dimethylbutane",
+    "neopentane"
+   ]
+  },
+  {
+   "id": "2-3-dimethylbutane",
+   "name_ja": "2,3-ジメチルブタン",
+   "name_en": "2,3-Dimethylbutane",
+   "reading": "",
+   "aliases": [
+    "C6H14"
+   ],
+   "categories": [
+    "alkane"
+   ],
+   "kind": "molecule",
+   "formula": "C6H14",
+   "mw": 86.18,
+   "smiles": "CC(C)C(C)C",
+   "pubchem_cid": null,
+   "inchikey": "ZFFMLCVRJBZUDZ-UHFFFAOYSA-N",
+   "sdf": "sdf/2-3-dimethylbutane.sdf",
+   "sdf_source": "generated",
+   "atoms": 20,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "ヘキサンの構造異性体の一つ。主鎖の2番目と3番目の炭素にメチル基が1つずつついている。",
+   "note_reviewed": false,
+   "related": [
+    "hexane",
+    "2-2-dimethylbutane",
+    "2-methylpentane"
+   ]
+  },
+  {
+   "id": "2-methylpropene",
+   "name_ja": "2-メチルプロペン",
+   "name_en": "2-Methylpropene",
+   "reading": "",
+   "aliases": [
+    "イソブテン",
+    "イソブチレン",
+    "C4H8"
+   ],
+   "categories": [
+    "alkene-alkyne"
+   ],
+   "kind": "molecule",
+   "formula": "C4H8",
+   "mw": 56.11,
+   "smiles": "C=C(C)C",
+   "pubchem_cid": null,
+   "inchikey": "VQTUBCCKSQIDNK-UHFFFAOYSA-N",
+   "sdf": "sdf/2-methylpropene.sdf",
+   "sdf_source": "generated",
+   "atoms": 12,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "ブテン（C4H8）の構造異性体で、炭素鎖が枝分かれしている。二重結合の片方の炭素に同じメチル基が2つつくため、シス・トランス異性体はない。",
+   "note_reviewed": false,
+   "related": [
+    "1-butene",
+    "cis-2-butene",
+    "isobutane"
+   ]
+  },
+  {
+   "id": "1-pentene",
+   "name_ja": "1-ペンテン",
+   "name_en": "1-Pentene",
+   "reading": "",
+   "aliases": [
+    "C5H10"
+   ],
+   "categories": [
+    "alkene-alkyne"
+   ],
+   "kind": "molecule",
+   "formula": "C5H10",
+   "mw": 70.13,
+   "smiles": "C=CCCC",
+   "pubchem_cid": null,
+   "inchikey": "YWAKXRMUMFPDSH-UHFFFAOYSA-N",
+   "sdf": "sdf/1-pentene.sdf",
+   "sdf_source": "generated",
+   "atoms": 15,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素5個のアルケンで、鎖の端に二重結合がある。",
+   "note_reviewed": false,
+   "related": [
+    "cis-2-pentene",
+    "pentane",
+    "cyclopentane"
+   ]
+  },
+  {
+   "id": "cis-2-pentene",
+   "name_ja": "cis-2-ペンテン",
+   "name_en": "cis-2-Pentene",
+   "reading": "",
+   "aliases": [
+    "(Z)-2-ペンテン",
+    "C5H10"
+   ],
+   "categories": [
+    "alkene-alkyne"
+   ],
+   "kind": "molecule",
+   "formula": "C5H10",
+   "mw": 70.14,
+   "smiles": "C/C=C\\CC",
+   "pubchem_cid": null,
+   "inchikey": "QMMOXUPEWRXHJS-HYXAFXHYSA-N",
+   "sdf": "sdf/cis-2-pentene.sdf",
+   "sdf_source": "generated",
+   "atoms": 15,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "note_ja": "二重結合をはさんで、メチル基とエチル基が同じ側にあるシス形。",
+   "note_reviewed": false,
+   "related": [
+    "trans-2-pentene",
+    "1-pentene"
+   ]
+  },
+  {
+   "id": "trans-2-pentene",
+   "name_ja": "trans-2-ペンテン",
+   "name_en": "trans-2-Pentene",
+   "reading": "",
+   "aliases": [
+    "(E)-2-ペンテン",
+    "C5H10"
+   ],
+   "categories": [
+    "alkene-alkyne"
+   ],
+   "kind": "molecule",
+   "formula": "C5H10",
+   "mw": 70.14,
+   "smiles": "C/C=C/CC",
+   "pubchem_cid": null,
+   "inchikey": "QMMOXUPEWRXHJS-HWKANZROSA-N",
+   "sdf": "sdf/trans-2-pentene.sdf",
+   "sdf_source": "generated",
+   "atoms": 15,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "note_ja": "二重結合をはさんで、メチル基とエチル基が反対側にあるトランス形。",
+   "note_reviewed": false,
+   "related": [
+    "cis-2-pentene",
+    "1-pentene"
+   ]
+  },
+  {
+   "id": "1-hexene",
+   "name_ja": "1-ヘキセン",
+   "name_en": "1-Hexene",
+   "reading": "",
+   "aliases": [
+    "C6H12"
+   ],
+   "categories": [
+    "alkene-alkyne"
+   ],
+   "kind": "molecule",
+   "formula": "C6H12",
+   "mw": 84.16,
+   "smiles": "C=CCCCC",
+   "pubchem_cid": null,
+   "inchikey": "LIKMAJRDDDTEIG-UHFFFAOYSA-N",
+   "sdf": "sdf/1-hexene.sdf",
+   "sdf_source": "generated",
+   "atoms": 18,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素6個のアルケンで、鎖の端に二重結合がある。分子式はシクロヘキサンと同じC6H12。",
+   "note_reviewed": false,
+   "related": [
+    "cis-3-hexene",
+    "hexane",
+    "cyclohexane"
+   ]
+  },
+  {
+   "id": "cis-3-hexene",
+   "name_ja": "cis-3-ヘキセン",
+   "name_en": "cis-3-Hexene",
+   "reading": "",
+   "aliases": [
+    "(Z)-3-ヘキセン",
+    "C6H12"
+   ],
+   "categories": [
+    "alkene-alkyne"
+   ],
+   "kind": "molecule",
+   "formula": "C6H12",
+   "mw": 84.16,
+   "smiles": "CC/C=C\\CC",
+   "pubchem_cid": null,
+   "inchikey": "ZQDPJFUHLCOCRG-WAYWQWQTSA-N",
+   "sdf": "sdf/cis-3-hexene.sdf",
+   "sdf_source": "generated",
+   "atoms": 18,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "note_ja": "二重結合が鎖の中央にあり、2つのエチル基が同じ側にあるシス形。",
+   "note_reviewed": false,
+   "related": [
+    "trans-3-hexene",
+    "1-hexene"
+   ]
+  },
+  {
+   "id": "trans-3-hexene",
+   "name_ja": "trans-3-ヘキセン",
+   "name_en": "trans-3-Hexene",
+   "reading": "",
+   "aliases": [
+    "(E)-3-ヘキセン",
+    "C6H12"
+   ],
+   "categories": [
+    "alkene-alkyne"
+   ],
+   "kind": "molecule",
+   "formula": "C6H12",
+   "mw": 84.16,
+   "smiles": "CC/C=C/CC",
+   "pubchem_cid": null,
+   "inchikey": "ZQDPJFUHLCOCRG-AATRIKPKSA-N",
+   "sdf": "sdf/trans-3-hexene.sdf",
+   "sdf_source": "generated",
+   "atoms": 18,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "checked"
+   },
+   "note_ja": "二重結合が鎖の中央にあり、2つのエチル基が反対側にあるトランス形。",
+   "note_reviewed": false,
+   "related": [
+    "cis-3-hexene",
+    "1-hexene"
+   ]
+  },
+  {
+   "id": "1-3-butadiene",
+   "name_ja": "1,3-ブタジエン",
+   "name_en": "1,3-Butadiene",
+   "reading": "",
+   "aliases": [
+    "ブタジエン",
+    "C4H6"
+   ],
+   "categories": [
+    "alkene-alkyne"
+   ],
+   "kind": "molecule",
+   "formula": "C4H6",
+   "mw": 54.09,
+   "smiles": "C=CC=C",
+   "pubchem_cid": null,
+   "inchikey": "KAKZBPTYRLMSJV-UHFFFAOYSA-N",
+   "sdf": "sdf/1-3-butadiene.sdf",
+   "sdf_source": "generated",
+   "atoms": 10,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "二重結合を2つもつ炭化水素。合成ゴムの原料になる。分子式は1-ブチン・2-ブチンと同じC4H6。",
+   "note_reviewed": false,
+   "related": [
+    "1-butene",
+    "1-butyne",
+    "2-butyne"
+   ]
+  },
+  {
+   "id": "1-butyne",
+   "name_ja": "1-ブチン",
+   "name_en": "1-Butyne",
+   "reading": "",
+   "aliases": [
+    "エチルアセチレン",
+    "C4H6"
+   ],
+   "categories": [
+    "alkene-alkyne"
+   ],
+   "kind": "molecule",
+   "formula": "C4H6",
+   "mw": 54.09,
+   "smiles": "C#CCC",
+   "pubchem_cid": null,
+   "inchikey": "KDKYADYSIPSCCQ-UHFFFAOYSA-N",
+   "sdf": "sdf/1-butyne.sdf",
+   "sdf_source": "generated",
+   "atoms": 10,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素4個のアルキンで、鎖の端に三重結合がある。",
+   "note_reviewed": false,
+   "related": [
+    "2-butyne",
+    "1-butene",
+    "propyne"
+   ]
+  },
+  {
+   "id": "2-butyne",
+   "name_ja": "2-ブチン",
+   "name_en": "2-Butyne",
+   "reading": "",
+   "aliases": [
+    "ジメチルアセチレン",
+    "C4H6"
+   ],
+   "categories": [
+    "alkene-alkyne"
+   ],
+   "kind": "molecule",
+   "formula": "C4H6",
+   "mw": 54.09,
+   "smiles": "CC#CC",
+   "pubchem_cid": null,
+   "inchikey": "XNMQEEKYCVKGBD-UHFFFAOYSA-N",
+   "sdf": "sdf/2-butyne.sdf",
+   "sdf_source": "generated",
+   "atoms": 10,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素4個のアルキンで、三重結合が鎖の中央にある。三重結合の両側の4つの炭素は一直線に並ぶ。",
+   "note_reviewed": false,
+   "related": [
+    "1-butyne",
+    "cis-2-butene"
+   ]
+  },
+  {
+   "id": "1-pentyne",
+   "name_ja": "1-ペンチン",
+   "name_en": "1-Pentyne",
+   "reading": "",
+   "aliases": [
+    "C5H8"
+   ],
+   "categories": [
+    "alkene-alkyne"
+   ],
+   "kind": "molecule",
+   "formula": "C5H8",
+   "mw": 68.12,
+   "smiles": "C#CCCC",
+   "pubchem_cid": null,
+   "inchikey": "IBXNCJKFFQIKKY-UHFFFAOYSA-N",
+   "sdf": "sdf/1-pentyne.sdf",
+   "sdf_source": "generated",
+   "atoms": 13,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素5個のアルキンで、鎖の端に三重結合がある。",
+   "note_reviewed": false,
+   "related": [
+    "2-pentyne",
+    "1-pentene"
+   ]
+  },
+  {
+   "id": "2-pentyne",
+   "name_ja": "2-ペンチン",
+   "name_en": "2-Pentyne",
+   "reading": "",
+   "aliases": [
+    "C5H8"
+   ],
+   "categories": [
+    "alkene-alkyne"
+   ],
+   "kind": "molecule",
+   "formula": "C5H8",
+   "mw": 68.12,
+   "smiles": "CC#CCC",
+   "pubchem_cid": null,
+   "inchikey": "NKTDTMONXHODTI-UHFFFAOYSA-N",
+   "sdf": "sdf/2-pentyne.sdf",
+   "sdf_source": "generated",
+   "atoms": 13,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素5個のアルキンで、2番目と3番目の炭素の間に三重結合がある。",
+   "note_reviewed": false,
+   "related": [
+    "1-pentyne",
+    "cis-2-pentene"
+   ]
+  },
+  {
+   "id": "3-hexyne",
+   "name_ja": "3-ヘキシン",
+   "name_en": "3-Hexyne",
+   "reading": "",
+   "aliases": [
+    "C6H10"
+   ],
+   "categories": [
+    "alkene-alkyne"
+   ],
+   "kind": "molecule",
+   "formula": "C6H10",
+   "mw": 82.15,
+   "smiles": "CCC#CCC",
+   "pubchem_cid": null,
+   "inchikey": "DQQNMIPXXNPGCV-UHFFFAOYSA-N",
+   "sdf": "sdf/3-hexyne.sdf",
+   "sdf_source": "generated",
+   "atoms": 16,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素6個のアルキンで、三重結合が鎖の中央にある。",
+   "note_reviewed": false,
+   "related": [
+    "cis-3-hexene",
+    "2-pentyne"
+   ]
+  },
+  {
+   "id": "cyclopropane",
+   "name_ja": "シクロプロパン",
+   "name_en": "Cyclopropane",
+   "reading": "",
+   "aliases": [
+    "C3H6"
+   ],
+   "categories": [
+    "cycloalkane"
+   ],
+   "kind": "molecule",
+   "formula": "C3H6",
+   "mw": 42.08,
+   "smiles": "C1CC1",
+   "pubchem_cid": null,
+   "inchikey": "LVZWSLJZHVFIQJ-UHFFFAOYSA-N",
+   "sdf": "sdf/cyclopropane.sdf",
+   "sdf_source": "generated",
+   "atoms": 9,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "もっとも小さいシクロアルカン。3個の炭素が正三角形の環をつくり、結合角が60°と小さいため、ひずみが大きい。分子式はプロペンと同じC3H6。",
+   "note_reviewed": false,
+   "related": [
+    "propene",
+    "cyclobutane"
+   ]
+  },
+  {
+   "id": "cyclobutane",
+   "name_ja": "シクロブタン",
+   "name_en": "Cyclobutane",
+   "reading": "",
+   "aliases": [
+    "C4H8"
+   ],
+   "categories": [
+    "cycloalkane"
+   ],
+   "kind": "molecule",
+   "formula": "C4H8",
+   "mw": 56.11,
+   "smiles": "C1CCC1",
+   "pubchem_cid": null,
+   "inchikey": "PMPVIKIVABFJJI-UHFFFAOYSA-N",
+   "sdf": "sdf/cyclobutane.sdf",
+   "sdf_source": "generated",
+   "atoms": 12,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素4個の環をもつシクロアルカン。環は平面から少し折れ曲がっている。分子式はブテンと同じC4H8。",
+   "note_reviewed": false,
+   "related": [
+    "1-butene",
+    "cyclopropane",
+    "cyclopentane"
+   ]
+  },
+  {
+   "id": "cyclopentane",
+   "name_ja": "シクロペンタン",
+   "name_en": "Cyclopentane",
+   "reading": "",
+   "aliases": [
+    "C5H10"
+   ],
+   "categories": [
+    "cycloalkane"
+   ],
+   "kind": "molecule",
+   "formula": "C5H10",
+   "mw": 70.14,
+   "smiles": "C1CCCC1",
+   "pubchem_cid": null,
+   "inchikey": "RGSFGYAAUTVSQA-UHFFFAOYSA-N",
+   "sdf": "sdf/cyclopentane.sdf",
+   "sdf_source": "generated",
+   "atoms": 15,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素5個の環をもつシクロアルカン。分子式はペンテンと同じC5H10。",
+   "note_reviewed": false,
+   "related": [
+    "1-pentene",
+    "cyclohexane"
+   ]
+  },
+  {
+   "id": "cyclohexane",
+   "name_ja": "シクロヘキサン",
+   "name_en": "Cyclohexane",
+   "reading": "",
+   "aliases": [
+    "C6H12"
+   ],
+   "categories": [
+    "cycloalkane"
+   ],
+   "kind": "molecule",
+   "formula": "C6H12",
+   "mw": 84.16,
+   "smiles": "C1CCCCC1",
+   "pubchem_cid": null,
+   "inchikey": "XDTMQSROBMDMFD-UHFFFAOYSA-N",
+   "sdf": "sdf/cyclohexane.sdf",
+   "sdf_source": "generated",
+   "atoms": 18,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素6個の環をもつシクロアルカン。環は平面ではなく、いす形と呼ばれる折れ曲がった形が安定。",
+   "note_reviewed": false,
+   "related": [
+    "benzene",
+    "cyclohexene",
+    "1-hexene"
+   ]
+  },
+  {
+   "id": "cyclohexene",
+   "name_ja": "シクロヘキセン",
+   "name_en": "Cyclohexene",
+   "reading": "",
+   "aliases": [
+    "C6H10"
+   ],
+   "categories": [
+    "alkene-alkyne",
+    "cycloalkane"
+   ],
+   "kind": "molecule",
+   "formula": "C6H10",
+   "mw": 82.15,
+   "smiles": "C1=CCCCC1",
+   "pubchem_cid": null,
+   "inchikey": "HGCIXCUEYOPUTN-UHFFFAOYSA-N",
+   "sdf": "sdf/cyclohexene.sdf",
+   "sdf_source": "generated",
+   "atoms": 16,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "環の中に二重結合を1つもつ炭化水素（シクロアルケン）。",
+   "note_reviewed": false,
+   "related": [
+    "cyclohexane",
+    "benzene"
+   ]
+  },
+  {
+   "id": "2-methyl-1-propanol",
+   "name_ja": "2-メチル-1-プロパノール",
+   "name_en": "2-Methyl-1-propanol",
+   "reading": "",
+   "aliases": [
+    "イソブチルアルコール",
+    "C4H10O"
+   ],
+   "categories": [
+    "alcohol"
+   ],
+   "kind": "molecule",
+   "formula": "C4H10O",
+   "mw": 74.12,
+   "smiles": "CC(C)CO",
+   "pubchem_cid": null,
+   "inchikey": "ZXEKIIBDNHEJCQ-UHFFFAOYSA-N",
+   "sdf": "sdf/2-methyl-1-propanol.sdf",
+   "sdf_source": "generated",
+   "atoms": 15,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "ブタノール（C4H10O）の異性体の一つ。ヒドロキシ基がついた炭素に炭素が1つだけ結合した第一級アルコール。",
+   "note_reviewed": false,
+   "related": [
+    "1-butanol",
+    "2-butanol",
+    "2-methyl-2-propanol"
+   ]
+  },
+  {
+   "id": "propanal",
+   "name_ja": "プロパナール",
+   "name_en": "Propanal",
+   "reading": "",
+   "aliases": [
+    "プロピオンアルデヒド",
+    "C3H6O"
+   ],
+   "categories": [
+    "aldehyde-ketone"
+   ],
+   "kind": "molecule",
+   "formula": "C3H6O",
+   "mw": 58.08,
+   "smiles": "CCC=O",
+   "pubchem_cid": null,
+   "inchikey": "NBBJYMSMWIIQGU-UHFFFAOYSA-N",
+   "sdf": "sdf/propanal.sdf",
+   "sdf_source": "generated",
+   "atoms": 10,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素3個のアルデヒド。分子式はアセトンと同じC3H6O。酸化されるとプロピオン酸になる。",
+   "note_reviewed": false,
+   "related": [
+    "acetone",
+    "propionic-acid",
+    "1-propanol"
+   ]
+  },
+  {
+   "id": "butanal",
+   "name_ja": "ブタナール",
+   "name_en": "Butanal",
+   "reading": "",
+   "aliases": [
+    "ブチルアルデヒド",
+    "C4H8O"
+   ],
+   "categories": [
+    "aldehyde-ketone"
+   ],
+   "kind": "molecule",
+   "formula": "C4H8O",
+   "mw": 72.11,
+   "smiles": "CCCC=O",
+   "pubchem_cid": null,
+   "inchikey": "ZTQSAGDEMFDKMZ-UHFFFAOYSA-N",
+   "sdf": "sdf/butanal.sdf",
+   "sdf_source": "generated",
+   "atoms": 13,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素4個のアルデヒド。分子式は2-ブタノンと同じC4H8O。",
+   "note_reviewed": false,
+   "related": [
+    "2-butanone",
+    "butyric-acid",
+    "1-butanol"
+   ]
+  },
+  {
+   "id": "2-butanone",
+   "name_ja": "2-ブタノン",
+   "name_en": "2-Butanone",
+   "reading": "",
+   "aliases": [
+    "メチルエチルケトン",
+    "MEK",
+    "C4H8O"
+   ],
+   "categories": [
+    "aldehyde-ketone"
+   ],
+   "kind": "molecule",
+   "formula": "C4H8O",
+   "mw": 72.11,
+   "smiles": "CCC(C)=O",
+   "pubchem_cid": null,
+   "inchikey": "ZWEHNKRNPOVVGH-UHFFFAOYSA-N",
+   "sdf": "sdf/2-butanone.sdf",
+   "sdf_source": "generated",
+   "atoms": 13,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素4個のケトン。塗料などの溶剤に使われる。",
+   "note_reviewed": false,
+   "related": [
+    "acetone",
+    "butanal",
+    "2-butanol"
+   ]
+  },
+  {
+   "id": "3-pentanone",
+   "name_ja": "3-ペンタノン",
+   "name_en": "3-Pentanone",
+   "reading": "",
+   "aliases": [
+    "ジエチルケトン",
+    "C5H10O"
+   ],
+   "categories": [
+    "aldehyde-ketone"
+   ],
+   "kind": "molecule",
+   "formula": "C5H10O",
+   "mw": 86.13,
+   "smiles": "CCC(=O)CC",
+   "pubchem_cid": null,
+   "inchikey": "FDPIMTJIUBPUKL-UHFFFAOYSA-N",
+   "sdf": "sdf/3-pentanone.sdf",
+   "sdf_source": "generated",
+   "atoms": 16,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "炭素5個のケトンで、カルボニル基が鎖の中央にある。",
+   "note_reviewed": false,
+   "related": [
+    "2-butanone",
+    "acetone"
+   ]
+  },
+  {
+   "id": "ethyl-methyl-ether",
+   "name_ja": "エチルメチルエーテル",
+   "name_en": "Ethyl methyl ether",
+   "reading": "",
+   "aliases": [
+    "メトキシエタン",
+    "C3H8O"
+   ],
+   "categories": [
+    "ether"
+   ],
+   "kind": "molecule",
+   "formula": "C3H8O",
+   "mw": 60.1,
+   "smiles": "CCOC",
+   "pubchem_cid": null,
+   "inchikey": "XOBKSJJDNFUZPF-UHFFFAOYSA-N",
+   "sdf": "sdf/ethyl-methyl-ether.sdf",
+   "sdf_source": "generated",
+   "atoms": 12,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "分子式は1-プロパノール・2-プロパノールと同じC3H8Oで、構造異性体の関係にあるエーテル。",
+   "note_reviewed": false,
+   "related": [
+    "1-propanol",
+    "2-propanol",
+    "dimethyl-ether"
+   ]
+  },
+  {
+   "id": "methyl-formate",
+   "name_ja": "ギ酸メチル",
+   "name_en": "Methyl formate",
+   "reading": "ぎさんめちる",
+   "aliases": [
+    "メタン酸メチル",
+    "C2H4O2"
+   ],
+   "categories": [
+    "carboxylic-acid"
+   ],
+   "kind": "molecule",
+   "formula": "C2H4O2",
+   "mw": 60.05,
+   "smiles": "COC=O",
+   "pubchem_cid": null,
+   "inchikey": "TZIHFWKZFHZASV-UHFFFAOYSA-N",
+   "sdf": "sdf/methyl-formate.sdf",
+   "sdf_source": "generated",
+   "atoms": 8,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "ギ酸とメタノールからできるエステル。分子式は酢酸と同じC2H4O2。",
+   "note_reviewed": false,
+   "related": [
+    "formic-acid",
+    "acetic-acid",
+    "methanol"
+   ]
+  },
+  {
+   "id": "ethyl-formate",
+   "name_ja": "ギ酸エチル",
+   "name_en": "Ethyl formate",
+   "reading": "ぎさんえちる",
+   "aliases": [
+    "メタン酸エチル",
+    "C3H6O2"
+   ],
+   "categories": [
+    "carboxylic-acid"
+   ],
+   "kind": "molecule",
+   "formula": "C3H6O2",
+   "mw": 74.08,
+   "smiles": "CCOC=O",
+   "pubchem_cid": null,
+   "inchikey": "WBJINCZRORDGAQ-UHFFFAOYSA-N",
+   "sdf": "sdf/ethyl-formate.sdf",
+   "sdf_source": "generated",
+   "atoms": 11,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "ギ酸とエタノールからできるエステル。分子式は酢酸メチル・プロピオン酸と同じC3H6O2。",
+   "note_reviewed": false,
+   "related": [
+    "methyl-acetate",
+    "propionic-acid",
+    "formic-acid"
+   ]
+  },
+  {
+   "id": "methyl-acetate",
+   "name_ja": "酢酸メチル",
+   "name_en": "Methyl acetate",
+   "reading": "さくさんめちる",
+   "aliases": [
+    "エタン酸メチル",
+    "C3H6O2"
+   ],
+   "categories": [
+    "carboxylic-acid"
+   ],
+   "kind": "molecule",
+   "formula": "C3H6O2",
+   "mw": 74.08,
+   "smiles": "COC(C)=O",
+   "pubchem_cid": null,
+   "inchikey": "KXKVLQRXCPHEJC-UHFFFAOYSA-N",
+   "sdf": "sdf/methyl-acetate.sdf",
+   "sdf_source": "generated",
+   "atoms": 11,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "酢酸とメタノールからできるエステル。分子式はギ酸エチル・プロピオン酸と同じC3H6O2。",
+   "note_reviewed": false,
+   "related": [
+    "ethyl-formate",
+    "ethyl-acetate",
+    "acetic-acid"
+   ]
+  },
+  {
+   "id": "methylamine",
+   "name_ja": "メチルアミン",
+   "name_en": "Methylamine",
+   "reading": "",
+   "aliases": [
+    "CH5N"
+   ],
+   "categories": [
+    "amine"
+   ],
+   "kind": "molecule",
+   "formula": "CH5N",
+   "mw": 31.06,
+   "smiles": "CN",
+   "pubchem_cid": null,
+   "inchikey": "BAVYZALUXZFZLV-UHFFFAOYSA-N",
+   "sdf": "sdf/methylamine.sdf",
+   "sdf_source": "generated",
+   "atoms": 7,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "もっとも単純なアミン。アンモニアの水素1個をメチル基に置きかえた形で、水溶液は塩基性を示す。",
+   "note_reviewed": false,
+   "related": [
+    "ethylamine",
+    "ammonia"
+   ]
+  },
+  {
+   "id": "ethylamine",
+   "name_ja": "エチルアミン",
+   "name_en": "Ethylamine",
+   "reading": "",
+   "aliases": [
+    "C2H7N"
+   ],
+   "categories": [
+    "amine"
+   ],
+   "kind": "molecule",
+   "formula": "C2H7N",
+   "mw": 45.08,
+   "smiles": "CCN",
+   "pubchem_cid": null,
+   "inchikey": "QUSNBJAOOMFDIB-UHFFFAOYSA-N",
+   "sdf": "sdf/ethylamine.sdf",
+   "sdf_source": "generated",
+   "atoms": 10,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "アンモニアの水素1個をエチル基に置きかえたアミン。分子式はジメチルアミンと同じC2H7N。",
+   "note_reviewed": false,
+   "related": [
+    "dimethylamine",
+    "methylamine"
+   ]
+  },
+  {
+   "id": "dimethylamine",
+   "name_ja": "ジメチルアミン",
+   "name_en": "Dimethylamine",
+   "reading": "",
+   "aliases": [
+    "C2H7N"
+   ],
+   "categories": [
+    "amine"
+   ],
+   "kind": "molecule",
+   "formula": "C2H7N",
+   "mw": 45.09,
+   "smiles": "CNC",
+   "pubchem_cid": null,
+   "inchikey": "ROSDSFDQCJNGOL-UHFFFAOYSA-N",
+   "sdf": "sdf/dimethylamine.sdf",
+   "sdf_source": "generated",
+   "atoms": 10,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "アンモニアの水素2個をメチル基に置きかえた第二級アミン。",
+   "note_reviewed": false,
+   "related": [
+    "ethylamine",
+    "trimethylamine"
+   ]
+  },
+  {
+   "id": "trimethylamine",
+   "name_ja": "トリメチルアミン",
+   "name_en": "Trimethylamine",
+   "reading": "",
+   "aliases": [
+    "C3H9N"
+   ],
+   "categories": [
+    "amine"
+   ],
+   "kind": "molecule",
+   "formula": "C3H9N",
+   "mw": 59.11,
+   "smiles": "CN(C)C",
+   "pubchem_cid": null,
+   "inchikey": "GETQZCLCWQTVFV-UHFFFAOYSA-N",
+   "sdf": "sdf/trimethylamine.sdf",
+   "sdf_source": "generated",
+   "atoms": 13,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "アンモニアの水素3個をすべてメチル基に置きかえた第三級アミン。魚のにおいの成分として知られる。",
+   "note_reviewed": false,
+   "related": [
+    "dimethylamine",
+    "methylamine"
+   ]
+  },
+  {
+   "id": "aniline",
+   "name_ja": "アニリン",
+   "name_en": "Aniline",
+   "reading": "",
+   "aliases": [
+    "アミノベンゼン",
+    "C6H7N"
+   ],
+   "categories": [
+    "aromatic",
+    "amine"
+   ],
+   "kind": "molecule",
+   "formula": "C6H7N",
+   "mw": 93.13,
+   "smiles": "Nc1ccccc1",
+   "pubchem_cid": null,
+   "inchikey": "PAYRUJLWNCNPSJ-UHFFFAOYSA-N",
+   "sdf": "sdf/aniline.sdf",
+   "sdf_source": "generated",
+   "atoms": 14,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "ベンゼン環にアミノ基がついた芳香族アミン。染料などの原料になる。",
+   "note_reviewed": false,
+   "related": [
+    "benzene",
+    "phenol",
+    "methylamine"
+   ]
+  },
+  {
+   "id": "phenol",
+   "name_ja": "フェノール",
+   "name_en": "Phenol",
+   "reading": "",
+   "aliases": [
+    "石炭酸",
+    "C6H6O"
+   ],
+   "categories": [
+    "aromatic"
+   ],
+   "kind": "molecule",
+   "formula": "C6H6O",
+   "mw": 94.11,
+   "smiles": "Oc1ccccc1",
+   "pubchem_cid": null,
+   "inchikey": "ISWSIDIOOBJBQZ-UHFFFAOYSA-N",
+   "sdf": "sdf/phenol.sdf",
+   "sdf_source": "generated",
+   "atoms": 13,
+   "verification": {
+    "pubchem": "unverified",
+    "stereo": "no-stereocentre"
+   },
+   "note_ja": "ベンゼン環にヒドロキシ基が直接ついた化合物。水溶液は弱い酸性を示す。かつては消毒薬（石炭酸）として使われた。",
+   "note_reviewed": false,
+   "related": [
+    "benzene",
+    "aniline",
+    "ethanol"
    ]
   }
  ]
