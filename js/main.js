@@ -16,7 +16,7 @@ import { renderScan } from './views/scan.js';
 import { renderCompare } from './views/compare.js';
 import { renderQuiz } from './views/quiz.js';
 import { renderSeries } from './views/series.js';
-import { renderBuild } from './views/build.js';
+import { renderBuild, renderBuildSub } from './views/build.js';
 import { renderMore } from './views/more.js';
 import { renderPeriodic } from './periodic/table.js';
 import { renderElement } from './periodic/detail.js';
@@ -40,6 +40,7 @@ route('/quiz', renderQuiz, { tab: 'more', title: '官能基クイズ' });
 route('/series', renderSeries, { tab: 'more', title: '同族体シリーズ' });
 // --- M3: molecule builder (C)
 route('/build', renderBuild, { tab: 'build', title: 'つくる' });
+route('/build/:sub', renderBuildSub, { tab: 'build', title: 'つくる' });
 // --- M4: periodic table (F), electron configuration (E), bonds (E-6)
 route('/periodic', renderPeriodic, { tab: 'periodic', title: '周期表' });
 route('/periodic/:sym', renderElement, { tab: 'periodic', title: '元素' });

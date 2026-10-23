@@ -245,6 +245,86 @@ await m2.touchscreen.tap(ed.x + ed.width * 0.75, ed.y + ed.height * 0.2);
 await m2.waitForFunction(() => /C4H/.test(document.querySelector('.build-facts').textContent), null, { timeout: 5000 });
 step(`free drawing: SMILES input and drawing by touch (${(await m2.textContent('.build-facts')).trim()})`);
 
+// ---- つくる (reworked): top page, 書き方くらべ, かんたん作図, 書きかえ練習
+await m2.evaluate(() => Object.keys(localStorage).filter((k) => /^chemtouch:(sketch|practice|notation)/.test(k)).forEach((k) => localStorage.removeItem(k)));
+await m2.goto(BASE + '#/build');
+assert.equal(await m2.locator('.bt-card').count(), 3);
+await m2.click('.bt-card.hero');
+await m2.waitForURL(/#\/build\/notation/);
+await m2.waitForSelector('.nt-big svg');
+assert.equal((await m2.textContent('.nt-name')).trim(), '構造式');
+await m2.locator('.nt-slider').fill('3');
+assert.equal((await m2.textContent('.nt-name')).trim(), '骨格構造式');
+assert.match(m2.url(), /step=3/);
+await m2.click('[data-step="2"]');
+assert.equal((await m2.textContent('.nt-name')).trim(), '簡略構造式');
+assert.match(await m2.textContent('[data-k="rational"]'), /CH3COOH/);
+// tap the O of OH in the 示性式: the same atom lights up in the 簡略構造式
+const oh = m2.locator('[data-k="rational"] .nt-a', { hasText: 'OH' });
+const ohAtom = (await oh.getAttribute('data-a')).split(' ')[0];
+await oh.click();
+assert.equal(await m2.locator(`.nt-big .nt-a.on[data-a~="${ohAtom}"]`).count(), 1);
+step('書き方くらべ: slider 構造式 -> 骨格構造式, tapping OH in the 示性式 highlights it in the 簡略構造式');
+
+await m2.goto(BASE + '#/build/draw');
+await m2.waitForSelector('svg.sk');
+const sk = await m2.locator('svg.sk').boundingBox();
+const tapNode = async (i) => {
+  const c = await m2.locator('svg.sk .sk-node').nth(i).boundingBox();
+  await m2.touchscreen.tap(c.x + c.width / 2, c.y + c.height / 2);
+};
+await m2.touchscreen.tap(sk.x + sk.width * 0.3, sk.y + sk.height * 0.5); // a carbon
+await tapNode(0); // grow C-C
+await tapNode(1); // grow C-C-C
+await m2.click('.sk-tools [data-tool="O"]');
+await tapNode(2); // the end carbon becomes O: C-C-O
+await m2.waitForFunction(() => /エタノール/.test(document.querySelector('.sk-info').textContent), null, { timeout: 10000 });
+assert.match(await m2.textContent('.sk-rat'), /C2H5OH/);
+assert.match(m2.url(), /smiles=/);
+step('かんたん作図: tap to draw C-C-C, O tool on the end -> エタノール, 示性式 C2H5OH');
+
+// 書きかえ練習 えらぶ: answer the right option for every question
+await m2.goto(BASE + '#/build/practice?mode=choose&focus=ethanol');
+await m2.waitForSelector('.pr-setup');
+await m2.click('[data-act="start"]');
+await m2.waitForSelector('.pr-opt');
+assert.ok(await m2.locator('.pr-opt').count() >= 3, 'at least 3 options');
+await m2.locator('.pr-opt').first().click();
+assert.equal(await m2.locator('.pr-opt.ok').count(), 1);
+await m2.waitForSelector('.pr-explain');
+assert.match(await m2.textContent('.pr-explain'), /エタノール/);
+await m2.click('[data-act="next"]');
+await m2.waitForFunction(() => /2 \/ /.test(document.querySelector('.pr-top')?.textContent || ''));
+step('書きかえ練習 えらぶ: answered, the right option and the explanation are shown, next question');
+
+// 並べる: ethanol from the 構造式 etc. -> C2H5 OH; a wrong block line is explained
+await m2.goto(BASE + '#/build/practice?mode=blocks&focus=ethanol');
+await m2.waitForSelector('.pr-setup');
+await m2.click('[data-act="start"]');
+await m2.waitForSelector('.pr-key');
+for (const b of ['CH3', 'CH3', 'OH']) await m2.click(`.pr-key[data-b="${b}"]`);
+await m2.click('[data-act="check"]');
+assert.match(await m2.textContent('.pr-result'), /5 本|たりません|本/);
+for (let k = 0; k < 3; k++) await m2.click('[data-act="bs"]');
+for (const b of ['OH', 'CH2', 'CH3']) await m2.click(`.pr-key[data-b="${b}"]`);
+await m2.click('[data-act="check"]');
+await m2.waitForSelector('.pr-result .quiz-ok');
+step('書きかえ練習 並べる: CH3 CH3 OH refused with the bond count, HO-CH2-CH3 accepted as エタノール');
+
+// 描く: draw methanol (C, then O on it)
+await m2.goto(BASE + '#/build/practice?mode=draw&focus=methanol');
+await m2.waitForSelector('.pr-setup');
+await m2.click('[data-act="start"]');
+await m2.waitForSelector('svg.sk');
+const pk = await m2.locator('svg.sk').boundingBox();
+await m2.touchscreen.tap(pk.x + pk.width * 0.4, pk.y + pk.height * 0.5);
+await tapNode(0);
+await m2.click('.sk-tools [data-tool="O"]');
+await tapNode(1);
+await m2.click('[data-act="check"]');
+await m2.waitForSelector('.pr-result .quiz-ok');
+step('書きかえ練習 描く: methanol drawn on the lattice is accepted');
+
 // ---- M4 acceptance: build the electron configuration of Na, give an
 // electron to Cl, go to the NaCl crystal; periodic table, detail, Lewis formulas
 await m2.goto(BASE + '#/periodic');

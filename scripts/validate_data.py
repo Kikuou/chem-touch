@@ -12,6 +12,7 @@ Checks (spec §8, run at the end of every milestone):
   - the stereo of the 3D coordinates reproduces the SMILES, the InChIKey
     matches, and the stereo checks of compound_sources.csv still pass
   - categories and related ids exist; schedule.json has the expected shape
+  - practice.json lists existing molecules with at most 6 carbons
 Exit code 0 = OK, 1 = errors found.
 """
 
@@ -131,6 +132,23 @@ def main() -> int:
         if status == "structure-only":
             warnings.append(f"{cid}: PubChem name query points to another record "
                             f"(CID {c['verification'].get('pubchem_name_cid')}), please check")
+
+    # practice.json (notation practice): ids exist, molecules with at most 6 carbons
+    practice = json.loads((DATA / "practice.json").read_text(encoding="utf-8"))
+    by_id = {c.get("id"): c for c in compounds}
+    seen = set()
+    for g in practice.get("groups", []):
+        for pid in g.get("items", []):
+            if pid in seen:
+                err(f"practice.json/{g.get('id')}", f"'{pid}' is listed twice")
+            seen.add(pid)
+            c = by_id.get(pid)
+            if c is None:
+                err(f"practice.json/{g.get('id')}", f"id '{pid}' does not exist")
+                continue
+            m = Chem.MolFromSmiles(c.get("smiles") or "")
+            if m is None or sum(a.GetAtomicNum() == 6 for a in m.GetAtoms()) > 6:
+                err(f"practice.json/{g.get('id')}", f"'{pid}' has more than 6 carbons")
 
     # schedule.json: [] or [{no, date (YYYY-MM-DD), title, links?}]
     for name in ("schedule.json", "schedule.example.json"):

@@ -9,12 +9,17 @@
   {
    "id": "alkane",
    "label": "アルカン",
-   "desc": "メタン〜ノナン・異性体"
+   "desc": "メタン〜ノナン・枝分かれ"
   },
   {
    "id": "alkene-alkyne",
    "label": "アルケン・アルキン",
    "desc": "二重結合・三重結合"
+  },
+  {
+   "id": "cycloalkane",
+   "label": "シクロアルカン",
+   "desc": "環をつくる炭化水素"
   },
   {
    "id": "alcohol",
@@ -35,6 +40,16 @@
    "id": "ether",
    "label": "エーテル",
    "desc": "エーテル結合"
+  },
+  {
+   "id": "amine",
+   "label": "アミン",
+   "desc": "アミノ基をもつ化合物"
+  },
+  {
+   "id": "aromatic",
+   "label": "芳香族化合物",
+   "desc": "ベンゼン環をもつ化合物"
   },
   {
    "id": "fatty-acid",

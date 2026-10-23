@@ -63,3 +63,8 @@ export function sdf(c) {
 export async function elements() {
   return getJSON('elements.json');
 }
+
+// data/practice.json (つくる: molecules of the notation practice)
+export async function practiceSet() {
+  return getJSON('practice.json');
+}

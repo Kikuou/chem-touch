@@ -133,7 +133,7 @@ export async function renderView({ el, query }) {
     // the back button returns to the builder even when the page was opened directly
     const back = el.querySelector('[data-act="back"]');
     back.replaceWith(back.cloneNode(true));
-    el.querySelector('[data-act="back"]').addEventListener('click', () => goBack(from === 'mine' ? '#/build?mode=mine' : '#/build'));
+    el.querySelector('[data-act="back"]').addEventListener('click', () => goBack(from === 'mine' ? '#/build/mine' : '#/build'));
   }
   el.querySelector('[data-act="share"]').addEventListener('click', () => openShareSheet({ title, hash: smilesHash(smiles, name) }));
   if (!smiles) {
@@ -148,7 +148,7 @@ export async function renderView({ el, query }) {
       <button class="btn primary block" data-act="share2">${icon('qr')}QRコードで共有</button>
       <div class="two">
         <button class="btn" data-act="save">${icon('star')}マイ分子に保存</button>
-        <a class="btn" href="#/build?mode=draw&smiles=${encodeURIComponent(smiles)}">${icon('build')}描いて編集</a>
+        <a class="btn" href="#/build/draw?smiles=${encodeURIComponent(smiles)}">${icon('build')}描いて編集</a>
       </div>
       <p class="credit gen-credit" hidden>3D 座標はこの端末で計算しました（OpenChemLib の配座生成 + MMFF94s+ 最適化）。立体（シス/トランス・R/S）が SMILES と一致することを RDKit で確認しています。</p>
     </div>`;
