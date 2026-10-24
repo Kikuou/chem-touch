@@ -267,21 +267,48 @@ assert.equal(await m2.locator(`.nt-big .nt-a.on[data-a~="${ohAtom}"]`).count(), 
 step('書き方くらべ: slider 構造式 -> 骨格構造式, tapping OH in the 示性式 highlights it in the 簡略構造式');
 
 await m2.goto(BASE + '#/build/draw');
-await m2.waitForSelector('svg.sk');
-const sk = await m2.locator('svg.sk').boundingBox();
+await m2.waitForSelector('.sks-coach');
+await m2.click('[data-act="coach-ok"]');
 const tapNode = async (i) => {
   const c = await m2.locator('svg.sk .sk-node').nth(i).boundingBox();
   await m2.touchscreen.tap(c.x + c.width / 2, c.y + c.height / 2);
 };
-await m2.touchscreen.tap(sk.x + sk.width * 0.3, sk.y + sk.height * 0.5); // a carbon
-await tapNode(0); // grow C-C
-await tapNode(1); // grow C-C-C
-await m2.click('.sk-tools [data-tool="O"]');
-await tapNode(2); // the end carbon becomes O: C-C-O
-await m2.waitForFunction(() => /エタノール/.test(document.querySelector('.sk-info').textContent), null, { timeout: 10000 });
-assert.match(await m2.textContent('.sk-rat'), /C2H5OH/);
+assert.equal(await m2.locator('svg.sk .sk-node').count(), 1, 'one carbon to start from');
+await tapNode(0); // select it
+assert.match(await m2.textContent('.sks-hint'), /C を選んでいます/);
+await m2.click('[data-act="ext1"]'); // C-C (the new carbon is selected)
+await m2.click('[data-act="ext1"]'); // C-C-C
+await m2.click('[data-act="el-O"]'); // the end carbon becomes O: C-C-O
+await m2.waitForFunction(() => /エタノール/.test(document.querySelector('.sks-sheet').textContent), null, { timeout: 10000 });
+assert.match(await m2.textContent('.sks-rat'), /C2H5OH/);
 assert.match(m2.url(), /smiles=/);
-step('かんたん作図: tap to draw C-C-C, O tool on the end -> エタノール, 示性式 C2H5OH');
+step('かんたん作図: select the carbon, 伸ばす twice, O にする -> エタノール, 示性式 C2H5OH');
+
+// shortcuts with real touch events: drag from an atom extends it, the
+// page itself never scrolls; tap a bond and make it double; pinch zooms
+const cdp = await m2.context().newCDPSession(m2);
+const touch = async (type, pts) => cdp.send('Input.dispatchTouchEvent', { type, touchPoints: pts });
+const mid1 = await m2.locator('svg.sk .sk-node').nth(1).boundingBox();
+const from = { x: mid1.x + mid1.width / 2, y: mid1.y + mid1.height / 2 };
+await touch('touchStart', [from]);
+for (let i = 1; i <= 8; i++) await touch('touchMove', [{ x: from.x, y: from.y - 8 * i }]);
+await touch('touchEnd', []);
+await m2.waitForFunction(() => /2-プロパノール/.test(document.querySelector('.sks-sheet').textContent), null, { timeout: 10000 });
+assert.equal(await m2.evaluate(() => [scrollY, document.documentElement.classList.contains('sks-lock')].join()), '0,true');
+const n0 = await m2.locator('svg.sk .sk-node').nth(0).boundingBox();
+await m2.touchscreen.tap((n0.x + n0.width / 2 + from.x) / 2, (n0.y + n0.height / 2 + from.y) / 2); // middle of C1-C2
+assert.match(await m2.textContent('.sks-hint'), /単結合を選んでいます/);
+await m2.click('[data-act="bo2"]');
+await m2.waitForFunction(() => /C3H6O/.test(document.querySelector('.sks-sheet').textContent), null, { timeout: 10000 });
+const zoom0 = await m2.getAttribute('svg.sk > g', 'transform');
+const c0 = { x: 187, y: 300 };
+await touch('touchStart', [{ x: c0.x - 30, y: c0.y, id: 1 }, { x: c0.x + 30, y: c0.y, id: 2 }]);
+for (let i = 1; i <= 6; i++) await touch('touchMove', [{ x: c0.x - 30 - 10 * i, y: c0.y, id: 1 }, { x: c0.x + 30 + 10 * i, y: c0.y, id: 2 }]);
+await touch('touchEnd', []);
+assert.notEqual(await m2.getAttribute('svg.sk > g', 'transform'), zoom0, 'pinch changes the zoom');
+await m2.click('[data-act="undo"]');
+await m2.waitForFunction(() => /2-プロパノール/.test(document.querySelector('.sks-sheet').textContent), null, { timeout: 10000 });
+step('かんたん作図: drag from an atom extends it (2-プロパノール) without scrolling the page, tap a bond -> 二重, pinch zoom, undo');
 
 // 書きかえ練習 えらぶ: answer the right option for every question
 await m2.goto(BASE + '#/build/practice?mode=choose&focus=ethanol');
@@ -311,19 +338,17 @@ await m2.click('[data-act="check"]');
 await m2.waitForSelector('.pr-result .quiz-ok');
 step('書きかえ練習 並べる: CH3 CH3 OH refused with the bond count, HO-CH2-CH3 accepted as エタノール');
 
-// 描く: draw methanol (C, then O on it)
+// 描く: draw methanol on the full-screen drawing (select C, -OH)
 await m2.goto(BASE + '#/build/practice?mode=draw&focus=methanol');
 await m2.waitForSelector('.pr-setup');
 await m2.click('[data-act="start"]');
-await m2.waitForSelector('svg.sk');
-const pk = await m2.locator('svg.sk').boundingBox();
-await m2.touchscreen.tap(pk.x + pk.width * 0.4, pk.y + pk.height * 0.5);
+await m2.waitForSelector('.sks-layer svg.sk');
 await tapNode(0);
-await m2.click('.sk-tools [data-tool="O"]');
-await tapNode(1);
-await m2.click('[data-act="check"]');
+await m2.click('.sks-layer [data-act="g-OH"]');
+await m2.click('.sks-layer [data-act="primary"]');
 await m2.waitForSelector('.pr-result .quiz-ok');
-step('書きかえ練習 描く: methanol drawn on the lattice is accepted');
+assert.equal(await m2.isVisible('.sks-layer'), false);
+step('書きかえ練習 描く: methanol drawn on the full-screen drawing is accepted');
 
 // ---- M4 acceptance: build the electron configuration of Na, give an
 // electron to Cl, go to the NaCl crystal; periodic table, detail, Lewis formulas

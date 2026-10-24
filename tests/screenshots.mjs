@@ -189,10 +189,21 @@ for (const scheme of ['light', 'dark']) {
     await p.click('[data-k="rational"] .nt-a >> text=COO');
     await p.waitForTimeout(1200);
     await shot(p, 't-notation-highlight');
+    await p.goto(BASE + '#/build/draw');
+    await p.waitForSelector('.sks-coach');
+    await shot(p, 't-draw-coach');
+    await p.click('[data-act="coach-ok"]');
     await p.goto(BASE + '#/build/draw?smiles=' + encodeURIComponent('CC(=O)O'));
-    await p.waitForSelector('.sk-info .build-match .info, .sk-info .build-match p');
-    await p.waitForTimeout(500);
-    await shot(p, 't-draw', { fullPage: true });
+    await p.waitForSelector('.sks-sheet .build-match:empty, .sks-sheet .sks-peek b');
+    {
+      const c = await p.locator('svg.sk .sk-node').nth(0).boundingBox();
+      await p.touchscreen.tap(c.x + c.width / 2, c.y + c.height / 2);
+    }
+    await p.waitForTimeout(600);
+    await shot(p, 't-draw');
+    await p.click('[data-act="sheet"]');
+    await p.waitForTimeout(800);
+    await shot(p, 't-draw-sheet');
     for (const [mode, focus] of [['choose', '2-propanol'], ['blocks', 'ethyl-acetate'], ['draw', 'acetic-acid']]) {
       await p.goto(BASE + `#/build/practice?mode=${mode}&focus=${focus}`);
       await p.waitForSelector('.pr-setup');
@@ -205,6 +216,12 @@ for (const scheme of ['light', 'dark']) {
       }
       if (mode === 'choose') {
         await p.locator('.pr-opt').first().click();
+      }
+      if (mode === 'draw') {
+        await p.waitForSelector('.sks-layer svg.sk');
+        await p.waitForTimeout(600);
+        await shot(p, 't-practice-draw');
+        continue;
       }
       await p.waitForTimeout(600);
       await shot(p, `t-practice-${mode}`, { fullPage: true });
