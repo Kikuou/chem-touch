@@ -7,7 +7,7 @@
 //   draw    描く     draw it (骨格構造式, or 構造式 with every H)
 // An answer is right when it is the same molecule (molcheck.js), however
 // it was written. Molecules: data/practice.json (at most 6 carbons).
-import { esc, prefs, toast } from '../core/dom.js';
+import { esc, prefs } from '../core/dom.js';
 import { icon } from '../core/icons.js';
 import { setQuery } from '../core/router.js';
 import { compounds, sdf as loadSdf, practiceSet } from '../core/data.js';
@@ -15,8 +15,7 @@ import { getRDKit } from '../mol/rdkit.js';
 import * as N from '../mol/notation.js';
 import { NOTATIONS, prepare, render } from '../mol/notations.js';
 import { BLOCKS, parseRational, sameMolecule, moleculeKey, hasEZ, formulaKey } from '../mol/molcheck.js';
-import { mountSketch } from '../mol/sketch.js';
-import { toolbarHtml, moreSheet, MODE_TEXT } from './sketch.js';
+import { mountSketchScreen } from './sketchscreen.js';
 
 const MODES = {
   choose: { name: 'えらぶ', desc: '別の書き方で書かれた4つから、同じ分子を選ぶ' },
@@ -296,80 +295,56 @@ export async function renderPractice({ el, query, subShell }) {
       return;
     }
 
-    // draw
-    let dmode = prefs.get('practice:draw', 'skeletal');
-    if (!MODE_TEXT[dmode]) dmode = 'skeletal';
-    let tool = 'bond';
+    // draw: answered on the full-screen drawing screen; closing it keeps
+    // the drawing, so it can be reopened
     area.innerHTML = `
-      <div class="seg sk-modes" role="group" aria-label="描き方">
-        <button data-dmode="skeletal">骨格構造式で描く</button>
-        <button data-dmode="full">H も描く</button>
-      </div>
-      <div class="sk-wrap card">
-        <div class="sk-canvas"></div>
-        <div class="sk-side">
-          <button class="iconbtn" data-act="undo" aria-label="ひとつ戻す">戻す</button>
-          <button class="iconbtn" data-act="clear" aria-label="すべて消す">${icon('close')}</button>
-        </div>
-      </div>
-      <div class="sk-tools" role="group" aria-label="道具"></div>
       <div class="pr-acts two">
         <button class="btn" data-act="reveal">答えを見る</button>
-        <button class="btn primary" data-act="check">答え合わせ</button>
+        <button class="btn primary" data-act="open">${icon('build')}描いて答える</button>
       </div>`;
-    const sketch = mountSketch(area.querySelector('.sk-canvas'), { height: 260, mode: dmode, onMessage: (m) => toast(m, 3000) });
-    cleanup = () => sketch.destroy();
-    const paint = () => {
-      area.querySelectorAll('[data-dmode]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.dmode === dmode));
-      const bar = area.querySelector('.sk-tools');
-      bar.innerHTML = toolbarHtml(dmode);
-      const onBar = [...bar.querySelectorAll('[data-tool]')].some((b) => b.dataset.tool === tool);
-      bar.querySelectorAll('[data-tool]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.tool === tool));
-      bar.querySelector('[data-act="more"]').setAttribute('aria-pressed', !onBar);
-      if (!onBar) bar.querySelector('[data-act="more"] b').textContent = tool;
-    };
-    area.onclick = async (e) => {
-      const m = e.target.closest('[data-dmode]');
-      if (m) {
-        dmode = m.dataset.dmode;
-        prefs.set('practice:draw', dmode);
-        if (dmode === 'skeletal' && tool === 'H') tool = 'bond';
-        sketch.setMode(dmode);
-        sketch.setTool(tool);
-        paint();
-        return;
-      }
-      const tb = e.target.closest('[data-tool]');
-      if (tb) { tool = tb.dataset.tool; sketch.setTool(tool); paint(); return; }
-      const act = e.target.closest('[data-act]')?.dataset.act;
-      if (act === 'undo') sketch.undo();
-      if (act === 'clear') sketch.clear();
-      if (act === 'more') {
-        const r = await moreSheet({ practice: true });
-        if (r?.tool) { tool = r.tool; sketch.setTool(tool); paint(); }
-        if (r?.ring) sketch.ring(parseInt(r.ring, 10), r.ring.endsWith('a'));
-      }
+    const layer = document.createElement('div');
+    layer.className = 'sks-layer';
+    document.body.append(layer);
+    const screen = mountSketchScreen(layer, {
+      title: `${n} / ${total}`,
+      closeLabel: 'もどる',
+      onClose: () => { layer.hidden = true; document.documentElement.classList.remove('sks-lock'); },
+      primary: { label: '答え合わせ', onClick: () => check() },
+      promptHtml: `<span class="small">この<b>${nameOf(q.from)}</b>の分子を描こう</span><div class="nt-box sks-q">${show(q.ctx, q.from)}</div>`,
+      mode: prefs.get('practice:draw', '') || undefined,
+    });
+    const sketch = screen.sketch;
+    const openLayer = () => { layer.hidden = false; document.documentElement.classList.add('sks-lock'); };
+    cleanup = () => { screen.destroy(); layer.remove(); };
+
+    function check() {
       if (finished) return;
-      if (act === 'reveal') finish(false, '');
-      if (act === 'check') {
-        if (!sketch.count) { toast('先に分子を描いてください'); return; }
-        const mb = sketch.molfile();
-        const m2 = RDKit.get_mol(mb);
-        const valid = m2 && m2.is_valid();
-        const smi = valid ? m2.get_smiles() : '';
-        m2?.delete();
-        if (!valid) { result.innerHTML = '<div class="quiz-ng">この形は分子として読み取れません。</div>'; return; }
-        if (smi.includes('.')) { result.innerHTML = '<div class="quiz-ng">2つ以上の部分に分かれています。線でつなごう。</div>'; return; }
-        if (sameMolecule(RDKit, mb, q.c.smiles)) {
-          const lack = dmode === 'full' ? sketch.missingH() : 0;
-          return finish(true, lack ? `（構造式では、あと ${lack} 個の H も書こう）` : '');
-        }
-        const same = formulaKey(RDKit, mb) === formulaKey(RDKit, q.c.smiles);
-        miss(same ? '分子式は合っていますが、ちがう分子（異性体）です。つながり方を見直そう。' : 'ちがう分子です。C・O・N の数とつながり方を見直そう。');
+      if (sketch.count <= 1 && !sketch.bondCount && q.c.smiles !== 'C') { screen.say('先に分子を描いてください', true); return; }
+      const mb = sketch.molfile();
+      const m2 = RDKit.get_mol(mb);
+      const valid = m2 && m2.is_valid();
+      const smi = valid ? m2.get_smiles() : '';
+      m2?.delete();
+      if (!valid) { screen.say('この形は分子として読み取れません。', true); return; }
+      if (smi.includes('.')) { screen.say('2つ以上の部分に分かれています。線でつなごう。', true); return; }
+      if (sameMolecule(RDKit, mb, q.c.smiles)) {
+        prefs.set('practice:draw', screen.mode);
+        const lack = screen.mode === 'full' ? sketch.missingH() : 0;
+        layer.hidden = true;
+        document.documentElement.classList.remove('sks-lock');
+        return finish(true, lack ? `（構造式では、あと ${lack} 個の H も書こう）` : '');
       }
+      const same = formulaKey(RDKit, mb) === formulaKey(RDKit, q.c.smiles);
+      const msg = same ? '分子式は合っていますが、ちがう分子（異性体）です。つながり方を見直そう。' : 'ちがう分子です。C・O・N の数とつながり方を見直そう。';
+      miss(msg);
+      screen.say(msg, true);
+    }
+    area.onclick = (e) => {
+      const act = e.target.closest('[data-act]')?.dataset.act;
+      if (act === 'open') openLayer();
+      if (finished) return;
+      if (act === 'reveal') { layer.hidden = true; finish(false, ''); }
     };
-    paint();
-    sketch.setTool(tool);
   }
 
   // ------------------------------------------------------------ summary
