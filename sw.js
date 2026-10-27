@@ -6,7 +6,7 @@
 //   - vendor/ (libraries, versioned folder names): cache first
 // The page sends the URLs it has already loaded (performance entries) so
 // that they are cached on the first visit too (see js/main.js).
-const VERSION = 'v3';
+const VERSION = 'v4';
 const APP_CACHE = `chemtouch-app-${VERSION}`;
 const LIB_CACHE = 'chemtouch-lib';
 const NETWORK_TIMEOUT_MS = 4000;

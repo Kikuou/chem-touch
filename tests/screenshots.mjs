@@ -204,6 +204,18 @@ for (const scheme of ['light', 'dark']) {
     await p.click('[data-act="sheet"]');
     await p.waitForTimeout(800);
     await shot(p, 't-draw-sheet');
+    await p.goto(BASE + '#/build/draw?smiles=' + encodeURIComponent('CCO'));
+    await p.waitForSelector('svg.sk .sk-node');
+    await p.click('[data-act="mode-full"]');
+    await p.waitForTimeout(600);
+    await shot(p, 't-draw-full');
+    await p.click('[data-act="mode-skeletal"]');
+    await p.setViewportSize({ width: 1280, height: 800 });
+    await p.goto(BASE + '#/build/draw?smiles=' + encodeURIComponent('CC(=O)O'));
+    await p.waitForSelector('.sks-sheet .build-match:not(:empty)');
+    await p.waitForTimeout(800);
+    await shot(p, 't-draw-desktop');
+    await p.setViewportSize({ width: 375, height: 812 });
     for (const [mode, focus] of [['choose', '2-propanol'], ['blocks', 'ethyl-acetate'], ['draw', 'acetic-acid']]) {
       await p.goto(BASE + `#/build/practice?mode=${mode}&focus=${focus}`);
       await p.waitForSelector('.pr-setup');

@@ -57,6 +57,17 @@ export function mountSketch(host, { mode = 'skeletal', seed = true, onChange, on
   svg.addEventListener('touchmove', stop, { passive: false });
   svg.addEventListener('gesturestart', stop, { passive: false }); // iOS page zoom
   svg.addEventListener('contextmenu', stop);
+  // mouse wheel / trackpad pinch (ctrlKey) zooms around the pointer
+  svg.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const r = svg.getBoundingClientRect();
+    const p = { x: e.clientX - r.left, y: e.clientY - r.top };
+    const m = toModel(p);
+    const s = clamp(view.s * Math.exp(-e.deltaY * (e.ctrlKey ? 0.01 : 0.0015)), 0.4, 3);
+    autoView = false;
+    view = { s, ox: p.x - m.x * s, oy: p.y - m.y * s };
+    draw();
+  }, { passive: false });
 
   // ---------------------------------------------------------- model helpers
   const byId = (id) => atoms.find((a) => a.id === id);

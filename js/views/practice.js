@@ -306,11 +306,10 @@ export async function renderPractice({ el, query, subShell }) {
     layer.className = 'sks-layer';
     document.body.append(layer);
     const screen = mountSketchScreen(layer, {
-      title: `${n} / ${total}`,
       closeLabel: 'もどる',
       onClose: () => { layer.hidden = true; document.documentElement.classList.remove('sks-lock'); },
       primary: { label: '答え合わせ', onClick: () => check() },
-      promptHtml: `<span class="small">この<b>${nameOf(q.from)}</b>の分子を描こう</span><div class="nt-box sks-q">${show(q.ctx, q.from)}</div>`,
+      promptHtml: `<span class="small muted">${n} / ${total}</span> <span class="small">この<b>${nameOf(q.from)}</b>の分子を描こう</span><div class="nt-box sks-q">${show(q.ctx, q.from)}</div>`,
       mode: prefs.get('practice:draw', '') || undefined,
     });
     const sketch = screen.sketch;
