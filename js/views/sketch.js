@@ -57,8 +57,14 @@ export async function renderSketch({ el, query }) {
   let token = 0;
   let timer = null;
 
+  // on wide screens the result is a side panel that is always open
+  const wide = matchMedia('(min-width: 900px)');
+  open = wide.matches;
+  const onWide = () => { open = wide.matches; update(); };
+  wide.addEventListener('change', onWide);
+
   const screen = mountSketchScreen(el.firstElementChild, {
-    title: 'かんたん作図',
+    side: true,
     onClose: () => goBack('#/build'),
     onChange: () => update(),
     extraMore: [
@@ -89,7 +95,6 @@ export async function renderSketch({ el, query }) {
       const bad = sketch.count > 1 || sketch.bondCount;
       return `<div class="sks-peek"><span class="muted small">${bad ? 'この形は分子として読み取れません。' : '描いた分子の名前と分子式がここに出ます。'}</span></div>`;
     }
-    const lack = screen.mode === 'full' ? sketch.missingH() : 0;
     const parts = smiles.includes('.');
     let rational = '';
     const mb = molblockFromSmiles(RDKit, smiles);
@@ -100,7 +105,6 @@ export async function renderSketch({ el, query }) {
         <span class="sks-chev">${icon('chev')}</span>
       </button>
       ${parts ? '<p class="sks-warn">2つ以上の部分に分かれています。線でつなごう。</p>' : ''}
-      ${lack ? `<p class="sks-warn">H があと ${lack} 個たりません（構造式では H もすべて書きます）。</p>` : ''}
       <div class="sks-more" ${open ? '' : 'hidden'}>
         <div class="sks-acts">
           <a class="btn primary" href="#/build/notation?smiles=${encodeURIComponent(smiles)}">${icon('compare')}書き方を見る</a>
@@ -159,5 +163,5 @@ export async function renderSketch({ el, query }) {
 
   const start = query.get('smiles') || prefs.get('sketch:last', '');
   if (!(start && loadSmiles(start))) update();
-  return () => { clearTimeout(timer); screen.destroy(); };
+  return () => { clearTimeout(timer); wide.removeEventListener('change', onWide); screen.destroy(); };
 }

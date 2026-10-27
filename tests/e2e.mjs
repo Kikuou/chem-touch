@@ -310,6 +310,29 @@ await m2.click('[data-act="undo"]');
 await m2.waitForFunction(() => /2-プロパノール/.test(document.querySelector('.sks-sheet').textContent), null, { timeout: 10000 });
 step('かんたん作図: drag from an atom extends it (2-プロパノール) without scrolling the page, tap a bond -> 二重, pinch zoom, undo');
 
+// always-visible controls: 構造式 (H も) mode with "H を補う", clear all with
+// an undo toast, keyboard shortcuts
+await m2.click('[data-act="mode-full"]');
+await m2.waitForSelector('.sks-addh:not([hidden])');
+const lackH = +(await m2.textContent('.sks-addh .sks-badge'));
+assert.equal(lackH, 8, '2-propanol needs 8 H');
+await m2.click('.sks-addh');
+assert.equal(await m2.isVisible('.sks-addh'), false);
+assert.equal(await m2.locator('svg.sk .sk-l.sk-H').count(), 8);
+await m2.click('[data-act="mode-skeletal"]');
+assert.equal(await m2.locator('svg.sk .sk-l.sk-H').count(), 0);
+await m2.click('[data-act="clear"]');
+await m2.waitForSelector('.sks-toast:not([hidden])');
+assert.equal(await m2.locator('svg.sk .sk-node').count(), 1);
+await m2.click('.sks-toast [data-act="restore"]');
+await m2.waitForFunction(() => /2-プロパノール/.test(document.querySelector('.sks-sheet').textContent), null, { timeout: 10000 });
+await tapNode(0);
+await m2.keyboard.press('n');
+await m2.waitForFunction(() => /C2H7NO/.test(document.querySelector('.sks-sheet').textContent), null, { timeout: 10000 });
+await m2.keyboard.press('Control+z');
+await m2.waitForFunction(() => /2-プロパノール/.test(document.querySelector('.sks-sheet').textContent), null, { timeout: 10000 });
+step('かんたん作図: 構造式 mode shows "H を補う 8" and adds them, back to 骨格構造式; すべて消す -> 元に戻す; keys N and Ctrl+Z');
+
 // 書きかえ練習 えらぶ: answer the right option for every question
 await m2.goto(BASE + '#/build/practice?mode=choose&focus=ethanol');
 await m2.waitForSelector('.pr-setup');
