@@ -216,6 +216,16 @@ for (const scheme of ['light', 'dark']) {
     await p.waitForTimeout(800);
     await shot(p, 't-draw-desktop');
     await p.setViewportSize({ width: 375, height: 812 });
+    await p.evaluate(() => localStorage.removeItem('chemtouch:sketch:last'));
+    await p.goto(BASE + '#/build/draw2');
+    await p.waitForSelector('svg.sk .sk-empty');
+    await p.waitForTimeout(400);
+    await shot(p, 't-draw2-empty');
+    await p.goto(BASE + '#/build/draw2?smiles=' + encodeURIComponent('CCCC(=O)O'));
+    await p.waitForSelector('.sks-sheet .sks-peek b');
+    await p.click('[data-part="OH"]');
+    await p.waitForTimeout(400);
+    await shot(p, 't-draw2');
     for (const [mode, focus] of [['choose', '2-propanol'], ['blocks', 'ethyl-acetate'], ['draw', 'acetic-acid']]) {
       await p.goto(BASE + `#/build/practice?mode=${mode}&focus=${focus}`);
       await p.waitForSelector('.pr-setup');

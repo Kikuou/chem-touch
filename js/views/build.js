@@ -577,6 +577,11 @@ export async function renderBuildSub({ el, params, query }) {
     const { renderSketch } = await import('./sketch.js');
     return renderSketch({ el, query, subShell });
   }
+  if (sub === 'draw2') {
+    // on trial: draw by tracing with the finger, parts dropped on atoms
+    const { renderSketch } = await import('./sketch.js');
+    return renderSketch({ el, query, subShell, pen: true });
+  }
   if (sub === 'notation') {
     const { renderNotation } = await import('./notation.js');
     return renderNotation({ el, query, subShell });

@@ -333,6 +333,44 @@ await m2.keyboard.press('Control+z');
 await m2.waitForFunction(() => /2-プロパノール/.test(document.querySelector('.sks-sheet').textContent), null, { timeout: 10000 });
 step('かんたん作図: 構造式 mode shows "H を補う 8" and adds them, back to 骨格構造式; すべて消す -> 元に戻す; keys N and Ctrl+Z');
 
+// なぞって描く (#/build/draw2, on trial): trace a chain, drop -OH from the
+// shelf, tap a bond, long-press menu, armed part + tap
+await m2.evaluate(() => localStorage.removeItem('chemtouch:sketch:last'));
+await m2.goto(BASE + '#/build/draw2');
+await m2.waitForSelector('svg.sk .sk-empty');
+const pb = await m2.locator('svg.sk').boundingBox();
+const py = pb.y + pb.height / 2;
+await touch('touchStart', [{ x: pb.x + 60, y: py }]);
+for (let i = 1; i <= 12; i++) await touch('touchMove', [{ x: pb.x + 60 + 175 * i / 12, y: py }]);
+await touch('touchEnd', []);
+await m2.waitForFunction(() => /ペンタン/.test(document.querySelector('.sks-sheet').textContent), null, { timeout: 10000 });
+assert.equal(await m2.evaluate(() => scrollY), 0);
+const penNode = async (i) => { const bb = await m2.locator('svg.sk .sk-node').nth(i).boundingBox(); return { x: bb.x + bb.width / 2, y: bb.y + bb.height / 2 }; };
+const ohKey = await m2.locator('[data-part="OH"]').boundingBox();
+const end4 = await penNode(4);
+await m2.mouse.move(ohKey.x + ohKey.width / 2, ohKey.y + ohKey.height / 2);
+await m2.mouse.down();
+await m2.mouse.move(end4.x, end4.y + 56, { steps: 10 });
+await m2.mouse.up();
+await m2.waitForFunction(() => /1-ペンタノール/.test(document.querySelector('.sks-sheet').textContent), null, { timeout: 10000 });
+const [q0, q1] = [await penNode(0), await penNode(1)];
+await m2.touchscreen.tap((q0.x + q1.x) / 2, (q0.y + q1.y) / 2);
+await m2.waitForFunction(() => /C5H10O/.test(document.querySelector('.sks-sheet').textContent), null, { timeout: 10000 });
+const q2 = await penNode(2);
+await touch('touchStart', [q2]);
+await m2.waitForTimeout(650);
+await touch('touchEnd', []);
+await m2.waitForSelector('.sks-menu:not([hidden])');
+await m2.click('.sks-menu [data-act="m-remove"]');
+await m2.waitForFunction(() => /2つ以上|読み取れ|C2H/.test(document.querySelector('.sks-sheet').textContent) || document.querySelectorAll('svg.sk .sk-node').length === 5, null, { timeout: 10000 });
+await m2.click('[data-act="undo"]');
+await m2.click('[data-part="=O"]');
+assert.match(await m2.textContent('.sks-hint'), /=O がつきます/);
+const q3 = await penNode(3);
+await m2.touchscreen.tap(q3.x, q3.y);
+await m2.waitForFunction(() => /C5H8O2/.test(document.querySelector('.sks-sheet').textContent), null, { timeout: 10000 });
+step('なぞって描く: trace -> ペンタン, drop -OH -> 1-ペンタノール, tap a bond -> C=C, long-press menu 消す + undo, armed =O + tap');
+
 // 書きかえ練習 えらぶ: answer the right option for every question
 await m2.goto(BASE + '#/build/practice?mode=choose&focus=ethanol');
 await m2.waitForSelector('.pr-setup');

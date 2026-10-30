@@ -22,7 +22,15 @@ const SLOP = 9; // px a finger may wander before a tap becomes a drag
 const DY = L * Math.sqrt(3) / 2;
 let uid = 0;
 
-export function mountSketch(host, { mode = 'skeletal', seed = true, onChange, onSelect, onMessage } = {}) {
+export function mountSketch(host, { mode = 'skeletal', seed = true, gestures = 'select', onChange, onSelect, onMessage, onMenu } = {}) {
+  // gestures 'select': tap selects, buttons act on the selection (かんたん作図)
+  // gestures 'pen':    one finger draws (a zigzag chain follows the finger),
+  //                    a tap on a bond changes its order, parts (O, -OH ...)
+  //                    are armed and tapped / dropped on atoms, a long press
+  //                    opens a small menu (onMenu) for the atom or bond
+  const pen = gestures === 'pen';
+  let armed = null; // pen: the part waiting to be put on an atom
+  let hover = null; // pen: atom id under a dragged part
   let atoms = []; // { id, el, x, y }
   let bonds = []; // { a, b, order }
   let nextId = 1;
@@ -63,8 +71,14 @@ export function mountSketch(host, { mode = 'skeletal', seed = true, onChange, on
     const r = svg.getBoundingClientRect();
     const p = { x: e.clientX - r.left, y: e.clientY - r.top };
     const m = toModel(p);
-    const s = clamp(view.s * Math.exp(-e.deltaY * (e.ctrlKey ? 0.01 : 0.0015)), 0.4, 3);
     autoView = false;
+    if (pen && !e.ctrlKey && !e.metaKey) {
+      // pen (PC): scrolling moves the view, Ctrl/⌘ + scroll or pinch zooms
+      view = { ...view, ox: view.ox - e.deltaX, oy: view.oy - e.deltaY };
+      draw();
+      return;
+    }
+    const s = clamp(view.s * Math.exp(-e.deltaY * (e.ctrlKey ? 0.01 : 0.0015)), 0.4, 3);
     view = { s, ox: p.x - m.x * s, oy: p.y - m.y * s };
     draw();
   }, { passive: false });
@@ -205,6 +219,7 @@ export function mountSketch(host, { mode = 'skeletal', seed = true, onChange, on
   svg.addEventListener('pointerdown', (e) => {
     svg.setPointerCapture?.(e.pointerId);
     pointers.set(e.pointerId, pt(e));
+    if (pen) onMenu?.(null);
     if (pointers.size === 2) {
       // a second finger: zoom / pan; whatever the first finger began is dropped
       if (g?.timer) clearTimeout(g.timer);
@@ -219,9 +234,23 @@ export function mountSketch(host, { mode = 'skeletal', seed = true, onChange, on
     if (pointers.size > 2 || pinch) return;
     const p = pt(e);
     const m = toModel(p);
-    const atom = atomAt(m);
+    // near an atom's centre the atom wins; around a bond's middle the bond;
+    // elsewhere the generous atom radius applies
+    let atom = atomAt(m, null, 15 / view.s);
     const bond = atom ? null : bondAt(m);
+    if (!atom && bond === null) atom = atomAt(m);
     g = { start: p, cur: p, atom, bond, mode: null, v0: { ...view } };
+    if (pen) {
+      if (atom || bond !== null) {
+        g.timer = setTimeout(() => {
+          if (!g || g.mode) return;
+          g.mode = 'menu';
+          navigator.vibrate?.(12);
+          openMenu(atom ? { type: 'atom', id: atom.id } : { type: 'bond', id: bond });
+        }, LONG_PRESS);
+      }
+      return;
+    }
     if (atom) {
       g.timer = setTimeout(() => {
         if (!g || g.mode) return;
@@ -249,10 +278,20 @@ export function mountSketch(host, { mode = 'skeletal', seed = true, onChange, on
     if (!g) return;
     const p = pt(e);
     g.cur = p;
-    if (!g.mode && Math.hypot(p.x - g.start.x, p.y - g.start.y) > SLOP) {
+    if (pen && Math.hypot(p.x - g.start.x, p.y - g.start.y) > SLOP) {
+      if (!g.mode) { clearTimeout(g.timer); g.mode = 'chain'; }
+      else if (g.mode === 'menu') {
+        // long press, then slide: move the atom
+        onMenu?.(null);
+        sel = null;
+        g.mode = g.atom ? 'move' : 'done';
+      }
+    }
+    if (!pen && !g.mode && Math.hypot(p.x - g.start.x, p.y - g.start.y) > SLOP) {
       clearTimeout(g.timer);
       g.mode = g.atom ? 'extend' : 'pan';
     }
+    if (g.mode === 'chain') { drawChainPreview(); return; }
     if (g.mode === 'pan') {
       autoView = false;
       view = { ...view, ox: g.v0.ox + p.x - g.start.x, oy: g.v0.oy + p.y - g.start.y };
@@ -279,6 +318,13 @@ export function mountSketch(host, { mode = 'skeletal', seed = true, onChange, on
     const d = g;
     g = null;
     if (e.type === 'pointercancel') { draw(); return; }
+    if (pen) {
+      if (d.mode === 'chain') commitChain(d);
+      else if (d.mode === 'move') { if (d.saved) changed(); else draw(); }
+      else if (d.mode === 'menu' || d.mode === 'done') draw();
+      else penTap(d);
+      return;
+    }
     if (d.mode === 'extend') extendByDrag(d);
     else if (d.mode === 'move') { if (d.saved) changed(); else draw(); }
     else if (d.mode === 'pan') draw();
@@ -323,6 +369,148 @@ export function mountSketch(host, { mode = 'skeletal', seed = true, onChange, on
     sel = { type: 'atom', id: B.id };
     onSelect?.(selection());
     changed();
+  }
+
+  // ---------------------------------------------------------- pen: chains, parts, menu
+
+  // the zigzag chain a drag draws: from the atom under the finger (or a new
+  // carbon where the finger went down), one bond per DY of drag along the
+  // drag direction (30° steps), bonds alternating ±30° around it, so the
+  // chain lies on the lattice like a skeletal formula drawn on paper
+  function chainFor(d) {
+    const A = d.atom;
+    const s0 = A ? { x: A.x, y: A.y } : snapNode(toModel(d.start));
+    const m = toModel(d.cur);
+    const dist = Math.hypot(m.x - s0.x, m.y - s0.y);
+    const n = clamp(Math.round(dist / DY), 1, 24);
+    const th = Math.round(Math.atan2(m.y - s0.y, m.x - s0.x) / (Math.PI / 6)) * (Math.PI / 6);
+    // which way the first bond turns: away from an existing neighbour,
+    // otherwise upwards
+    let sgn = -1;
+    const nb = A && bondsOf(A.id)[0];
+    if (nb) {
+      const o = byId(nb.a === A.id ? nb.b : nb.a);
+      const back = Math.atan2(o.y - A.y, o.x - A.x);
+      const c = (k) => Math.cos(th + (k * Math.PI) / 6 - back);
+      sgn = c(-1) < c(1) ? -1 : 1;
+    }
+    const pts = [s0];
+    const hits = [A || atomAt(s0, null, L * 0.35)];
+    for (let k = 0; k < n; k++) {
+      const t = th + sgn * (k % 2 ? -1 : 1) * (Math.PI / 6);
+      const q = { x: pts[k].x + L * Math.cos(t), y: pts[k].y + L * Math.sin(t) };
+      const hit = atomAt(q, null, L * 0.35);
+      pts.push(hit ? { x: hit.x, y: hit.y } : q);
+      hits.push(hit);
+      if (hit) break; // closes onto an atom that is already there
+    }
+    return { pts, hits };
+  }
+
+  function snapNode(m) {
+    const c = Math.round(m.x / DY);
+    const off = (Math.abs(c) % 2) ? L / 2 : 0;
+    return { x: c * DY, y: Math.round((m.y - off) / L) * L + off };
+  }
+
+  function drawChainPreview() {
+    const { pts, hits } = chainFor(g);
+    let s = '';
+    for (let k = 1; k < pts.length; k++) s += `<line class="sk-pre" x1="${pts[k - 1].x}" y1="${pts[k - 1].y}" x2="${pts[k].x}" y2="${pts[k].y}"/>`;
+    pts.forEach((q, k) => { if (k || !hits[0]) s += `<circle class="sk-pre-dot" cx="${q.x}" cy="${q.y}" r="6"/>`; });
+    const carbons = pts.length - hits.filter(Boolean).length + (hits[0] && hits[0].el === 'C' ? 1 : 0);
+    const last = toScreen(pts[pts.length - 1]);
+    const bx = last.x;
+    const by = Math.max(18, Math.min(g.cur.y, last.y) - 50);
+    const word = hits[hits.length - 1] && pts.length > 1 ? 'つなぐ' : `C${carbons}`;
+    s += `<g transform="scale(${(1 / view.s).toFixed(3)}) translate(${(-view.ox).toFixed(1)} ${(-view.oy).toFixed(1)})"><rect class="sk-bub" x="${bx - 30}" y="${by - 15}" width="60" height="30" rx="15"/><text class="sk-bub-t big" x="${bx}" y="${by}">${word}</text></g>`;
+    draw(s);
+  }
+
+  function commitChain(d) {
+    const { pts, hits } = chainFor(d);
+    if (pts.length < 2) { draw(); return; }
+    save();
+    let prev = hits[0] || addAtom('C', pts[0].x, pts[0].y);
+    let made = 0;
+    for (let k = 1; k < pts.length; k++) {
+      const B = hits[k] || addAtom('C', pts[k].x, pts[k].y);
+      if (!addBond(prev, B, 1)) {
+        if (!hits[k]) atoms = atoms.filter((a) => a.id !== B.id);
+        break;
+      }
+      made++;
+      prev = B;
+    }
+    if (!made) { restore(undoStack.pop()); draw(); return; }
+    autoView = false;
+    changed();
+  }
+
+  // run an action meant for the selection on a given atom / bond
+  function onTarget(t, fn) {
+    sel = t;
+    fn();
+    sel = null;
+    draw();
+  }
+
+  // a part put on an atom, a bond or an empty place (model point)
+  function applyPart(part, t, m) {
+    const atom = t?.type === 'atom' ? byId(t.id) : null;
+    if (part === 'erase') {
+      if (t) { onTarget(t, remove); return true; }
+      return false;
+    }
+    if (part.startsWith('ring')) {
+      const n = parseInt(part.slice(4), 10);
+      if (atom) onTarget(t, () => ring(n, part.endsWith('a')));
+      else ring(n, part.endsWith('a'), m);
+      return true;
+    }
+    if (!atom) { say(t ? '部品は原子（線の端や折れ目）に置きます。' : '部品は原子の上に置きます。'); return false; }
+    if (/^(C|N|O|S|F|Cl|Br|I|H)$/.test(part)) onTarget(t, () => setElement(part));
+    else onTarget(t, () => addGroup(part));
+    return true;
+  }
+
+  function penTap(d) {
+    const t = d.atom ? { type: 'atom', id: d.atom.id } : d.bond !== null && d.bond !== undefined ? { type: 'bond', id: d.bond } : null;
+    if (armed) { applyPart(armed, t, toModel(d.start)); return; }
+    if (t?.type === 'bond') {
+      const b = bonds[t.id];
+      const next = b.order % 3 + 1;
+      save();
+      if (!setOrder(b, next)) {
+        // a triple bond is not possible here: back to single
+        if (!setOrder(b, 1)) { undoStack.pop(); return; }
+      }
+      changed();
+      return;
+    }
+    if (t?.type === 'atom') {
+      // a tap on an atom adds one carbon in the zigzag direction
+      onTarget(t, () => extend(1));
+      return;
+    }
+    if (!atoms.length) {
+      // an empty canvas: a single carbon (methane), to start from
+      save();
+      const m = snapNode(toModel(d.start));
+      addAtom('C', m.x, m.y);
+      changed();
+      return;
+    }
+    say('指でなぞると炭素の鎖が描けます。線をタップすると二重結合。');
+  }
+
+  function openMenu(t) {
+    sel = t;
+    draw();
+    let p;
+    if (t.type === 'atom') p = toScreen(byId(t.id));
+    else { const b = bonds[t.id]; p = toScreen(mid(byId(b.a), byId(b.b))); }
+    onMenu?.({ ...selection(), x: p.x, y: p.y });
   }
 
   // ---------------------------------------------------------- actions on the selection
@@ -433,7 +621,7 @@ export function mountSketch(host, { mode = 'skeletal', seed = true, onChange, on
   }
 
   // ring template; on a selected atom it is attached by a single bond
-  function ring(n, aromatic = false) {
+  function ring(n, aromatic = false, at = null) {
     save();
     const R = L / (2 * Math.sin(Math.PI / n));
     const a = selAtom();
@@ -448,6 +636,8 @@ export function mountSketch(host, { mode = 'skeletal', seed = true, onChange, on
       cx = a.x + (L + R) * Math.cos(t);
       cy = a.y + (L + R) * Math.sin(t);
       rot = t + Math.PI; // first ring atom faces the selected atom
+    } else if (at) {
+      cx = at.x; cy = at.y; rot = -Math.PI / 2 + (n % 2 ? 0 : Math.PI / n);
     } else if (lone) {
       cx = atoms[0].x; cy = atoms[0].y; rot = -Math.PI / 2 + (n % 2 ? 0 : Math.PI / n);
       atoms = [];
@@ -466,7 +656,7 @@ export function mountSketch(host, { mode = 'skeletal', seed = true, onChange, on
     sel = null;
     onSelect?.(null);
     changed();
-    if (!a) fit();
+    if (!a && !at) fit();
   }
 
   function seedAtom() {
@@ -544,20 +734,21 @@ export function mountSketch(host, { mode = 'skeletal', seed = true, onChange, on
     const sa = selAtom();
     for (const x of atoms) {
       const t = label(x);
-      const cls = `sk-node${t ? '' : ' c'}${shake === x.id ? ' shake' : ''}`;
-      if (sa === x) under += `<circle class="sk-sel" cx="${x.x}" cy="${x.y}" r="${t ? 19 : 15}"/>`;
-      a += `<g class="${cls}"><circle cx="${x.x}" cy="${x.y}" r="${t ? 13 : 4.5}"/>${t ? labelSvg(t, x.x, x.y, x.el) : ''}</g>`;
+      const cls = `sk-node${t ? '' : ' c'}${pen ? ' pen' : ''}${shake === x.id ? ' shake' : ''}`;
+      if (sa === x || hover === x.id) under += `<circle class="sk-sel${hover === x.id ? ' hov' : ''}" cx="${x.x}" cy="${x.y}" r="${t ? 19 : 15}"/>`;
+      a += `<g class="${cls}"><circle cx="${x.x}" cy="${x.y}" r="${t ? 13 : pen ? 6 : 4.5}"/>${t ? labelSvg(t, x.x, x.y, x.el) : ''}</g>`;
     }
     // where "extend" will put the next atom
     let ghost = '';
-    if (sa && free(sa) >= 1 && !g?.mode) {
+    if (!pen && sa && free(sa) >= 1 && !g?.mode) {
       const p = growDirection(sa);
       if (p) ghost = `<line class="sk-ghost-b" x1="${sa.x}" y1="${sa.y}" x2="${p.x}" y2="${p.y}"/><circle class="sk-ghost" cx="${p.x}" cy="${p.y}" r="10"/>`;
     }
     const tr = `translate(${view.ox.toFixed(1)} ${view.oy.toFixed(1)}) scale(${view.s.toFixed(3)})`;
     svg.innerHTML = `<defs><pattern id="${latId}" width="${2 * DY}" height="${L}" patternUnits="userSpaceOnUse"><circle cx="0" cy="0" r="1.7"/><circle cx="${DY}" cy="${L / 2}" r="1.7"/><circle cx="${2 * DY}" cy="0" r="1.7"/><circle cx="0" cy="${L}" r="1.7"/><circle cx="${2 * DY}" cy="${L}" r="1.7"/></pattern></defs>`
       + `<g transform="${tr}"><rect class="sk-lat" fill="url(#${latId})" x="${m0.x - L}" y="${m0.y - L}" width="${m1.x - m0.x + 2 * L}" height="${m1.y - m0.y + 2 * L}"/>`
-      + `<g class="sk-under">${under}</g>${ghost}<g class="sk-b">${b}</g>${a}${extra}</g>`;
+      + `<g class="sk-under">${under}</g>${ghost}<g class="sk-b">${b}</g>${a}${extra}</g>`
+      + (pen && !atoms.length && !extra ? emptyArt(W, H) : '');
   }
 
   function drawPreview() {
@@ -650,6 +841,34 @@ export function mountSketch(host, { mode = 'skeletal', seed = true, onChange, on
     select(s) { select(s); },
     // tests and keyboard: select an atom by its order of creation
     selectAtom(i) { if (atoms[i]) select({ type: 'atom', id: atoms[i].id }); },
+    // pen
+    arm(part) { armed = part; },
+    get armed() { return armed; },
+    // the atom / bond under a point on the screen (client coordinates)
+    targetAt(cx, cy) {
+      const r = svg.getBoundingClientRect();
+      const m = toModel({ x: cx - r.left, y: cy - r.top });
+      const a = atomAt(m);
+      if (a) return { type: 'atom', id: a.id };
+      const b = bondAt(m);
+      return b !== null ? { type: 'bond', id: b } : null;
+    },
+    hoverAt(cx, cy) {
+      const t = cx === null ? null : api.targetAt(cx, cy);
+      const h = t?.type === 'atom' ? t.id : null;
+      if (h !== hover) { hover = h; draw(); }
+    },
+    dropPart(part, cx, cy) {
+      hover = null;
+      const r = svg.getBoundingClientRect();
+      if (cx < r.left || cx > r.right || cy < r.top || cy > r.bottom) { draw(); return false; }
+      const ok = applyPart(part, api.targetAt(cx, cy), toModel({ x: cx - r.left, y: cy - r.top }));
+      draw();
+      return ok;
+    },
+    // menu actions on the atom / bond the menu was opened for
+    onMenuTarget(fn) { const t = sel; if (t) onTarget(t, fn); onMenu?.(null); },
+    closeMenu() { sel = null; draw(); },
     extend,
     setElement,
     addGroup,
@@ -688,6 +907,14 @@ export function mountSketch(host, { mode = 'skeletal', seed = true, onChange, on
     destroy() { ro.disconnect(); },
   };
   return api;
+}
+
+// empty canvas (pen): a dashed zigzag and what to do
+function emptyArt(W, H) {
+  const x0 = W / 2 - 75;
+  const y0 = H / 2 - 10;
+  const d = `M${x0} ${y0 + 15} l37.5 -25 l37.5 25 l37.5 -25 l37.5 25`;
+  return `<g class="sk-empty"><path d="${d}"/><circle cx="${x0 + 150}" cy="${y0 + 15}" r="13"/><text x="${W / 2}" y="${y0 + 60}">指でなぞって描きはじめる</text><text class="s" x="${W / 2}" y="${y0 + 82}">なぞった長さで炭素の数が決まります</text></g>`;
 }
 
 const mid = (p, q) => ({ x: (p.x + q.x) / 2, y: (p.y + q.y) / 2 });
