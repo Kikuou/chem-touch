@@ -47,7 +47,8 @@ function askSmiles() {
   });
 }
 
-export async function renderSketch({ el, query }) {
+// pen: true for the 'draw by tracing' editor (#/build/draw2, on trial)
+export async function renderSketch({ el, query, pen = false }) {
   el.innerHTML = '<div class="sks"><p class="empty"><span class="spinner"></span>準備中…</p></div>';
   const RDKit = await getRDKit();
   if (!el.isConnected) return null;
@@ -65,15 +66,18 @@ export async function renderSketch({ el, query }) {
 
   const screen = mountSketchScreen(el.firstElementChild, {
     side: true,
+    pen,
     onClose: () => goBack('#/build'),
     onChange: () => update(),
     extraMore: [
+      pen ? { act: 'old', label: '前の描き方（選んでからボタン）に戻る' } : { act: 'pen', label: '試作: 指でなぞって描く' },
       { act: 'chain', label: `${icon('build')}炭素鎖から始める（炭素数・二重結合・官能基を選ぶ）` },
       { act: 'smiles', label: 'SMILES で入力' },
       { act: 'advanced', label: `${icon('expand')}上級エディタ（すべての元素・電荷など）` },
     ],
     onMore: async (a) => {
       if (a === 'chain') location.hash = '#/build/chain';
+      if (a === 'pen' || a === 'old') location.hash = `#/build/${a === 'pen' ? 'draw2' : 'draw'}${smiles ? `?smiles=${encodeURIComponent(smiles)}` : ''}`;
       if (a === 'advanced') location.hash = `#/build/advanced${smiles ? `?smiles=${encodeURIComponent(smiles)}` : ''}`;
       if (a === 'smiles') {
         const s = await askSmiles();
