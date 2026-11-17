@@ -56,6 +56,18 @@ for (const scheme of ['light', 'dark']) {
     await p.goto(BASE + '#/more');
     await p.waitForSelector('[data-detail]');
     await shot(p, 'more');
+    // たしかめる, 用語集, 授業をつくる (teacher, behind くわしい表示)
+    await p.goto(BASE + '#/check');
+    await p.waitForSelector('.ck-meter');
+    await shot(p, 'check');
+    await p.goto(BASE + '#/glossary');
+    await p.waitForSelector('.gl-item');
+    await shot(p, 'glossary');
+    await p.evaluate(() => localStorage.setItem('chemtouch:detail', '1'));
+    await p.goto(BASE + '#/teach?no=7');
+    await p.waitForSelector('.tc-parts');
+    await shot(p, 'teach');
+    await p.evaluate(() => localStorage.removeItem('chemtouch:detail'));
     // lessons (docs/plan.md 提案5・11)
     await p.goto(BASE + '#/lessons');
     await p.waitForSelector('.ls-list');
