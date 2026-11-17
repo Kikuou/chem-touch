@@ -41,6 +41,12 @@ js/lab/               触る教材（docs/plan.md 提案9・10。#/lab/<id>、vi
   states.js           温度と三態（スライダー型・粒子のアニメ。視差効果を減らす設定では止める）
   formula.js          組成式パズル（仕分け・並べ型）。compose() は tests/test_labs.mjs でテスト
   ph.js               pH ものさし（スライダー型）
+  sort.js             なかまわけ（仕分けの型。カードと分け先は data/labs.json の sorts）
+  balance.js          反応式の天びん（係数と原子の数。atoms() は化学式を数える）
+  titration.js        中和の滴定（強酸と強塩基の pH を量から計算）
+  dissolve.js, molscale.js, mwcount.js  とかすビーカー・モルのはかり・分子量カウンター
+  attract.js, metal.js, redox.js        ひきあう分子・金属と自由電子・電子の受けわたし（粒子の型）
+  review.js           総まとめクイズ（全回の問題から10問）
   calc.js             計算練習の型（見当 → 穴うめ → 自分で計算、画面のテンキー）。種類（KINDS）ごとに問題文・答え・穴うめの式・手順を持ち、数値は data/labs.json
 js/views/             画面（1画面1ファイル）
   home.js                ホーム（今日の授業・身近なもの・基礎の復習・道具）

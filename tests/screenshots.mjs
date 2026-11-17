@@ -97,6 +97,12 @@ for (const scheme of ['light', 'dark']) {
     await p.goto(BASE + '#/lab/ph?ph=2.3');
     await p.waitForSelector('.ph-range');
     await shot(p, 'lab-ph');
+    for (const [h, sel] of [['#/lab/sort', '.so-list'], ['#/lab/balance', '.rb-eq'], ['#/lab/titration', '.ti-graph'], ['#/lab/molscale', '.ms-bags'], ['#/lab/attract', '.at-mols g'], ['#/lab/redox', '.rx-e']]) {
+      await p.goto(BASE + h);
+      await p.waitForSelector(sel);
+      await p.waitForTimeout(800);
+      await shot(p, 'lab-' + h.split('/').pop());
+    }
     await p.goto(BASE + '#/lab/calc?k=mass-percent');
     await p.waitForSelector('[data-pick]');
     await p.click('[data-pick] >> text=/^.5 %$/');
