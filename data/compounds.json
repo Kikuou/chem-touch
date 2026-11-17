@@ -2834,7 +2834,7 @@
    "sdf_source": "generated",
    "atoms": 56,
    "verification": {
-    "pubchem": "verified",
+    "pubchem": "structure-only",
     "stereo": "checked",
     "pubchem_title": "Doconexent"
    },
@@ -5007,9 +5007,10 @@
    "sdf_source": "generated",
    "atoms": 75,
    "verification": {
-    "pubchem": "verified",
+    "pubchem": "structure-only",
     "stereo": "undefined",
-    "pubchem_title": "Heme b"
+    "pubchem_title": "Heme b",
+    "pubchem_name_cid": 53356674
    },
    "pubchem_formula": "C34H32FeN4O4",
    "stereo_note": "undefined",
@@ -5649,7 +5650,7 @@
    "formula": "C22H30Cl2N10",
    "mw": 505.4,
    "smiles": "NC(=NCCCCCCN=C(N)N=C(N)Nc1ccc(Cl)cc1)N=C(N)Nc1ccc(Cl)cc1",
-   "pubchem_cid": 9552079,
+   "pubchem_cid": 2713,
    "inchikey": "GHXZTYHSJHQHIJ-UHFFFAOYSA-N",
    "sdf": "sdf/chlorhexidine.sdf",
    "sdf_source": "pubchem-3d",
@@ -5657,7 +5658,7 @@
    "verification": {
     "pubchem": "verified",
     "stereo": "undefined",
-    "pubchem_title": "Chlorhexidine"
+    "pubchem_title": "Chlorohexidine"
    },
    "pubchem_formula": "C22H30Cl2N10",
    "stereo_note": "undefined",
