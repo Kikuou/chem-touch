@@ -1,6 +1,6 @@
 # compounds build report
 
-- generated_at: 2026-11-17T08:59:46Z
+- generated_at: 2026-11-17T11:40:54Z
 - PubChem: online
 - compounds: 193
 
