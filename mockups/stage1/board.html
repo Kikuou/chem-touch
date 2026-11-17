@@ -1,0 +1,52 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><style>
+body{margin:0;background:#E9EBEE;font-family:"Hiragino Sans","Noto Sans JP",sans-serif;color:#15171A}
+.b{display:none;padding:28px 32px 36px}
+.b.on{display:block}
+h1{font-size:26px;margin:0 0 4px}
+.sub{font-size:15px;color:#5B616B;margin:0 0 22px}
+.row{display:flex;gap:28px;align-items:flex-start}
+.c{width:375px;flex:none}
+.lab{display:inline-block;font-weight:700;font-size:15px;padding:4px 12px;border-radius:99px;margin-bottom:8px}
+.now{background:#D9DCE1;color:#3A3F47}.new{background:#2F6F4F;color:#fff}
+.c img{width:375px;display:block;border-radius:18px;box-shadow:0 0 0 1px #C9CDD3,0 8px 24px rgba(0,0,0,.12);background:#fff}
+.c p{font-size:13.5px;line-height:1.6;margin:10px 2px 0;color:#30343A}
+.key{font-size:13px;color:#5B616B;margin-top:18px}
+.key i{display:inline-block;width:26px;height:14px;border:2.5px dashed #E5484D;border-radius:4px;vertical-align:-3px;margin-right:6px}
+</style></head><body>
+
+<section class="b" id="mol">
+<h1>① 分子ページ：「ひとことで言うと」を中心に</h1>
+<p class="sub">名前（読みがな）→ ひとこと → 3D → 構造式 → 官能基 → 関連。専門データは「くわしいデータ」に折りたたむ。例: 乳酸</p>
+<div class="row">
+<div class="c"><span class="lab now">今</span><img src="img/mol-full.png"><p>英語名・SMILES・InChIKey などが常に出ている。解説は 3D・構造式・官能基の下。</p></div>
+<div class="c"><span class="lab new">案（くわしい表示 オフ＝学生の初期状態）</span><img src="img/p-mol-off.png"><p>名前の下に読みがな。ひとことを一番上に。その中に学科ごとの一言の欄（中身は教員が書く。空なら出さない）。構造式は立体の印（くさび）なし。データは折りたたみ（開くと 英語名・別名・分子式・分子量・PubChem CID）。</p></div>
+<div class="c"><span class="lab new">案（くわしい表示 オン、データを開いたところ）</span><img src="img/p-mol-on.png"><p>構造式に立体の印（くさび）が出る。データに SMILES・InChIKey・3D座標が加わる。</p></div>
+</div>
+<p class="key"><i></i>赤い点線＝変わるところ（実際の画面には出ません）</p>
+</section>
+
+<section class="b" id="draw">
+<h1>② 作図を「なぞって描く」に一本化、「戻す」を部品の棚に</h1>
+<p class="sub">「選んでから変える」方式（#/build/draw）を外し、なぞって描く画面を正式にする。上部の元に戻す矢印は残す。</p>
+<div class="row">
+<div class="c"><span class="lab now">今（試作の なぞって描く）</span><img src="img/draw2-full.png"><p>棚は O・N・−OH・=O・−COOH・ベンゼン・消す・ほか の8つ。</p></div>
+<div class="c"><span class="lab new">案</span><img src="img/p-draw.png"><p>「消す」の隣に「戻す」を追加して9つ。くわしい表示オフでは、線のタップは 単→二重→単（三重は出さない）。</p></div>
+<div class="c"><span class="lab new">案「ほか」（くわしい表示 オフ）</span><img src="img/p-draw-more-off.png"><p>「前の描き方に戻る」を削除。べつの描き方は「炭素鎖から始める」だけ。</p></div>
+<div class="c"><span class="lab new">案「ほか」（くわしい表示 オン）</span><img src="img/p-draw-more-on.png"><p>「SMILES で入力」「上級エディタ」はオンのときだけ出す。</p></div>
+</div>
+<p class="key"><i></i>赤い点線＝変わるところ（実際の画面には出ません）</p>
+</section>
+
+<section class="b" id="other">
+<h1>③ 書きかえ練習「描く」・つくる・その他</h1>
+<p class="sub">書きかえ練習の「描く」も同じ なぞって描く 画面に。「その他」に「くわしい表示」スイッチ（初期はオフ）。</p>
+<div class="row">
+<div class="c"><span class="lab now">今：書きかえ練習「描く」</span><img src="img/now-practice-draw.png"><p>古い「選んでから変える」方式（C を選んで下のボタンで変える）。</p></div>
+<div class="c"><span class="lab new">案：書きかえ練習「描く」</span><img src="img/p-practice-draw.png"><p>問題と「答え合わせ」はそのまま。描く部分を なぞって描く と同じ棚・操作にする。</p></div>
+<div class="c"><span class="lab new">案：つくる</span><img src="img/p-build.png"><p>「かんたん作図」を「なぞって描く」に改名し、なぞって描く画面を開く。</p></div>
+<div class="c"><span class="lab new">案：その他</span><img src="img/p-more.png"><p>表示の欄に「くわしい表示 オフ／オン」を追加。端末ごとに覚える。</p></div>
+</div>
+<p class="key"><i></i>赤い点線＝変わるところ（実際の画面には出ません）</p>
+</section>
+<script>const id=location.hash.slice(1)||'mol';document.getElementById(id).classList.add('on');</script>
+</body></html>
