@@ -1,88 +1,101 @@
-// Home screen (spec §5-1): lesson band + bento grid.
-import { esc } from '../core/dom.js';
+// Home screen (docs/plan.md 提案1): 今日の授業, 身近なもの, 基礎の復習, 道具.
+// Today's lesson is the one chosen on this device (no dates: the student
+// picks it, or opens the teacher's QR code); "ほかの回をえらぶ" changes it.
+import { esc, el as h } from '../core/dom.js';
 import { icon } from '../core/icons.js';
-import { schedule } from '../core/data.js';
-import { glucoseArt, chiralArt, miniTable, shellArt, chainArt } from './home-art.js';
+import { lessonPlan, lifeGroups } from '../core/data.js';
+import { todayNo, setToday, doneMap } from '../lesson/progress.js';
+import { CC } from '../lesson/colors.js';
 
-const DAY = 86400000;
+const ccDots = () => `<span class="hm-dots" aria-hidden="true">${CC.map((c) => `<i style="background:${c.bg}"></i>`).join('')}</span>`;
 
-function parseDate(s) {
-  const [y, m, d] = String(s).split('-').map(Number);
-  return new Date(y, (m || 1) - 1, d || 1);
+function todayHtml(lesson) {
+  if (!lesson) {
+    return `<section class="hm-today">
+      <div class="hm-k">今日の授業</div>
+      <h2>回をえらんでください</h2>
+      <p class="hm-tp">先生が言った回をえらぶと、ここにその回が出ます。</p>
+      <div class="hm-acts"><button class="hm-go" data-act="pick">回をえらぶ ${icon('chev')}</button>
+      <a class="hm-cc" href="#/card">${ccDots()}色カード</a></div>
+    </section>`;
+  }
+  return `<section class="hm-today">
+    <div class="hm-k">今日の授業 ・ 第${lesson.no}回</div>
+    <h2>${esc(lesson.title)}</h2>
+    ${lesson.topic ? `<p class="hm-tp">身近な話題: ${esc(lesson.topic)}</p>` : ''}
+    <div class="hm-acts"><a class="hm-go" href="#/lesson/${lesson.no}">授業のページへ ${icon('chev')}</a>
+    <a class="hm-cc" href="#/card">${ccDots()}色カード</a></div>
+    <button class="hm-pick" data-act="pick">ほかの回をえらぶ</button>
+  </section>`;
 }
 
-// Which lesson to show in the band, or null outside the teaching period.
-export function pickLesson(lessons, today = new Date()) {
-  const list = lessons.filter((l) => l && l.date).map((l) => ({ ...l, d: parseDate(l.date) })).sort((a, b) => a.d - b.d);
-  if (!list.length) return null;
-  const t = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-  if (t < new Date(list[0].d - 7 * DAY) || t > new Date(+list[list.length - 1].d + DAY)) return null;
-  const monday = new Date(+t - ((t.getDay() + 6) % 7) * DAY);
-  const sunday = new Date(+monday + 6 * DAY);
-  const thisWeek = list.find((l) => l.d >= monday && l.d <= sunday);
-  if (thisWeek) return { label: '今週の授業', lesson: thisWeek };
-  const next = list.find((l) => l.d > t);
-  return next ? { label: '次回の授業', lesson: next } : null;
+function pickSheet(lessons, today, onPick) {
+  const back = h(`
+    <div class="sheet-backdrop" role="dialog" aria-modal="true" aria-label="今日の授業をえらぶ">
+      <div class="sheet">
+        <div class="grab"></div>
+        <h2>今日の授業をえらぶ</h2>
+        <p class="small muted" style="text-align:center;margin:2px 0 10px">先生が言った回をえらびます。いつでも変えられます。</p>
+        <div class="ls-list">${lessons.map((l) => `
+          <button data-no="${l.no}"${l.no === today ? ' aria-current="true"' : ''}><span class="ls-no">${l.no}</span><span class="ls-tx"><b>${esc(l.title)}</b><span>${esc(l.topic || '')}</span></span>${l.no === today ? '<span class="ls-ok">今日</span>' : ''}</button>`).join('')}
+        </div>
+        <button class="btn block" data-act="close" style="margin-top:12px">閉じる</button>
+      </div>
+    </div>`);
+  const close = () => { back.remove(); window.removeEventListener('hashchange', close); };
+  back.addEventListener('click', (e) => {
+    if (e.target === back || e.target.closest('[data-act="close"]')) return close();
+    const b = e.target.closest('[data-no]');
+    if (!b) return;
+    close();
+    onPick(+b.dataset.no);
+  });
+  window.addEventListener('hashchange', close);
+  document.body.append(back);
+  back.querySelector('[aria-current="true"]')?.scrollIntoView({ block: 'center' });
+  return close;
 }
 
 export async function renderHome({ el }) {
-  const pick = pickLesson(await schedule());
-  const qrBtn = `<a class="qrb" href="#/scan" aria-label="QRコードを読み取る">${icon('qr')}QR</a>`;
-  const band = pick ? `
-    <div class="band">
-      <div style="flex:1;min-width:0">
-        <div class="k">${esc(pick.label)} ・ 第${esc(pick.lesson.no)}回</div>
-        <div class="bt">${esc(pick.lesson.title)}</div>
-        ${(pick.lesson.links || []).length ? `<div class="links">${pick.lesson.links.map((l) => `<a href="${esc(l.href)}">${esc(l.label)}</a>`).join('')}</div>` : ''}
-      </div>
-      ${qrBtn}
-    </div>` : '';
+  const [plan, life] = await Promise.all([lessonPlan(), lifeGroups()]);
+  const lessons = plan.lessons;
+  const done = doneMap();
+  let closeSheet = null;
 
-  el.innerHTML = `
-  <div class="page">
-    <header class="topbar">
-      <h1 class="brand">ケミタッチ</h1>
-      <div class="btns">
-        ${pick ? '' : `<a class="cb inverse" href="#/scan" aria-label="QRコードを読み取る">${icon('qr')}</a>`}
-        <a class="cb" href="#/library?focus=1" aria-label="分子をさがす">${icon('search')}</a>
-      </div>
-    </header>
-    ${band}
-    <div class="grid">
-      <div class="t big">
-        <a class="hero-link" href="#/library" aria-label="分子をさわる：ライブラリを開く"></a>
-        <div class="m">${glucoseArt('hg')}</div>
-        <div>
-          <h3>分子をさわる</h3>
-          <p>回して、拡大して、<br>官能基を見つけよう</p>
-          <div class="chips">
-            <a href="#/library?cat=carbohydrate">糖質</a><a href="#/library?cat=fatty-acid">脂肪酸</a><a href="#/library?cat=amino-acid">アミノ酸</a><a href="#/library?cat=vitamin">ビタミン</a>
-          </div>
+  function draw() {
+    const today = lessons.find((l) => l.no === todayNo()) || null;
+    el.innerHTML = `
+    <div class="page">
+      <header class="topbar">
+        <h1 class="brand">ケミタッチ</h1>
+        <div class="btns">
+          <a class="cb inverse" href="#/scan" aria-label="QRコードを読み取る">${icon('qr')}</a>
+          <a class="cb" href="#/library?focus=1" aria-label="分子をさがす">${icon('search')}</a>
         </div>
-        <a class="go" href="#/library">ライブラリを開く ${icon('chev')}</a>
+      </header>
+      ${todayHtml(today)}
+      <h2 class="hm-sec"><a href="#/life">身近なもの ${icon('chev')}</a></h2>
+      <div class="hm-life">${life.map((g) => `
+        <a class="${g.planned ? 'hm-planned' : ''}" href="${g.planned ? '#/life' : `#/library?life=${g.id}`}"><b>${esc(g.label)}</b><span>${esc(g.desc)}${g.planned ? '（準備中）' : ''}</span></a>`).join('')}
       </div>
-      <a class="t tall" href="#/periodic">
-        <div><h3>周期表</h3><p>傾向・栄養ミネラル</p></div>
-        <div class="home-pt">${miniTable([11, 19, 20, 12, 26, 30])}</div>
-        <div class="minerals">
-          <div class="lbl">ミネラル</div>
-          <div class="els"><b>Na</b><b>K</b><b>Ca</b><b>Mg</b><b>Fe</b><b>Zn</b></div>
-        </div>
-        <div class="trend"><div class="lbl">傾向を見る</div><div>原子半径・電気陰性度</div></div>
-      </a>
-      <a class="t sq" href="#/compare">
-        <div><h3>くらべる</h3><p>鏡像体・シス/トランス</p></div>
-        <div class="pair"><div>${chiralArt('hm', true)}</div><i></i><div>${chiralArt('hc', false)}</div></div>
-      </a>
-      <a class="t sq" href="#/electron">
-        <div><h3>電子配置</h3><p>K・L・M殻</p></div>
-        <div class="shell">${shellArt()}</div>
-      </a>
-      <a class="t wide" href="#/build">
-        <div class="ic">${icon('build')}</div>
-        <div style="flex:1"><h3>つくる</h3><p>炭素鎖に官能基をつける</p></div>
-        <div class="chain" style="width:120px">${chainArt()}</div>
-      </a>
-    </div>
-  </div>`;
+      <h2 class="hm-sec">基礎の復習<a href="#/lessons">目次（全${lessons.length}回）${icon('chev')}</a></h2>
+      <div class="hm-rev">${lessons.map((l) => `
+        <a href="#/lesson/${l.no}"><span class="hm-no">第${l.no}回</span><b>${esc(l.title)}</b>${done[l.no] ? '<span class="hm-ok" aria-label="できた">✓</span>' : ''}</a>`).join('')}
+      </div>
+      <h2 class="hm-sec">道具</h2>
+      <div class="hm-tools">
+        <a href="#/periodic">${icon('table')}周期表</a>
+        <a href="#/electron">${icon('shell')}電子配置</a>
+        <a href="#/compare">${icon('compare')}くらべる</a>
+        <a href="#/build/draw">${icon('build')}描く</a>
+      </div>
+    </div>`;
+  }
+
+  draw();
+  el.addEventListener('click', (e) => {
+    if (!e.target.closest('[data-act="pick"]')) return;
+    closeSheet = pickSheet(lessons, todayNo(), (no) => { setToday(no); draw(); });
+  });
+  return () => closeSheet?.();
 }

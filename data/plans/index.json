@@ -1,0 +1,10 @@
+{
+ "note": "Which lesson plan the app uses. To make next year's plan, copy the file, change id/label, and set current.",
+ "current": "2027",
+ "plans": [
+  {
+   "id": "2027",
+   "label": "2027年度"
+  }
+ ]
+}

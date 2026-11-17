@@ -1,61 +1,48 @@
-// Full-screen drawing screen around the editor (js/mol/sketch.js), shared
-// by かんたん作図 and the 描く questions of 書きかえ練習:
+// Full-screen drawing screen "なぞって描く" around the editor (js/mol/sketch.js,
+// pen gestures), shared by #/build/draw and the 描く questions of 書きかえ練習:
 //   top bar     close, 骨格構造式 / H も描く switch, undo, redo, clear all
 //   prompt      optional (the question, with the main button 答え合わせ)
 //   canvas      fills the screen; the page itself does not scroll.
 //               Corner buttons: 全体を表示, and H を補う (with the number of
 //               missing hydrogens) in the H も描く mode
-//   hint        what can be done now (changes with the selection)
-//   action bar  buttons for the selected atom / bond, or ring templates
+//   hint        what can be done now
+//   parts shelf O・N・−OH・=O・−COOH・消す・戻す・ほか (always in this order)
 //   sheet       optional (name, formula, 3D ...); a side panel on wide screens
-// Keyboard: ⌘/Ctrl+Z undo, ⌘/Ctrl+Shift+Z or Ctrl+Y redo, Delete remove,
-// C O N S H element, 1 2 3 bond order (or extend with it), F fit, Esc.
+// Triple bonds only with くわしい表示 (core/detail.js).
+// Keyboard: ⌘/Ctrl+Z undo, ⌘/Ctrl+Shift+Z or Ctrl+Y redo, F fit, Esc.
 import { esc, el as h, prefs } from '../core/dom.js';
 import { icon } from '../core/icons.js';
+import { isDetail } from '../core/detail.js';
 import { mountSketch } from '../mol/sketch.js';
 
 const MODES = { skeletal: '骨格構造式', full: '構造式' };
 
-// pen: the parts shelf (always the same order, so the hand learns it)
+// the parts shelf (always the same order, so the hand learns it);
+// 戻す (undo) and ほか follow. The benzene ring is in ほか.
 const PARTS = [
   ['O', 'O', 'にする', 'o'],
   ['N', 'N', 'にする', 'n'],
   ['OH', '−OH', 'つける', 'o'],
   ['=O', '=O', 'つける', 'o'],
   ['COOH', '−COOH', 'つける', 'o sm'],
-  ['ring6a', '⬡', 'ベンゼン', ''],
   ['erase', '×', '消す', 'del'],
 ];
 const PART_NAME = { OH: '−OH', '=O': '=O', COOH: '−COOH', CH3: '−CH₃', NH2: '−NH₂', CHO: '−CHO', ring6a: 'ベンゼン環', ring6: 'シクロヘキサン環', ring5: 'シクロペンタン環', ring4: 'シクロブタン環', ring3: 'シクロプロパン環' };
 
-const COACH_PEN = `
+const coachHtml = () => `
   <div class="sks-coach" role="dialog" aria-label="使い方">
     <div class="sks-coach-card">
-      <b>かんたん作図の使い方</b>
+      <b>なぞって描くの使い方</b>
       <ol>
-        <li><span>1</span><b>指でなぞる</b>と炭素の鎖。なぞった長さで炭素の数が決まります（指の上に C4 などと出ます）</li>
-        <li><span>2</span>下の部品（O・−OH・=O など）を<b>原子までドラッグ</b>。部品を押してから原子をタップしても置けます</li>
-        <li><span>3</span><b>線をタップ</b>すると単→二重→三重。原子を<b>長押し</b>するとメニュー</li>
+        <li><span>1</span><p><b>指でなぞる</b>と炭素の鎖。なぞった長さで炭素の数が決まります（指の上に C4 などと出ます）</p></li>
+        <li><span>2</span><p>下の部品（O・−OH・=O など）を<b>原子までドラッグ</b>。部品を押してから原子をタップしても置けます</p></li>
+        <li><span>3</span><p><b>線をタップ</b>すると${isDetail() ? '単→二重→三重' : '単→二重'}。原子を<b>長押し</b>するとメニュー</p></li>
       </ol>
-      <p class="small muted">2本指で拡大・移動。まちがえたら上の「元に戻す」。</p>
+      <p class="small muted">2本指で拡大・移動。まちがえたら「戻す」。</p>
       <button class="btn primary block" data-act="coach-ok">はじめる</button>
     </div>
   </div>`;
 const LIFT = 56; // px a dragged part floats above the finger
-
-const COACH = `
-  <div class="sks-coach" role="dialog" aria-label="使い方">
-    <div class="sks-coach-card">
-      <b>かんたん作図の使い方</b>
-      <ol>
-        <li><span>1</span>原子（線の端や折れ目）を<b>タップして選ぶ</b></li>
-        <li><span>2</span>下のボタンで<b>伸ばす・O にする・−OH をつける</b>。C の位置は自動で決まります</li>
-        <li><span>3</span>線をタップすると<b>二重結合・三重結合</b>にできます</li>
-      </ol>
-      <p class="small muted">上の「骨格構造式 / 構造式」で書き方を切り替え。構造式では H も描きます。原子から指をすべらせても伸ばせます。長押しで原子を動かす。2本指で拡大・移動。</p>
-      <button class="btn primary block" data-act="coach-ok">はじめる</button>
-    </div>
-  </div>`;
 
 const svgIcon = (d, label) => `<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"${label ? '' : ''}>${d}</svg>`;
 const UNDO = svgIcon('<path d="M9 5L4 10l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 10h10a6 6 0 0 1 0 12h-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>');
@@ -66,9 +53,9 @@ const FIT = svgIcon('<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none
  * @param {HTMLElement} root   element to fill (the route element, or an overlay)
  * @param {object} o
  *   closeLabel ('閉じる'), onClose, primary {label, onClick} (shown in the
- *   prompt when there is one), promptHtml, mode, extraMore [{label, act}],
- *   onMore(act), onChange(sketch), side (true: the sheet becomes a side
- *   panel on wide screens)
+ *   prompt when there is one), promptHtml, mode, extraMore [{label, act}]
+ *   (べつの描き方 in ほか), onMore(act), onChange(sketch), side (true: the
+ *   sheet becomes a side panel on wide screens)
  * @returns {{ sketch, root, setSheet(html), say(msg, warn), mode, destroy() }}
  */
 export function mountSketchScreen(root, o = {}) {
@@ -107,23 +94,22 @@ export function mountSketchScreen(root, o = {}) {
   const toastEl = root.querySelector('.sks-toast');
   let msgTimer = null;
   let toastTimer = null;
-  let sel = null;
+  let sheetEl = null; // the open ほか sheet (it lives in <body>)
 
   const canvas = root.querySelector('.sks-canvas');
   const host = document.createElement('div');
   host.className = 'sks-draw';
   canvas.prepend(host);
-  const pen = !!o.pen;
   const menuEl = document.createElement('div');
   menuEl.className = 'sks-menu';
   menuEl.hidden = true;
   canvas.append(menuEl);
   const sketch = mountSketch(host, {
     mode,
-    gestures: pen ? 'pen' : 'select',
-    seed: !pen,
+    gestures: 'pen',
+    seed: false,
+    maxOrder: () => (isDetail() ? 3 : 2),
     onChange: () => { paint(); o.onChange?.(sketch); },
-    onSelect: (s) => { if (pen) return; sel = s; paint(); },
     onMessage: (m) => say(m, true),
     onMenu: (m) => showMenu(m),
   });
@@ -138,25 +124,13 @@ export function mountSketchScreen(root, o = {}) {
   function paintHint() {
     if (hint.classList.contains('warn')) return;
     const lack = mode === 'full' ? sketch.missingH() : 0;
+    const a = sketch.armed;
     let t;
-    if (pen) {
-      const a = sketch.armed;
-      if (a === 'erase') t = '消したい原子か線をタップ（もう一度「消す」を押すと終わり）。';
-      else if (a) t = `${/^[A-Z][a-z]?$/.test(a) ? `原子をタップすると ${a} に変わります` : a.startsWith('ring') ? `原子をタップすると${PART_NAME[a]}がつきます（何もない所なら環だけ置きます）` : `原子をタップすると ${PART_NAME[a]} がつきます`}。もう一度押すと終わり。`;
-      else if (!sketch.count) t = '指でなぞると炭素の鎖。下の部品は原子までドラッグして置く。';
-      else if (lack) t = `H があと ${lack} 個たりません。左下の「H を補う」で全部つきます。`;
-      else t = 'なぞると鎖、線をタップで二重・三重、原子を長押しでメニュー。';
-      hint.textContent = t;
-      return;
-    }
-    if (!sel) {
-      if (sketch.count <= 1 && !sketch.bondCount) t = 'C が1個あります。タップして選ぶと、できることが下に出ます。';
-      else if (lack) t = `H があと ${lack} 個たりません。左下の「H を補う」で全部つきます。`;
-      else t = '原子か線をタップして選ぶ。2本指で拡大・移動。';
-    } else if (sel.type === 'atom') {
-      if (mode === 'full' && sel.el !== 'H') t = `${sel.el} を選んでいます。${sel.free ? `H をあと ${sel.free} 個つけられます。` : '手（結合）が全部うまっています。'}`;
-      else t = `${sel.el} を選んでいます。${sel.free ? '「伸ばす」で、薄い丸の位置に C がつきます。' : '手（結合）が全部うまっています。'}`;
-    } else t = `${['', '単', '二重', '三重'][sel.order]}結合を選んでいます。種類を変えるか、消す。`;
+    if (a === 'erase') t = '消したい原子か線をタップ（もう一度「消す」を押すと終わり）。';
+    else if (a) t = `${/^[A-Z][a-z]?$/.test(a) ? `原子をタップすると ${a} に変わります` : a.startsWith('ring') ? `原子をタップすると${PART_NAME[a]}がつきます（何もない所なら環だけ置きます）` : `原子をタップすると ${PART_NAME[a]} がつきます`}。もう一度押すと終わり。`;
+    else if (!sketch.count) t = '指でなぞると炭素の鎖。下の部品は原子までドラッグして置く。';
+    else if (lack) t = `H があと ${lack} 個たりません。左下の「H を補う」で全部つきます。`;
+    else t = `なぞると鎖、線をタップで${isDetail() ? '二重・三重' : '二重'}、原子を長押しでメニュー。`;
     hint.textContent = t;
   }
 
@@ -164,59 +138,19 @@ export function mountSketchScreen(root, o = {}) {
     `<button class="sks-key ${cls}${on ? ' on' : ''}" data-act="${act}"${off ? ' aria-disabled="true"' : ''}><b>${big}</b><small>${small}</small></button>`;
 
   function paintBar() {
-    if (pen) {
-      bar.className = 'sks-bar c8 sks-parts';
-      const a = sketch.armed;
-      bar.innerHTML = PARTS.map(([part, big, small, cls]) => `<button class="sks-key sks-part ${cls || ''}${a === part ? ' on' : ''}" data-part="${part}" aria-pressed="${a === part}"><b>${big}</b><small>${small}</small></button>`).join('')
-        + key('more', '…', 'ほか');
-      return;
-    }
-    if (sel?.type === 'atom') {
-      const f = sel.free;
-      const el = sel.el;
-      const toC = key('el-C', 'C', 'にもどす');
-      let slot8;
-      if (mode === 'full') slot8 = key('ext-H', 'H', 'をつける', { off: f < 1 });
-      else if (el === 'C' || el === 'O' || el === 'N') slot8 = key('g-CH3', '−CH₃', '枝', { off: f < 1 });
-      else slot8 = toC;
-      bar.className = 'sks-bar c5';
-      bar.innerHTML = [
-        key('ext1', '＋C', '伸ばす', { off: f < 1 }),
-        key('ext2', '＝C', '二重で', { off: f < 2 }),
-        key('ext3', '≡C', '三重で', { off: f < 3 }),
-        key('g-OH', '−OH', 'つける', { cls: 'o', off: f < 1 }),
-        key('g-=O', '=O', 'つける', { cls: 'o', off: f < 2 }),
-        el === 'O' ? toC : key('el-O', 'O', 'にする', { cls: 'o' }),
-        el === 'N' ? toC : key('el-N', 'N', 'にする', { cls: 'n' }),
-        slot8,
-        key('more', '…', 'ほか'),
-        key('remove', '×', '消す', { cls: 'del' }),
-      ].join('');
-    } else if (sel?.type === 'bond') {
-      bar.className = 'sks-bar c4';
-      bar.innerHTML = [
-        key('bo1', '―', '単結合', { on: sel.order === 1 }),
-        key('bo2', '＝', '二重', { on: sel.order === 2 }),
-        key('bo3', '≡', '三重', { on: sel.order === 3 }),
-        key('remove', '×', '消す', { cls: 'del' }),
-      ].join('');
-    } else {
-      bar.className = 'sks-bar c4';
-      bar.innerHTML = [
-        key('ring-6a', ringSvg(6, true), 'ベンゼン環'),
-        key('ring-6', ringSvg(6), 'C6 の環'),
-        key('ring-5', ringSvg(5), 'C5 の環'),
-        key('more', '…', 'ほか'),
-      ].join('');
-    }
+    bar.className = 'sks-bar c8 sks-parts';
+    const a = sketch.armed;
+    bar.innerHTML = PARTS.map(([part, big, small, cls]) => `<button class="sks-key sks-part ${cls || ''}${a === part ? ' on' : ''}" data-part="${part}" aria-pressed="${a === part}"><b>${big}</b><small>${small}</small></button>`).join('')
+      + key('undo', UNDO, '戻す', { cls: 'sks-undo', off: !sketch.canUndo })
+      + key('more', '…', 'ほか');
   }
 
   function paint() {
     paintBar();
     paintHint();
-    root.querySelector('[data-act="undo"]').disabled = !sketch.canUndo;
+    root.querySelector('.sks-top [data-act="undo"]').disabled = !sketch.canUndo;
     root.querySelector('[data-act="redo"]').disabled = !sketch.canRedo;
-    root.querySelector('[data-act="clear"]').disabled = sketch.count <= 1 && !sketch.bondCount;
+    root.querySelector('[data-act="clear"]').disabled = !sketch.count && !sketch.bondCount;
     root.querySelectorAll('[data-act^="mode-"]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.act === `mode-${mode}`)));
     const lack = mode === 'full' ? sketch.missingH() : 0;
     const addh = root.querySelector('.sks-addh');
@@ -234,49 +168,24 @@ export function mountSketchScreen(root, o = {}) {
   }
 
   function clearAll() {
-    if (sketch.count <= 1 && !sketch.bondCount) return;
+    if (!sketch.count && !sketch.bondCount) return;
     sketch.clear();
     clearTimeout(toastTimer);
     toastEl.hidden = false;
     toastTimer = setTimeout(() => { toastEl.hidden = true; }, 5000);
   }
 
-  // bottom sheet with what is not on screen
-  function moreSheet() {
-    if (pen) return penSheet();
-    const atom = sel?.type === 'atom';
-    const chips = (list) => `<div class="pick-row">${list.map(([act, label]) => `<button class="chip" data-m="${act}">${label}</button>`).join('')}</div>`;
-    const back = h(`
-      <div class="sheet-backdrop" role="dialog" aria-modal="true" aria-label="ほかの操作">
-        <div class="sheet">
-          <div class="grab"></div>
-          <h2>${atom ? `${esc(sel.el)} にできること` : 'ほかの操作'}</h2>
-          ${atom ? `<h3 class="pick-h">部品をつける</h3>${chips([['g-CH3', '−CH₃'], ['g-NH2', '−NH₂'], ['g-CHO', '−CHO'], ['g-COOH', '−COOH'], ['ring-6a', 'ベンゼン環'], ['ring-6', 'シクロヘキサン環']])}
-          <h3 class="pick-h">元素を変える</h3>${chips(['C', 'O', 'N', 'S', 'Cl', 'Br', 'F', 'H'].map((x) => [`el-${x}`, x]))}
-          ${mode === 'full' ? '' : chips([['ext-H', 'H をつける']])}` : `
-          <h3 class="pick-h">環を置く</h3>${chips([['ring-6a', 'ベンゼン環'], ['ring-6', 'シクロヘキサン'], ['ring-5', 'シクロペンタン'], ['ring-4', 'シクロブタン'], ['ring-3', 'シクロプロパン']])}`}
-          ${(o.extraMore || []).length ? `<h3 class="pick-h">べつの描き方</h3><div class="stack">${o.extraMore.map((x) => `<button class="btn block" data-m="x-${x.act}">${x.label}</button>`).join('')}</div>` : ''}
-          <div class="two" style="margin-top:14px">
-            <button class="btn" data-m="coach">${icon('info')}使い方</button>
-            <button class="btn" data-m="close">閉じる</button>
-          </div>
-        </div>
-      </div>`);
-    back.addEventListener('click', (e) => {
-      if (e.target === back) return back.remove();
-      const b = e.target.closest('[data-m]');
-      if (!b) return;
-      back.remove();
-      const m = b.dataset.m;
-      if (m === 'close') return;
-      if (m.startsWith('x-')) return o.onMore?.(m.slice(2));
-      if (m === 'coach') return showCoach();
-      act(m);
-    });
-    document.body.append(back);
+  // bottom sheet ほか: more parts, and the other ways to draw
+  function closeSheet() {
+    sheetEl?.remove();
+    sheetEl = null;
+    window.removeEventListener('hashchange', closeSheet);
   }
 
-  function penSheet() {
+  function moreSheet() {
+    closeSheet();
+    // entries marked detail: true only with くわしい表示
+    const extra = (o.extraMore || []).filter((x) => !x.detail || isDetail());
     const chips = (list) => `<div class="pick-row">${list.map(([act, label]) => `<button class="chip" data-m="${act}">${label}</button>`).join('')}</div>`;
     const back = h(`
       <div class="sheet-backdrop" role="dialog" aria-modal="true" aria-label="ほかの部品">
@@ -287,7 +196,7 @@ export function mountSketchScreen(root, o = {}) {
           <h3 class="pick-h">原子団</h3>${chips([['arm-CH3', '−CH₃'], ['arm-NH2', '−NH₂'], ['arm-CHO', '−CHO']])}
           <h3 class="pick-h">環</h3>${chips([['arm-ring6a', 'ベンゼン環'], ['arm-ring6', 'シクロヘキサン'], ['arm-ring5', 'シクロペンタン'], ['arm-ring4', 'シクロブタン'], ['arm-ring3', 'シクロプロパン']])}
           <h3 class="pick-h">元素に変える</h3>${chips(['C', 'S', 'Cl', 'Br', 'F', 'H'].map((x) => [`arm-${x}`, x]))}
-          ${(o.extraMore || []).length ? `<h3 class="pick-h">べつの描き方</h3><div class="stack">${o.extraMore.map((x) => `<button class="btn block" data-m="x-${x.act}">${x.label}</button>`).join('')}</div>` : ''}
+          ${extra.length ? `<h3 class="pick-h">べつの描き方</h3><div class="stack">${extra.map((x) => `<button class="btn block" data-m="x-${x.act}">${x.label}</button>`).join('')}</div>` : ''}
           <div class="two" style="margin-top:14px">
             <button class="btn" data-m="coach">${icon('info')}使い方</button>
             <button class="btn" data-m="close">閉じる</button>
@@ -295,10 +204,10 @@ export function mountSketchScreen(root, o = {}) {
         </div>
       </div>`);
     back.addEventListener('click', (e) => {
-      if (e.target === back) return back.remove();
+      if (e.target === back) return closeSheet();
       const b = e.target.closest('[data-m]');
       if (!b) return;
-      back.remove();
+      closeSheet();
       const m = b.dataset.m;
       if (m === 'close') return;
       if (m.startsWith('x-')) return o.onMore?.(m.slice(2));
@@ -306,10 +215,13 @@ export function mountSketchScreen(root, o = {}) {
       if (m.startsWith('arm-')) { sketch.arm(m.slice(4)); paint(); }
     });
     document.body.append(back);
+    sheetEl = back;
+    // leaving the page (e.g. the phone's back button) closes the sheet
+    window.addEventListener('hashchange', closeSheet);
   }
 
   function showCoach() {
-    const c = h(pen ? COACH_PEN : COACH);
+    const c = h(coachHtml());
     c.addEventListener('click', (e) => {
       if (e.target.closest('[data-act="coach-ok"]') || e.target === c) {
         prefs.set('sketch:coach', '1');
@@ -320,18 +232,9 @@ export function mountSketchScreen(root, o = {}) {
   }
 
   function act(a) {
-    if (pen && a.startsWith('arm-')) { arm(a.slice(4)); return; }
     if (a.startsWith('m-')) { menuAct(a.slice(2)); return; }
-    if (a === 'ext1') sketch.extend(1);
-    else if (a === 'ext2') sketch.extend(2);
-    else if (a === 'ext3') sketch.extend(3);
-    else if (a === 'ext-H') sketch.extend(1, 'H');
-    else if (a.startsWith('g-')) sketch.addGroup(a.slice(2));
-    else if (a.startsWith('el-')) sketch.setElement(a.slice(3));
-    else if (a.startsWith('bo')) sketch.setBondOrder(+a.slice(2));
-    else if (a.startsWith('ring-')) sketch.ring(parseInt(a.slice(5), 10), a.endsWith('a'));
-    else if (a.startsWith('mode-')) setMode(a.slice(5));
-    else if (a === 'remove') sketch.remove();
+    if (a.startsWith('mode-')) setMode(a.slice(5));
+    else if (a === 'undo') sketch.undo();
     else if (a === 'fit') sketch.fit();
     else if (a === 'allH') sketch.addHydrogens();
     else if (a === 'clear') clearAll();
@@ -348,7 +251,7 @@ export function mountSketchScreen(root, o = {}) {
   let pd = null;
   bar.addEventListener('pointerdown', (e) => {
     const b = e.target.closest('[data-part]');
-    if (!b || !pen) return;
+    if (!b) return;
     e.preventDefault();
     b.setPointerCapture?.(e.pointerId);
     pd = { part: b.dataset.part, x: e.clientX, y: e.clientY, chip: null, btn: b };
@@ -398,7 +301,7 @@ export function mountSketchScreen(root, o = {}) {
         b('remove', '消す', 'del'),
       ];
     } else {
-      items = [b('bo1', '単結合', m.order === 1 ? 'on' : ''), b('bo2', '二重', m.order === 2 ? 'on' : ''), b('bo3', '三重', m.order === 3 ? 'on' : ''), b('remove', '消す', 'del')];
+      items = [b('bo1', '単結合', m.order === 1 ? 'on' : ''), b('bo2', '二重', m.order === 2 ? 'on' : ''), (isDetail() || m.order === 3) && b('bo3', '三重', m.order === 3 ? 'on' : ''), b('remove', '消す', 'del')];
     }
     menuEl.innerHTML = items.filter(Boolean).join('');
     menuEl.hidden = false;
@@ -423,7 +326,6 @@ export function mountSketchScreen(root, o = {}) {
     const a = b.dataset.act;
     if (a === 'close') return o.onClose?.();
     if (a === 'primary') return o.primary?.onClick?.();
-    if (a === 'undo') return sketch.undo();
     if (a === 'redo') return sketch.redo();
     if (a === 'coach-ok') return;
     act(a);
@@ -440,24 +342,14 @@ export function mountSketchScreen(root, o = {}) {
     if (mod && k.toLowerCase() === 'z') (e.shiftKey ? sketch.redo() : sketch.undo());
     else if (mod && k.toLowerCase() === 'y') sketch.redo();
     else if (mod) done = false;
-    else if (k === 'Delete' || k === 'Backspace') sketch.remove();
-    else if (k === 'Escape') { if (pen) { sketch.arm(null); showMenu(null); sketch.closeMenu(); paint(); } else sketch.select(null); }
+    else if (k === 'Escape') { sketch.arm(null); showMenu(null); sketch.closeMenu(); paint(); }
     else if (k === 'f' || k === 'F') sketch.fit();
-    else if (/^[123]$/.test(k)) {
-      if (sel?.type === 'bond') sketch.setBondOrder(+k);
-      else if (sel?.type === 'atom') sketch.extend(+k);
-      else done = false;
-    } else if (/^[conshCONSH]$/.test(k) && sel?.type === 'atom') {
-      const el = k.toUpperCase();
-      if (el === 'H' && mode === 'full') sketch.extend(1, 'H');
-      else sketch.setElement(el);
-    } else done = false;
+    else done = false;
     if (done) e.preventDefault();
   }
   document.addEventListener('keydown', onKey);
 
   paint();
-  if (!pen && !prefs.get('sketch:coach', '')) showCoach();
 
   return {
     sketch,
@@ -470,6 +362,7 @@ export function mountSketchScreen(root, o = {}) {
       s.innerHTML = html || '';
     },
     destroy() {
+      closeSheet();
       clearTimeout(msgTimer);
       clearTimeout(toastTimer);
       document.removeEventListener('keydown', onKey);
@@ -477,16 +370,4 @@ export function mountSketchScreen(root, o = {}) {
       document.documentElement.classList.remove('sks-lock');
     },
   };
-}
-
-// small ring icon for the ring buttons
-function ringSvg(n, aromatic = false) {
-  const R = 9;
-  const pts = [...Array(n).keys()].map((k) => {
-    const t = -Math.PI / 2 + (2 * Math.PI * k) / n;
-    return [12 + R * Math.cos(t), 12 + R * Math.sin(t)];
-  });
-  const d = `M${pts.map((p) => p.map((v) => v.toFixed(1)).join(' ')).join('L')}Z`;
-  const inner = aromatic ? `<circle cx="12" cy="12" r="4.6" fill="none" stroke="currentColor" stroke-width="1.4"/>` : '';
-  return `<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="${d}" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>${inner}</svg>`;
 }

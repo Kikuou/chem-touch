@@ -1,4 +1,7 @@
-// "かんたん作図": a touch-first structure editor built on "select, then act"
+// Touch-first structure editor. The app uses the 'pen' gestures
+// (なぞって描く, see below); the original "select, then act" gestures remain here
+// but no screen uses them any more (they were not intuitive for students).
+// "Select, then act"
 // (A. M. Clark, J. Cheminform. 2010: touch is good at choosing, poor at
 // positioning). Tap an atom or a bond to select it; the screen then offers
 // what can be done to it (extend, O, N, -OH, =O, bond order, delete) and
@@ -22,8 +25,8 @@ const SLOP = 9; // px a finger may wander before a tap becomes a drag
 const DY = L * Math.sqrt(3) / 2;
 let uid = 0;
 
-export function mountSketch(host, { mode = 'skeletal', seed = true, gestures = 'select', onChange, onSelect, onMessage, onMenu } = {}) {
-  // gestures 'select': tap selects, buttons act on the selection (かんたん作図)
+export function mountSketch(host, { mode = 'skeletal', seed = true, gestures = 'select', maxOrder = () => 3, onChange, onSelect, onMessage, onMenu } = {}) {
+  // gestures 'select': tap selects, buttons act on the selection (unused)
   // gestures 'pen':    one finger draws (a zigzag chain follows the finger),
   //                    a tap on a bond changes its order, parts (O, -OH ...)
   //                    are armed and tapped / dropped on atoms, a long press
@@ -479,10 +482,11 @@ export function mountSketch(host, { mode = 'skeletal', seed = true, gestures = '
     if (armed) { applyPart(armed, t, toModel(d.start)); return; }
     if (t?.type === 'bond') {
       const b = bonds[t.id];
-      const next = b.order % 3 + 1;
+      // single -> double -> triple (-> single); without triple bonds (くわしい表示 off) single <-> double
+      const next = b.order >= maxOrder() ? 1 : b.order + 1;
       save();
       if (!setOrder(b, next)) {
-        // a triple bond is not possible here: back to single
+        // a higher order is not possible here: back to single
         if (!setOrder(b, 1)) { undoStack.pop(); return; }
       }
       changed();

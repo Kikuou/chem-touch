@@ -1,5 +1,5 @@
 {
- "note": "Library categories. 'subs' are optional sub-groups shown as headings.",
+ "note": "Library categories. 'subs' are optional sub-groups shown as headings. 'life': the 身近なもの groups on the home screen, each a set of categories (docs/plan.md 提案1).",
  "categories": [
   {
    "id": "basic",
@@ -205,6 +205,44 @@
      "label": "医療ガス"
     }
    ]
+  }
+ ],
+ "life": [
+  {
+   "id": "food",
+   "label": "食品",
+   "desc": "糖質・脂肪酸と脂質・アミノ酸・ビタミン・味や色の成分",
+   "cats": [
+    "carbohydrate",
+    "fatty-acid",
+    "lipid",
+    "amino-acid",
+    "vitamin",
+    "food"
+   ]
+  },
+  {
+   "id": "body",
+   "label": "からだ",
+   "desc": "エネルギーの代謝・神経伝達物質・ホルモン",
+   "cats": [
+    "biomolecule"
+   ]
+  },
+  {
+   "id": "medical",
+   "label": "くすり・医療",
+   "desc": "くすり・消毒薬・医療ガス",
+   "cats": [
+    "drug"
+   ]
+  },
+  {
+   "id": "daily",
+   "label": "くらし",
+   "desc": "燃料・洗剤・プラスチックなど",
+   "cats": [],
+   "planned": "化合物を追加して準備中"
   }
  ]
 }

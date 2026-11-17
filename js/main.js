@@ -18,6 +18,9 @@ import { renderQuiz } from './views/quiz.js';
 import { renderSeries } from './views/series.js';
 import { renderBuild, renderBuildSub } from './views/build.js';
 import { renderMore } from './views/more.js';
+import { renderLessons, renderLesson, renderAsk, renderEnd } from './views/lesson.js';
+import { renderCard } from './views/card.js';
+import { renderLife } from './views/life.js';
 import { renderPeriodic } from './periodic/table.js';
 import { renderElement } from './periodic/detail.js';
 import { renderElectron, renderElectronHome } from './periodic/electron.js';
@@ -30,6 +33,12 @@ route('/compound/:id', renderCompound, { tab: 'library', title: '分子' });
 route('/view', renderView, { tab: 'library', title: '共有された分子' });
 route('/scan', renderScan, { tab: 'home', title: 'QRコードを読み取る' });
 route('/more', renderMore, { tab: 'more', title: 'その他' });
+route('/lessons', renderLessons, { tab: 'home', title: '基礎の復習' });
+route('/lesson/:no', renderLesson, { tab: 'home', title: '授業' });
+route('/lesson/:no/ask', renderAsk, { tab: 'home', title: 'いっせい問題' });
+route('/lesson/:no/end', renderEnd, { tab: 'home', title: 'おわりの3問' });
+route('/card', renderCard, { tab: 'home', title: '色カード' });
+route('/life', renderLife, { tab: 'library', title: '身近なもの' });
 
 // --- M2: compare (A-13 – A-16)
 route('/compare', renderCompare, { tab: 'home', title: 'くらべる' });

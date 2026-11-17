@@ -1,8 +1,8 @@
 // つくる (spec C, reworked): #/build
-//   #/build                              three ways in: 書き方くらべ, 書きかえ練習, かんたん作図
+//   #/build                              three ways in: 書き方くらべ, 書きかえ練習, なぞって描く
 //   #/build/notation?id=...              書き方くらべ (views/notation.js)
 //   #/build/practice                     書きかえ練習 (views/practice.js)
-//   #/build/draw?smiles=...              かんたん作図 (views/sketch.js)
+//   #/build/draw?smiles=...              なぞって描く (views/sketch.js; #/build/draw2 too)
 //   #/build/chain?n=18&end=cooh&b=9c     炭素鎖から始める: chain + multiple bonds + groups (C-1 – C-5)
 //   #/build/advanced?smiles=...          上級エディタ: OpenChemLib editor, SMILES input (C-6, C-7)
 //   #/build/mine                         my molecules saved in this browser (C-9)
@@ -214,7 +214,7 @@ function assembleView(root, state0, { onState }) {
         <button class="btn" data-act="save">${icon('star')}マイ分子に保存</button>
         <button class="btn" data-act="share">${icon('qr')}QRで共有</button>
       </div>
-      <a class="btn block" data-act="draw">${icon('build')}かんたん作図で続きを描く</a>
+      <a class="btn block" data-act="draw">${icon('build')}なぞって描くで続きを描く</a>
     </div>`;
 
   const slider = root.querySelector('.build-slider');
@@ -425,7 +425,7 @@ async function drawView(root, smiles0, { onSmiles }) {
 async function mineView(root) {
   const list = listMyMols();
   if (!list.length) {
-    root.innerHTML = `<p class="empty">まだ保存した分子はありません。<br><span class="small">かんたん作図や炭素鎖の組み立てで作った分子を「マイ分子に保存」すると、ここに並びます。<br>保存先はこの端末のブラウザだけです。</span></p>`;
+    root.innerHTML = `<p class="empty">まだ保存した分子はありません。<br><span class="small">なぞって描くや炭素鎖の組み立てで作った分子を「マイ分子に保存」すると、ここに並びます。<br>保存先はこの端末のブラウザだけです。</span></p>`;
     return null;
   }
   const date = (t) => new Date(t).toLocaleDateString('ja-JP', { month: 'numeric', day: 'numeric' });
@@ -490,7 +490,7 @@ function subShell(el, title, { back = '#/build' } = {}) {
   return el.querySelector('.build-content');
 }
 
-// #/build: three ways in (書き方くらべ, 書きかえ練習, かんたん作図)
+// #/build: three ways in (書き方くらべ, 書きかえ練習, なぞって描く)
 export async function renderBuild({ el, query }) {
   // old URLs (?mode=assemble|draw|mine) keep working
   const mode = query.get('mode');
@@ -519,11 +519,11 @@ export async function renderBuild({ el, query }) {
       </a>
       <a class="bt-card" href="#/build/draw">
         <div class="bt-art small">${drawArt()}</div>
-        <div><b>かんたん作図</b><span>指で線をのばして分子を描く。3D でも見られる</span></div>
+        <div><b>なぞって描く</b><span>指でなぞると炭素の鎖。部品をつけて分子を描く。3D でも見られる</span></div>
       </a>
     </div>
     ${recent.length ? `<h2 class="section-title">マイ分子</h2><div class="chips-row" style="padding:0">${recent.map((m) => `<a class="chip" href="${esc(viewHash(m.smiles, m.name, { from: 'mine' }))}">${esc(m.name)}</a>`).join('')}<a class="chip" href="#/build/mine">すべて ›</a></div>` : ''}
-    <p class="small muted" style="margin-top:16px">炭素鎖の組み立て（炭素数・二重結合・官能基を選ぶ）は、かんたん作図の「ほか」→「炭素鎖から始める」にあります。</p>
+    <p class="small muted" style="margin-top:16px">炭素数・二重結合・官能基を選んで作る方法（炭素鎖から始める）は、「なぞって描く」の「ほか」にあります。</p>
   </div>`;
   return null;
 }
@@ -573,14 +573,10 @@ export async function renderBuildSub({ el, params, query }) {
     const content = subShell(el, 'マイ分子');
     return mineView(content);
   }
-  if (sub === 'draw') {
+  if (sub === 'draw' || sub === 'draw2') {
+    // なぞって描く (draw2 was its URL while on trial; old links keep working)
     const { renderSketch } = await import('./sketch.js');
     return renderSketch({ el, query, subShell });
-  }
-  if (sub === 'draw2') {
-    // on trial: draw by tracing with the finger, parts dropped on atoms
-    const { renderSketch } = await import('./sketch.js');
-    return renderSketch({ el, query, subShell, pen: true });
   }
   if (sub === 'notation') {
     const { renderNotation } = await import('./notation.js');

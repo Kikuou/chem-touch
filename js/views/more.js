@@ -2,6 +2,7 @@
 import { prefs } from '../core/dom.js';
 import { icon } from '../core/icons.js';
 import { isPresent, setPresent } from '../core/present.js';
+import { isDetail, setDetail } from '../core/detail.js';
 
 const LIBS = [
   ['3Dmol.js', '2.5.4', 'BSD-3-Clause', '3D分子表示', 'https://3dmol.csb.pitt.edu/'],
@@ -33,6 +34,11 @@ export function renderMore({ el }) {
       <div class="row">${icon('expand')}<span>教員提示モード<br><span class="small muted">文字と3Dを大きく・自動回転・QRを大きく</span></span>
         <div class="seg" role="group" aria-label="教員提示モード">
           <button data-present="0" aria-pressed="${!isPresent()}">オフ</button><button data-present="1" aria-pressed="${isPresent()}">オン</button>
+        </div>
+      </div>
+      <div class="row">${icon('chart')}<span>くわしい表示<br><span class="small muted">三重結合・SMILES・上級エディタなどを出す</span></span>
+        <div class="seg" role="group" aria-label="くわしい表示">
+          <button data-detail="0" aria-pressed="${!isDetail()}">オフ</button><button data-detail="1" aria-pressed="${isDetail()}">オン</button>
         </div>
       </div>
     </div>
@@ -67,6 +73,12 @@ export function renderMore({ el }) {
     </div>
   </div>`;
   el.addEventListener('click', (e) => {
+    const d = e.target.closest('[data-detail]');
+    if (d) {
+      setDetail(d.dataset.detail === '1');
+      el.querySelectorAll('[data-detail]').forEach((x) => x.setAttribute('aria-pressed', x === d));
+      return;
+    }
     const p = e.target.closest('[data-present]');
     if (p) {
       setPresent(p.dataset.present === '1');

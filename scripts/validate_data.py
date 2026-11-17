@@ -11,7 +11,9 @@ Checks (spec §8, run at the end of every milestone):
   - hydrogens come after all heavy atoms in each SDF (2D/3D index rule)
   - the stereo of the 3D coordinates reproduces the SMILES, the InChIKey
     matches, and the stereo checks of compound_sources.csv still pass
-  - categories and related ids exist; schedule.json has the expected shape
+  - categories and related ids exist; the 身近なもの groups use existing categories
+  - the lesson plans (data/plans/) use known catalog parts and existing
+    molecules / comparisons / questions; questions have 4 choices and an answer
   - practice.json lists existing molecules with at most 6 carbons
 Exit code 0 = OK, 1 = errors found.
 """
@@ -150,20 +152,79 @@ def main() -> int:
             if m is None or sum(a.GetAtomicNum() == 6 for a in m.GetAtoms()) > 6:
                 err(f"practice.json/{g.get('id')}", f"'{pid}' has more than 6 carbons")
 
-    # schedule.json: [] or [{no, date (YYYY-MM-DD), title, links?}]
-    for name in ("schedule.json", "schedule.example.json"):
-        path = DATA / name
+    # 身近なもの groups (categories.json "life")
+    for g in json.loads((DATA / "categories.json").read_text(encoding="utf-8")).get("life", []):
+        for k in g.get("cats", []):
+            if k not in cat_ids:
+                errors.append(f"categories.json life/{g.get('id')}: unknown category '{k}'")
+    life_ids = {g["id"] for g in json.loads((DATA / "categories.json").read_text(encoding="utf-8")).get("life", [])}
+
+    # questions.json: 4 choices, answer 0-3, unique ids
+    qdoc = json.loads((DATA / "questions.json").read_text(encoding="utf-8"))["questions"]
+    qids = [q.get("id") for q in qdoc]
+    for i in sorted({i for i in qids if qids.count(i) > 1}):
+        errors.append(f"questions.json: duplicate id '{i}'")
+    for q in qdoc:
+        where = f"questions.json/{q.get('id')}"
+        if not q.get("q"):
+            errors.append(f"{where}: no question text")
+        ch = q.get("choices") or []
+        if len(ch) != 4 or not all(isinstance(c, str) and c for c in ch) or len(set(ch)) != 4:
+            errors.append(f"{where}: needs 4 different choices")
+        if q.get("answer") not in (0, 1, 2, 3):
+            errors.append(f"{where}: answer must be 0-3 (A-D)")
+        if not isinstance(q.get("reviewed"), bool):
+            errors.append(f"{where}: reviewed must be true or false")
+    qset = set(qids)
+
+    # lesson plans (data/plans/): the parts are catalog ids (js/lesson/catalog.js)
+    presets = {p["id"] for p in json.loads((DATA / "comparisons.json").read_text(encoding="utf-8"))["presets"]}
+    series_ids = {x["id"] for x in json.loads((DATA / "series.json").read_text(encoding="utf-8"))["series"]}
+    plain_kinds = {"notation", "draw", "practice", "quiz", "series", "periodic", "electron", "bond", "soon"}
+    arg_check = {
+        "compound": lambda a: a in idset,
+        "notation": lambda a: a is None or a in idset,
+        "quiz": lambda a: a is None or a in idset,
+        "compare": lambda a: a in presets,
+        "library": lambda a: a in cat_ids,
+        "life": lambda a: a in life_ids,
+        "series": lambda a: a is None or a in series_ids,
+        "periodic": lambda a: a in (None, "mineral", "body", "radius", "en", "ie"),
+        "bond": lambda a: a in (None, "ionic", "covalent"),
+        "practice": lambda a: a in (None, "choose", "blocks", "draw"),
+        "soon": lambda a: bool(a),
+    }
+    index = json.loads((DATA / "plans" / "index.json").read_text(encoding="utf-8"))
+    plan_ids = [p["id"] for p in index.get("plans", [])]
+    if index.get("current") not in plan_ids:
+        errors.append("plans/index.json: 'current' is not in 'plans'")
+    for pid in plan_ids:
+        path = DATA / "plans" / f"{pid}.json"
         if not path.exists():
+            errors.append(f"plans/index.json: {path.name} does not exist")
             continue
-        sched = json.loads(path.read_text(encoding="utf-8"))
-        if not isinstance(sched, list):
-            errors.append(f"{name}: must be a JSON array (may be empty)")
-            continue
-        for i, l in enumerate(sched):
-            if not isinstance(l, dict) or not {"no", "date", "title"} <= set(l):
-                errors.append(f"{name}[{i}]: needs no, date, title")
-            elif not re.match(r"^\d{4}-\d{2}-\d{2}$", str(l["date"])):
-                errors.append(f"{name}[{i}]: date must be YYYY-MM-DD")
+        plan = json.loads(path.read_text(encoding="utf-8"))
+        nos = [l.get("no") for l in plan.get("lessons", [])]
+        for n in sorted({n for n in nos if nos.count(n) > 1}):
+            errors.append(f"plans/{pid}.json: lesson {n} appears twice")
+        for l in plan.get("lessons", []):
+            where = f"plans/{pid}.json/第{l.get('no')}回"
+            if not isinstance(l.get("no"), int) or not l.get("title"):
+                errors.append(f"{where}: needs no (number) and title")
+            for part in l.get("parts", []):
+                if isinstance(part, dict) and part.get("card"):
+                    continue
+                pidn = part.get("use") if isinstance(part, dict) else part
+                kind, _, arg = str(pidn).partition(":")
+                arg = arg or None
+                if kind not in plain_kinds | set(arg_check):
+                    errors.append(f"{where}: unknown part '{pidn}'")
+                elif kind in arg_check and not arg_check[kind](arg):
+                    errors.append(f"{where}: part '{pidn}' refers to something that does not exist")
+            for key in ("colorcards", "end3"):
+                for qid in l.get(key, []):
+                    if qid not in qset:
+                        errors.append(f"{where}: {key} question '{qid}' is not in questions.json")
 
     # series.json (B-3): members exist, every value has a source
     series_path = DATA / "series.json"

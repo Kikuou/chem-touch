@@ -1,9 +1,9 @@
-// かんたん作図: #/build/draw?smiles=...
+// なぞって描く: #/build/draw?smiles=... (#/build/draw2 is the old trial URL)
 // Full-screen drawing (views/sketchscreen.js around js/mol/sketch.js):
-// tap an atom or a bond, then choose what to do with it. The result sheet
-// at the bottom shows the name, the formula and the 示性式; opened, it
-// offers 書き方を見る, 3D, saving and sharing. The carbon-chain builder,
-// SMILES input and the advanced editor are in 「ほか」.
+// trace with a finger for a carbon chain, drop parts on atoms. The result
+// sheet at the bottom shows the name, the formula and the 示性式; opened, it
+// offers 書き方を見る, 3D, saving and sharing. The carbon-chain builder is in
+// 「ほか」; SMILES input and the advanced editor too, with くわしい表示.
 import { esc, el as h, prefs, toast } from '../core/dom.js';
 import { icon } from '../core/icons.js';
 import { setQuery, goBack } from '../core/router.js';
@@ -47,8 +47,7 @@ function askSmiles() {
   });
 }
 
-// pen: true for the 'draw by tracing' editor (#/build/draw2, on trial)
-export async function renderSketch({ el, query, pen = false }) {
+export async function renderSketch({ el, query }) {
   el.innerHTML = '<div class="sks"><p class="empty"><span class="spinner"></span>準備中…</p></div>';
   const RDKit = await getRDKit();
   if (!el.isConnected) return null;
@@ -66,18 +65,15 @@ export async function renderSketch({ el, query, pen = false }) {
 
   const screen = mountSketchScreen(el.firstElementChild, {
     side: true,
-    pen,
     onClose: () => goBack('#/build'),
     onChange: () => update(),
     extraMore: [
-      pen ? { act: 'old', label: '前の描き方（選んでからボタン）に戻る' } : { act: 'pen', label: '試作: 指でなぞって描く' },
       { act: 'chain', label: `${icon('build')}炭素鎖から始める（炭素数・二重結合・官能基を選ぶ）` },
-      { act: 'smiles', label: 'SMILES で入力' },
-      { act: 'advanced', label: `${icon('expand')}上級エディタ（すべての元素・電荷など）` },
+      { act: 'smiles', label: 'SMILES で入力', detail: true },
+      { act: 'advanced', label: `${icon('expand')}上級エディタ（すべての元素・電荷など）`, detail: true },
     ],
     onMore: async (a) => {
       if (a === 'chain') location.hash = '#/build/chain';
-      if (a === 'pen' || a === 'old') location.hash = `#/build/${a === 'pen' ? 'draw2' : 'draw'}${smiles ? `?smiles=${encodeURIComponent(smiles)}` : ''}`;
       if (a === 'advanced') location.hash = `#/build/advanced${smiles ? `?smiles=${encodeURIComponent(smiles)}` : ''}`;
       if (a === 'smiles') {
         const s = await askSmiles();
