@@ -1,0 +1,765 @@
+{
+ "note": "Data of the hands-on materials (docs/plan.md 提案9・10). reviewed: false = draft, not yet checked by the teacher. Temperatures of the three-state material are in states.json (from PubChem).",
+ "ph": {
+  "reviewed": false,
+  "examples": [
+   {
+    "name": "胃液",
+    "low": 1.0,
+    "high": 2.0,
+    "sources": [
+     {
+      "label": "Chang & Leung, Gastric Physiology (Springer, 2014)",
+      "url": "https://link.springer.com/10.1007/978-94-017-8771-0_3"
+     },
+     {
+      "label": "StatPearls: Physiology, Pepsin (NCBI Bookshelf NBK537005)",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK537005/"
+     }
+    ],
+    "note": "胃の中の液は 1.5〜3.5 とする資料もある"
+   },
+   {
+    "name": "レモン果汁",
+    "low": 2.0,
+    "high": 2.6,
+    "sources": [
+     {
+      "label": "Healthy Canning: The acidity of lemons and home canning（米国 FDA の食品 pH 表を引用）",
+      "url": "https://www.healthycanning.com/the-acidity-of-lemons-and-home-canning/"
+     }
+    ],
+    "note": "孫引きのため、FDA の表そのもので要確認"
+   },
+   {
+    "name": "血液",
+    "low": 7.35,
+    "high": 7.45,
+    "sources": [
+     {
+      "label": "MSD マニュアル家庭版: 酸塩基平衡の概要",
+      "url": "https://www.msdmanuals.com/home/hormonal-and-metabolic-disorders/acid-base-balance/overview-of-acid-base-balance"
+     }
+    ]
+   },
+   {
+    "name": "せっけん水",
+    "low": 9.0,
+    "high": 10.0,
+    "sources": [
+     {
+      "label": "Journal of the Society of Cosmetic Chemists 37(5)（固形せっけんの pH）",
+      "url": "https://library.scconline.org/v037n05/12"
+     }
+    ],
+    "note": "固形せっけんを水にとかした液。製品によってちがう"
+   }
+  ]
+ },
+ "formula": {
+  "reviewed": false,
+  "ions": [
+   {
+    "id": "Na+",
+    "symbol": "Na",
+    "charge": 1,
+    "name": "ナトリウム"
+   },
+   {
+    "id": "K+",
+    "symbol": "K",
+    "charge": 1,
+    "name": "カリウム"
+   },
+   {
+    "id": "Mg2+",
+    "symbol": "Mg",
+    "charge": 2,
+    "name": "マグネシウム"
+   },
+   {
+    "id": "Ca2+",
+    "symbol": "Ca",
+    "charge": 2,
+    "name": "カルシウム"
+   },
+   {
+    "id": "Cl-",
+    "symbol": "Cl",
+    "charge": -1,
+    "name": "塩化"
+   },
+   {
+    "id": "O2-",
+    "symbol": "O",
+    "charge": -2,
+    "name": "酸化"
+   },
+   {
+    "id": "OH-",
+    "symbol": "OH",
+    "charge": -1,
+    "name": "水酸化",
+    "group": true
+   },
+   {
+    "id": "CO32-",
+    "symbol": "CO3",
+    "charge": -2,
+    "name": "炭酸",
+    "group": true
+   }
+  ],
+  "goals": [
+   {
+    "cation": "Na+",
+    "anion": "Cl-",
+    "text": "食塩の成分「塩化ナトリウム」をつくろう"
+   },
+   {
+    "cation": "Mg2+",
+    "anion": "Cl-",
+    "text": "にがりの成分「塩化マグネシウム」をつくろう"
+   },
+   {
+    "cation": "Ca2+",
+    "anion": "CO32-",
+    "text": "カルシウムのサプリに使われる「炭酸カルシウム」をつくろう"
+   }
+  ]
+ },
+ "calc": {
+  "reviewed": false,
+  "note": "Problems of the calculation practice (js/lab/calc.js). The first problem of each kind is used in steps 1 and 2. atomic_weights: rounded the usual way in textbooks; validate_data.py checks them against data/elements.json (PubChem).",
+  "atomic_weights": {
+   "H": 1.0,
+   "C": 12,
+   "N": 14,
+   "O": 16,
+   "Na": 23,
+   "Mg": 24,
+   "S": 32,
+   "Cl": 35.5,
+   "K": 39,
+   "Ca": 40
+  },
+  "kinds": {
+   "mass-percent": {
+    "problems": [
+     {
+      "solute": "食塩",
+      "solute_g": 5,
+      "water_g": 95
+     },
+     {
+      "solute": "砂糖",
+      "solute_g": 20,
+      "water_g": 180
+     },
+     {
+      "solute": "食塩",
+      "solute_g": 10,
+      "water_g": 240
+     },
+     {
+      "solute": "砂糖",
+      "solute_g": 15,
+      "water_g": 85
+     },
+     {
+      "solute": "食塩",
+      "solute_g": 3,
+      "water_g": 97
+     },
+     {
+      "solute": "砂糖",
+      "solute_g": 30,
+      "water_g": 120
+     }
+    ]
+   },
+   "molar-mass": {
+    "problems": [
+     {
+      "name": "水",
+      "formula": "H2O",
+      "atoms": {
+       "H": 2,
+       "O": 1
+      }
+     },
+     {
+      "name": "二酸化炭素",
+      "formula": "CO2",
+      "atoms": {
+       "C": 1,
+       "O": 2
+      }
+     },
+     {
+      "name": "メタン",
+      "formula": "CH4",
+      "atoms": {
+       "C": 1,
+       "H": 4
+      }
+     },
+     {
+      "name": "エタノール",
+      "formula": "C2H6O",
+      "atoms": {
+       "C": 2,
+       "H": 6,
+       "O": 1
+      }
+     },
+     {
+      "name": "ブドウ糖",
+      "formula": "C6H12O6",
+      "atoms": {
+       "C": 6,
+       "H": 12,
+       "O": 6
+      }
+     },
+     {
+      "name": "アンモニア",
+      "formula": "NH3",
+      "atoms": {
+       "N": 1,
+       "H": 3
+      }
+     }
+    ]
+   },
+   "mol": {
+    "problems": [
+     {
+      "name": "水",
+      "formula": "H2O",
+      "atoms": {
+       "H": 2,
+       "O": 1
+      },
+      "g": 36
+     },
+     {
+      "name": "二酸化炭素",
+      "formula": "CO2",
+      "atoms": {
+       "C": 1,
+       "O": 2
+      },
+      "g": 22
+     },
+     {
+      "name": "ブドウ糖",
+      "formula": "C6H12O6",
+      "atoms": {
+       "C": 6,
+       "H": 12,
+       "O": 6
+      },
+      "g": 90
+     },
+     {
+      "name": "メタン",
+      "formula": "CH4",
+      "atoms": {
+       "C": 1,
+       "H": 4
+      },
+      "g": 8
+     },
+     {
+      "name": "水",
+      "formula": "H2O",
+      "atoms": {
+       "H": 2,
+       "O": 1
+      },
+      "g": 180
+     }
+    ]
+   },
+   "molarity": {
+    "problems": [
+     {
+      "name": "ブドウ糖",
+      "atoms": {
+       "C": 6,
+       "H": 12,
+       "O": 6
+      },
+      "g": 18,
+      "ml": 500
+     },
+     {
+      "name": "ブドウ糖",
+      "atoms": {
+       "C": 6,
+       "H": 12,
+       "O": 6
+      },
+      "g": 9,
+      "ml": 250
+     },
+     {
+      "name": "水酸化ナトリウム",
+      "atoms": {
+       "Na": 1,
+       "O": 1,
+       "H": 1
+      },
+      "g": 4,
+      "ml": 100
+     },
+     {
+      "name": "ブドウ糖",
+      "atoms": {
+       "C": 6,
+       "H": 12,
+       "O": 6
+      },
+      "g": 36,
+      "ml": 1000
+     }
+    ]
+   },
+   "dilution": {
+    "problems": [
+     {
+      "name": "食塩水",
+      "c": 1.0,
+      "unit": "mol/L",
+      "v1": 100,
+      "v2": 500
+     },
+     {
+      "name": "砂糖水",
+      "c": 10,
+      "unit": "%",
+      "v1": 50,
+      "v2": 200
+     },
+     {
+      "name": "塩酸",
+      "c": 0.5,
+      "unit": "mol/L",
+      "v1": 20,
+      "v2": 100
+     },
+     {
+      "name": "食塩水",
+      "c": 2.0,
+      "unit": "mol/L",
+      "v1": 50,
+      "v2": 250
+     }
+    ]
+   },
+   "stoich": {
+    "problems": [
+     {
+      "eq": "CH₄ ＋ 2O₂ → CO₂ ＋ 2H₂O",
+      "a_name": "メタン",
+      "ca": 1,
+      "b_name": "酸素",
+      "cb": 2,
+      "mol": 3
+     },
+     {
+      "eq": "2H₂ ＋ O₂ → 2H₂O",
+      "a_name": "水素",
+      "ca": 2,
+      "b_name": "水",
+      "cb": 2,
+      "mol": 4
+     },
+     {
+      "eq": "C₃H₈ ＋ 5O₂ → 3CO₂ ＋ 4H₂O",
+      "a_name": "プロパン",
+      "ca": 1,
+      "b_name": "二酸化炭素",
+      "cb": 3,
+      "mol": 2
+     },
+     {
+      "eq": "2H₂ ＋ O₂ → 2H₂O",
+      "a_name": "水素",
+      "ca": 2,
+      "b_name": "酸素",
+      "cb": 1,
+      "mol": 6
+     },
+     {
+      "eq": "C₆H₁₂O₆ ＋ 6O₂ → 6CO₂ ＋ 6H₂O",
+      "a_name": "ブドウ糖",
+      "ca": 1,
+      "b_name": "二酸化炭素",
+      "cb": 6,
+      "mol": 0.5
+     }
+    ]
+   },
+   "ph": {
+    "problems": [
+     {
+      "n": 3
+     },
+     {
+      "n": 2
+     },
+     {
+      "n": 1
+     },
+     {
+      "n": 4
+     },
+     {
+      "n": 5
+     }
+    ]
+   },
+   "neutral": {
+    "problems": [
+     {
+      "acid": "塩酸",
+      "n_a": 1,
+      "c_a": 0.1,
+      "v_a": 20,
+      "base": "水酸化ナトリウム水溶液",
+      "n_b": 1,
+      "c_b": 0.2
+     },
+     {
+      "acid": "塩酸",
+      "n_a": 1,
+      "c_a": 0.2,
+      "v_a": 10,
+      "base": "水酸化ナトリウム水溶液",
+      "n_b": 1,
+      "c_b": 0.1
+     },
+     {
+      "acid": "硫酸",
+      "n_a": 2,
+      "c_a": 0.1,
+      "v_a": 10,
+      "base": "水酸化ナトリウム水溶液",
+      "n_b": 1,
+      "c_b": 0.1
+     },
+     {
+      "acid": "酢酸水溶液",
+      "n_a": 1,
+      "c_a": 0.1,
+      "v_a": 25,
+      "base": "水酸化ナトリウム水溶液",
+      "n_b": 1,
+      "c_b": 0.1
+     }
+    ]
+   }
+  }
+ },
+ "sorts": {
+  "pure-mixture": {
+   "title": "純物質と混合物",
+   "prompt": "1種類の物質だけ（純物質）か、まざっている（混合物）か、なかまわけしよう",
+   "boxes": [
+    "純物質",
+    "混合物"
+   ],
+   "reviewed": false,
+   "items": [
+    {
+     "name": "水（純水）",
+     "box": 0,
+     "why": "水だけでできている。"
+    },
+    {
+     "name": "空気",
+     "box": 1,
+     "why": "窒素・酸素などがまざっている。"
+    },
+    {
+     "name": "食塩水",
+     "box": 1,
+     "why": "水に塩化ナトリウムがとけている。"
+    },
+    {
+     "name": "牛乳",
+     "box": 1,
+     "why": "水・タンパク質・脂肪・糖などがまざっている。"
+    },
+    {
+     "name": "酸素",
+     "box": 0,
+     "why": "酸素だけでできている。"
+    },
+    {
+     "name": "ドライアイス",
+     "box": 0,
+     "why": "固体の二酸化炭素だけでできている。"
+    },
+    {
+     "name": "塩化ナトリウム",
+     "box": 0,
+     "why": "NaCl だけでできている。"
+    },
+    {
+     "name": "海水",
+     "box": 1,
+     "why": "水に塩化ナトリウムなどがとけている。"
+    },
+    {
+     "name": "鉄",
+     "box": 0,
+     "why": "鉄だけでできている。"
+    },
+    {
+     "name": "砂糖水",
+     "box": 1,
+     "why": "水に砂糖がとけている。"
+    }
+   ]
+  },
+  "element-compound": {
+   "title": "単体と化合物",
+   "prompt": "1種類の元素だけ（単体）か、2種類以上の元素（化合物）か、なかまわけしよう",
+   "boxes": [
+    "単体",
+    "化合物"
+   ],
+   "reviewed": false,
+   "items": [
+    {
+     "name": "酸素 O₂",
+     "box": 0,
+     "why": "O だけ。"
+    },
+    {
+     "name": "水 H₂O",
+     "box": 1,
+     "why": "H と O。"
+    },
+    {
+     "name": "鉄 Fe",
+     "box": 0,
+     "why": "Fe だけ。"
+    },
+    {
+     "name": "二酸化炭素 CO₂",
+     "box": 1,
+     "why": "C と O。"
+    },
+    {
+     "name": "窒素 N₂",
+     "box": 0,
+     "why": "N だけ。"
+    },
+    {
+     "name": "塩化ナトリウム NaCl",
+     "box": 1,
+     "why": "Na と Cl。"
+    },
+    {
+     "name": "ダイヤモンド C",
+     "box": 0,
+     "why": "C だけ。"
+    },
+    {
+     "name": "アンモニア NH₃",
+     "box": 1,
+     "why": "N と H。"
+    }
+   ]
+  },
+  "acid-base": {
+   "title": "酸性・中性・塩基性",
+   "prompt": "水溶液を、酸性・中性・塩基性になかまわけしよう",
+   "boxes": [
+    "酸性",
+    "中性",
+    "塩基性"
+   ],
+   "reviewed": false,
+   "items": [
+    {
+     "name": "酢",
+     "box": 0,
+     "why": "酢酸がとけている。"
+    },
+    {
+     "name": "食塩水",
+     "box": 1,
+     "why": "塩化ナトリウムの水溶液は中性。"
+    },
+    {
+     "name": "せっけん水",
+     "box": 2,
+     "why": "せっけんの水溶液は塩基性。"
+    },
+    {
+     "name": "レモン汁",
+     "box": 0,
+     "why": "クエン酸などがとけている。"
+    },
+    {
+     "name": "砂糖水",
+     "box": 1,
+     "why": "砂糖の水溶液は中性。"
+    },
+    {
+     "name": "重曹水（炭酸水素ナトリウム）",
+     "box": 2,
+     "why": "炭酸水素ナトリウムの水溶液は弱い塩基性。"
+    },
+    {
+     "name": "炭酸水",
+     "box": 0,
+     "why": "二酸化炭素がとけていて弱い酸性。"
+    },
+    {
+     "name": "胃液",
+     "box": 0,
+     "why": "塩酸をふくむ。"
+    }
+   ]
+  }
+ },
+ "reactions": [
+  {
+   "name": "水ができる",
+   "left": [
+    "H2",
+    "O2"
+   ],
+   "right": [
+    "H2O"
+   ]
+  },
+  {
+   "name": "メタンが燃える",
+   "left": [
+    "CH4",
+    "O2"
+   ],
+   "right": [
+    "CO2",
+    "H2O"
+   ]
+  },
+  {
+   "name": "プロパンが燃える",
+   "left": [
+    "C3H8",
+    "O2"
+   ],
+   "right": [
+    "CO2",
+    "H2O"
+   ]
+  },
+  {
+   "name": "マグネシウムが燃える",
+   "left": [
+    "Mg",
+    "O2"
+   ],
+   "right": [
+    "MgO"
+   ]
+  },
+  {
+   "name": "塩化ナトリウムができる",
+   "left": [
+    "Na",
+    "Cl2"
+   ],
+   "right": [
+    "NaCl"
+   ]
+  },
+  {
+   "name": "アンモニアができる",
+   "left": [
+    "N2",
+    "H2"
+   ],
+   "right": [
+    "NH3"
+   ]
+  },
+  {
+   "name": "呼吸（ブドウ糖）",
+   "left": [
+    "C6H12O6",
+    "O2"
+   ],
+   "right": [
+    "CO2",
+    "H2O"
+   ]
+  }
+ ],
+ "titration": {
+  "ca": 0.1,
+  "va": 20,
+  "cb": 0.1
+ },
+ "dissolve": {
+  "substances": [
+   "食塩",
+   "砂糖"
+  ],
+  "water": [
+   100,
+   500,
+   100
+  ],
+  "solute": [
+   0,
+   30,
+   10
+  ]
+ },
+ "molscale": {
+  "substances": [
+   {
+    "name": "水",
+    "formula": "H2O",
+    "atoms": {
+     "H": 2,
+     "O": 1
+    }
+   },
+   {
+    "name": "食塩",
+    "formula": "NaCl",
+    "atoms": {
+     "Na": 1,
+     "Cl": 1
+    }
+   },
+   {
+    "name": "砂糖（ショ糖）",
+    "formula": "C12H22O11",
+    "atoms": {
+     "C": 12,
+     "H": 22,
+     "O": 11
+    }
+   },
+   {
+    "name": "二酸化炭素",
+    "formula": "CO2",
+    "atoms": {
+     "C": 1,
+     "O": 2
+    }
+   }
+  ]
+ }
+}

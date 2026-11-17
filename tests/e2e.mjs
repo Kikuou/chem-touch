@@ -9,7 +9,7 @@ import assert from 'node:assert/strict';
 const BASE = process.env.BASE_URL || 'http://localhost:8000/';
 const browser = await chromium.launch({ args: ['--enable-unsafe-swiftshader', '--use-angle=swiftshader'] });
 // the service worker is tested on its own at the end (offline use)
-const ctx = await browser.newContext({ viewport: { width: 375, height: 812 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, locale: 'ja-JP', serviceWorkers: 'block' });
+const ctx = await browser.newContext({ viewport: { width: 375, height: 812 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, locale: 'ja-JP', serviceWorkers: 'block', acceptDownloads: true });
 const errors = [];
 ctx.on('page', (p) => p.on('pageerror', (e) => errors.push(e.message)));
 const page = await ctx.newPage();
@@ -46,6 +46,7 @@ await page.waitForSelector('.item');
 const names = await page.locator('.item .nm').allTextContents();
 assert.ok(names.includes('α-D-グルコース'), 'search result contains α-D-グルコース');
 step(`search "グルコース" -> ${names.join(', ')}`);
+assert.ok(await page.locator('.item .thumb.pre svg').count() >= 3, 'the list uses the pictures made at build time (thumbs.json)');
 
 await page.locator('.item', { hasText: 'α-D-グルコース' }).click();
 await page.waitForURL(/#\/compound\/alpha-d-glucose$/);
@@ -478,12 +479,12 @@ await m2.click('.ls-flow > a >> nth=3');
 await m2.waitForURL(/#\/compare\/oleic-elaidic$/);
 await m2.goto(BASE + '#/lesson/1');
 await m2.waitForSelector('.ls-flow');
-assert.ok(await m2.locator('.ls-flow > .ls-off').count() >= 1, '準備中 materials are not links');
+assert.equal(await m2.locator('.ls-flow > a').count(), await m2.locator('.ls-flow > *').count(), 'every part opens a screen');
 await m2.goto(BASE + '#/lesson/3?today=1');
 await m2.waitForSelector('.ls-flow');
 assert.equal(await m2.evaluate(() => localStorage.getItem('chemtouch:lesson:today')), '3');
 assert.doesNotMatch(m2.url(), /today=1/);
-step('lesson page: 第7回 has 5 parts in order (書き方くらべ … くらべる opens oleic/elaidic); 準備中 parts; ?today=1 sets today');
+step('lesson page: 第7回 has 5 parts in order (書き方くらべ … くらべる opens oleic/elaidic); every part of 第1回 opens a screen; ?today=1 sets today');
 
 await m2.goto(BASE + '#/card');
 await m2.waitForSelector('.cc-grid');
@@ -527,6 +528,37 @@ assert.equal(await m2.locator('.ls-ask-o > div.ok').count(), 0, 'the next questi
 await m2.evaluate(() => localStorage.removeItem('chemtouch:detail'));
 step('いっせい問題 (teacher): 4 coloured choices, 答えを見せる marks the right one, next question');
 
+// 授業をつくる (teacher, behind くわしい表示): edit a draft, try it on this device
+await m2.evaluate(() => localStorage.setItem('chemtouch:detail', '1'));
+await m2.goto(BASE + '#/more');
+await m2.click('a[href="#/teach"]');
+await m2.waitForSelector('.ls-list [data-open="7"]');
+await m2.click('[data-open="7"]');
+await m2.waitForSelector('.tc-parts');
+const partsBefore = await m2.locator('.tc-parts .tc-row').count();
+m2.once('dialog', (d) => d.accept('果物の香りはエステル'));
+await m2.click('[data-act="addcard"]');
+await m2.waitForFunction((n) => document.querySelectorAll('.tc-parts .tc-row').length === n + 1, partsBefore);
+await m2.click('[data-act="addpart"]');
+await m2.fill('[data-search]', 'エタノール');
+await m2.click('.tc-found [data-pick="compound:ethanol"]');
+await m2.waitForFunction((n) => document.querySelectorAll('.tc-parts .tc-row').length === n + 2, partsBefore);
+await m2.click('[data-act="back"]');
+await m2.click('[data-act="use"]');
+await m2.goto(BASE + '#/');
+await m2.waitForSelector('.hm-draft');
+await m2.goto(BASE + '#/lesson/7');
+await m2.waitForSelector('.ls-flow');
+assert.equal(await m2.locator('.ls-flow > *').count(), partsBefore + 2);
+assert.match(await m2.textContent('.ls-flow'), /果物の香りはエステル/);
+await m2.goto(BASE + '#/teach');
+const [dl] = await Promise.all([m2.waitForEvent('download'), m2.click('[data-act="export"]')]);
+assert.equal(dl.suggestedFilename(), '2027.json');
+const exported = JSON.parse(await (await import('node:fs/promises')).readFile(await dl.path(), 'utf8'));
+assert.equal(exported.lessons.find((l) => l.no === 7).parts.length, partsBefore + 2);
+await m2.evaluate(() => ['detail', 'teach:use', 'teach:draft'].forEach((k) => localStorage.removeItem('chemtouch:' + k)));
+step('授業をつくる: add a topic card and ethanol to 第7回, try the draft on this device (home banner, lesson page), export 2027.json');
+
 await m2.goto(BASE + '#/life');
 await m2.waitForSelector('.lf-grid');
 assert.equal(await m2.locator('.lf-g').count(), 4);
@@ -538,6 +570,168 @@ assert.equal((await m2.textContent('.subbar h1')).trim(), '食品');
 assert.equal(await m2.locator('.chips-row .chip').count(), 7);
 assert.equal((await m2.textContent('.results .subhead')).trim(), '糖質');
 step('身近なもの: 4 groups (くらし 準備中); 食品 lists its categories, 糖質 first');
+
+// ---- hands-on materials (docs/plan.md 提案9・10)
+// 温度と三態: the temperatures come from PubChem (data/states.json); this
+// test uses its own fixed values so it does not depend on that file
+const fx = (value) => ({ value, source: 'test', raw: '' });
+await m2.route('**/data/states.json', (r) => r.fulfill({ contentType: 'application/json', body: JSON.stringify({ substances: [
+  { id: 'water', name: '水', kind: 'melt-boil', mp: fx(0), bp: fx(100), sublimes: null },
+  { id: 'ethanol', name: 'エタノール', kind: 'melt-boil', mp: fx(-114.1), bp: fx(78.2), sublimes: null },
+  { id: 'carbon-dioxide', name: '二酸化炭素', kind: 'sublime', mp: null, bp: null, sublimes: fx(-78.5) }] }) }));
+await m2.goto(BASE + '#/lab/states');
+await m2.waitForSelector('.lb-range');
+assert.equal((await m2.textContent('.lb-chip')).trim(), '液体（水）');
+assert.equal(await m2.locator('.lb-mols > g').count(), 40);
+const t0 = await m2.getAttribute('.lb-mols > g >> nth=0', 'transform');
+await m2.waitForTimeout(400);
+assert.notEqual(await m2.getAttribute('.lb-mols > g >> nth=0', 'transform'), t0, 'the molecules move');
+await m2.locator('.lb-range').fill('-20');
+assert.equal((await m2.textContent('.lb-chip')).trim(), '固体（氷）');
+await m2.locator('.lb-range').fill('120');
+assert.equal((await m2.textContent('.lb-chip')).trim(), '気体（水蒸気）');
+await m2.click('[data-s="ethanol"]');
+assert.equal((await m2.textContent('.lb-chip')).trim(), '液体');
+await m2.click('[data-s="carbon-dioxide"]');
+assert.equal((await m2.textContent('.lb-chip')).trim(), '気体');
+await m2.locator('.lb-range').fill('-100');
+assert.equal((await m2.textContent('.lb-chip')).trim(), '固体（ドライアイス）');
+assert.match(await m2.textContent('.lb-foot'), /昇華/);
+await m2.unroute('**/data/states.json');
+step('温度と三態: water liquid at 25 ℃, ice at −20 ℃, steam at 120 ℃; ethanol; CO₂ gas at 25 ℃ and dry ice at −100 ℃ (sublimes); molecules move');
+
+await m2.goto(BASE + '#/lab/formula?g=1');
+await m2.waitForSelector('.fp-pal');
+await m2.click('.fp-pal [data-add="Mg2+"]');
+await m2.click('.fp-pal [data-add="Cl-"]');
+assert.match(await m2.textContent('.fp-meter .t'), /\+1/);
+assert.match(await m2.textContent('.lb-say'), /たりない/);
+await m2.click('.fp-pal [data-add="Cl-"]');
+assert.equal((await m2.textContent('.fp-f')).trim(), 'MgCl₂');
+assert.match(await m2.textContent('.fp-done'), /塩化マグネシウム.*つりあった/);
+await m2.click('.fp-tray [data-out="0"]');
+assert.equal(await m2.locator('.fp-done').count(), 0);
+await m2.click('[data-g="free"]');
+for (const id of ['Ca2+', 'OH-', 'OH-']) await m2.click(`.fp-pal [data-add="${id}"]`);
+assert.equal((await m2.textContent('.fp-f')).trim(), 'Ca(OH)₂');
+step('組成式パズル: Mg²⁺ + Cl⁻ -> "+1, たりない"; + Cl⁻ -> MgCl₂ 塩化マグネシウム; free: Ca(OH)₂');
+
+await m2.goto(BASE + '#/lab/ph');
+await m2.waitForSelector('.ph-range');
+assert.match(await m2.textContent('.ph-times'), /中性/);
+await m2.locator('.ph-range').fill('2');
+assert.match(await m2.textContent('.ph-times'), /10万 倍/);
+assert.equal(await m2.locator('.ph-ladder i').count(), 5);
+await m2.click('.ph-mark >> text=血液');
+assert.equal((await m2.textContent('.lb-big')).trim(), 'pH 7.4');
+assert.ok(await m2.locator('.ph-src a').count() >= 4, 'every example has a source');
+step('pH ものさし: pH 2 = 中性の 10万倍 (5 steps of ×10); tap 血液 -> pH 7.4; sources listed');
+
+await m2.goto(BASE + '#/lab/concentration'); // the old URL goes to the mass-percent practice
+await m2.waitForURL(/#\/lab\/calc\?k=mass-percent/);
+await m2.waitForSelector('[data-pick]');
+assert.equal((await m2.textContent('.subbar h1')).trim(), '計算練習：質量パーセント濃度');
+assert.equal(await m2.evaluate(() => getComputedStyle(document.querySelector('.nav')).display), 'none');
+await m2.click('[data-pick] >> text=/^.5 %$/');
+assert.match(await m2.textContent('.ls-q-ex'), /せいかい/);
+await m2.click('[data-act="to2"]');
+await m2.click('[data-key="4"]');
+await m2.click('[data-key="ok"]');
+assert.match(await m2.textContent('.cp-msg'), /ちがいます/);
+await m2.click('[data-key="⌫"]');
+await m2.click('[data-key="5"]');
+await m2.click('[data-key="ok"]');
+await m2.click('[data-key="5"]');
+await m2.click('[data-key="ok"]');
+await m2.click('[data-act="to3"]');
+const [w3, s3] = (await m2.textContent('.cp-q')).match(/水 (\d+) g に \S+ (\d+) g/).slice(1).map(Number);
+await m2.click('[data-key="1"]');
+await m2.click('[data-key="ok"]');
+assert.equal(await m2.locator('.cp-hint li.on').count(), 1, 'a wrong answer shows the first step');
+await m2.click('[data-act="hint"]');
+assert.equal(await m2.locator('.cp-hint li.on').count(), 2);
+await m2.click('[data-key="⌫"]');
+for (const k of String(Math.round((s3 / (s3 + w3)) * 1000) / 10)) await m2.click(`[data-key="${k}"]`);
+await m2.click('[data-key="ok"]');
+assert.match(await m2.textContent('.ls-q-ex'), /せいかい/);
+step(`計算練習：濃度: 見当 5 % -> 穴うめ (95 + 5, 5 %) -> 自分で計算 ${s3} g / ${w3} g: wrong shows steps, right accepted; number pad only, no tab bar`);
+
+// another kind of the same engine: 分子量 of water, blanks 2, 1, 18
+await m2.goto(BASE + '#/lab/calc?k=molar-mass');
+await m2.waitForSelector('[data-pick]');
+await m2.click('[data-pick] >> text=/^.18 $/');
+await m2.click('[data-act="to2"]');
+for (const v of ['2', '1', '18']) {
+  for (const k of v) await m2.click(`[data-key="${k}"]`);
+  await m2.click('[data-key="ok"]');
+}
+assert.match(await m2.textContent('.cp-msg'), /せいかい/);
+assert.equal(await m2.locator('.cp-eq u.ok').count(), 3);
+step('計算練習：分子量 (same engine): H₂O ≈ 18; blanks 1.0 × 2 ＋ 16 × 1 ＝ 18');
+
+// the other materials of the plan (one screen = one idea)
+await m2.goto(BASE + '#/lab/sort');
+await m2.waitForSelector('.so-list');
+await m2.click('[data-k="0"][data-b="0"]'); // 水（純水）-> 純物質
+await m2.click('[data-k="1"][data-b="0"]'); // 空気 -> 純物質 (wrong)
+assert.equal(await m2.locator('.so-item.ok').count(), 1);
+assert.equal(await m2.locator('.so-item.ng').count(), 1);
+await m2.goto(BASE + '#/lab/balance?r=0');
+await m2.waitForSelector('.rb-eq');
+await m2.click('[data-c="0"][data-d="1"]'); // 2H2
+await m2.click('[data-c="2"][data-d="1"]'); // 2H2O
+assert.equal(await m2.locator('.rb-eq.ok').count(), 1, '2H2 + O2 -> 2H2O is balanced');
+await m2.goto(BASE + '#/lab/titration');
+await m2.waitForSelector('.ti-range');
+await m2.locator('.ti-range').fill('20');
+assert.match(await m2.textContent('.lb-big'), /pH 7/);
+await m2.goto(BASE + '#/lab/mwcount');
+await m2.waitForSelector('.mw-tiles');
+for (const el of ['H', 'O']) await m2.click(`[data-el="${el}"]`);
+assert.match(await m2.textContent('.mw-sum'), /18/);
+await m2.goto(BASE + '#/lab/molscale');
+await m2.waitForSelector('.ms-range');
+await m2.locator('.ms-range').fill('2');
+assert.match(await m2.textContent('.ms-facts'), /36 g/);
+await m2.goto(BASE + '#/lab/dissolve');
+await m2.waitForSelector('.dv-eq');
+assert.match(await m2.textContent('.lb-big'), /9.1 %/);
+for (const id of ['attract', 'metal', 'redox', 'review']) {
+  await m2.goto(BASE + `#/lab/${id}`);
+  await m2.waitForSelector('.content > *');
+}
+await m2.click('[data-k="0"]');
+assert.equal(await m2.locator('.ls-q-ex').count(), 1);
+await m2.goto(BASE + '#/lesson/1');
+await m2.waitForSelector('.ls-flow');
+assert.equal(await m2.locator('.ls-flow > .ls-off').count(), 0, 'no 準備中 parts left in the plan');
+step('materials: なかまわけ, 反応式の天びん (2H₂ + O₂ → 2H₂O), 滴定 (20 mL -> pH 7), 分子量 18, 2 mol of water = 36 g, 9.1 %, and the particle / quiz screens open');
+
+// たしかめる tab, できた印 of the calculation practice (solved above), 用語集
+await m2.goto(BASE + '#/check');
+await m2.waitForSelector('.ck-meter');
+assert.equal(await m2.locator('.nav a').count(), 6);
+assert.equal(await m2.getAttribute('.nav a[data-tab="check"]', 'aria-current'), 'page');
+assert.match(await m2.textContent('.ck-meter'), /計算練習[\s\S]*[12] \/ 8/);
+assert.ok(await m2.locator('.menu a[href="#/lab/calc?k=mass-percent"] .ls-ok').count() === 1, '✓ on the solved kind');
+const linked = await m2.evaluate(async () => {
+  const g = await import('/js/lesson/glossary.js');
+  await g.glossary();
+  const d = document.createElement('div');
+  d.innerHTML = g.linkTerms('二酸化炭素が酸化される。原子量と原子。');
+  return [...d.querySelectorAll('.gl-term')].map((b) => b.textContent);
+});
+assert.deepEqual(linked, ['酸化', '原子量', '原子'], '酸化 is not found inside 二酸化炭素; the longest word wins');
+await m2.goto(BASE + '#/compound/water');
+await m2.waitForSelector('.cp-note .gl-term');
+await m2.click('.cp-note .gl-term >> nth=0');
+await m2.waitForSelector('.gl-sheet');
+assert.match(await m2.textContent('.gl-sheet'), /共有結合/);
+await m2.click('.gl-sheet [data-x="close"]');
+await m2.goto(BASE + '#/glossary?q=' + encodeURIComponent('中和'));
+await m2.waitForSelector('.gl-item');
+assert.equal(await m2.locator('.gl-item.on').count(), 1);
+step('たしかめる: 6th tab, ✓ for the solved calculation; 用語集: 酸化 not inside 二酸化炭素, a tap on 分子 explains it, search');
 
 // ---- M4 acceptance: build the electron configuration of Na, give an
 // electron to Cl, go to the NaCl crystal; periodic table, detail, Lewis formulas

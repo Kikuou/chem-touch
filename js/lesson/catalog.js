@@ -6,8 +6,26 @@
 // resolvePart() turns an entry into { title, sub, tag, href } (href null:
 // nothing to open yet, e.g. a 準備中 material).
 import { compound, comparisons, categories, lifeGroups } from '../core/data.js';
+import { KINDS as CALC } from '../lab/calc.js';
 
 const enc = encodeURIComponent;
+
+// hands-on materials (views/lab.js)
+const LAB = {
+  states: ['温度と三態', 'スライダーで温度を変えて、分子の動きを見る'],
+  formula: ['組成式パズル', '＋と−のイオンを組み合わせて物質をつくる'],
+  ph: ['pH ものさし', 'pH と水素イオンの濃さ、身近なものの pH'],
+  sort: ['なかまわけ', '純物質と混合物・単体と化合物・酸性と塩基性'],
+  attract: ['ひきあう分子', '水とメタン：同じくらいの大きさでも、25 ℃ で液体と気体'],
+  metal: ['金属と自由電子', '電池をつなぐと、自由電子が一方向に動く'],
+  mwcount: ['分子量カウンター', '原子量 × 個数 をたして分子量を出す'],
+  molscale: ['モルのはかり', '物質量（mol）と質量・粒子の数'],
+  dissolve: ['とかすビーカー', '水と溶かすものの量で、濃度が変わる'],
+  balance: ['反応式の天びん', '係数を変えて、左右の原子の数をそろえる'],
+  titration: ['中和の滴定', '塩基を加えると pH がどう変わるか'],
+  redox: ['電子の受けわたし', 'Mg と O：電子を失う（酸化）・受け取る（還元）'],
+  review: ['総まとめクイズ', '全回から10問']
+};
 
 const BOND = {
   ionic: ['イオン結合（Na と Cl）', 'Na から Cl へ電子をわたして、NaCl の結晶へ'],
@@ -53,6 +71,8 @@ const KINDS = {
   },
   electron: (a) => ({ tag: '教材', title: a ? `電子配置（${a}）` : '電子配置ビルダー', sub: 'K殻・L殻・M殻に電子を入れる', href: a ? `#/electron/${enc(a)}` : '#/electron' }),
   bond: (a = 'ionic') => BOND[a] && { tag: '教材', title: BOND[a][0], sub: BOND[a][1], href: `#/bond?type=${a}` },
+  lab: (a) => LAB[a] && { tag: '触る', title: LAB[a][0], sub: LAB[a][1], href: `#/lab/${a}` },
+  calc: (a) => CALC[a] && { tag: '計算', title: `計算練習：${CALC[a].title}`, sub: '見当をつける → 穴うめ → 自分で計算', href: `#/lab/calc?k=${enc(a)}` },
   soon: (a) => a && { tag: '準備中', title: a, sub: '新しい教材（作成中）', href: null },
 };
 
@@ -78,4 +98,20 @@ export async function resolvePart(entry) {
     if (entry.sub) part.sub = entry.sub;
   }
   return part;
+}
+
+// Every part a lesson can use, in groups, for the 授業をつくる editor
+// (views/teach.js). Molecules are many: they are searched there instead.
+export async function catalogGroups() {
+  const [presets, cats, life] = await Promise.all([comparisons(), categories(), lifeGroups()]);
+  const g = (label, ids) => ({ label, ids });
+  return [
+    g('触る教材', Object.keys(LAB).map((k) => `lab:${k}`)),
+    g('計算練習', Object.keys(CALC).map((k) => `calc:${k}`)),
+    g('くらべる', presets.map((p) => `compare:${p.id}`)),
+    g('つくる・確認', ['draw', 'practice', 'practice:choose', 'practice:blocks', 'practice:draw', 'quiz', 'notation']),
+    g('周期表・電子・結合', [...Object.keys(PERIODIC).map((k) => (k ? `periodic:${k}` : 'periodic')), 'electron', 'bond:ionic', 'bond:covalent']),
+    g('分子の一覧', [...life.filter((x) => !x.planned).map((x) => `life:${x.id}`), ...cats.map((c) => `library:${c.id}`)]),
+    g('同族体シリーズ', ['series:alkane', 'series:alkanol', 'series:carboxylic-acid', 'series:saturated-fatty-acid']),
+  ];
 }

@@ -47,6 +47,17 @@ PUBCHEM_FIELDS = {  # our key: PubChem column
     "pubchem_block": "GroupBlock",
 }
 NUMERIC = {"mass", "en", "radius", "ie", "mp"}
+# other names PubChem has used (or may use) for a column; the first one present is read
+ALIASES = {
+    "AtomicMass": ["AtomicMass", "Atomic Mass", "AtomicWeight", "Atomic Weight", "StandardAtomicWeight"],
+    "ElectronConfiguration": ["ElectronConfiguration", "Electron Configuration"],
+    "Electronegativity": ["Electronegativity"],
+    "AtomicRadius": ["AtomicRadius", "Atomic Radius"],
+    "IonizationEnergy": ["IonizationEnergy", "Ionization Energy"],
+    "MeltingPoint": ["MeltingPoint", "Melting Point"],
+    "StandardState": ["StandardState", "Standard State"],
+    "GroupBlock": ["GroupBlock", "Group Block"],
+}
 
 CORES = {
     "He": "1s2",
@@ -166,13 +177,25 @@ def fetch_pubchem() -> dict[int, dict]:
                 raise
             time.sleep(2 ** attempt)
     cols = doc["Table"]["Columns"]["Column"]
-    missing = [c for c in ["AtomicNumber", "Symbol", *PUBCHEM_FIELDS.values()] if c not in cols]
-    if missing:
-        raise RuntimeError(f"PubChem periodic table lacks columns: {missing}")
+    if "AtomicNumber" not in cols or "Symbol" not in cols:
+        raise RuntimeError(f"PubChem periodic table lacks AtomicNumber / Symbol (columns: {cols})")
+    # read each field under the name PubChem uses now; a field that cannot be
+    # found keeps the value fetched earlier (main) instead of stopping the build
+    found = {}
+    for want in PUBCHEM_FIELDS.values():
+        found[want] = next((c for c in ALIASES.get(want, [want]) if c in cols), None)
+    lost = [w for w, c in found.items() if c is None]
+    if lost:
+        print(f"WARNING: PubChem periodic table has no column for {lost}; keeping earlier values. "
+              f"Columns now: {cols}", file=sys.stderr)
     out = {}
     for row in doc["Table"]["Row"]:
-        cell = dict(zip(cols, row["Cell"]))
-        out[int(cell["AtomicNumber"])] = cell
+        raw = dict(zip(cols, row["Cell"]))
+        cell = {"Symbol": raw["Symbol"], "_lost": lost}
+        for want, col in found.items():
+            if col is not None:
+                cell[want] = raw.get(col, "")
+        out[int(raw["AtomicNumber"])] = cell
     return out
 
 
@@ -225,9 +248,15 @@ def main(argv=None) -> int:
             if cell["Symbol"] != sym:
                 errors.append(f"Z={z}: symbol {sym} != PubChem {cell['Symbol']}")
             for k, col in PUBCHEM_FIELDS.items():
+                if col in cell["_lost"]:  # column missing at PubChem: keep the earlier value
+                    e[k] = old.get(z, {}).get(k)
+                    continue
                 v = cell.get(col, "")
                 e[k] = number(v) if k in NUMERIC else (v.strip() or None)
-            e["mass_text"] = (cell.get("AtomicMass") or "").strip() or None  # as written by PubChem
+            if "AtomicMass" in cell["_lost"]:
+                e["mass_text"] = old.get(z, {}).get("mass_text")
+            else:
+                e["mass_text"] = (cell.get("AtomicMass") or "").strip() or None  # as written by PubChem
         elif z in old:  # keep the values fetched earlier
             for k in [*PUBCHEM_FIELDS, "mass_text"]:
                 e[k] = old[z].get(k)
@@ -243,9 +272,9 @@ def main(argv=None) -> int:
             e["shells"] = rule
         if sym in notes["notes"]:
             e["note_ja"] = notes["notes"][sym]
-            e["note_reviewed"] = bool(notes.get("reviewed"))
+            e["note_reviewed"] = bool(notes.get("reviewed")) or sym in notes.get("reviewed_notes", [])
         if sym in notes["minerals"]:
-            e["mineral"] = {**notes["minerals"][sym], "reviewed": bool(notes.get("reviewed"))}
+            e["mineral"] = {**notes["minerals"][sym], "reviewed": bool(notes.get("reviewed")) or sym in notes.get("reviewed_minerals", [])}
         if sym in body:
             e["body_rank"] = body.index(sym) + 1
         if sym in notes["anions"]:

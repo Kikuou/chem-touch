@@ -12,7 +12,7 @@
 - 授業: 各回のページ（身近な話題・きょうの流れ）、色カード（いっせい問題）、おわりの3問。すべて授業プランのファイルから作る
 - 教員提示モード（プロジェクター用）、オフライン対応（PWA）
 
-**教員の方へ**: 授業での使い方と、化合物の追加・解説の確認のしかたは [docs/teacher_guide.md](docs/teacher_guide.md) にまとめています。
+**教員の方へ**: 授業での使い方と、化合物の追加・解説の確認のしかたは [docs/teacher_guide.md](docs/teacher_guide.md) にまとめています。実際のスマホでの確認手順は [docs/device_check.md](docs/device_check.md) です。
 
 静的サイト（GitHub Pages）として無料で運用する。ログイン・個人情報・アクセス解析なし。
 
@@ -38,6 +38,12 @@
 | つくる改修 | 書き方くらべ・書きかえ練習・かんたん作図（下記）、練習用の分子 37 件を追加（C6 まで） | 実装済み |
 | 作図の改善 | かんたん作図を「選んでから変える」操作と全画面モードに作り直し（スクロールの誤作動・誤操作の対策）。書き方の切り替え・H を補う・すべて消すを常に見える場所へ、PC の横長レイアウトとキーボード操作 | 実装済み（第1段階で「なぞって描く」に置きかえ） |
 | 第1段階（docs/plan.md） | ホームの周期表タイルの修正。作図を「なぞって描く」に一本化し、部品の棚に「戻す」。分子ページを「ひとことで言うと」中心にし、専門データを「くわしいデータ」に折りたたむ。「その他」に「くわしい表示」スイッチ | 実装済み |
+| 解説文の一括確認（提案7） | `python scripts/review_sheet.py export` で、確認待ちの文をすべて `review/解説文の確認.csv`（Excel・Google スプレッドシートで開ける）に書き出し、教員が「直した文」「確認済み ○」を記入、`import` で一括反映 | 実装済み |
+| たしかめる（提案6） | 下のタブに「たしかめる」（`#/check`）: おわりの3問・計算練習・総まとめの できた印（端末の中だけ）、官能基クイズ・書きかえ練習・電子配置・なかまわけ。用語集 54語（`#/glossary`、`data/glossary.json`、下書き）: 解説文などの中の用語をタップすると説明。読みがなを全193件に | 実装済み |
+| 表示の高速化（第4段階） | 分子の一覧の構造式の絵をデータ生成時に作る（`data/thumbs.json`、gzip で約 60 KB）。一覧を開くときに RDKit.js（約 7 MB）を読み込まない。実機確認の手順書 `docs/device_check.md` | 実装済み（実機は未確認） |
+| 授業をつくる（第4段階） | 教員用の画面 `#/teach`（「くわしい表示」の中）: 授業プランの下書きをこの端末で直し（回・題名・話題・部品の追加と並べかえ・話題カード・問題の選択）、「この端末でためす」、`<年度>.json` に書き出して GitHub に置く | 実装済み |
+| 第4段階（docs/plan.md） | 残りの教材: なかまわけ・ひきあう分子・金属と自由電子・分子量カウンター・モルのはかり・とかすビーカー・反応式の天びん・中和の滴定・電子の受けわたし・総まとめクイズ（`#/lab/<id>`）。計算練習を第8〜12回の8種類に | 実装済み（内容は下書き） |
+| 第3段階（docs/plan.md、試作） | 触る教材の3つの型: スライダー型（温度と三態 `#/lab/states`、pH ものさし `#/lab/ph`）、仕分け・並べ型（組成式パズル `#/lab/formula`）、計算練習の型（`#/lab/calc?k=<種類>`: 質量パーセント濃度・分子量・質量と物質量・モル濃度・うすめる計算・反応式と量の関係・pH・中和）。三態の融点・沸点は PubChem から（`scripts/build_states.py`）。pH の身近な例とお題は下書き | 実装済み（教員の試用待ち） |
 | 第2段階（docs/plan.md） | 教材カタログと授業プラン（`js/lesson/catalog.js`、`data/plans/`、`data/questions.json`）。ホームを「今日の授業・身近なもの・基礎の復習・道具」に。各回のページ、色カード、いっせい問題の提示画面、おわりの3問。問題・身近な話題は下書き | 実装済み |
 
 ## GitHub Pages での公開（初回のみ）
@@ -70,6 +76,10 @@ python3 -m http.server 8000
 | `data/series.json` | 同族体シリーズの沸点・融点・溶解度（`scripts/build_series.py` が PubChem から取得。値ごとに出典） | 編集しない |
 | `data/plans/index.json`, `data/plans/<年度>.json` | 授業プラン（各回の題名・身近な話題・使う部品の順・問題の ID）。部品の名前は `js/lesson/catalog.js` | 教員・開発者 |
 | `data/questions.json` | 色カードとおわりの3問の問題集（4択、`reviewed` で下書きか確認済みか） | 教員・開発者 |
+| `data/labs.json` | 触る教材のデータ: pH の身近な例（範囲と出典）、組成式パズルのイオンとお題、計算練習の問題と問題用の原子量（PubChem の値を教科書どおりに丸めたもの。検査あり）。`reviewed: false` は下書き | 教員・開発者 |
+| `data/glossary.json` | 用語集（用語・よみ・短い説明・初めて出る回）。`nolink` は用語を含むが用語として扱わない言葉（二酸化炭素など）。`reviewed: false` は下書き | 教員・開発者 |
+| `data/thumbs.json` | 分子の一覧の構造式の絵（`scripts/build_thumbs.py` が SMILES から作る。古いと `validate_data.py` がエラーで知らせる） | 編集しない |
+| `data/states.json` | 温度と三態の融点・沸点・昇華する温度（1気圧、`scripts/build_states.py` が PubChem から取得。値ごとに出典） | 編集しない |
 | `scripts/element_names_ja.csv` | 元素記号と日本語名（1〜118） | 開発者 |
 | `scripts/element_notes.json` | 元素の用途・体内での役割、栄養ミネラル（はたらき・欠乏症・過剰症・食品）、人体の元素組成の順位、陰イオン名。すべて下書き。確認したら `"reviewed": true` にする | 教員 |
 | `data/elements.json` | 周期表のデータ（`scripts/build_elements.py` が PubChem の周期表と上の2ファイルから生成） | 編集しない |
@@ -122,6 +132,8 @@ python scripts/validate_data.py   # データ検証（SMILES・SDF・原子数�
 python tests/test_series_parse.py # PubChem の物性値テキストの読み取りテスト
 node tests/test_assemble.mjs      # ビルダーの組み立て（SMILES・日本語名・シス/トランス・価標の規則）
 node tests/test_notation.mjs      # 書き方（練習用 73 分子の示性式・構造式）と答え合わせ（同じ分子か）
+node tests/test_labs.mjs          # 組成式パズル（組成式・名前・いちばん簡単な比）と計算練習の答えの判定
+python tests/test_review.py       # 解説文の確認表（書き出し → 記入 → 読みこみ）
 python tests/test_elements.py     # 周期表の配置（周期・族）と電子殻の計算
 npm install                       # Playwright（スクリーンショットと E2E 用）
 python3 -m http.server 8000 &

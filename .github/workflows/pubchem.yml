@@ -1,7 +1,8 @@
 # Check the compound list against PubChem and commit the result.
 # GitHub's runners can reach PubChem even when a local network cannot.
 #   - builds data/compounds.json + data/sdf (build_compounds.py) and the
-#     boiling / melting point series (build_series.py) and the periodic
+#     boiling / melting point series (build_series.py), the temperatures of
+#     the three-state material (build_states.py) and the periodic
 #     table data (build_elements.py)
 #   - runs automatically when compound_sources.csv, the element lists or the build scripts change
 #     on a branch other than main
@@ -18,6 +19,7 @@ on:
       - scripts/build_compounds.py
       - scripts/chemcheck.py
       - scripts/build_series.py
+      - scripts/build_states.py
       - scripts/build_elements.py
       - scripts/element_names_ja.csv
       - scripts/element_notes.json
@@ -42,8 +44,12 @@ jobs:
         run: python scripts/build_compounds.py
       - name: Series properties from PubChem
         run: python scripts/build_series.py
+      - name: Three-state temperatures from PubChem
+        run: python scripts/build_states.py
       - name: Element data from PubChem
         run: python scripts/build_elements.py
+      - name: Structure pictures for the library
+        run: python scripts/build_thumbs.py
       - name: Validate
         run: python scripts/validate_data.py
       - name: Report

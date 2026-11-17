@@ -42,7 +42,7 @@
    "id": "ammonia",
    "name_ja": "アンモニア",
    "name_en": "Ammonia",
-   "reading": "",
+   "reading": "あんもにあ",
    "aliases": [
     "NH3"
    ],
@@ -75,7 +75,7 @@
    "id": "methane",
    "name_ja": "メタン",
    "name_en": "Methane",
-   "reading": "",
+   "reading": "めたん",
    "aliases": [
     "CH4"
    ],
@@ -252,7 +252,7 @@
    "id": "ethylene",
    "name_ja": "エチレン",
    "name_en": "Ethylene",
-   "reading": "",
+   "reading": "えちれん",
    "aliases": [
     "エテン",
     "C2H4"
@@ -288,7 +288,7 @@
    "id": "acetylene",
    "name_ja": "アセチレン",
    "name_en": "Acetylene",
-   "reading": "",
+   "reading": "あせちれん",
    "aliases": [
     "エチン",
     "C2H2"
@@ -324,7 +324,7 @@
    "id": "benzene",
    "name_ja": "ベンゼン",
    "name_en": "Benzene",
-   "reading": "",
+   "reading": "べんぜん",
    "aliases": [
     "C6H6"
    ],
@@ -393,7 +393,7 @@
    "id": "diamond",
    "name_ja": "ダイヤモンド",
    "name_en": "Diamond",
-   "reading": "",
+   "reading": "だいやもんど",
    "aliases": [
     "C",
     "共有結合結晶"
@@ -462,7 +462,7 @@
    "id": "ethane",
    "name_ja": "エタン",
    "name_en": "Ethane",
-   "reading": "",
+   "reading": "えたん",
    "aliases": [
     "C2H6"
    ],
@@ -496,7 +496,7 @@
    "id": "propane",
    "name_ja": "プロパン",
    "name_en": "Propane",
-   "reading": "",
+   "reading": "ぷろぱん",
    "aliases": [
     "C3H8"
    ],
@@ -530,7 +530,7 @@
    "id": "butane",
    "name_ja": "ブタン",
    "name_en": "Butane",
-   "reading": "",
+   "reading": "ぶたん",
    "aliases": [
     "n-ブタン",
     "C4H10"
@@ -565,7 +565,7 @@
    "id": "pentane",
    "name_ja": "ペンタン",
    "name_en": "Pentane",
-   "reading": "",
+   "reading": "ぺんたん",
    "aliases": [
     "n-ペンタン",
     "C5H12"
@@ -601,7 +601,7 @@
    "id": "hexane",
    "name_ja": "ヘキサン",
    "name_en": "Hexane",
-   "reading": "",
+   "reading": "へきさん",
    "aliases": [
     "n-ヘキサン",
     "C6H14"
@@ -635,7 +635,7 @@
    "id": "heptane",
    "name_ja": "ヘプタン",
    "name_en": "Heptane",
-   "reading": "",
+   "reading": "へぷたん",
    "aliases": [
     "n-ヘプタン",
     "C7H16"
@@ -669,7 +669,7 @@
    "id": "octane",
    "name_ja": "オクタン",
    "name_en": "Octane",
-   "reading": "",
+   "reading": "おくたん",
    "aliases": [
     "n-オクタン",
     "C8H18"
@@ -703,7 +703,7 @@
    "id": "nonane",
    "name_ja": "ノナン",
    "name_en": "Nonane",
-   "reading": "",
+   "reading": "のなん",
    "aliases": [
     "n-ノナン",
     "C9H20"
@@ -738,7 +738,7 @@
    "id": "isobutane",
    "name_ja": "イソブタン",
    "name_en": "Isobutane",
-   "reading": "",
+   "reading": "いそぶたん",
    "aliases": [
     "2-メチルプロパン",
     "C4H10"
@@ -772,7 +772,7 @@
    "id": "isopentane",
    "name_ja": "イソペンタン",
    "name_en": "Isopentane",
-   "reading": "",
+   "reading": "いそぺんたん",
    "aliases": [
     "2-メチルブタン",
     "C5H12"
@@ -806,7 +806,7 @@
    "id": "neopentane",
    "name_ja": "ネオペンタン",
    "name_en": "Neopentane",
-   "reading": "",
+   "reading": "ねおぺんたん",
    "aliases": [
     "2,2-ジメチルプロパン",
     "C5H12"
@@ -840,7 +840,7 @@
    "id": "propene",
    "name_ja": "プロペン",
    "name_en": "Propene",
-   "reading": "",
+   "reading": "ぷろぺん",
    "aliases": [
     "プロピレン",
     "C3H6"
@@ -875,7 +875,7 @@
    "id": "1-butene",
    "name_ja": "1-ブテン",
    "name_en": "1-Butene",
-   "reading": "",
+   "reading": "いちぶてん",
    "aliases": [
     "C4H8"
    ],
@@ -909,7 +909,7 @@
    "id": "cis-2-butene",
    "name_ja": "cis-2-ブテン",
    "name_en": "cis-2-Butene",
-   "reading": "",
+   "reading": "しすにぶてん",
    "aliases": [
     "(Z)-2-ブテン",
     "C4H8"
@@ -944,7 +944,7 @@
    "id": "trans-2-butene",
    "name_ja": "trans-2-ブテン",
    "name_en": "trans-2-Butene",
-   "reading": "",
+   "reading": "とらんすにぶてん",
    "aliases": [
     "(E)-2-ブテン",
     "C4H8"
@@ -979,7 +979,7 @@
    "id": "propyne",
    "name_ja": "プロピン",
    "name_en": "Propyne",
-   "reading": "",
+   "reading": "ぷろぴん",
    "aliases": [
     "メチルアセチレン",
     "C3H4"
@@ -1013,7 +1013,7 @@
    "id": "methanol",
    "name_ja": "メタノール",
    "name_en": "Methanol",
-   "reading": "",
+   "reading": "めたのーる",
    "aliases": [
     "メチルアルコール",
     "CH3OH"
@@ -1048,7 +1048,7 @@
    "id": "ethanol",
    "name_ja": "エタノール",
    "name_en": "Ethanol",
-   "reading": "",
+   "reading": "えたのーる",
    "aliases": [
     "エチルアルコール",
     "アルコール",
@@ -1088,7 +1088,7 @@
    "id": "1-propanol",
    "name_ja": "1-プロパノール",
    "name_en": "1-Propanol",
-   "reading": "",
+   "reading": "いちぷろぱのーる",
    "aliases": [
     "プロピルアルコール",
     "n-プロパノール"
@@ -1123,7 +1123,7 @@
    "id": "1-butanol",
    "name_ja": "1-ブタノール",
    "name_en": "1-Butanol",
-   "reading": "",
+   "reading": "いちぶたのーる",
    "aliases": [
     "ブチルアルコール",
     "n-ブタノール"
@@ -1158,7 +1158,7 @@
    "id": "1-pentanol",
    "name_ja": "1-ペンタノール",
    "name_en": "1-Pentanol",
-   "reading": "",
+   "reading": "いちぺんたのーる",
    "aliases": [
     "ペンチルアルコール",
     "アミルアルコール"
@@ -1192,7 +1192,7 @@
    "id": "1-hexanol",
    "name_ja": "1-ヘキサノール",
    "name_en": "1-Hexanol",
-   "reading": "",
+   "reading": "いちへきさのーる",
    "aliases": [
     "ヘキシルアルコール"
    ],
@@ -1225,7 +1225,7 @@
    "id": "1-heptanol",
    "name_ja": "1-ヘプタノール",
    "name_en": "1-Heptanol",
-   "reading": "",
+   "reading": "いちへぷたのーる",
    "aliases": [
     "ヘプチルアルコール"
    ],
@@ -1258,7 +1258,7 @@
    "id": "1-octanol",
    "name_ja": "1-オクタノール",
    "name_en": "1-Octanol",
-   "reading": "",
+   "reading": "いちおくたのーる",
    "aliases": [
     "オクチルアルコール"
    ],
@@ -1291,7 +1291,7 @@
    "id": "1-nonanol",
    "name_ja": "1-ノナノール",
    "name_en": "1-Nonanol",
-   "reading": "",
+   "reading": "いちのなのーる",
    "aliases": [
     "ノニルアルコール"
    ],
@@ -1325,7 +1325,7 @@
    "id": "2-propanol",
    "name_ja": "2-プロパノール",
    "name_en": "2-Propanol",
-   "reading": "",
+   "reading": "にぷろぱのーる",
    "aliases": [
     "イソプロピルアルコール",
     "イソプロパノール",
@@ -1363,7 +1363,7 @@
    "id": "2-butanol",
    "name_ja": "2-ブタノール",
    "name_en": "2-Butanol",
-   "reading": "",
+   "reading": "にぶたのーる",
    "aliases": [
     "sec-ブチルアルコール"
    ],
@@ -1397,7 +1397,7 @@
    "id": "2-methyl-2-propanol",
    "name_ja": "2-メチル-2-プロパノール",
    "name_en": "2-Methyl-2-propanol",
-   "reading": "",
+   "reading": "にめちるにぷろぱのーる",
    "aliases": [
     "tert-ブチルアルコール",
     "t-ブタノール"
@@ -1432,7 +1432,7 @@
    "id": "ethylene-glycol",
    "name_ja": "エチレングリコール",
    "name_en": "Ethylene glycol",
-   "reading": "",
+   "reading": "えちれんぐりこーる",
    "aliases": [
     "1,2-エタンジオール",
     "グリコール"
@@ -1467,7 +1467,7 @@
    "id": "glycerol",
    "name_ja": "グリセリン",
    "name_en": "Glycerol",
-   "reading": "",
+   "reading": "ぐりせりん",
    "aliases": [
     "グリセロール",
     "1,2,3-プロパントリオール"
@@ -2009,7 +2009,7 @@
    "id": "formaldehyde",
    "name_ja": "ホルムアルデヒド",
    "name_en": "Formaldehyde",
-   "reading": "",
+   "reading": "ほるむあるでひど",
    "aliases": [
     "メタナール",
     "ホルマリン"
@@ -2044,7 +2044,7 @@
    "id": "acetaldehyde",
    "name_ja": "アセトアルデヒド",
    "name_en": "Acetaldehyde",
-   "reading": "",
+   "reading": "あせとあるでひど",
    "aliases": [
     "エタナール"
    ],
@@ -2078,7 +2078,7 @@
    "id": "acetone",
    "name_ja": "アセトン",
    "name_en": "Acetone",
-   "reading": "",
+   "reading": "あせとん",
    "aliases": [
     "プロパノン",
     "ジメチルケトン"
@@ -2112,7 +2112,7 @@
    "id": "dimethyl-ether",
    "name_ja": "ジメチルエーテル",
    "name_en": "Dimethyl ether",
-   "reading": "",
+   "reading": "じめちるえーてる",
    "aliases": [
     "メトキシメタン",
     "DME"
@@ -2146,7 +2146,7 @@
    "id": "diethyl-ether",
    "name_ja": "ジエチルエーテル",
    "name_en": "Diethyl ether",
-   "reading": "",
+   "reading": "じえちるえーてる",
    "aliases": [
     "エーテル",
     "エトキシエタン"
@@ -2834,7 +2834,7 @@
    "sdf_source": "generated",
    "atoms": 56,
    "verification": {
-    "pubchem": "verified",
+    "pubchem": "structure-only",
     "stereo": "checked",
     "pubchem_title": "Doconexent"
    },
@@ -2881,7 +2881,7 @@
    "id": "alpha-d-glucose",
    "name_ja": "α-D-グルコース",
    "name_en": "alpha-D-Glucose",
-   "reading": "",
+   "reading": "あるふぁでぃーぐるこーす",
    "aliases": [
     "α-D-グルコピラノース",
     "ブドウ糖",
@@ -2919,7 +2919,7 @@
    "id": "beta-d-glucose",
    "name_ja": "β-D-グルコース",
    "name_en": "beta-D-Glucose",
-   "reading": "",
+   "reading": "べーたでぃーぐるこーす",
    "aliases": [
     "β-D-グルコピラノース",
     "ブドウ糖",
@@ -2957,7 +2957,7 @@
    "id": "d-glucose-open",
    "name_ja": "D-グルコース（鎖状）",
    "name_en": "D-Glucose (open-chain)",
-   "reading": "",
+   "reading": "でぃーぐるこーす",
    "aliases": [
     "アルデヒド形グルコース",
     "ブドウ糖"
@@ -2993,7 +2993,7 @@
    "id": "beta-d-fructose",
    "name_ja": "D-フルクトース（β-フラノース）",
    "name_en": "beta-D-Fructofuranose",
-   "reading": "",
+   "reading": "でぃーふるくとーす",
    "aliases": [
     "果糖",
     "β-D-フルクトフラノース",
@@ -3030,7 +3030,7 @@
    "id": "beta-d-galactose",
    "name_ja": "D-ガラクトース（β-ピラノース）",
    "name_en": "beta-D-Galactose",
-   "reading": "",
+   "reading": "でぃーがらくとーす",
    "aliases": [
     "β-D-ガラクトピラノース",
     "ガラクトース"
@@ -3065,7 +3065,7 @@
    "id": "sucrose",
    "name_ja": "スクロース",
    "name_en": "Sucrose",
-   "reading": "",
+   "reading": "すくろーす",
    "aliases": [
     "ショ糖",
     "砂糖"
@@ -3102,7 +3102,7 @@
    "id": "lactose",
    "name_ja": "ラクトース",
    "name_en": "Lactose",
-   "reading": "",
+   "reading": "らくとーす",
    "aliases": [
     "乳糖",
     "β-ラクトース"
@@ -3139,7 +3139,7 @@
    "id": "maltose",
    "name_ja": "マルトース",
    "name_en": "Maltose",
-   "reading": "",
+   "reading": "まるとーす",
    "aliases": [
     "麦芽糖",
     "α-マルトース"
@@ -3176,7 +3176,7 @@
    "id": "amylose-fragment",
    "name_ja": "アミロース断片（マルトトリオース）",
    "name_en": "Amylose fragment (maltotriose)",
-   "reading": "",
+   "reading": "あみろーすだんぺん",
    "aliases": [
     "マルトトリオース",
     "デンプン",
@@ -3213,7 +3213,7 @@
    "id": "cellulose-fragment",
    "name_ja": "セルロース断片（セロトリオース）",
    "name_en": "Cellulose fragment (cellotriose)",
-   "reading": "",
+   "reading": "せるろーすだんぺん",
    "aliases": [
     "セロトリオース",
     "セルロース",
@@ -5007,9 +5007,10 @@
    "sdf_source": "generated",
    "atoms": 75,
    "verification": {
-    "pubchem": "verified",
+    "pubchem": "structure-only",
     "stereo": "undefined",
-    "pubchem_title": "Heme b"
+    "pubchem_title": "Heme b",
+    "pubchem_name_cid": 53356674
    },
    "pubchem_formula": "C34H32FeN4O4",
    "stereo_note": "undefined",
@@ -5649,7 +5650,7 @@
    "formula": "C22H30Cl2N10",
    "mw": 505.4,
    "smiles": "NC(=NCCCCCCN=C(N)N=C(N)Nc1ccc(Cl)cc1)N=C(N)Nc1ccc(Cl)cc1",
-   "pubchem_cid": 9552079,
+   "pubchem_cid": 2713,
    "inchikey": "GHXZTYHSJHQHIJ-UHFFFAOYSA-N",
    "sdf": "sdf/chlorhexidine.sdf",
    "sdf_source": "pubchem-3d",
@@ -5657,7 +5658,7 @@
    "verification": {
     "pubchem": "verified",
     "stereo": "undefined",
-    "pubchem_title": "Chlorhexidine"
+    "pubchem_title": "Chlorohexidine"
    },
    "pubchem_formula": "C22H30Cl2N10",
    "stereo_note": "undefined",
@@ -5744,7 +5745,7 @@
    "id": "2-methylpentane",
    "name_ja": "2-メチルペンタン",
    "name_en": "2-Methylpentane",
-   "reading": "",
+   "reading": "にめちるぺんたん",
    "aliases": [
     "イソヘキサン",
     "C6H14"
@@ -5779,7 +5780,7 @@
    "id": "3-methylpentane",
    "name_ja": "3-メチルペンタン",
    "name_en": "3-Methylpentane",
-   "reading": "",
+   "reading": "さんめちるぺんたん",
    "aliases": [
     "C6H14"
    ],
@@ -5813,7 +5814,7 @@
    "id": "2-2-dimethylbutane",
    "name_ja": "2,2-ジメチルブタン",
    "name_en": "2,2-Dimethylbutane",
-   "reading": "",
+   "reading": "ににじめちるぶたん",
    "aliases": [
     "ネオヘキサン",
     "C6H14"
@@ -5848,7 +5849,7 @@
    "id": "2-3-dimethylbutane",
    "name_ja": "2,3-ジメチルブタン",
    "name_en": "2,3-Dimethylbutane",
-   "reading": "",
+   "reading": "にさんじめちるぶたん",
    "aliases": [
     "C6H14"
    ],
@@ -5882,7 +5883,7 @@
    "id": "2-methylpropene",
    "name_ja": "2-メチルプロペン",
    "name_en": "2-Methylpropene",
-   "reading": "",
+   "reading": "にめちるぷろぺん",
    "aliases": [
     "イソブテン",
     "イソブチレン",
@@ -5918,7 +5919,7 @@
    "id": "1-pentene",
    "name_ja": "1-ペンテン",
    "name_en": "1-Pentene",
-   "reading": "",
+   "reading": "いちぺんてん",
    "aliases": [
     "C5H10"
    ],
@@ -5952,7 +5953,7 @@
    "id": "cis-2-pentene",
    "name_ja": "cis-2-ペンテン",
    "name_en": "cis-2-Pentene",
-   "reading": "",
+   "reading": "しすにぺんてん",
    "aliases": [
     "(Z)-2-ペンテン",
     "C5H10"
@@ -5986,7 +5987,7 @@
    "id": "trans-2-pentene",
    "name_ja": "trans-2-ペンテン",
    "name_en": "trans-2-Pentene",
-   "reading": "",
+   "reading": "とらんすにぺんてん",
    "aliases": [
     "(E)-2-ペンテン",
     "C5H10"
@@ -6020,7 +6021,7 @@
    "id": "1-hexene",
    "name_ja": "1-ヘキセン",
    "name_en": "1-Hexene",
-   "reading": "",
+   "reading": "いちへきせん",
    "aliases": [
     "C6H12"
    ],
@@ -6054,7 +6055,7 @@
    "id": "cis-3-hexene",
    "name_ja": "cis-3-ヘキセン",
    "name_en": "cis-3-Hexene",
-   "reading": "",
+   "reading": "しすさんへきせん",
    "aliases": [
     "(Z)-3-ヘキセン",
     "C6H12"
@@ -6088,7 +6089,7 @@
    "id": "trans-3-hexene",
    "name_ja": "trans-3-ヘキセン",
    "name_en": "trans-3-Hexene",
-   "reading": "",
+   "reading": "とらんすさんへきせん",
    "aliases": [
     "(E)-3-ヘキセン",
     "C6H12"
@@ -6122,7 +6123,7 @@
    "id": "1-3-butadiene",
    "name_ja": "1,3-ブタジエン",
    "name_en": "1,3-Butadiene",
-   "reading": "",
+   "reading": "いちさんぶたじえん",
    "aliases": [
     "ブタジエン",
     "C4H6"
@@ -6157,7 +6158,7 @@
    "id": "1-butyne",
    "name_ja": "1-ブチン",
    "name_en": "1-Butyne",
-   "reading": "",
+   "reading": "いちぶちん",
    "aliases": [
     "エチルアセチレン",
     "C4H6"
@@ -6192,7 +6193,7 @@
    "id": "2-butyne",
    "name_ja": "2-ブチン",
    "name_en": "2-Butyne",
-   "reading": "",
+   "reading": "にぶちん",
    "aliases": [
     "ジメチルアセチレン",
     "C4H6"
@@ -6226,7 +6227,7 @@
    "id": "1-pentyne",
    "name_ja": "1-ペンチン",
    "name_en": "1-Pentyne",
-   "reading": "",
+   "reading": "いちぺんちん",
    "aliases": [
     "C5H8"
    ],
@@ -6259,7 +6260,7 @@
    "id": "2-pentyne",
    "name_ja": "2-ペンチン",
    "name_en": "2-Pentyne",
-   "reading": "",
+   "reading": "にぺんちん",
    "aliases": [
     "C5H8"
    ],
@@ -6292,7 +6293,7 @@
    "id": "3-hexyne",
    "name_ja": "3-ヘキシン",
    "name_en": "3-Hexyne",
-   "reading": "",
+   "reading": "さんへきしん",
    "aliases": [
     "C6H10"
    ],
@@ -6325,7 +6326,7 @@
    "id": "cyclopropane",
    "name_ja": "シクロプロパン",
    "name_en": "Cyclopropane",
-   "reading": "",
+   "reading": "しくろぷろぱん",
    "aliases": [
     "C3H6"
    ],
@@ -6358,7 +6359,7 @@
    "id": "cyclobutane",
    "name_ja": "シクロブタン",
    "name_en": "Cyclobutane",
-   "reading": "",
+   "reading": "しくろぶたん",
    "aliases": [
     "C4H8"
    ],
@@ -6392,7 +6393,7 @@
    "id": "cyclopentane",
    "name_ja": "シクロペンタン",
    "name_en": "Cyclopentane",
-   "reading": "",
+   "reading": "しくろぺんたん",
    "aliases": [
     "C5H10"
    ],
@@ -6425,7 +6426,7 @@
    "id": "cyclohexane",
    "name_ja": "シクロヘキサン",
    "name_en": "Cyclohexane",
-   "reading": "",
+   "reading": "しくろへきさん",
    "aliases": [
     "C6H12"
    ],
@@ -6459,7 +6460,7 @@
    "id": "cyclohexene",
    "name_ja": "シクロヘキセン",
    "name_en": "Cyclohexene",
-   "reading": "",
+   "reading": "しくろへきせん",
    "aliases": [
     "C6H10"
    ],
@@ -6493,7 +6494,7 @@
    "id": "2-methyl-1-propanol",
    "name_ja": "2-メチル-1-プロパノール",
    "name_en": "2-Methyl-1-propanol",
-   "reading": "",
+   "reading": "にめちるいちぷろぱのーる",
    "aliases": [
     "イソブチルアルコール",
     "C4H10O"
@@ -6528,7 +6529,7 @@
    "id": "propanal",
    "name_ja": "プロパナール",
    "name_en": "Propanal",
-   "reading": "",
+   "reading": "ぷろぱなーる",
    "aliases": [
     "プロピオンアルデヒド",
     "C3H6O"
@@ -6563,7 +6564,7 @@
    "id": "butanal",
    "name_ja": "ブタナール",
    "name_en": "Butanal",
-   "reading": "",
+   "reading": "ぶたなーる",
    "aliases": [
     "ブチルアルデヒド",
     "C4H8O"
@@ -6598,7 +6599,7 @@
    "id": "2-butanone",
    "name_ja": "2-ブタノン",
    "name_en": "2-Butanone",
-   "reading": "",
+   "reading": "にぶたのん",
    "aliases": [
     "メチルエチルケトン",
     "MEK",
@@ -6634,7 +6635,7 @@
    "id": "3-pentanone",
    "name_ja": "3-ペンタノン",
    "name_en": "3-Pentanone",
-   "reading": "",
+   "reading": "さんぺんたのん",
    "aliases": [
     "ジエチルケトン",
     "C5H10O"
@@ -6668,7 +6669,7 @@
    "id": "ethyl-methyl-ether",
    "name_ja": "エチルメチルエーテル",
    "name_en": "Ethyl methyl ether",
-   "reading": "",
+   "reading": "えちるめちるえーてる",
    "aliases": [
     "メトキシエタン",
     "C3H8O"
@@ -6808,7 +6809,7 @@
    "id": "methylamine",
    "name_ja": "メチルアミン",
    "name_en": "Methylamine",
-   "reading": "",
+   "reading": "めちるあみん",
    "aliases": [
     "CH5N"
    ],
@@ -6841,7 +6842,7 @@
    "id": "ethylamine",
    "name_ja": "エチルアミン",
    "name_en": "Ethylamine",
-   "reading": "",
+   "reading": "えちるあみん",
    "aliases": [
     "C2H7N"
    ],
@@ -6874,7 +6875,7 @@
    "id": "dimethylamine",
    "name_ja": "ジメチルアミン",
    "name_en": "Dimethylamine",
-   "reading": "",
+   "reading": "じめちるあみん",
    "aliases": [
     "C2H7N"
    ],
@@ -6907,7 +6908,7 @@
    "id": "trimethylamine",
    "name_ja": "トリメチルアミン",
    "name_en": "Trimethylamine",
-   "reading": "",
+   "reading": "とりめちるあみん",
    "aliases": [
     "C3H9N"
    ],
@@ -6940,7 +6941,7 @@
    "id": "aniline",
    "name_ja": "アニリン",
    "name_en": "Aniline",
-   "reading": "",
+   "reading": "あにりん",
    "aliases": [
     "アミノベンゼン",
     "C6H7N"
@@ -6976,7 +6977,7 @@
    "id": "phenol",
    "name_ja": "フェノール",
    "name_en": "Phenol",
-   "reading": "",
+   "reading": "ふぇのーる",
    "aliases": [
     "石炭酸",
     "C6H6O"

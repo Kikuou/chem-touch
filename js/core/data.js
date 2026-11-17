@@ -42,10 +42,43 @@ export async function lifeGroups() {
   return (await getJSON('categories.json')).life || [];
 }
 
-// The lesson plan in use (data/plans/index.json -> data/plans/<id>.json)
-export async function lessonPlan() {
+// The lesson plan in use (data/plans/index.json -> data/plans/<id>.json).
+// A teacher trying a draft from 授業をつくる (views/teach.js) sees the draft
+// instead, on that device only.
+export async function lessonPlan({ file = false } = {}) {
+  if (!file) {
+    try {
+      if (localStorage.getItem('chemtouch:teach:use') === '1') {
+        const d = JSON.parse(localStorage.getItem('chemtouch:teach:draft') || 'null');
+        if (d && Array.isArray(d.lessons)) return d;
+      }
+    } catch (e) { /* no storage: the file */ }
+  }
   const index = await getJSON('plans/index.json');
   return getJSON(`plans/${index.current}.json`);
+}
+
+// Hands-on materials (data/labs.json) and the three-state temperatures
+// from PubChem (data/states.json)
+export async function labs() {
+  return getJSON('labs.json');
+}
+// homologous series with boiling / melting points from PubChem
+export async function seriesData() {
+  return getJSON('series.json');
+}
+export async function states() {
+  return (await getJSON('states.json')).substances;
+}
+
+// 2D pictures of the compounds made at build time (scripts/build_thumbs.py),
+// so that the list does not need RDKit.js first; {} when the file is missing
+export async function thumbs() {
+  try {
+    return (await getJSON('thumbs.json')).thumbs;
+  } catch (e) {
+    return {};
+  }
 }
 
 // Question bank of the colour cards and おわりの3問, by id

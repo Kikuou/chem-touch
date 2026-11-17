@@ -152,6 +152,28 @@ def main() -> int:
             if m is None or sum(a.GetAtomicNum() == 6 for a in m.GetAtoms()) > 6:
                 err(f"practice.json/{g.get('id')}", f"'{pid}' has more than 6 carbons")
 
+    # thumbs.json (scripts/build_thumbs.py): a picture for every compound, drawn from its current SMILES
+    import hashlib
+    tpath = DATA / "thumbs.json"
+    th = json.loads(tpath.read_text(encoding="utf-8"))["thumbs"] if tpath.exists() else {}
+    stale = [c["id"] for c in compounds if c.get("kind") != "crystal" and c.get("smiles")
+             and th.get(c["id"], {}).get("k") != hashlib.sha1(c["smiles"].encode()).hexdigest()[:10]]
+    if stale:
+        errors.append(f"thumbs.json: missing or old pictures ({', '.join(stale[:5])}{' ...' if len(stale) > 5 else ''}); run python scripts/build_thumbs.py")
+
+    # every compound has a reading (hiragana), used for search and under kanji names
+    for c in compounds:
+        if not re.fullmatch(r"[ぁ-んー]+", c.get("reading") or ""):
+            errors.append(f"{c.get('id')}: reading must be hiragana (got '{c.get('reading')}')")
+    # 用語集 (glossary.json): unique terms, hiragana readings, an existing lesson
+    gl = json.loads((DATA / "glossary.json").read_text(encoding="utf-8"))
+    gterms = [t["term"] for t in gl["terms"]]
+    for t in sorted({t for t in gterms if gterms.count(t) > 1}):
+        errors.append(f"glossary.json: '{t}' appears twice")
+    for t in gl["terms"]:
+        if not re.fullmatch(r"[ぁ-んー]+", t.get("reading", "")) or not t.get("text") or not (1 <= t.get("lesson", 0) <= 15):
+            errors.append(f"glossary.json '{t.get('term')}': needs a hiragana reading, a text and a lesson 1-15")
+
     # 身近なもの groups (categories.json "life")
     for g in json.loads((DATA / "categories.json").read_text(encoding="utf-8")).get("life", []):
         for k in g.get("cats", []):
@@ -180,6 +202,7 @@ def main() -> int:
     # lesson plans (data/plans/): the parts are catalog ids (js/lesson/catalog.js)
     presets = {p["id"] for p in json.loads((DATA / "comparisons.json").read_text(encoding="utf-8"))["presets"]}
     series_ids = {x["id"] for x in json.loads((DATA / "series.json").read_text(encoding="utf-8"))["series"]}
+    LAB_IDS = set(re.findall(r"^  ([a-z-]+): \{ title:", (ROOT / "js" / "views" / "lab.js").read_text(encoding="utf-8"), re.M)) - {"calc"}
     plain_kinds = {"notation", "draw", "practice", "quiz", "series", "periodic", "electron", "bond", "soon"}
     arg_check = {
         "compound": lambda a: a in idset,
@@ -193,7 +216,72 @@ def main() -> int:
         "bond": lambda a: a in (None, "ionic", "covalent"),
         "practice": lambda a: a in (None, "choose", "blocks", "draw"),
         "soon": lambda a: bool(a),
+        "lab": lambda a: a in LAB_IDS,
+        "calc": lambda a: a in labsdoc["calc"]["kinds"],
     }
+    # hands-on materials: labs.json (drafts) and states.json (PubChem)
+    labsdoc = json.loads((DATA / "labs.json").read_text(encoding="utf-8"))
+    for x in labsdoc["ph"]["examples"]:
+        if not (0 <= x["low"] <= x["high"] <= 14) or not x.get("sources"):
+            errors.append(f"labs.json ph/{x.get('name')}: needs 0 <= low <= high <= 14 and a source")
+    ion_ids = {i["id"] for i in labsdoc["formula"]["ions"]}
+    for i in labsdoc["formula"]["ions"]:
+        if not isinstance(i.get("charge"), int) or i["charge"] == 0:
+            errors.append(f"labs.json formula/{i.get('id')}: charge must be a non-zero integer")
+    for g in labsdoc["formula"]["goals"]:
+        if g.get("cation") not in ion_ids or g.get("anion") not in ion_ids:
+            errors.append(f"labs.json formula goal '{g.get('text')}': unknown ion")
+    # なかまわけ: every card goes into an existing box
+    for sid, st in labsdoc["sorts"].items():
+        for it in st["items"]:
+            if not (0 <= it.get("box", -1) < len(st["boxes"])):
+                errors.append(f"labs.json sorts/{sid}: '{it.get('name')}' has no valid box")
+    # 反応式の天びん: each reaction can be balanced with coefficients 1..9
+    import itertools
+
+    def atoms_of(f):
+        out = {}
+        for el, n in re.findall(r"([A-Z][a-z]?)(\d*)", f):
+            out[el] = out.get(el, 0) + (int(n) if n else 1)
+        return out
+
+    for r in labsdoc["reactions"]:
+        terms = [atoms_of(f) for f in r["left"] + r["right"]]
+        nl = len(r["left"])
+        els = {e for t in terms for e in t}
+        ok = any(all(sum(c * t.get(e, 0) for c, t in zip(co[:nl], terms[:nl])) ==
+                     sum(c * t.get(e, 0) for c, t in zip(co[nl:], terms[nl:])) for e in els)
+                 for co in itertools.product(range(1, 10), repeat=len(terms)))
+        if not ok:
+            errors.append(f"labs.json reactions '{r['name']}': cannot be balanced with coefficients 1-9")
+
+    # calculation practice: rounded atomic weights agree with PubChem (elements.json)
+    eldoc = json.loads((DATA / "elements.json").read_text(encoding="utf-8"))
+    masses = {e["symbol"]: e["mass"] for e in (eldoc["elements"] if isinstance(eldoc, dict) else eldoc)}
+    aw = labsdoc["calc"]["atomic_weights"]
+    for el, w in aw.items():
+        if el not in masses or abs(masses[el] - w) > 0.5:
+            errors.append(f"labs.json calc atomic weight {el}={w} is far from PubChem {masses.get(el)}")
+    for kind, kd in labsdoc["calc"]["kinds"].items():
+        if len(kd.get("problems", [])) < 2:
+            errors.append(f"labs.json calc/{kind}: needs at least 2 problems")
+        for pr in kd.get("problems", []):
+            for el in pr.get("atoms", {}):
+                if el not in aw:
+                    errors.append(f"labs.json calc/{kind}: no atomic weight for {el}")
+    for st in json.loads((DATA / "states.json").read_text(encoding="utf-8"))["substances"]:
+        if st["id"] not in idset:
+            errors.append(f"states.json: unknown compound {st['id']}")
+        keys = ["sublimes"] if st["kind"] == "sublime" else ["mp", "bp"]
+        for k in keys:
+            v = st.get(k)
+            if v is None:
+                warnings.append(f"states.json {st['id']}: no sourced {k} yet (filled in by the PubChem check)")
+            elif not v.get("source"):
+                errors.append(f"states.json {st['id']}: {k} has no source")
+        if st["kind"] != "sublime" and st.get("mp") and st.get("bp") and st["mp"]["value"] >= st["bp"]["value"]:
+            errors.append(f"states.json {st['id']}: melting point must be below boiling point")
+
     index = json.loads((DATA / "plans" / "index.json").read_text(encoding="utf-8"))
     plan_ids = [p["id"] for p in index.get("plans", [])]
     if index.get("current") not in plan_ids:

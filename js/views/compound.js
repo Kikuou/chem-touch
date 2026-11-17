@@ -1,6 +1,7 @@
 // Molecule detail (spec A-7, B-2, D-1): #/compound/<id> and #/view?smiles=...
 import { esc, formulaHtml, toast } from '../core/dom.js';
 import { isDetail } from '../core/detail.js';
+import { glossary, linkTerms } from '../lesson/glossary.js';
 import { goBack } from '../core/router.js';
 import { icon } from '../core/icons.js';
 import { compound, compounds, sdf as loadSdf } from '../core/data.js';
@@ -64,14 +65,15 @@ export async function renderCompound({ el, params }) {
   const content = shell(el, c.name_ja);
   el.querySelector('[data-act="share"]').addEventListener('click', () => openShareSheet({ title: c.name_ja, hash: compoundHash(c.id) }));
   const related = (await Promise.all((c.related || []).map((id) => compound(id)))).filter(Boolean);
+  await glossary().catch(() => null);
 
   content.innerHTML = `
     <div class="mol-title">
       <h2>${esc(c.name_ja)}</h2>
-      ${c.reading && c.reading !== c.name_ja ? `<div class="en">${esc(c.reading)}</div>` : ''}
+      ${c.reading && /[\u4e00-\u9fff]/.test(c.name_ja) ? `<div class="en">${esc(c.reading)}</div>` : ''}
       ${c.formula ? `<div class="fm">${formulaHtml(c.formula)}${c.mw ? `<span class="muted" style="font-weight:400">　分子量 ${c.mw.toFixed(2)}</span>` : ''}</div>` : ''}
     </div>
-    ${c.note_ja ? `<section class="card cp-note"><h2 class="section-title" style="margin-top:0">ひとことで言うと${c.note_reviewed ? '' : '<span class="draft" title="教員による確認前の下書きです">下書き</span>'}</h2><p class="note">${esc(c.note_ja)}</p></section>` : ''}
+    ${c.note_ja ? `<section class="card cp-note"><h2 class="section-title" style="margin-top:0">ひとことで言うと${c.note_reviewed ? '' : '<span class="draft" title="教員による確認前の下書きです">下書き</span>'}</h2><p class="note">${linkTerms(c.note_ja)}</p></section>` : ''}
     <div class="molpanel"></div>
     <div class="stack">
       ${c.fatty_acid && c.categories.includes('fatty-acid') ? faCardHtml(c.fatty_acid) : ''}

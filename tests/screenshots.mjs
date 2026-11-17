@@ -56,6 +56,18 @@ for (const scheme of ['light', 'dark']) {
     await p.goto(BASE + '#/more');
     await p.waitForSelector('[data-detail]');
     await shot(p, 'more');
+    // たしかめる, 用語集, 授業をつくる (teacher, behind くわしい表示)
+    await p.goto(BASE + '#/check');
+    await p.waitForSelector('.ck-meter');
+    await shot(p, 'check');
+    await p.goto(BASE + '#/glossary');
+    await p.waitForSelector('.gl-item');
+    await shot(p, 'glossary');
+    await p.evaluate(() => localStorage.setItem('chemtouch:detail', '1'));
+    await p.goto(BASE + '#/teach?no=7');
+    await p.waitForSelector('.tc-parts');
+    await shot(p, 'teach');
+    await p.evaluate(() => localStorage.removeItem('chemtouch:detail'));
     // lessons (docs/plan.md 提案5・11)
     await p.goto(BASE + '#/lessons');
     await p.waitForSelector('.ls-list');
@@ -80,6 +92,43 @@ for (const scheme of ['light', 'dark']) {
     await p.waitForSelector('.results .item');
     await p.waitForTimeout(2000); // thumbnails (RDKit.js)
     await shot(p, 'life-food');
+    // hands-on materials (docs/plan.md 提案9・10)
+    await p.goto(BASE + '#/lab/states');
+    await p.waitForSelector('.lb-range, .empty');
+    await p.waitForTimeout(1500);
+    await shot(p, 'lab-states');
+    if (await p.locator('[data-s="carbon-dioxide"]').count()) {
+      await p.click('[data-s="carbon-dioxide"]');
+      await p.waitForTimeout(1500);
+      await shot(p, 'lab-states-co2');
+    }
+    await p.goto(BASE + '#/lab/formula?g=1');
+    await p.waitForSelector('.fp-pal');
+    for (const id of ['Mg2+', 'Cl-', 'Cl-']) await p.click(`.fp-pal [data-add="${id}"]`);
+    await shot(p, 'lab-formula');
+    await p.goto(BASE + '#/lab/ph?ph=2.3');
+    await p.waitForSelector('.ph-range');
+    await shot(p, 'lab-ph');
+    for (const [h, sel] of [['#/lab/sort', '.so-list'], ['#/lab/balance', '.rb-eq'], ['#/lab/titration', '.ti-graph'], ['#/lab/molscale', '.ms-bags'], ['#/lab/attract', '.at-mols g'], ['#/lab/redox', '.rx-e']]) {
+      await p.goto(BASE + h);
+      await p.waitForSelector(sel);
+      await p.waitForTimeout(800);
+      await shot(p, 'lab-' + h.split('/').pop());
+    }
+    await p.goto(BASE + '#/lab/calc?k=mass-percent');
+    await p.waitForSelector('[data-pick]');
+    await p.click('[data-pick] >> text=/^.5 %$/');
+    await shot(p, 'lab-calc-1');
+    await p.click('[data-act="to2"]');
+    await p.click('[data-key="5"]');
+    await p.click('[data-key="ok"]');
+    await shot(p, 'lab-calc-2');
+    await p.click('[data-key="5"]');
+    await p.click('[data-key="ok"]');
+    await p.click('[data-act="to3"]');
+    await p.click('[data-key="1"]');
+    await p.click('[data-key="ok"]');
+    await shot(p, 'lab-calc-3');
     await p.setViewportSize({ width: 1280, height: 720 });
     await p.goto(BASE + '#/lesson/7/ask');
     await p.waitForSelector('.ls-ask-o');

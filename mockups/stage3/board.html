@@ -1,0 +1,37 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><style>
+body{margin:0;background:#E9EBEE;font-family:"Hiragino Sans","Noto Sans JP",sans-serif;color:#15171A}
+.b{display:none;padding:28px 32px 36px}.b.on{display:block}
+h1{font-size:26px;margin:0 0 4px}.sub{font-size:15px;color:#5B616B;margin:0 0 22px;line-height:1.6;max-width:1500px}
+.row{display:flex;gap:28px;align-items:flex-start}
+.c{width:375px;flex:none}
+.lab{display:inline-block;font-weight:700;font-size:15px;padding:4px 12px;border-radius:99px;margin-bottom:8px;background:#2F6F4F;color:#fff}
+.c img{width:100%;display:block;border-radius:18px;box-shadow:0 0 0 1px #C9CDD3,0 8px 24px rgba(0,0,0,.12);background:#fff}
+.c p{font-size:13.5px;line-height:1.6;margin:10px 2px 0;color:#30343A}
+</style></head><body>
+<section class="b" id="slider">
+<h1>① スライダー型：温度と三態 ／ pH ものさし</h1>
+<p class="sub">指でスライダーを動かすと、すぐに絵と言葉が変わる。文は2行まで。同じ型で、あとからモル・濃度の教材も作る。端末が「視差効果を減らす」設定なら、粒子は動かさず止まった絵にする。</p>
+<div class="row">
+<div class="c"><span class="lab">三態：−10 ℃</span><img src="img/states-solid.png"><p>固体：分子が並んで、その場でふるえる（実際は小さく揺れるアニメ）。</p></div>
+<div class="c"><span class="lab">三態：25 ℃</span><img src="img/states-liquid.png"><p>液体：くっついたまま動きまわる。</p></div>
+<div class="c"><span class="lab">三態：110 ℃</span><img src="img/states-gas.png"><p>気体：ばらばらに飛びまわる。0 ℃・100 ℃（1気圧の水）の目盛り。</p></div>
+<div class="c"><span class="lab">pH ものさし：pH 2</span><img src="img/ph-2.png"><p>pH を動かすと、中性とくらべた H⁺ の濃さ（×10 のはしご）が変わる。胃液・レモン・血液・せっけん水の位置は<b>仮</b>。出典を確かめて先生に確認してから入れる。</p></div>
+</div></section>
+<section class="b" id="sort">
+<h1>② 仕分け・並べ型：組成式パズル</h1>
+<p class="sub">イオンをタップして入れる（もう一度タップで出す）。＋と−の合計が 0 になると組成式と名前が出る。おだいなしの自由モードもある。同じ型で、あとから「なかまわけ」「反応式の天びん」を作る。</p>
+<div class="row">
+<div class="c"><span class="lab">はじめ</span><img src="img/formula-0.png"><p>おだいは身近な物質（にがり・食塩・カルシウムのサプリなど）。</p></div>
+<div class="c"><span class="lab">とちゅう</span><img src="img/formula-1.png"><p>電気の合計がいつも見えている。「まだ＋1」と、たりないものを言葉で。</p></div>
+<div class="c"><span class="lab">できた</span><img src="img/formula-2.png"><p>MgCl₂ と名前（塩化マグネシウム）。名前はイオンの名前から自動で作る。</p></div>
+</div></section>
+<section class="b" id="calc">
+<h1>③ 計算練習の型：濃度（質量パーセント濃度）</h1>
+<p class="sub">① 図で見当をつける4択 → ② 式の穴うめ → ③ 自分で計算。①だけで終えてもよい。入力は画面のテンキーだけ（スマホのキーボードは出さない）。答えは有効数字2桁くらいの幅で正解にする。まちがえたら手順を1つずつ見せる。計算中は下のタブを隠す。</p>
+<div class="row">
+<div class="c"><span class="lab">① 見当をつける</span><img src="img/calc-1.png"></div>
+<div class="c"><span class="lab">② 穴うめ</span><img src="img/calc-2.png"></div>
+<div class="c"><span class="lab">③ 自分で計算（まちがえたとき）</span><img src="img/calc-3.png"></div>
+</div></section>
+<script>const id=location.hash.slice(1)||'slider';document.getElementById(id).classList.add('on');</script>
+</body></html>

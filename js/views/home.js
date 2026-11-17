@@ -1,7 +1,7 @@
 // Home screen (docs/plan.md 提案1): 今日の授業, 身近なもの, 基礎の復習, 道具.
 // Today's lesson is the one chosen on this device (no dates: the student
 // picks it, or opens the teacher's QR code); "ほかの回をえらぶ" changes it.
-import { esc, el as h } from '../core/dom.js';
+import { esc, el as h, prefs } from '../core/dom.js';
 import { icon } from '../core/icons.js';
 import { lessonPlan, lifeGroups } from '../core/data.js';
 import { todayNo, setToday, doneMap } from '../lesson/progress.js';
@@ -73,6 +73,7 @@ export async function renderHome({ el }) {
           <a class="cb" href="#/library?focus=1" aria-label="分子をさがす">${icon('search')}</a>
         </div>
       </header>
+      ${prefs.get('teach:use', '') === '1' ? `<div class="hm-draft">${icon('info')}<span>授業プランの下書きを表示中（この端末だけ）</span><a href="#/teach">授業をつくる</a></div>` : ''}
       ${todayHtml(today)}
       <h2 class="hm-sec"><a href="#/life">身近なもの ${icon('chev')}</a></h2>
       <div class="hm-life">${life.map((g) => `

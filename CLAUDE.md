@@ -18,6 +18,7 @@
 - 化合物の追加は `scripts/compound_sources.csv` に行を足し、`python scripts/build_compounds.py` で生成する。PubChem に届かない環境では RDKit だけで生成し、push 後に GitHub Actions（`pubchem.yml`）が照合して結果をコミットする。そのコミットを取り込んでから次の push をする。
 - 濃度・pH・原子量などの数値や「身近な例」は、出典を確かめ、教員に確認してから載せる。
 - 新しい解説文は下書き（`note_reviewed: false`）として入れ、下書きであることを報告する。
+- 教員の確認は `review/解説文の確認.csv`（`python scripts/review_sheet.py export` / `import`）でまとめて受け取れる。下書きを足したら書き出し直す。
 
 ## Git
 - 作業ブランチで作業し、PR を作る。`main` に直接 push しない。**マージは利用者が行う**（こちらではマージしない）。
@@ -28,13 +29,15 @@
 - push の前に実行する:
   ```sh
   python scripts/validate_data.py
-  node tests/test_notation.mjs && node tests/test_assemble.mjs
+  node tests/test_notation.mjs && node tests/test_assemble.mjs && node tests/test_labs.mjs
+  python tests/test_review.py
   python3 -m http.server 8000 &   # 別ターミナルでも可
   npm run e2e
   ```
 - 画面を変えたら `npm run screenshots` で `docs/screenshots/` を更新し、変更した画面の画像を目で確かめる（意図しない差分の画像はコミットしない）。
 - スマホ幅（375px）を基準に作る。指の操作は e2e でタッチイベントを再現して確かめる。
-- この開発環境には iPhone・Android の実機がない。実機で未確認のことは、そう報告する。
+- この開発環境には iPhone・Android の実機がない。実機で未確認のことは、そう報告する。教員に頼む確認は `docs/device_check.md` にまとめてある。
+- 化合物を足したら `python scripts/build_thumbs.py` で一覧の絵も作り直す（古いと `validate_data.py` がエラーにする）。
 
 ## 設計上の注意
 - CSS のクラス名は画面ごとに接頭辞をつける（例: `sks-`, `nt-`, `pr-`）。短い共通名の衝突でホームの表示が崩れたことがある（`.pt`）。

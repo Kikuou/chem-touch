@@ -21,6 +21,9 @@ import { renderMore } from './views/more.js';
 import { renderLessons, renderLesson, renderAsk, renderEnd } from './views/lesson.js';
 import { renderCard } from './views/card.js';
 import { renderLife } from './views/life.js';
+import { renderLab } from './views/lab.js';
+import { renderTeach } from './views/teach.js';
+import { renderCheck, renderGlossary } from './views/check.js';
 import { renderPeriodic } from './periodic/table.js';
 import { renderElement } from './periodic/detail.js';
 import { renderElectron, renderElectronHome } from './periodic/electron.js';
@@ -39,12 +42,16 @@ route('/lesson/:no/ask', renderAsk, { tab: 'home', title: 'いっせい問題' }
 route('/lesson/:no/end', renderEnd, { tab: 'home', title: 'おわりの3問' });
 route('/card', renderCard, { tab: 'home', title: '色カード' });
 route('/life', renderLife, { tab: 'library', title: '身近なもの' });
+route('/lab/:id', renderLab, { tab: 'home', title: '教材' });
+route('/teach', renderTeach, { tab: 'more', title: '授業をつくる' });
+route('/check', renderCheck, { tab: 'check', title: 'たしかめる' });
+route('/glossary', renderGlossary, { tab: 'check', title: '用語集' });
 
 // --- M2: compare (A-13 – A-16)
 route('/compare', renderCompare, { tab: 'home', title: 'くらべる' });
 route('/compare/:preset', renderCompare, { tab: 'home', title: 'くらべる' });
 // --- M2: functional-group quiz (A-17)
-route('/quiz', renderQuiz, { tab: 'more', title: '官能基クイズ' });
+route('/quiz', renderQuiz, { tab: 'check', title: '官能基クイズ' });
 // --- M2: homologous series (B-3)
 route('/series', renderSeries, { tab: 'more', title: '同族体シリーズ' });
 // --- M3: molecule builder (C)
