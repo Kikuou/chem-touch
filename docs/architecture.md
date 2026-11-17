@@ -37,6 +37,7 @@ js/lesson/            授業（docs/plan.md 提案5・11。js/core/ だけを使
   catalog.js          教材カタログ: "compound:water" などの部品名 → 題名・開く画面
   progress.js         端末が覚えること（今日の回、おわりの3問のできた印）
   colors.js           色カードの4色（文字と形つき）
+  glossary.js         用語集: 文の中の用語をボタンにする linkTerms()（長い語を優先、nolink は除外）と説明のシート
 data/thumbs.json      分子の一覧の構造式の絵（scripts/build_thumbs.py）。library.js はこれを先に使い、無いものだけ RDKit.js で描く
 js/lab/               触る教材（docs/plan.md 提案9・10。#/lab/<id>、views/lab.js が読み込む）
   states.js           温度と三態（スライダー型・粒子のアニメ。視差効果を減らす設定では止める）
@@ -53,6 +54,7 @@ js/views/             画面（1画面1ファイル）
   home.js                ホーム（今日の授業・身近なもの・基礎の復習・道具）
   lesson.js              目次 #/lessons、各回 #/lesson/<no>、いっせい問題 #/lesson/<no>/ask、おわりの3問 #/lesson/<no>/end
   card.js                色カード #/card
+  check.js               たしかめる #/check（できた印の一覧）と用語集 #/glossary
   life.js                身近なもの #/life（各グループは #/library?life=<id>）
   teach.js               授業をつくる #/teach（教員用。授業プランの下書きを localStorage で編集し、書き出す。
                          「この端末でためす」中は core/data.js の lessonPlan() が下書きを返す）

@@ -161,6 +161,19 @@ def main() -> int:
     if stale:
         errors.append(f"thumbs.json: missing or old pictures ({', '.join(stale[:5])}{' ...' if len(stale) > 5 else ''}); run python scripts/build_thumbs.py")
 
+    # every compound has a reading (hiragana), used for search and under kanji names
+    for c in compounds:
+        if not re.fullmatch(r"[ぁ-んー]+", c.get("reading") or ""):
+            errors.append(f"{c.get('id')}: reading must be hiragana (got '{c.get('reading')}')")
+    # 用語集 (glossary.json): unique terms, hiragana readings, an existing lesson
+    gl = json.loads((DATA / "glossary.json").read_text(encoding="utf-8"))
+    gterms = [t["term"] for t in gl["terms"]]
+    for t in sorted({t for t in gterms if gterms.count(t) > 1}):
+        errors.append(f"glossary.json: '{t}' appears twice")
+    for t in gl["terms"]:
+        if not re.fullmatch(r"[ぁ-んー]+", t.get("reading", "")) or not t.get("text") or not (1 <= t.get("lesson", 0) <= 15):
+            errors.append(f"glossary.json '{t.get('term')}': needs a hiragana reading, a text and a lesson 1-15")
+
     # 身近なもの groups (categories.json "life")
     for g in json.loads((DATA / "categories.json").read_text(encoding="utf-8")).get("life", []):
         for k in g.get("cats", []):

@@ -138,6 +138,15 @@ const PAD = `<div class="cp-pad" role="group" aria-label="数字の入力">${['7
 
 export function setWeights(w) { AW = w; }
 
+// できた印 of the calculation practice (たしかめる), on this device only
+function markDone(id) {
+  try {
+    const d = JSON.parse(localStorage.getItem('chemtouch:calc:done') || '{}');
+    d[id] = true;
+    localStorage.setItem('chemtouch:calc:done', JSON.stringify(d));
+  } catch (e) { /* no storage */ }
+}
+
 export async function render({ content, query, el }) {
   const data = (await labs()).calc;
   setWeights(data.atomic_weights);
@@ -229,7 +238,7 @@ export async function render({ content, query, el }) {
       if (k === 'ok') {
         const v = parseFloat(typed);
         if (Number.isNaN(v)) return;
-        if (agrees(v, kind.ans(p3))) solved = true; else { wrong = true; hints = Math.max(hints, 1); }
+        if (agrees(v, kind.ans(p3))) { solved = true; markDone(id); } else { wrong = true; hints = Math.max(hints, 1); }
       } else { typed = edit(typed, k); wrong = false; }
     } else return;
     draw();

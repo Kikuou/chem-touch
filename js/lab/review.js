@@ -5,12 +5,14 @@
 import { esc, prefs } from '../core/dom.js';
 import { questions } from '../core/data.js';
 import { CC } from '../lesson/colors.js';
+import { glossary, linkTerms } from '../lesson/glossary.js';
 
 const COUNT = 10;
 const DRAFT = '<span class="draft" title="教員による確認前の下書きです">下書き</span>';
 
 export async function render({ content }) {
   const all = [...(await questions()).values()];
+  await glossary().catch(() => null);
   let list = [];
   let i = 0;
   let answers = [];
@@ -40,7 +42,7 @@ export async function render({ content }) {
       <div class="ls-q-p"><span>第${q.lesson}回から</span><span>${i + 1} / ${list.length}</span></div>
       <h2>${esc(q.q)}${q.reviewed ? '' : DRAFT}</h2>
       <div class="ls-q-o">${q.choices.map((c, k) => `<button data-k="${k}" class="${done ? (k === q.answer ? 'ok' : k === a ? 'ng' : '') : ''}"${done ? ' disabled' : ''}><i>${CC[k].key}</i>${esc(c)}</button>`).join('')}</div>
-      ${done ? `<div class="ls-q-ex${a === q.answer ? '' : ' ng'}">${a === q.answer ? 'せいかい。' : `ざんねん。答えは ${CC[q.answer].key}。`}${esc(q.explain || '')}</div>
+      ${done ? `<div class="ls-q-ex${a === q.answer ? '' : ' ng'}">${a === q.answer ? 'せいかい。' : `ざんねん。答えは ${CC[q.answer].key}。`}${linkTerms(q.explain || '')}</div>
       <button class="btn primary block" data-act="next" style="margin-top:12px">${i < list.length - 1 ? 'つぎへ' : '結果を見る'}</button>` : ''}</section>`;
   }
   content.addEventListener('click', (e) => {

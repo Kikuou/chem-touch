@@ -707,6 +707,32 @@ await m2.waitForSelector('.ls-flow');
 assert.equal(await m2.locator('.ls-flow > .ls-off').count(), 0, 'no 準備中 parts left in the plan');
 step('materials: なかまわけ, 反応式の天びん (2H₂ + O₂ → 2H₂O), 滴定 (20 mL -> pH 7), 分子量 18, 2 mol of water = 36 g, 9.1 %, and the particle / quiz screens open');
 
+// たしかめる tab, できた印 of the calculation practice (solved above), 用語集
+await m2.goto(BASE + '#/check');
+await m2.waitForSelector('.ck-meter');
+assert.equal(await m2.locator('.nav a').count(), 6);
+assert.equal(await m2.getAttribute('.nav a[data-tab="check"]', 'aria-current'), 'page');
+assert.match(await m2.textContent('.ck-meter'), /計算練習[\s\S]*[12] \/ 8/);
+assert.ok(await m2.locator('.menu a[href="#/lab/calc?k=mass-percent"] .ls-ok').count() === 1, '✓ on the solved kind');
+const linked = await m2.evaluate(async () => {
+  const g = await import('/js/lesson/glossary.js');
+  await g.glossary();
+  const d = document.createElement('div');
+  d.innerHTML = g.linkTerms('二酸化炭素が酸化される。原子量と原子。');
+  return [...d.querySelectorAll('.gl-term')].map((b) => b.textContent);
+});
+assert.deepEqual(linked, ['酸化', '原子量', '原子'], '酸化 is not found inside 二酸化炭素; the longest word wins');
+await m2.goto(BASE + '#/compound/water');
+await m2.waitForSelector('.cp-note .gl-term');
+await m2.click('.cp-note .gl-term >> nth=0');
+await m2.waitForSelector('.gl-sheet');
+assert.match(await m2.textContent('.gl-sheet'), /共有結合/);
+await m2.click('.gl-sheet [data-x="close"]');
+await m2.goto(BASE + '#/glossary?q=' + encodeURIComponent('中和'));
+await m2.waitForSelector('.gl-item');
+assert.equal(await m2.locator('.gl-item.on').count(), 1);
+step('たしかめる: 6th tab, ✓ for the solved calculation; 用語集: 酸化 not inside 二酸化炭素, a tap on 分子 explains it, search');
+
 // ---- M4 acceptance: build the electron configuration of Na, give an
 // electron to Cl, go to the NaCl crystal; periodic table, detail, Lewis formulas
 await m2.goto(BASE + '#/periodic');

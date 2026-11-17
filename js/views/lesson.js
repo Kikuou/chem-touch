@@ -16,6 +16,7 @@ import { isDetail } from '../core/detail.js';
 import { resolvePart } from '../lesson/catalog.js';
 import { doneMap, setDone, setToday, lessonShareHash } from '../lesson/progress.js';
 import { CC } from '../lesson/colors.js';
+import { glossary, linkTerms } from '../lesson/glossary.js';
 
 const DRAFT = '<span class="draft" title="教員による確認前の下書きです">下書き</span>';
 
@@ -68,12 +69,13 @@ export async function renderLesson({ el, params, query }) {
   const hash = lessonShareHash(lesson.no);
   const content = shell(el, `第${lesson.no}回`, { back: '#/', share: { title: `第${lesson.no}回 ${lesson.title}`, hash } });
   const parts = (await Promise.all((lesson.parts || []).map(resolvePart))).filter(Boolean);
+  await glossary().catch(() => null);
   const done = doneMap()[lesson.no];
   const teacher = isPresent() || isDetail();
   el.querySelector('.page').classList.add('ls-page');
   content.innerHTML = `
     <div class="mol-title"><h2>${esc(lesson.title)}</h2></div>
-    ${lesson.topic ? `<div class="ls-topic"><b>身近な話題${plan.reviewed ? '' : DRAFT}</b><p>${esc(lesson.topic)}</p></div>` : ''}
+    ${lesson.topic ? `<div class="ls-topic"><b>身近な話題${plan.reviewed ? '' : DRAFT}</b><p>${linkTerms(lesson.topic)}</p></div>` : ''}
     ${parts.length ? `<h2 class="ls-sec">きょうの流れ</h2>
     <div class="ls-flow">${parts.map((p, i) => {
       const inner = `<span class="ls-n">${i + 1}</span><span class="ls-tx"><b>${esc(p.title)}</b><span class="ls-tag${p.href ? '' : ' soon'}">${esc(p.tag)}</span>${p.sub ? `<span class="ls-sub">${esc(p.sub)}</span>` : ''}</span>`;
@@ -116,7 +118,7 @@ export async function renderAsk({ el, params, query }) {
         <div class="ls-ask-o">${q.choices.map((c, k) => `
           <div class="${shown ? (k === q.answer ? 'ok' : 'ng') : ''}" style="background:${CC[k].bg};color:${CC[k].fg}"><i>${CC[k].key}<small>${CC[k].shape}</small></i><span>${esc(c)}</span></div>`).join('')}
         </div>
-        ${shown ? `<p class="ls-ask-ex"><b>答え ${CC[q.answer].key}</b>　${esc(q.explain || '')}</p>` : ''}
+        ${shown ? `<p class="ls-ask-ex"><b>答え ${CC[q.answer].key}</b>　${linkTerms(q.explain || '')}</p>` : ''}
       </div>
       <aside class="ls-ask-qr"><div class="ls-pqr-box">${qrSvg(url)}</div><p><b>第${lesson.no}回のページ</b><br>スマホで読み取ると<br>色カードが使えます</p></aside>
       <div class="ls-ask-bar">
@@ -158,6 +160,7 @@ export async function renderEnd({ el, params }) {
     return null;
   }
   const qs = await questions();
+  await glossary().catch(() => null);
   const list = lesson.end3.map((id) => qs.get(id)).filter(Boolean);
   const content = shell(el, `おわりの${list.length}問`, { back: `#/lesson/${lesson.no}`, close: true });
   let i = 0;
@@ -174,7 +177,7 @@ export async function renderEnd({ el, params }) {
         <div class="ls-q-o" role="group" aria-label="選択肢">${q.choices.map((c, k) => `
           <button data-k="${k}" class="${answered ? (k === q.answer ? 'ok' : k === a ? 'ng' : '') : ''}"${answered ? ' disabled' : ''}><i>${CC[k].key}</i>${esc(c)}</button>`).join('')}
         </div>
-        ${answered ? `<div class="ls-q-ex${a === q.answer ? '' : ' ng'}">${a === q.answer ? 'せいかい。' : `ざんねん。答えは ${CC[q.answer].key}。`}${esc(q.explain || '')}</div>
+        ${answered ? `<div class="ls-q-ex${a === q.answer ? '' : ' ng'}">${a === q.answer ? 'せいかい。' : `ざんねん。答えは ${CC[q.answer].key}。`}${linkTerms(q.explain || '')}</div>
         <button class="btn primary block" data-act="next" style="margin-top:12px">${i < list.length - 1 ? 'つぎへ' : '結果を見る'}</button>` : ''}
       </section>`;
   }
