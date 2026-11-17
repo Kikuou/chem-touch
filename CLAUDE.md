@@ -18,6 +18,7 @@
 - 化合物の追加は `scripts/compound_sources.csv` に行を足し、`python scripts/build_compounds.py` で生成する。PubChem に届かない環境では RDKit だけで生成し、push 後に GitHub Actions（`pubchem.yml`）が照合して結果をコミットする。そのコミットを取り込んでから次の push をする。
 - 濃度・pH・原子量などの数値や「身近な例」は、出典を確かめ、教員に確認してから載せる。
 - 新しい解説文は下書き（`note_reviewed: false`）として入れ、下書きであることを報告する。
+- 教員の確認は `review/解説文の確認.csv`（`python scripts/review_sheet.py export` / `import`）でまとめて受け取れる。下書きを足したら書き出し直す。
 
 ## Git
 - 作業ブランチで作業し、PR を作る。`main` に直接 push しない。**マージは利用者が行う**（こちらではマージしない）。
@@ -29,6 +30,7 @@
   ```sh
   python scripts/validate_data.py
   node tests/test_notation.mjs && node tests/test_assemble.mjs && node tests/test_labs.mjs
+  python tests/test_review.py
   python3 -m http.server 8000 &   # 別ターミナルでも可
   npm run e2e
   ```

@@ -38,6 +38,7 @@ js/lesson/            授業（docs/plan.md 提案5・11。js/core/ だけを使
   progress.js         端末が覚えること（今日の回、おわりの3問のできた印）
   colors.js           色カードの4色（文字と形つき）
   glossary.js         用語集: 文の中の用語をボタンにする linkTerms()（長い語を優先、nolink は除外）と説明のシート
+review/解説文の確認.csv  確認待ちの文の一覧（scripts/review_sheet.py export。教員が記入して import で反映）
 data/thumbs.json      分子の一覧の構造式の絵（scripts/build_thumbs.py）。library.js はこれを先に使い、無いものだけ RDKit.js で描く
 js/lab/               触る教材（docs/plan.md 提案9・10。#/lab/<id>、views/lab.js が読み込む）
   states.js           温度と三態（スライダー型・粒子のアニメ。視差効果を減らす設定では止める）

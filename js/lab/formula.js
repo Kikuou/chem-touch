@@ -63,7 +63,7 @@ export async function render({ content, query }) {
     const done = r.formula && (!goal || (goal.cation === r.cation && goal.anion === r.anion));
     content.innerHTML = `
       <div class="chips-row" role="group" aria-label="おだい">${goals.map((_, k) => `<button class="chip" data-g="${k}" aria-pressed="${k === gi}">おだい${k + 1}</button>`).join('')}<button class="chip" data-g="free" aria-pressed="${gi < 0}">自由に</button></div>
-      <div class="fp-goal">${goal ? `<span>おだい ${gi + 1}${draft}</span><b>${esc(goal.text)}</b>` : '<span>自由に</span><b>＋と−のイオンを組み合わせて、物質をつくろう</b>'}</div>
+      <div class="fp-goal">${goal ? `<span>おだい ${gi + 1}${goal.reviewed ? '' : draft}</span><b>${esc(goal.text)}</b>` : '<span>自由に</span><b>＋と−のイオンを組み合わせて、物質をつくろう</b>'}</div>
       <div class="fp-tray${done ? ' ok' : ''}" aria-label="入れたイオン">${tray.length ? tray.map((id, k) => ionTile(byId.get(id), { idx: k })).join('') : '<span class="muted small">下のイオンをタップして入れる</span>'}</div>
       <div class="fp-meter" aria-live="polite">${tray.length ? `${tray.map((id) => { const c = byId.get(id).charge; return `<span class="${c > 0 ? 'p' : 'n'}">${signed(c)}</span>`; }).join('<em>＋</em>')}<em>＝</em><span class="t${r.total === 0 ? ' ok' : ''}">${signed(r.total) || '0'}</span>` : '<span class="muted">イオンを入れると、ここで電気の合計がわかる</span>'}</div>
       ${r.formula ? `<div class="fp-done${done ? '' : ' other'}"><div class="fp-f">${esc(sub(r.formula))}</div><div>${esc(r.name)}${done ? '　<b>＋と−が つりあった！</b>' : ''}</div>${r.reduced ? '<div class="small muted">組成式は、いちばん簡単な整数の比で書きます。</div>' : ''}</div>` : ''}

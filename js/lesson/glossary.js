@@ -49,7 +49,7 @@ function installSheet() {
     if (!t) return;
     const back = h(`<div class="sheet-backdrop" role="dialog" aria-modal="true" aria-label="${esc(t.term)}"><div class="sheet gl-sheet"><div class="grab"></div>
       <h2>${esc(t.term)}<span class="gl-yomi">${esc(t.reading)}</span></h2>
-      <p>${esc(t.text)}${data.reviewed ? '' : '<span class="draft" title="教員による確認前の下書きです">下書き</span>'}</p>
+      <p>${esc(t.text)}${(t.reviewed ?? data.reviewed) ? '' : '<span class="draft" title="教員による確認前の下書きです">下書き</span>'}</p>
       <div class="two"><a class="btn" href="#/glossary?q=${encodeURIComponent(t.term)}">用語集で見る</a><button class="btn primary" data-x="close">閉じる</button></div></div></div>`);
     const close = () => { back.remove(); window.removeEventListener('hashchange', close); };
     back.addEventListener('click', (ev) => { if (ev.target === back || ev.target.closest('[data-x="close"], a')) close(); });

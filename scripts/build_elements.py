@@ -272,9 +272,9 @@ def main(argv=None) -> int:
             e["shells"] = rule
         if sym in notes["notes"]:
             e["note_ja"] = notes["notes"][sym]
-            e["note_reviewed"] = bool(notes.get("reviewed"))
+            e["note_reviewed"] = bool(notes.get("reviewed")) or sym in notes.get("reviewed_notes", [])
         if sym in notes["minerals"]:
-            e["mineral"] = {**notes["minerals"][sym], "reviewed": bool(notes.get("reviewed"))}
+            e["mineral"] = {**notes["minerals"][sym], "reviewed": bool(notes.get("reviewed")) or sym in notes.get("reviewed_minerals", [])}
         if sym in body:
             e["body_rank"] = body.index(sym) + 1
         if sym in notes["anions"]:

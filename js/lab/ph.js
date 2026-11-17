@@ -20,7 +20,7 @@ function times(n) {
 export async function render({ content, query }) {
   const { ph: data } = await labs();
   let ph = Math.min(Math.max(parseFloat(query.get('ph') ?? '7') || 0, 0), 14);
-  const draft = data.reviewed ? '' : '<span class="draft" title="教員による確認前の下書きです">下書き</span>';
+  const draft = data.reviewed || data.examples.every((x) => x.reviewed) ? '' : '<span class="draft" title="教員による確認前の下書きです">下書き</span>';
   // where the thumb centre is for a pH (the thumb is 36px wide)
   const pos = (v) => `calc(18px + (100% - 36px) * ${(v / 14).toFixed(4)})`;
   const len = (a, b) => `max(8px, calc((100% - 36px) * ${((b - a) / 14).toFixed(4)}))`;

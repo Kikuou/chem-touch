@@ -75,7 +75,7 @@ export async function renderLesson({ el, params, query }) {
   el.querySelector('.page').classList.add('ls-page');
   content.innerHTML = `
     <div class="mol-title"><h2>${esc(lesson.title)}</h2></div>
-    ${lesson.topic ? `<div class="ls-topic"><b>身近な話題${plan.reviewed ? '' : DRAFT}</b><p>${linkTerms(lesson.topic)}</p></div>` : ''}
+    ${lesson.topic ? `<div class="ls-topic"><b>身近な話題${plan.reviewed || lesson.topic_reviewed ? '' : DRAFT}</b><p>${linkTerms(lesson.topic)}</p></div>` : ''}
     ${parts.length ? `<h2 class="ls-sec">きょうの流れ</h2>
     <div class="ls-flow">${parts.map((p, i) => {
       const inner = `<span class="ls-n">${i + 1}</span><span class="ls-tx"><b>${esc(p.title)}</b><span class="ls-tag${p.href ? '' : ' soon'}">${esc(p.tag)}</span>${p.sub ? `<span class="ls-sub">${esc(p.sub)}</span>` : ''}</span>`;

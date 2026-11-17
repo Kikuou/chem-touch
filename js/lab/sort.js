@@ -11,7 +11,7 @@ export async function render({ content, query }) {
   const ids = Object.keys(sets);
   let id = sets[query.get('set')] ? query.get('set') : ids[0];
   let answers = {}; // item index -> chosen box
-  const draft = (s) => (s.reviewed ? '' : '<span class="draft" title="教員による確認前の下書きです">下書き</span>');
+  const draft = (s) => (s.reviewed || s.items.every((i) => i.reviewed) ? '' : '<span class="draft" title="教員による確認前の下書きです">下書き</span>');
 
   function draw() {
     const s = sets[id];
