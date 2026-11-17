@@ -97,9 +97,9 @@ for (const scheme of ['light', 'dark']) {
     await p.goto(BASE + '#/lab/ph?ph=2.3');
     await p.waitForSelector('.ph-range');
     await shot(p, 'lab-ph');
-    await p.goto(BASE + '#/lab/concentration');
+    await p.goto(BASE + '#/lab/calc?k=mass-percent');
     await p.waitForSelector('[data-pick]');
-    await p.click('[data-pick="5"]');
+    await p.click('[data-pick] >> text=/^.5 %$/');
     await shot(p, 'lab-calc-1');
     await p.click('[data-act="to2"]');
     await p.click('[data-key="5"]');

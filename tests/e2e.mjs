@@ -595,15 +595,17 @@ assert.equal((await m2.textContent('.lb-big')).trim(), 'pH 7.4');
 assert.ok(await m2.locator('.ph-src a').count() >= 4, 'every example has a source');
 step('pH ものさし: pH 2 = 中性の 10万倍 (5 steps of ×10); tap 血液 -> pH 7.4; sources listed');
 
-await m2.goto(BASE + '#/lab/concentration');
+await m2.goto(BASE + '#/lab/concentration'); // the old URL goes to the mass-percent practice
+await m2.waitForURL(/#\/lab\/calc\?k=mass-percent/);
 await m2.waitForSelector('[data-pick]');
+assert.equal((await m2.textContent('.subbar h1')).trim(), '計算練習：質量パーセント濃度');
 assert.equal(await m2.evaluate(() => getComputedStyle(document.querySelector('.nav')).display), 'none');
-await m2.click('[data-pick="5"]');
+await m2.click('[data-pick] >> text=/^.5 %$/');
 assert.match(await m2.textContent('.ls-q-ex'), /せいかい/);
 await m2.click('[data-act="to2"]');
 await m2.click('[data-key="4"]');
 await m2.click('[data-key="ok"]');
-assert.match(await m2.textContent('.cp-msg'), /溶液は/);
+assert.match(await m2.textContent('.cp-msg'), /ちがいます/);
 await m2.click('[data-key="⌫"]');
 await m2.click('[data-key="5"]');
 await m2.click('[data-key="ok"]');
@@ -621,6 +623,19 @@ for (const k of String(Math.round((s3 / (s3 + w3)) * 1000) / 10)) await m2.click
 await m2.click('[data-key="ok"]');
 assert.match(await m2.textContent('.ls-q-ex'), /せいかい/);
 step(`計算練習：濃度: 見当 5 % -> 穴うめ (95 + 5, 5 %) -> 自分で計算 ${s3} g / ${w3} g: wrong shows steps, right accepted; number pad only, no tab bar`);
+
+// another kind of the same engine: 分子量 of water, blanks 2, 1, 18
+await m2.goto(BASE + '#/lab/calc?k=molar-mass');
+await m2.waitForSelector('[data-pick]');
+await m2.click('[data-pick] >> text=/^.18 $/');
+await m2.click('[data-act="to2"]');
+for (const v of ['2', '1', '18']) {
+  for (const k of v) await m2.click(`[data-key="${k}"]`);
+  await m2.click('[data-key="ok"]');
+}
+assert.match(await m2.textContent('.cp-msg'), /せいかい/);
+assert.equal(await m2.locator('.cp-eq u.ok').count(), 3);
+step('計算練習：分子量 (same engine): H₂O ≈ 18; blanks 1.0 × 2 ＋ 16 × 1 ＝ 18');
 
 // ---- M4 acceptance: build the electron configuration of Na, give an
 // electron to Cl, go to the NaCl crystal; periodic table, detail, Lewis formulas

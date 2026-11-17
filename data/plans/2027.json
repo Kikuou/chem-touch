@@ -159,7 +159,9 @@
     "soon:分子量カウンター",
     "soon:モルのはかり",
     "compound:sucrose",
-    "compound:water"
+    "compound:water",
+    "calc:molar-mass",
+    "calc:mol"
    ],
    "colorcards": [
     "q8-1",
@@ -177,10 +179,12 @@
    "topic": "生理食塩水と点滴、スポーツドリンク、消毒用アルコール、しょうゆの塩分",
    "parts": [
     "soon:とかすビーカー",
-    "lab:concentration",
+    "calc:mass-percent",
     "compound:nacl-crystal",
     "compound:alpha-d-glucose",
-    "compound:ethanol"
+    "compound:ethanol",
+    "calc:molarity",
+    "calc:dilution"
    ],
    "colorcards": [
     "q9-1",
@@ -200,7 +204,8 @@
     "soon:反応式の天びん",
     "compound:methane",
     "compound:propane",
-    "compound:alpha-d-glucose"
+    "compound:alpha-d-glucose",
+    "calc:stoich"
    ],
    "colorcards": [
     "q10-1",
@@ -220,7 +225,8 @@
     "lab:ph",
     "compound:hydrogen-chloride",
     "compound:acetic-acid",
-    "compound:citric-acid"
+    "compound:citric-acid",
+    "calc:ph"
    ],
    "colorcards": [
     "q11-1",
@@ -239,7 +245,8 @@
    "parts": [
     "soon:滴定シミュレーション",
     "compound:hydrogen-chloride",
-    "compound:acetic-acid"
+    "compound:acetic-acid",
+    "calc:neutral"
    ],
    "colorcards": [
     "q12-1",

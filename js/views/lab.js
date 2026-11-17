@@ -3,13 +3,13 @@
 // opened. The ids are also the catalog parts "lab:<id>" (js/lesson/catalog.js).
 import { esc } from '../core/dom.js';
 import { icon } from '../core/icons.js';
-import { goBack } from '../core/router.js';
+import { goBack, navigate } from '../core/router.js';
 
 export const LABS = {
   states: { title: '温度と三態', load: () => import('../lab/states.js') },
   formula: { title: '組成式パズル', load: () => import('../lab/formula.js') },
   ph: { title: 'pH ものさし', load: () => import('../lab/ph.js') },
-  concentration: { title: '計算練習：濃度', load: () => import('../lab/concentration.js'), full: true },
+  calc: { title: '計算練習', load: () => import('../lab/calc.js'), full: true }, // ?k=<kind>
 };
 
 // sub bar + content area; full = no tab bar (the number pad needs the room)
@@ -27,6 +27,8 @@ export function labShell(el, title, { close = false } = {}) {
 }
 
 export async function renderLab(ctx) {
+  // old URL of the first calculation practice
+  if (ctx.params.id === 'concentration') { navigate('#/lab/calc?k=mass-percent', { replace: true }); return null; }
   const lab = LABS[ctx.params.id];
   if (!lab) {
     labShell(ctx.el, '教材').innerHTML = `<p class="empty">「${esc(ctx.params.id)}」という教材はありません。</p>`;

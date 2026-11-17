@@ -4,7 +4,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { compose } from '../js/lab/formula.js';
-import { agrees } from '../js/lab/concentration.js';
+import { agrees, KINDS, setWeights } from '../js/lab/calc.js';
 
 const labs = JSON.parse(readFileSync(new URL('../data/labs.json', import.meta.url)));
 const ions = labs.formula.ions;
@@ -44,9 +44,29 @@ assert.ok(!agrees(9, 10));
 assert.ok(!agrees(0.5, 5));
 assert.ok(!agrees(50, 5));
 n += 7;
-for (const p of labs.concentration.problems) {
-  const pct = (p.solute_g / (p.solute_g + p.water_g)) * 100;
-  assert.ok(agrees(Number(pct.toPrecision(2)), pct), JSON.stringify(p));
-  n++;
+// every calculation kind: a finite answer, offered among the step-1 choices,
+// and one blank of the step-2 formula holds it
+setWeights(labs.calc.atomic_weights);
+const blanksOf = (tokens) => tokens.flatMap((t) => (t && typeof t === 'object' && 'b' in t ? [Number(t.b)] : t && t.frac ? blanksOf([...t.frac[0], ...t.frac[1]]) : []));
+for (const [id, kd] of Object.entries(labs.calc.kinds)) {
+  const kind = KINDS[id];
+  assert.ok(kind, `kind ${id} exists in js/lab/calc.js`);
+  for (const p of kd.problems) {
+    const a = kind.ans(p);
+    assert.ok(Number.isFinite(a) && a > 0, `${id} ${JSON.stringify(p)} -> ${a}`);
+    assert.ok(kind.choices(p, a).some((c) => agrees(c, a)), `${id}: the answer is a choice`);
+    assert.ok(blanksOf(kind.eq(p, a)).some((v) => agrees(v, a)), `${id}: the formula has the answer as a blank`);
+    assert.ok(kind.steps(p, a).length >= 2);
+    assert.ok(kind.q(p).length > 5);
+    n += 5;
+  }
 }
+assert.equal(KINDS['mass-percent'].ans({ solute_g: 5, water_g: 95 }), 5);
+assert.equal(KINDS['molar-mass'].ans({ atoms: { H: 2, O: 1 } }), 18);
+assert.equal(KINDS.mol.ans({ atoms: { H: 2, O: 1 }, g: 36 }), 2);
+assert.equal(KINDS.molarity.ans({ atoms: { C: 6, H: 12, O: 6 }, g: 18, ml: 500 }), 0.2);
+assert.equal(KINDS.dilution.ans({ c: 1, v1: 100, v2: 500 }), 0.2);
+assert.equal(KINDS.stoich.ans({ ca: 1, cb: 2, mol: 3 }), 6);
+assert.equal(KINDS.neutral.ans({ n_a: 2, c_a: 0.1, v_a: 10, n_b: 1, c_b: 0.1 }), 20);
+n += 7;
 console.log(`${n} checks, 0 failures`);

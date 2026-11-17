@@ -180,6 +180,7 @@ def main() -> int:
     # lesson plans (data/plans/): the parts are catalog ids (js/lesson/catalog.js)
     presets = {p["id"] for p in json.loads((DATA / "comparisons.json").read_text(encoding="utf-8"))["presets"]}
     series_ids = {x["id"] for x in json.loads((DATA / "series.json").read_text(encoding="utf-8"))["series"]}
+    LAB_IDS = set(re.findall(r"^  ([a-z-]+): \{ title:", (ROOT / "js" / "views" / "lab.js").read_text(encoding="utf-8"), re.M)) - {"calc"}
     plain_kinds = {"notation", "draw", "practice", "quiz", "series", "periodic", "electron", "bond", "soon"}
     arg_check = {
         "compound": lambda a: a in idset,
@@ -193,7 +194,8 @@ def main() -> int:
         "bond": lambda a: a in (None, "ionic", "covalent"),
         "practice": lambda a: a in (None, "choose", "blocks", "draw"),
         "soon": lambda a: bool(a),
-        "lab": lambda a: a in ("states", "formula", "ph", "concentration"),
+        "lab": lambda a: a in LAB_IDS,
+        "calc": lambda a: a in labsdoc["calc"]["kinds"],
     }
     # hands-on materials: labs.json (drafts) and states.json (PubChem)
     labsdoc = json.loads((DATA / "labs.json").read_text(encoding="utf-8"))
@@ -207,9 +209,20 @@ def main() -> int:
     for g in labsdoc["formula"]["goals"]:
         if g.get("cation") not in ion_ids or g.get("anion") not in ion_ids:
             errors.append(f"labs.json formula goal '{g.get('text')}': unknown ion")
-    for pr in labsdoc["concentration"]["problems"]:
-        if not (pr.get("solute_g", 0) > 0 and pr.get("water_g", 0) > 0):
-            errors.append(f"labs.json concentration: masses must be positive ({pr})")
+    # calculation practice: rounded atomic weights agree with PubChem (elements.json)
+    eldoc = json.loads((DATA / "elements.json").read_text(encoding="utf-8"))
+    masses = {e["symbol"]: e["mass"] for e in (eldoc["elements"] if isinstance(eldoc, dict) else eldoc)}
+    aw = labsdoc["calc"]["atomic_weights"]
+    for el, w in aw.items():
+        if el not in masses or abs(masses[el] - w) > 0.5:
+            errors.append(f"labs.json calc atomic weight {el}={w} is far from PubChem {masses.get(el)}")
+    for kind, kd in labsdoc["calc"]["kinds"].items():
+        if len(kd.get("problems", [])) < 2:
+            errors.append(f"labs.json calc/{kind}: needs at least 2 problems")
+        for pr in kd.get("problems", []):
+            for el in pr.get("atoms", {}):
+                if el not in aw:
+                    errors.append(f"labs.json calc/{kind}: no atomic weight for {el}")
     for st in json.loads((DATA / "states.json").read_text(encoding="utf-8"))["substances"]:
         if st["id"] not in idset:
             errors.append(f"states.json: unknown compound {st['id']}")
