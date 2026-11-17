@@ -63,7 +63,7 @@ export async function renderHome({ el }) {
       </div>
       <a class="t tall" href="#/periodic">
         <div><h3>周期表</h3><p>傾向・栄養ミネラル</p></div>
-        <div class="pt">${miniTable([11, 19, 20, 12, 26, 30])}</div>
+        <div class="home-pt">${miniTable([11, 19, 20, 12, 26, 30])}</div>
         <div class="minerals">
           <div class="lbl">ミネラル</div>
           <div class="els"><b>Na</b><b>K</b><b>Ca</b><b>Mg</b><b>Fe</b><b>Zn</b></div>
