@@ -256,7 +256,33 @@ await m2.touchscreen.tap(ed.x + ed.width * 0.75, ed.y + ed.height * 0.2);
 await m2.waitForFunction(() => /C4H/.test(document.querySelector('.build-facts').textContent), null, { timeout: 5000 });
 step(`free drawing: SMILES input and drawing by touch (${(await m2.textContent('.build-facts')).trim()})`);
 
-// ---- つくる (reworked): top page, 書き方くらべ, かんたん作図, 書きかえ練習
+// molecule page: name + reading, 「ひとことで言うと」 above the 3D model,
+// くわしいデータ folded; SMILES / InChIKey only with くわしい表示 (その他)
+await m2.goto(BASE + '#/compound/lactic-acid');
+await m2.waitForSelector('.cp-note');
+assert.match(await m2.textContent('.mol-title'), /にゅうさん/);
+assert.equal(await m2.evaluate(() => !!(document.querySelector('.cp-note').compareDocumentPosition(document.querySelector('.molpanel')) & Node.DOCUMENT_POSITION_FOLLOWING)), true, 'ひとこと comes before the 3D model');
+assert.match(await m2.textContent('.cp-note h2'), /ひとことで言うと/);
+assert.equal(await m2.isVisible('.cp-data .facts'), false, 'くわしいデータ is folded');
+await m2.click('.cp-data summary');
+let facts = await m2.textContent('.cp-data .facts');
+assert.match(facts, /英語名Lactic acid/);
+assert.match(facts, /PubChem CID/);
+assert.doesNotMatch(facts, /SMILES|InChIKey/);
+await m2.goto(BASE + '#/more');
+await m2.click('[data-detail="1"]');
+assert.equal(await m2.evaluate(() => localStorage.getItem('chemtouch:detail')), '1');
+await m2.goto(BASE + '#/compound/lactic-acid');
+await m2.waitForSelector('.cp-data');
+facts = await m2.textContent('.cp-data .facts');
+assert.match(facts, /SMILES/);
+assert.match(facts, /InChIKey/);
+await m2.goto(BASE + '#/more');
+await m2.click('[data-detail="0"]');
+assert.equal(await m2.evaluate(() => localStorage.getItem('chemtouch:detail')), null);
+step('molecule page: 乳酸（にゅうさん）, ひとことで言うと first, くわしいデータ folded; SMILES / InChIKey with くわしい表示 from その他');
+
+// ---- つくる (reworked): top page, 書き方くらべ, なぞって描く, 書きかえ練習
 await m2.evaluate(() => Object.keys(localStorage).filter((k) => /^chemtouch:(sketch|practice|notation)/.test(k)).forEach((k) => localStorage.removeItem(k)));
 await m2.goto(BASE + '#/build');
 assert.equal(await m2.locator('.bt-card').count(), 3);
@@ -277,85 +303,22 @@ await oh.click();
 assert.equal(await m2.locator(`.nt-big .nt-a.on[data-a~="${ohAtom}"]`).count(), 1);
 step('書き方くらべ: slider 構造式 -> 骨格構造式, tapping OH in the 示性式 highlights it in the 簡略構造式');
 
+// なぞって描く (#/build/draw): trace a chain, drop -OH from the shelf, tap a
+// bond, long-press menu, armed part + tap, the 戻す key on the shelf
+await m2.evaluate(() => localStorage.removeItem('chemtouch:sketch:last'));
 await m2.goto(BASE + '#/build/draw');
-await m2.waitForSelector('.sks-coach');
-await m2.click('[data-act="coach-ok"]');
-const tapNode = async (i) => {
-  const c = await m2.locator('svg.sk .sk-node').nth(i).boundingBox();
-  await m2.touchscreen.tap(c.x + c.width / 2, c.y + c.height / 2);
-};
-assert.equal(await m2.locator('svg.sk .sk-node').count(), 1, 'one carbon to start from');
-await tapNode(0); // select it
-assert.match(await m2.textContent('.sks-hint'), /C を選んでいます/);
-await m2.click('[data-act="ext1"]'); // C-C (the new carbon is selected)
-await m2.click('[data-act="ext1"]'); // C-C-C
-await m2.click('[data-act="el-O"]'); // the end carbon becomes O: C-C-O
-await m2.waitForFunction(() => /エタノール/.test(document.querySelector('.sks-sheet').textContent), null, { timeout: 10000 });
-assert.match(await m2.textContent('.sks-rat'), /C2H5OH/);
-assert.match(m2.url(), /smiles=/);
-step('かんたん作図: select the carbon, 伸ばす twice, O にする -> エタノール, 示性式 C2H5OH');
-
-// shortcuts with real touch events: drag from an atom extends it, the
-// page itself never scrolls; tap a bond and make it double; pinch zooms
+await m2.waitForSelector('svg.sk .sk-empty');
+assert.deepEqual(await m2.locator('.sks-bar .sks-key small').allTextContents(), ['にする', 'にする', 'つける', 'つける', 'つける', '消す', '戻す', 'ほか'], 'parts shelf');
 const cdp = await m2.context().newCDPSession(m2);
 const touch = async (type, pts) => cdp.send('Input.dispatchTouchEvent', { type, touchPoints: pts });
-const mid1 = await m2.locator('svg.sk .sk-node').nth(1).boundingBox();
-const from = { x: mid1.x + mid1.width / 2, y: mid1.y + mid1.height / 2 };
-await touch('touchStart', [from]);
-for (let i = 1; i <= 8; i++) await touch('touchMove', [{ x: from.x, y: from.y - 8 * i }]);
-await touch('touchEnd', []);
-await m2.waitForFunction(() => /2-プロパノール/.test(document.querySelector('.sks-sheet').textContent), null, { timeout: 10000 });
-assert.equal(await m2.evaluate(() => [scrollY, document.documentElement.classList.contains('sks-lock')].join()), '0,true');
-const n0 = await m2.locator('svg.sk .sk-node').nth(0).boundingBox();
-await m2.touchscreen.tap((n0.x + n0.width / 2 + from.x) / 2, (n0.y + n0.height / 2 + from.y) / 2); // middle of C1-C2
-assert.match(await m2.textContent('.sks-hint'), /単結合を選んでいます/);
-await m2.click('[data-act="bo2"]');
-await m2.waitForFunction(() => /C3H6O/.test(document.querySelector('.sks-sheet').textContent), null, { timeout: 10000 });
-const zoom0 = await m2.getAttribute('svg.sk > g', 'transform');
-const c0 = { x: 187, y: 300 };
-await touch('touchStart', [{ x: c0.x - 30, y: c0.y, id: 1 }, { x: c0.x + 30, y: c0.y, id: 2 }]);
-for (let i = 1; i <= 6; i++) await touch('touchMove', [{ x: c0.x - 30 - 10 * i, y: c0.y, id: 1 }, { x: c0.x + 30 + 10 * i, y: c0.y, id: 2 }]);
-await touch('touchEnd', []);
-assert.notEqual(await m2.getAttribute('svg.sk > g', 'transform'), zoom0, 'pinch changes the zoom');
-await m2.click('[data-act="undo"]');
-await m2.waitForFunction(() => /2-プロパノール/.test(document.querySelector('.sks-sheet').textContent), null, { timeout: 10000 });
-step('かんたん作図: drag from an atom extends it (2-プロパノール) without scrolling the page, tap a bond -> 二重, pinch zoom, undo');
-
-// always-visible controls: 構造式 (H も) mode with "H を補う", clear all with
-// an undo toast, keyboard shortcuts
-await m2.click('[data-act="mode-full"]');
-await m2.waitForSelector('.sks-addh:not([hidden])');
-const lackH = +(await m2.textContent('.sks-addh .sks-badge'));
-assert.equal(lackH, 8, '2-propanol needs 8 H');
-await m2.click('.sks-addh');
-assert.equal(await m2.isVisible('.sks-addh'), false);
-assert.equal(await m2.locator('svg.sk .sk-l.sk-H').count(), 8);
-await m2.click('[data-act="mode-skeletal"]');
-assert.equal(await m2.locator('svg.sk .sk-l.sk-H').count(), 0);
-await m2.click('[data-act="clear"]');
-await m2.waitForSelector('.sks-toast:not([hidden])');
-assert.equal(await m2.locator('svg.sk .sk-node').count(), 1);
-await m2.click('.sks-toast [data-act="restore"]');
-await m2.waitForFunction(() => /2-プロパノール/.test(document.querySelector('.sks-sheet').textContent), null, { timeout: 10000 });
-await tapNode(0);
-await m2.keyboard.press('n');
-await m2.waitForFunction(() => /C2H7NO/.test(document.querySelector('.sks-sheet').textContent), null, { timeout: 10000 });
-await m2.keyboard.press('Control+z');
-await m2.waitForFunction(() => /2-プロパノール/.test(document.querySelector('.sks-sheet').textContent), null, { timeout: 10000 });
-step('かんたん作図: 構造式 mode shows "H を補う 8" and adds them, back to 骨格構造式; すべて消す -> 元に戻す; keys N and Ctrl+Z');
-
-// なぞって描く (#/build/draw2, on trial): trace a chain, drop -OH from the
-// shelf, tap a bond, long-press menu, armed part + tap
-await m2.evaluate(() => localStorage.removeItem('chemtouch:sketch:last'));
-await m2.goto(BASE + '#/build/draw2');
-await m2.waitForSelector('svg.sk .sk-empty');
+const sheetHas = (re) => m2.waitForFunction((src) => new RegExp(src).test(document.querySelector('.sks-sheet').textContent), re.source, { timeout: 10000 });
 const pb = await m2.locator('svg.sk').boundingBox();
 const py = pb.y + pb.height / 2;
 await touch('touchStart', [{ x: pb.x + 60, y: py }]);
 for (let i = 1; i <= 12; i++) await touch('touchMove', [{ x: pb.x + 60 + 175 * i / 12, y: py }]);
 await touch('touchEnd', []);
-await m2.waitForFunction(() => /ペンタン/.test(document.querySelector('.sks-sheet').textContent), null, { timeout: 10000 });
-assert.equal(await m2.evaluate(() => scrollY), 0);
+await sheetHas(/ペンタン/);
+assert.equal(await m2.evaluate(() => [scrollY, document.documentElement.classList.contains('sks-lock')].join()), '0,true', 'the page does not scroll');
 const penNode = async (i) => { const bb = await m2.locator('svg.sk .sk-node').nth(i).boundingBox(); return { x: bb.x + bb.width / 2, y: bb.y + bb.height / 2 }; };
 const ohKey = await m2.locator('[data-part="OH"]').boundingBox();
 const end4 = await penNode(4);
@@ -363,24 +326,90 @@ await m2.mouse.move(ohKey.x + ohKey.width / 2, ohKey.y + ohKey.height / 2);
 await m2.mouse.down();
 await m2.mouse.move(end4.x, end4.y + 56, { steps: 10 });
 await m2.mouse.up();
-await m2.waitForFunction(() => /1-ペンタノール/.test(document.querySelector('.sks-sheet').textContent), null, { timeout: 10000 });
+await sheetHas(/1-ペンタノール/);
 const [q0, q1] = [await penNode(0), await penNode(1)];
-await m2.touchscreen.tap((q0.x + q1.x) / 2, (q0.y + q1.y) / 2);
-await m2.waitForFunction(() => /C5H10O/.test(document.querySelector('.sks-sheet').textContent), null, { timeout: 10000 });
+const tapBond01 = () => m2.touchscreen.tap((q0.x + q1.x) / 2, (q0.y + q1.y) / 2);
+await tapBond01();
+await sheetHas(/C5H10O/);
 const q2 = await penNode(2);
 await touch('touchStart', [q2]);
 await m2.waitForTimeout(650);
 await touch('touchEnd', []);
 await m2.waitForSelector('.sks-menu:not([hidden])');
+assert.equal(await m2.locator('.sks-menu [data-act="m-bo3"]').count(), 0, 'no 三重 in the menu without くわしい表示');
 await m2.click('.sks-menu [data-act="m-remove"]');
 await m2.waitForFunction(() => /2つ以上|読み取れ|C2H/.test(document.querySelector('.sks-sheet').textContent) || document.querySelectorAll('svg.sk .sk-node').length === 5, null, { timeout: 10000 });
-await m2.click('[data-act="undo"]');
+await m2.click('.sks-bar [data-act="undo"]'); // 戻す on the shelf
+await sheetHas(/C5H10O/);
 await m2.click('[data-part="=O"]');
 assert.match(await m2.textContent('.sks-hint'), /=O がつきます/);
 const q3 = await penNode(3);
 await m2.touchscreen.tap(q3.x, q3.y);
-await m2.waitForFunction(() => /C5H8O2/.test(document.querySelector('.sks-sheet').textContent), null, { timeout: 10000 });
-step('なぞって描く: trace -> ペンタン, drop -OH -> 1-ペンタノール, tap a bond -> C=C, long-press menu 消す + undo, armed =O + tap');
+await sheetHas(/C5H8O2/);
+step('なぞって描く: trace -> ペンタン, drop -OH -> 1-ペンタノール, tap a bond -> C=C, long-press menu 消す + 戻す, armed =O + tap');
+
+// bond taps: single <-> double without くわしい表示; with it, up to triple
+await m2.click('[data-part="=O"]'); // put the armed part away
+await tapBond01();
+await sheetHas(/C5H10O2/);
+await tapBond01();
+await sheetHas(/C5H8O2/);
+await tapBond01();
+await sheetHas(/C5H10O2/);
+assert.doesNotMatch(await m2.textContent('.sks-hint'), /三重/);
+await m2.evaluate(() => localStorage.setItem('chemtouch:detail', '1'));
+await tapBond01();
+await tapBond01();
+await sheetHas(/C5H6O2/);
+await m2.keyboard.press('Control+z');
+await sheetHas(/C5H8O2/);
+await m2.evaluate(() => localStorage.removeItem('chemtouch:detail'));
+step('bond taps: 単 -> 二重 -> 単 by default; 単 -> 二重 -> 三重 with くわしい表示; Ctrl+Z');
+
+// pinch zooms; 構造式 (H も) with "H を補う"; すべて消す with an undo toast
+const zoom0 = await m2.getAttribute('svg.sk > g', 'transform');
+const c0 = { x: 187, y: 300 };
+await touch('touchStart', [{ x: c0.x - 30, y: c0.y, id: 1 }, { x: c0.x + 30, y: c0.y, id: 2 }]);
+for (let i = 1; i <= 6; i++) await touch('touchMove', [{ x: c0.x - 30 - 10 * i, y: c0.y, id: 1 }, { x: c0.x + 30 + 10 * i, y: c0.y, id: 2 }]);
+await touch('touchEnd', []);
+assert.notEqual(await m2.getAttribute('svg.sk > g', 'transform'), zoom0, 'pinch changes the zoom');
+await m2.click('[data-act="mode-full"]');
+await m2.waitForSelector('.sks-addh:not([hidden])');
+const lackH = +(await m2.textContent('.sks-addh .sks-badge'));
+assert.equal(lackH, 8, 'C5H8O2 needs 8 H');
+await m2.click('.sks-addh');
+assert.equal(await m2.isVisible('.sks-addh'), false);
+assert.equal(await m2.locator('svg.sk .sk-l.sk-H').count(), 8);
+await m2.click('[data-act="mode-skeletal"]');
+assert.equal(await m2.locator('svg.sk .sk-l.sk-H').count(), 0);
+await m2.click('[data-act="clear"]');
+await m2.waitForSelector('.sks-toast:not([hidden])');
+assert.equal(await m2.locator('svg.sk .sk-node').count(), 0);
+await m2.click('.sks-toast [data-act="restore"]');
+await sheetHas(/C5H8O2/);
+step('なぞって描く: pinch zoom, 構造式 mode shows "H を補う 8" and adds them, back to 骨格構造式; すべて消す -> 元に戻す');
+
+// ほか: SMILES input and the advanced editor only with くわしい表示; the
+// sheet closes when the page is left with the back button
+await m2.click('.sks-bar [data-act="more"]');
+await m2.waitForSelector('.sheet-backdrop');
+let more = await m2.textContent('.sheet-backdrop');
+assert.match(more, /ベンゼン環/);
+assert.match(more, /炭素鎖から始める/);
+assert.doesNotMatch(more, /SMILES|上級エディタ|前の描き方/);
+await m2.click('.sheet-backdrop [data-m="close"]');
+await m2.evaluate(() => localStorage.setItem('chemtouch:detail', '1'));
+await m2.click('.sks-bar [data-act="more"]');
+more = await m2.textContent('.sheet-backdrop');
+assert.match(more, /SMILES で入力/);
+assert.match(more, /上級エディタ/);
+await m2.evaluate(() => localStorage.removeItem('chemtouch:detail'));
+await m2.goBack();
+await m2.waitForFunction(() => !/#\/build\/draw/.test(location.hash));
+assert.equal(await m2.locator('.sheet-backdrop').count(), 0, 'the ほか sheet closes on back');
+await m2.goto(BASE + '#/build/draw2');
+await m2.waitForSelector('.sks-bar [data-part="OH"]');
+step('ほか: SMILES / 上級エディタ only with くわしい表示, closes on back; the old #/build/draw2 opens the same screen');
 
 // 書きかえ練習 えらぶ: answer the right option for every question
 await m2.goto(BASE + '#/build/practice?mode=choose&focus=ethanol');
@@ -410,13 +439,17 @@ await m2.click('[data-act="check"]');
 await m2.waitForSelector('.pr-result .quiz-ok');
 step('書きかえ練習 並べる: CH3 CH3 OH refused with the bond count, HO-CH2-CH3 accepted as エタノール');
 
-// 描く: draw methanol on the full-screen drawing (select C, -OH)
+// 描く: draw methanol on the same なぞって描く screen (tap, then -OH)
 await m2.goto(BASE + '#/build/practice?mode=draw&focus=methanol');
 await m2.waitForSelector('.pr-setup');
 await m2.click('[data-act="start"]');
-await m2.waitForSelector('.sks-layer svg.sk');
-await tapNode(0);
-await m2.click('.sks-layer [data-act="g-OH"]');
+await m2.waitForSelector('.sks-layer svg.sk .sk-empty');
+const lb = await m2.locator('.sks-layer svg.sk').boundingBox();
+await m2.touchscreen.tap(lb.x + lb.width / 2, lb.y + lb.height / 2); // a tap on the empty canvas: one carbon
+await m2.waitForSelector('.sks-layer svg.sk .sk-node');
+await m2.click('.sks-layer [data-part="OH"]');
+const mc = await m2.locator('.sks-layer svg.sk .sk-node').first().boundingBox();
+await m2.touchscreen.tap(mc.x + mc.width / 2, mc.y + mc.height / 2);
 await m2.click('.sks-layer [data-act="primary"]');
 await m2.waitForSelector('.pr-result .quiz-ok');
 assert.equal(await m2.isVisible('.sks-layer'), false);

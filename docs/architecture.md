@@ -16,6 +16,7 @@ js/core/              全モジュール共通
   search.js           キーワード検索（ひらがな/カタカナ・全角/半角・α/alpha の揺れ吸収）
   share.js            共有 URL、QR 生成、投影用 QR 表示（D-1〜D-4）
   present.js          教員提示モード（html.presenting、?present=1、P/Q キー、右下の操作ボタン）
+  detail.js           「くわしい表示」のオン/オフ（端末に保存。三重結合・SMILES 入力・上級エディタ・SMILES などのデータ）
   dom.js / icons.js   小さなヘルパー、線画アイコン
 js/mol/               分子表示（M1〜M3 で共用）
   viewer3d.js         3Dmol.js ラッパー（回転・スタイル・水素・自動回転・原子/結合タップ、
@@ -35,14 +36,16 @@ js/mol/               分子表示（M1〜M3 で共用）
 js/views/             画面（1画面1ファイル）
   home.js, home-art.js   ホーム（授業帯 + ベントー・グリッド）
   library.js             分子ライブラリ（B-1）
-  compound.js            分子詳細 #/compound/<id> と任意分子 #/view?smiles=（A-7, B-2, D-1）
+  compound.js            分子詳細 #/compound/<id>（名前・読みがな → ひとことで言うと → 3D・構造式・官能基 → 関連 → くわしいデータ）
+                         と任意分子 #/view?smiles=（A-7, B-2, D-1）
   fatty-acid.js          脂肪酸の n-/Δ 表記の図と 3D での位置表示（B-4）
   compare.js             比較モード #/compare（A-13〜A-16）
   quiz.js                官能基クイズ #/quiz（A-17）
   build.js               分子ビルダー #/build（組み立て・自由作図・マイ分子、C-1〜C-9）
   series.js              同族体シリーズ #/series（B-3）
   scan.js                QR 読み取り
-  more.js                その他（テーマ設定・出典・ライセンス）
+  more.js                その他（テーマ・教員提示モード・くわしい表示、出典・ライセンス）
+  sketch.js, sketchscreen.js  なぞって描く #/build/draw（全画面の作図。書きかえ練習の「描く」も同じ画面）
   placeholder.js         存在しないページ（404）
 js/periodic/          周期表・電子配置・結合（M4。js/core/ だけを使い、js/mol/ は import しない）
   atoms.js            元素データの読み込み、殻・オービタル・イオン・数値の表示

@@ -1,5 +1,6 @@
 // Molecule detail (spec A-7, B-2, D-1): #/compound/<id> and #/view?smiles=...
 import { esc, formulaHtml, toast } from '../core/dom.js';
+import { isDetail } from '../core/detail.js';
 import { goBack } from '../core/router.js';
 import { icon } from '../core/icons.js';
 import { compound, compounds, sdf as loadSdf } from '../core/data.js';
@@ -29,9 +30,11 @@ function shell(el, title) {
   return el.querySelector('.content');
 }
 
+// rows of くわしいデータ; SMILES / InChIKey / 3D source only with くわしい表示
 function factsHtml(c) {
-  const v = c.verification || {};
+  const detail = isDetail();
   const rows = [];
+  if (c.name_en) rows.push(['英語名', esc(c.name_en)]);
   if (c.aliases?.length) rows.push(['別名', esc(c.aliases.join('、'))]);
   if (c.formula) rows.push(['分子式', formulaHtml(c.formula)]);
   if (c.mw) rows.push(['分子量', esc(c.mw.toFixed(2))]);
@@ -40,15 +43,15 @@ function factsHtml(c) {
     const db = fa.double_bonds.map((d) => `${d.pos_delta}${d.geometry === 'cis' ? 'c' : 't'}`).join(', ');
     rows.push(['脂肪酸', esc(fa.notation + (db ? `（Δ${db}）` : '（飽和）'))]);
   }
-  if (c.smiles) rows.push(['SMILES', `<code>${esc(c.smiles)}</code>`]);
+  if (detail && c.smiles) rows.push(['SMILES', `<code>${esc(c.smiles)}</code>`]);
   if (c.kind !== 'crystal') {
     rows.push(['PubChem CID', c.pubchem_cid
       ? `<a href="https://pubchem.ncbi.nlm.nih.gov/compound/${c.pubchem_cid}" target="_blank" rel="noopener">${c.pubchem_cid}</a> <span class="badge ok">照合済み</span>`
       : '<span class="badge warn">未照合</span>']);
   }
-  if (c.inchikey) rows.push(['InChIKey', `<code>${esc(c.inchikey)}</code>`]);
+  if (detail && c.inchikey) rows.push(['InChIKey', `<code>${esc(c.inchikey)}</code>`]);
   if (c.stereo_note === 'racemic') rows.push(['立体', '鏡像体の混合物（ラセミ体）。3Dは一方を表示']);
-  rows.push(['3D座標', c.sdf_source === 'pubchem-3d' ? 'PubChem 3D 配座' : (c.kind === 'crystal' ? '結晶構造の断片モデル' : 'RDKit で生成（ETKDG + MMFF94）')]);
+  if (detail) rows.push(['3D座標', c.sdf_source === 'pubchem-3d' ? 'PubChem 3D 配座' : (c.kind === 'crystal' ? '結晶構造の断片モデル' : 'RDKit で生成（ETKDG + MMFF94）')]);
   return `<dl class="facts">${rows.map(([k, val]) => `<dt>${k}</dt><dd>${val}</dd>`).join('')}</dl>`;
 }
 
@@ -65,15 +68,15 @@ export async function renderCompound({ el, params }) {
   content.innerHTML = `
     <div class="mol-title">
       <h2>${esc(c.name_ja)}</h2>
-      <div class="en">${esc(c.name_en)}</div>
+      ${c.reading && c.reading !== c.name_ja ? `<div class="en">${esc(c.reading)}</div>` : ''}
       ${c.formula ? `<div class="fm">${formulaHtml(c.formula)}${c.mw ? `<span class="muted" style="font-weight:400">　分子量 ${c.mw.toFixed(2)}</span>` : ''}</div>` : ''}
     </div>
+    ${c.note_ja ? `<section class="card cp-note"><h2 class="section-title" style="margin-top:0">ひとことで言うと${c.note_reviewed ? '' : '<span class="draft" title="教員による確認前の下書きです">下書き</span>'}</h2><p class="note">${esc(c.note_ja)}</p></section>` : ''}
     <div class="molpanel"></div>
     <div class="stack">
       ${c.fatty_acid && c.categories.includes('fatty-acid') ? faCardHtml(c.fatty_acid) : ''}
-      ${c.note_ja ? `<section class="card"><h2 class="section-title" style="margin-top:0">ひとこと解説${c.note_reviewed ? '' : '<span class="draft" title="教員による確認前の下書きです">下書き</span>'}</h2><p class="note">${esc(c.note_ja)}</p></section>` : ''}
       ${related.length ? `<section class="card"><h2 class="section-title" style="margin-top:0">関連する分子</h2><div class="rel">${related.map((r) => `<a href="#/compound/${encodeURIComponent(r.id)}">${esc(r.name_ja)}</a>`).join('')}</div></section>` : ''}
-      <section class="card"><h2 class="section-title" style="margin-top:0">データ</h2>${factsHtml(c)}</section>
+      <details class="card cp-data"><summary>くわしいデータ</summary>${factsHtml(c)}</details>
       <button class="btn primary block" data-act="share2">${icon('qr')}QRコードで共有</button>
       ${c.kind !== 'crystal' ? `<a class="btn block" href="#/quiz?id=${encodeURIComponent(c.id)}">${icon('quiz')}この分子で官能基クイズ</a>` : ''}
       <p class="credit">構造: ${c.pubchem_cid ? '<a href="https://pubchem.ncbi.nlm.nih.gov/" target="_blank" rel="noopener">PubChem</a>（パブリックドメイン）で照合' : 'PubChem 未照合（RDKit による生成）'}。解説は${c.note_reviewed ? '教員確認済み' : '確認前の下書き'}です。</p>
@@ -141,7 +144,7 @@ export async function renderView({ el, query }) {
     return null;
   }
   content.innerHTML = `
-    <div class="mol-title"><h2>${esc(title)}</h2><div class="en"><code>${esc(smiles)}</code></div><div class="fm"></div></div>
+    <div class="mol-title"><h2>${esc(title)}</h2>${isDetail() ? `<div class="en"><code>${esc(smiles)}</code></div>` : ''}<div class="fm"></div></div>
     <div class="match"></div>
     <div class="molpanel"><p class="empty"><span class="spinner"></span>分子を解析中…</p></div>
     <div class="stack">

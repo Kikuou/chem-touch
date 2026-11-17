@@ -98,7 +98,7 @@
 
 カテゴリの id: `basic` `alkane` `alkene-alkyne` `alcohol` `carboxylic-acid` `aldehyde-ketone` `ether` `fatty-acid` `carbohydrate` `amino-acid` `lipid` `vitamin` `food` `biomolecule` `drug`（小分類は `data/categories.json`）
 
-**SMILES の調べ方**: PubChem（https://pubchem.ncbi.nlm.nih.gov/）で化合物を開き、「Isomeric SMILES」をコピーします。アプリの「つくる」→「かんたん作図」で描くと、アドレス欄の `smiles=` の後ろに SMILES が出ます（「ほか」→「上級エディタ」でも表示されます）。
+**SMILES の調べ方**: PubChem（https://pubchem.ncbi.nlm.nih.gov/）で化合物を開き、「Isomeric SMILES」をコピーします。アプリの「つくる」→「なぞって描く」で描くと、アドレス欄の `smiles=` の後ろに SMILES が出ます（「その他」で「くわしい表示」をオンにすると、分子ページの「くわしいデータ」にも SMILES が出ます）。
 
 **立体の確認 `checks`**（立体のある分子だけ。書いておくと、PubChem の構造と食い違ったときにエラーで知らせます）
 - 不斉炭素: `cip=S`（R/S）

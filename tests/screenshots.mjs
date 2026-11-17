@@ -52,6 +52,9 @@ for (const scheme of ['light', 'dark']) {
     await p.reload();
     await p.waitForSelector('.grid');
     await shot(p, 'home-no-band');
+    await p.goto(BASE + '#/more');
+    await p.waitForSelector('[data-detail]');
+    await shot(p, 'more');
   }
 
   await p.goto(BASE + '#/library');
@@ -189,21 +192,30 @@ for (const scheme of ['light', 'dark']) {
     await p.click('[data-k="rational"] .nt-a >> text=COO');
     await p.waitForTimeout(1200);
     await shot(p, 't-notation-highlight');
+    await p.evaluate(() => localStorage.removeItem('chemtouch:sketch:last'));
     await p.goto(BASE + '#/build/draw');
+    await p.waitForSelector('svg.sk .sk-empty');
+    await p.waitForTimeout(400);
+    await shot(p, 't-draw-empty');
+    await p.click('.sks-bar [data-act="more"]');
+    await p.waitForTimeout(400);
+    await shot(p, 't-draw-more');
+    await p.click('.sheet-backdrop [data-m="coach"]');
     await p.waitForSelector('.sks-coach');
     await shot(p, 't-draw-coach');
     await p.click('[data-act="coach-ok"]');
     await p.goto(BASE + '#/build/draw?smiles=' + encodeURIComponent('CC(=O)O'));
-    await p.waitForSelector('.sks-sheet .build-match:empty, .sks-sheet .sks-peek b');
-    {
-      const c = await p.locator('svg.sk .sk-node').nth(0).boundingBox();
-      await p.touchscreen.tap(c.x + c.width / 2, c.y + c.height / 2);
-    }
+    await p.waitForSelector('.sks-sheet .sks-peek b');
     await p.waitForTimeout(600);
     await shot(p, 't-draw');
     await p.click('[data-act="sheet"]');
     await p.waitForTimeout(800);
     await shot(p, 't-draw-sheet');
+    await p.goto(BASE + '#/build/draw?smiles=' + encodeURIComponent('CCCC(=O)O'));
+    await p.waitForSelector('.sks-sheet .sks-peek b');
+    await p.click('[data-part="OH"]');
+    await p.waitForTimeout(400);
+    await shot(p, 't-draw-armed');
     await p.goto(BASE + '#/build/draw?smiles=' + encodeURIComponent('CCO'));
     await p.waitForSelector('svg.sk .sk-node');
     await p.click('[data-act="mode-full"]');
@@ -216,16 +228,6 @@ for (const scheme of ['light', 'dark']) {
     await p.waitForTimeout(800);
     await shot(p, 't-draw-desktop');
     await p.setViewportSize({ width: 375, height: 812 });
-    await p.evaluate(() => localStorage.removeItem('chemtouch:sketch:last'));
-    await p.goto(BASE + '#/build/draw2');
-    await p.waitForSelector('svg.sk .sk-empty');
-    await p.waitForTimeout(400);
-    await shot(p, 't-draw2-empty');
-    await p.goto(BASE + '#/build/draw2?smiles=' + encodeURIComponent('CCCC(=O)O'));
-    await p.waitForSelector('.sks-sheet .sks-peek b');
-    await p.click('[data-part="OH"]');
-    await p.waitForTimeout(400);
-    await shot(p, 't-draw2');
     for (const [mode, focus] of [['choose', '2-propanol'], ['blocks', 'ethyl-acetate'], ['draw', 'acetic-acid']]) {
       await p.goto(BASE + `#/build/practice?mode=${mode}&focus=${focus}`);
       await p.waitForSelector('.pr-setup');
