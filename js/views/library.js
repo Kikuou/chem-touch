@@ -1,9 +1,10 @@
 // Compound library (spec B-1): categories, keyword search, result list.
+// ?life=<id> limits it to one 身近なもの group (食品, からだ, ...; views/life.js).
 import { esc, isDark, formulaHtml } from '../core/dom.js';
 import { icon } from '../core/icons.js';
-import { compounds, categories } from '../core/data.js';
+import { compounds, categories, lifeGroups } from '../core/data.js';
 import { search } from '../core/search.js';
-import { setQuery } from '../core/router.js';
+import { setQuery, goBack } from '../core/router.js';
 import { getRDKit, preloadRDKit, depict } from '../mol/rdkit.js';
 
 const DARK = { '-1': [0.86, 0.88, 0.87], 6: [0.86, 0.88, 0.87], 7: [0.45, 0.66, 1], 8: [1, 0.45, 0.47], 17: [0.35, 0.82, 0.48] };
@@ -51,16 +52,23 @@ async function fillThumbs(root, list) {
 }
 
 export async function renderLibrary({ el, query }) {
-  const [list, cats] = await Promise.all([compounds(), categories()]);
+  const [all, allCats, groups] = await Promise.all([compounds(), categories(), lifeGroups()]);
+  const life = groups.find((g) => g.id === query.get('life') && !g.planned) || null;
+  // a 身近なもの group: only its categories and their compounds
+  const cats = life ? life.cats.map((id) => allCats.find((c) => c.id === id)).filter(Boolean) : allCats;
+  const list = life ? all.filter((c) => c.categories.some((k) => life.cats.includes(k))) : all;
   let q = query.get('q') || '';
   let cat = query.get('cat') || '';
+  const params = (o) => ({ ...(life ? { life: life.id } : {}), ...o });
   const counts = {};
   list.forEach((c) => c.categories.forEach((k) => { counts[k] = (counts[k] || 0) + 1; }));
   const catById = new Map(cats.map((c) => [c.id, c]));
 
   el.innerHTML = `
   <div class="page">
-    <header class="topbar"><h1 class="brand" style="font-size:20px">分子をさがす</h1></header>
+    ${life
+    ? `<div class="subbar"><button class="iconbtn" data-act="back" aria-label="戻る">${icon('back')}</button><h1>${esc(life.label)}</h1></div><p class="small muted" style="margin:0 4px 6px">身近なもの ・ ${esc(life.desc)}</p>`
+    : '<header class="topbar"><h1 class="brand" style="font-size:20px">分子をさがす</h1></header>'}
     <div class="subbar" style="flex-direction:column;align-items:stretch;gap:4px">
       <label class="search">
         <span class="sr-only">キーワード</span>
@@ -111,6 +119,15 @@ export async function renderLibrary({ el, query }) {
       } else {
         results.innerHTML = `<p class="subhead">${esc(c ? c.desc : '')}</p><div class="list">${shown.map(itemHtml).join('')}</div>`;
       }
+    } else if (life) {
+      // the whole group, one section per category
+      shown = list;
+      const seen = new Set();
+      results.innerHTML = cats.map((c) => {
+        const items = list.filter((x) => x.categories.includes(c.id) && !seen.has(x.id));
+        items.forEach((x) => seen.add(x.id));
+        return items.length ? `<h2 class="subhead">${esc(c.label)}</h2><div class="list">${items.map(itemHtml).join('')}</div>` : '';
+      }).join('');
     } else {
       results.innerHTML = `<h2 class="section-title">カテゴリ</h2><div class="cat-grid">${cats.map((c) => `
         <button class="cat ${c.planned ? 'planned' : ''}" data-cat="${c.id}" style="text-align:left">
@@ -131,7 +148,7 @@ export async function renderLibrary({ el, query }) {
     cat = id;
     el.querySelectorAll('.chips-row .chip').forEach((b) => b.setAttribute('aria-pressed', b.dataset.cat === cat));
     el.querySelector(`.chips-row .chip[data-cat="${cat}"]`)?.scrollIntoView({ inline: 'center', block: 'nearest' });
-    setQuery({ ...(q ? { q } : {}), ...(cat ? { cat } : {}) });
+    setQuery(params({ ...(q ? { q } : {}), ...(cat ? { cat } : {}) }));
     draw();
   }
 
@@ -141,7 +158,7 @@ export async function renderLibrary({ el, query }) {
     timer = setTimeout(() => {
       q = input.value.trim();
       clearBtn.hidden = !q;
-      setQuery({ ...(q ? { q } : {}), ...(cat ? { cat } : {}) });
+      setQuery(params({ ...(q ? { q } : {}), ...(cat ? { cat } : {}) }));
       draw();
     }, 120);
   });
@@ -151,10 +168,11 @@ export async function renderLibrary({ el, query }) {
     input.value = '';
     q = '';
     clearBtn.hidden = true;
-    setQuery(cat ? { cat } : {});
+    setQuery(params(cat ? { cat } : {}));
     draw();
     input.focus();
   });
+  el.querySelector('[data-act="back"]')?.addEventListener('click', () => goBack('#/life'));
   el.addEventListener('click', (e) => {
     const b = e.target.closest('[data-cat]');
     if (b) selectCat(b.dataset.cat);

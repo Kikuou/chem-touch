@@ -33,8 +33,15 @@ js/mol/               分子表示（M1〜M3 で共用）
   fgroups.js          官能基の SMARTS 判定と色分けグループの作成
   rdkit.js            RDKit.js の遅延読み込み
   elements.js         原子ポップアップ用の最小元素表（周期表データは M4 の data/elements.json）
+js/lesson/            授業（docs/plan.md 提案5・11。js/core/ だけを使う）
+  catalog.js          教材カタログ: "compound:water" などの部品名 → 題名・開く画面
+  progress.js         端末が覚えること（今日の回、おわりの3問のできた印）
+  colors.js           色カードの4色（文字と形つき）
 js/views/             画面（1画面1ファイル）
-  home.js, home-art.js   ホーム（授業帯 + ベントー・グリッド）
+  home.js                ホーム（今日の授業・身近なもの・基礎の復習・道具）
+  lesson.js              目次 #/lessons、各回 #/lesson/<no>、いっせい問題 #/lesson/<no>/ask、おわりの3問 #/lesson/<no>/end
+  card.js                色カード #/card
+  life.js                身近なもの #/life（各グループは #/library?life=<id>）
   library.js             分子ライブラリ（B-1）
   compound.js            分子詳細 #/compound/<id>（名前・読みがな → ひとことで言うと → 3D・構造式・官能基 → 関連 → くわしいデータ）
                          と任意分子 #/view?smiles=（A-7, B-2, D-1）

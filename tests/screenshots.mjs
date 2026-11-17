@@ -32,29 +32,61 @@ async function shot(p, name, opts = {}) {
   console.log('saved', name);
 }
 
-const example = await (await fetch(BASE + 'data/schedule.example.json')).text();
 
 for (const scheme of ['light', 'dark']) {
   const sfx = scheme === 'dark' ? '-dark' : '';
   const p = await page(scheme);
 
-  // Home with a lesson band (example schedule, date fixed inside the term)
-  await p.route('**/data/schedule.json', (r) => r.fulfill({ body: example, contentType: 'application/json' }));
-  await p.clock.setFixedTime(new Date('2027-05-12T10:00:00+09:00'));
+  // Home: before a lesson is chosen, then with 第7回 as today's lesson
   await p.goto(BASE + '#/');
-  await p.waitForSelector('.band');
+  await p.evaluate(() => localStorage.removeItem('chemtouch:lesson:today'));
+  await p.reload();
+  await p.waitForSelector('.hm-today');
+  if (scheme === 'light') await shot(p, 'home-start');
+  await p.evaluate(() => localStorage.setItem('chemtouch:lesson:today', '7'));
+  await p.reload();
+  await p.waitForSelector('.hm-today .hm-go');
   await shot(p, 'home' + sfx);
-  await p.unroute('**/data/schedule.json');
 
   if (scheme === 'light') {
-    // Home outside the teaching period (empty schedule -> QR in header)
-    await p.goto(BASE + '#/');
-    await p.reload();
-    await p.waitForSelector('.grid');
-    await shot(p, 'home-no-band');
+    await p.click('.hm-today [data-act="pick"]');
+    await p.waitForSelector('.sheet-backdrop .ls-list');
+    await p.waitForTimeout(400);
+    await shot(p, 'home-pick');
     await p.goto(BASE + '#/more');
     await p.waitForSelector('[data-detail]');
     await shot(p, 'more');
+    // lessons (docs/plan.md 提案5・11)
+    await p.goto(BASE + '#/lessons');
+    await p.waitForSelector('.ls-list');
+    await shot(p, 'lessons');
+    await p.goto(BASE + '#/lesson/7');
+    await p.waitForSelector('.ls-flow');
+    await shot(p, 'lesson');
+    await shot(p, 'lesson-full', { fullPage: true });
+    await p.goto(BASE + '#/lesson/7/end');
+    await p.click('.ls-q-o [data-k="0"]');
+    await p.waitForTimeout(200);
+    await shot(p, 'lesson-end');
+    await p.goto(BASE + '#/card');
+    await p.waitForSelector('.cc-grid');
+    await shot(p, 'card');
+    await p.click('.cc-grid [data-key="B"]');
+    await shot(p, 'card-up');
+    await p.goto(BASE + '#/life');
+    await p.waitForSelector('.lf-grid');
+    await shot(p, 'life');
+    await p.goto(BASE + '#/library?life=food');
+    await p.waitForSelector('.results .item');
+    await p.waitForTimeout(2000); // thumbnails (RDKit.js)
+    await shot(p, 'life-food');
+    await p.setViewportSize({ width: 1280, height: 720 });
+    await p.goto(BASE + '#/lesson/7/ask');
+    await p.waitForSelector('.ls-ask-o');
+    await shot(p, 'lesson-ask');
+    await p.click('[data-act="show"]');
+    await shot(p, 'lesson-ask-answer');
+    await p.setViewportSize({ width: 375, height: 812 });
   }
 
   await p.goto(BASE + '#/library');

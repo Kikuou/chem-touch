@@ -1,0 +1,316 @@
+{
+ "id": "2027",
+ "label": "2027年度",
+ "reviewed": false,
+ "note": "Lesson plan (docs/plan.md 提案11). parts: catalog ids (js/lesson/catalog.js) in the order of use; colorcards / end3: ids in data/questions.json. reviewed: false = topics and questions are drafts.",
+ "lessons": [
+  {
+   "no": 1,
+   "title": "物質を見分ける・物質の三態",
+   "topic": "水・空気・食塩水・牛乳、ドライアイス、消毒用アルコールが乾く理由",
+   "parts": [
+    "soon:なかまわけ",
+    "soon:温度スライダー（三態）",
+    "compound:water",
+    "compound:carbon-dioxide",
+    "compound:ethanol"
+   ],
+   "colorcards": [
+    "q1-1",
+    "q1-2"
+   ],
+   "end3": [
+    "q1-a",
+    "q1-b",
+    "q1-c"
+   ]
+  },
+  {
+   "no": 2,
+   "title": "原子のつくりと電子配置",
+   "topic": "体をつくる元素 C・H・O・N",
+   "parts": [
+    "periodic:body",
+    "electron:C",
+    "electron:O",
+    "electron:N"
+   ],
+   "colorcards": [
+    "q2-1",
+    "q2-2"
+   ],
+   "end3": [
+    "q2-a",
+    "q2-b",
+    "q2-c"
+   ]
+  },
+  {
+   "no": 3,
+   "title": "周期表とイオン",
+   "topic": "栄養ミネラル、スポーツドリンクの成分表示",
+   "parts": [
+    "periodic",
+    "periodic:mineral",
+    "electron:Na",
+    "electron:Cl"
+   ],
+   "colorcards": [
+    "q3-1",
+    "q3-2"
+   ],
+   "end3": [
+    "q3-a",
+    "q3-b",
+    "q3-c"
+   ]
+  },
+  {
+   "no": 4,
+   "title": "イオン結合と組成式",
+   "topic": "食塩、にがり、カルシウムのサプリ",
+   "parts": [
+    "bond:ionic",
+    "compound:nacl-crystal",
+    "soon:組成式パズル"
+   ],
+   "colorcards": [
+    "q4-1",
+    "q4-2"
+   ],
+   "end3": [
+    "q4-a",
+    "q4-b",
+    "q4-c"
+   ]
+  },
+  {
+   "no": 5,
+   "title": "共有結合と分子の形",
+   "topic": "水と CO₂ の形の違い、電子のかたより（極性）",
+   "parts": [
+    "bond:covalent",
+    "compound:water",
+    "compound:carbon-dioxide",
+    "compound:methane",
+    "compound:ammonia"
+   ],
+   "colorcards": [
+    "q5-1",
+    "q5-2"
+   ],
+   "end3": [
+    "q5-a",
+    "q5-b",
+    "q5-c"
+   ]
+  },
+  {
+   "no": 6,
+   "title": "分子間力と物質のなりたち",
+   "topic": "水が 100 ℃ まで沸騰しない理由（水素結合）、水と油、氷が浮く、鉛筆の芯とダイヤ、アルミ箔",
+   "parts": [
+    "soon:ひきあう分子",
+    "series:alkane",
+    "compound:diamond",
+    "compound:graphite",
+    "soon:自由電子の図"
+   ],
+   "colorcards": [
+    "q6-1",
+    "q6-2"
+   ],
+   "end3": [
+    "q6-a",
+    "q6-b",
+    "q6-c"
+   ]
+  },
+  {
+   "no": 7,
+   "title": "炭素がつくる分子と官能基",
+   "topic": "都市ガスとお酒を構造式で書く、お酢、果物の香り、あぶらの飽和／不飽和",
+   "parts": [
+    "notation:acetic-acid",
+    {
+     "use": "draw",
+     "title": "メタンとエタノールを描く",
+     "sub": "なぞって描く（都市ガスとお酒）"
+    },
+    "quiz",
+    "compare:oleic-elaidic",
+    "practice"
+   ],
+   "colorcards": [
+    "q7-1",
+    "q7-2"
+   ],
+   "end3": [
+    "q7-a",
+    "q7-b",
+    "q7-c"
+   ]
+  },
+  {
+   "no": 8,
+   "title": "原子量・分子量とモル",
+   "topic": "角砂糖1個・水コップ1杯は何 mol？",
+   "parts": [
+    "soon:分子量カウンター",
+    "soon:モルのはかり",
+    "compound:sucrose",
+    "compound:water"
+   ],
+   "colorcards": [
+    "q8-1",
+    "q8-2"
+   ],
+   "end3": [
+    "q8-a",
+    "q8-b",
+    "q8-c"
+   ]
+  },
+  {
+   "no": 9,
+   "title": "溶液の濃度",
+   "topic": "生理食塩水と点滴、スポーツドリンク、消毒用アルコール、しょうゆの塩分",
+   "parts": [
+    "soon:とかすビーカー",
+    "compound:nacl-crystal",
+    "compound:alpha-d-glucose",
+    "compound:ethanol"
+   ],
+   "colorcards": [
+    "q9-1",
+    "q9-2"
+   ],
+   "end3": [
+    "q9-a",
+    "q9-b",
+    "q9-c"
+   ]
+  },
+  {
+   "no": 10,
+   "title": "化学反応式と量の関係",
+   "topic": "ガスの燃焼、呼吸、食品のエネルギー",
+   "parts": [
+    "soon:反応式の天びん",
+    "compound:methane",
+    "compound:propane",
+    "compound:alpha-d-glucose"
+   ],
+   "colorcards": [
+    "q10-1",
+    "q10-2"
+   ],
+   "end3": [
+    "q10-a",
+    "q10-b",
+    "q10-c"
+   ]
+  },
+  {
+   "no": 11,
+   "title": "酸と塩基・pH",
+   "topic": "胃液・レモン・血液・せっけん",
+   "parts": [
+    "soon:pH ものさし",
+    "compound:hydrogen-chloride",
+    "compound:acetic-acid",
+    "compound:citric-acid"
+   ],
+   "colorcards": [
+    "q11-1",
+    "q11-2"
+   ],
+   "end3": [
+    "q11-a",
+    "q11-b",
+    "q11-c"
+   ]
+  },
+  {
+   "no": 12,
+   "title": "中和と塩",
+   "topic": "胃薬（制酸薬）、酢とふくらし粉",
+   "parts": [
+    "soon:滴定シミュレーション",
+    "compound:hydrogen-chloride",
+    "compound:acetic-acid"
+   ],
+   "colorcards": [
+    "q12-1",
+    "q12-2"
+   ],
+   "end3": [
+    "q12-a",
+    "q12-b",
+    "q12-c"
+   ]
+  },
+  {
+   "no": 13,
+   "title": "酸化と還元",
+   "topic": "りんごの変色とビタミンC、カイロ、漂白剤、お酒が体の中で酸化される道すじ",
+   "parts": [
+    "soon:電子の受けわたし",
+    "compound:ascorbic-acid",
+    "compound:ethanol",
+    "compound:acetaldehyde",
+    "compound:acetic-acid"
+   ],
+   "colorcards": [
+    "q13-1",
+    "q13-2"
+   ],
+   "end3": [
+    "q13-a",
+    "q13-b",
+    "q13-c"
+   ]
+  },
+  {
+   "no": 14,
+   "title": "食べものと体の化学",
+   "topic": "糖質・脂質・タンパク質、消化、ビタミンの水溶性／脂溶性",
+   "parts": [
+    "life:food",
+    "compare:glucose-anomers",
+    "compare:c18-fatty-acids",
+    "library:amino-acid",
+    "library:vitamin"
+   ],
+   "colorcards": [
+    "q14-1",
+    "q14-2"
+   ],
+   "end3": [
+    "q14-a",
+    "q14-b",
+    "q14-c"
+   ]
+  },
+  {
+   "no": 15,
+   "title": "くすり・くらしの化学と総まとめ",
+   "topic": "くすりの分子、せっけんが油を落とすしくみ、プラスチック",
+   "parts": [
+    "life:medical",
+    "compound:aspirin",
+    "compound:acetaminophen",
+    "soon:総まとめクイズ"
+   ],
+   "colorcards": [
+    "q15-1",
+    "q15-2"
+   ],
+   "end3": [
+    "q15-a",
+    "q15-b",
+    "q15-c"
+   ]
+  }
+ ]
+}

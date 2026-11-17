@@ -17,17 +17,29 @@ page.on('pageerror', (e) => errors.push(e.message));
 const step = (s) => console.log('✓', s);
 
 await page.goto(BASE + '#/');
-// home tiles keep their size: the periodic-table tile once grew to ~700px tall
-// because the home mini table and the #/periodic grid shared the class `.pt`
-await page.waitForSelector('a.t.tall svg');
-const homeBox = await page.evaluate(() => {
-  const r = (s) => document.querySelector(s).getBoundingClientRect();
-  return { tile: r('a.t.tall').height, mini: r('a.t.tall svg').width, sq: r('a.t.sq').height };
-});
-assert.ok(homeBox.tile < 360, `periodic tile height ${homeBox.tile}px`);
-assert.ok(homeBox.mini > 100, `mini periodic table width ${homeBox.mini}px`);
-assert.ok(homeBox.sq < 200, `square tile height ${homeBox.sq}px`);
-step(`home tiles: periodic ${Math.round(homeBox.tile)}px tall, mini table ${Math.round(homeBox.mini)}px wide`);
+// home: 今日の授業 (none chosen yet -> pick one), 身近なもの, 基礎の復習, 道具;
+// the layout stays inside the 375px screen (a short shared CSS class name
+// once broke a home tile: `.pt`)
+await page.waitForSelector('.hm-today');
+assert.match(await page.textContent('.hm-today'), /回をえらんでください/);
+await page.click('.hm-today [data-act="pick"]');
+await page.waitForSelector('.sheet-backdrop .ls-list');
+assert.equal(await page.locator('.sheet-backdrop [data-no]').count(), 15);
+await page.click('.sheet-backdrop [data-no="7"]');
+await page.waitForFunction(() => /炭素がつくる分子と官能基/.test(document.querySelector('.hm-today').textContent));
+assert.equal(await page.evaluate(() => localStorage.getItem('chemtouch:lesson:today')), '7');
+const homeBox = await page.evaluate(() => ({
+  w: document.documentElement.scrollWidth,
+  life: [...document.querySelectorAll('.hm-life a')].map((a) => Math.round(a.getBoundingClientRect().height)),
+  tools: [...document.querySelectorAll('.hm-tools a')].map((a) => Math.round(a.getBoundingClientRect().width)),
+  rev: document.querySelectorAll('.hm-rev a').length,
+}));
+assert.equal(homeBox.w, 375, 'no sideways scrolling');
+assert.equal(homeBox.life.length, 4);
+assert.ok(homeBox.life.every((x) => x > 60 && x < 140), `身近なもの tiles ${homeBox.life}`);
+assert.ok(homeBox.tools.every((x) => x > 70), `tool tiles ${homeBox.tools}`);
+assert.equal(homeBox.rev, 15);
+step(`home: pick 第7回 as today's lesson; 身近なもの ${homeBox.life.join('/')}px, 15 lessons in 基礎の復習, no sideways scroll`);
 await page.click('a[aria-label="分子をさがす"]');
 await page.fill('.search input', 'グルコース');
 await page.waitForSelector('.item');
@@ -454,6 +466,78 @@ await m2.click('.sks-layer [data-act="primary"]');
 await m2.waitForSelector('.pr-result .quiz-ok');
 assert.equal(await m2.isVisible('.sks-layer'), false);
 step('書きかえ練習 描く: methanol drawn on the full-screen drawing is accepted');
+
+// ---- 授業 (docs/plan.md 提案5・11): lesson page from the plan, ?today=1,
+// colour card, おわりの3問 with できた印, いっせい問題 for the projector, 身近なもの
+await m2.goto(BASE + '#/lesson/7');
+await m2.waitForSelector('.ls-flow');
+assert.equal(await m2.locator('.ls-flow > a').count(), 5);
+assert.match(await m2.getAttribute('.ls-flow > a >> nth=0', 'href'), /#\/build\/notation\?id=acetic-acid/);
+assert.equal(await m2.locator('[href$="/lesson/7/ask"]').count(), 0, 'no teacher button for students');
+await m2.click('.ls-flow > a >> nth=3');
+await m2.waitForURL(/#\/compare\/oleic-elaidic$/);
+await m2.goto(BASE + '#/lesson/1');
+await m2.waitForSelector('.ls-flow');
+assert.ok(await m2.locator('.ls-flow > .ls-off').count() >= 1, '準備中 materials are not links');
+await m2.goto(BASE + '#/lesson/3?today=1');
+await m2.waitForSelector('.ls-flow');
+assert.equal(await m2.evaluate(() => localStorage.getItem('chemtouch:lesson:today')), '3');
+assert.doesNotMatch(m2.url(), /today=1/);
+step('lesson page: 第7回 has 5 parts in order (書き方くらべ … くらべる opens oleic/elaidic); 準備中 parts; ?today=1 sets today');
+
+await m2.goto(BASE + '#/card');
+await m2.waitForSelector('.cc-grid');
+assert.equal(await m2.evaluate(() => getComputedStyle(document.querySelector('.nav')).display), 'none');
+const ccB = await m2.locator('.cc-grid [data-key="B"]').boundingBox();
+await m2.touchscreen.tap(ccB.x + ccB.width / 2, ccB.y + ccB.height / 2);
+await m2.waitForSelector('.cc-up');
+const up = await m2.evaluate(() => { const b = document.querySelector('.cc-up'); const r = b.getBoundingClientRect(); return [getComputedStyle(b).backgroundColor, b.querySelector('.cc-l').textContent, Math.round(r.width), Math.round(r.height)].join(); });
+assert.equal(up, 'rgb(0, 114, 178),B,375,812', 'the whole screen is blue with a B');
+await m2.touchscreen.tap(187, 400);
+await m2.waitForSelector('.cc-grid');
+step('colour card: tap B -> the whole screen turns blue with "B ▲", a tap chooses again; no tab bar');
+
+const answers = await m2.evaluate(async () => Object.fromEntries((await (await fetch('data/questions.json')).json()).questions.map((q) => [q.id, q.answer])));
+await m2.goto(BASE + '#/lesson/7/end');
+for (const id of ['q7-a', 'q7-b', 'q7-c']) {
+  await m2.click(`.ls-q-o [data-k="${answers[id]}"]`);
+  assert.match(await m2.textContent('.ls-q-ex'), /せいかい/);
+  await m2.click('[data-act="next"]');
+}
+await m2.waitForSelector('.ls-res');
+assert.match(await m2.textContent('.ls-res-big'), /3/);
+assert.deepEqual(await m2.evaluate(() => JSON.parse(localStorage.getItem('chemtouch:lesson:done'))['7']), { score: 3, total: 3 });
+await m2.goto(BASE + '#/lessons');
+await m2.waitForSelector('.ls-list');
+assert.match(await m2.textContent('.ls-list > a >> nth=6'), /✓ 3\/3/);
+step('おわりの3問: 3 right answers -> 3/3, kept on this device; 基礎の復習 shows ✓ on 第7回');
+
+await m2.evaluate(() => localStorage.setItem('chemtouch:detail', '1'));
+await m2.goto(BASE + '#/lesson/7');
+await m2.click('[href$="/lesson/7/ask"]');
+await m2.waitForSelector('.ls-ask-o');
+assert.equal(await m2.locator('.ls-ask-o > div').count(), 4);
+assert.equal(await m2.evaluate(() => getComputedStyle(document.querySelector('.nav')).display), 'none');
+await m2.click('[data-act="show"]');
+assert.equal(await m2.locator('.ls-ask-o > div.ok').count(), 1);
+assert.equal(await m2.locator('.ls-ask-o > div.ok').evaluate((d) => [...d.parentNode.children].indexOf(d)), answers['q7-1']);
+await m2.click('[data-act="next"]');
+assert.match(m2.url(), /i=1/);
+assert.equal(await m2.locator('.ls-ask-o > div.ok').count(), 0, 'the next question starts hidden');
+await m2.evaluate(() => localStorage.removeItem('chemtouch:detail'));
+step('いっせい問題 (teacher): 4 coloured choices, 答えを見せる marks the right one, next question');
+
+await m2.goto(BASE + '#/life');
+await m2.waitForSelector('.lf-grid');
+assert.equal(await m2.locator('.lf-g').count(), 4);
+assert.equal(await m2.locator('a.lf-g').count(), 3, 'くらし is not ready yet');
+await m2.click('a.lf-g >> nth=0');
+await m2.waitForURL(/#\/library\?life=food/);
+await m2.waitForSelector('.results .list .item');
+assert.equal((await m2.textContent('.subbar h1')).trim(), '食品');
+assert.equal(await m2.locator('.chips-row .chip').count(), 7);
+assert.equal((await m2.textContent('.results .subhead')).trim(), '糖質');
+step('身近なもの: 4 groups (くらし 準備中); 食品 lists its categories, 糖質 first');
 
 // ---- M4 acceptance: build the electron configuration of Na, give an
 // electron to Cl, go to the NaCl crystal; periodic table, detail, Lewis formulas

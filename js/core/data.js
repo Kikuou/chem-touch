@@ -37,15 +37,22 @@ export async function functionalGroups() {
   return (await getJSON('functional_groups.json')).groups;
 }
 
-// data/schedule.json: an array of lessons. An empty array (or a missing
-// file) simply hides the lesson band on the home screen.
-export async function schedule() {
-  try {
-    const s = await getJSON('schedule.json');
-    return Array.isArray(s) ? s : (s.lessons || []);
-  } catch (e) {
-    return [];
-  }
+// 身近なもの: groups of library categories (data/categories.json "life")
+export async function lifeGroups() {
+  return (await getJSON('categories.json')).life || [];
+}
+
+// The lesson plan in use (data/plans/index.json -> data/plans/<id>.json)
+export async function lessonPlan() {
+  const index = await getJSON('plans/index.json');
+  return getJSON(`plans/${index.current}.json`);
+}
+
+// Question bank of the colour cards and おわりの3問, by id
+let qById = null;
+export async function questions() {
+  if (!qById) qById = new Map((await getJSON('questions.json')).questions.map((q) => [q.id, q]));
+  return qById;
 }
 
 const sdfCache = new Map();
