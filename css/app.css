@@ -175,7 +175,7 @@ svg.i { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-widt
 .t.sq { min-height: 138px; }
 .t.tall { grid-row: span 2; min-height: 286px; justify-content: flex-start; }
 .t.wide { grid-column: span 2; min-height: 92px; flex-direction: row; align-items: center; gap: 12px; }
-.pt { color: var(--text); margin-top: 10px; }
+.home-pt { color: var(--text); margin-top: 10px; }
 .minerals { display: flex; flex-direction: column; gap: 6px; margin-top: 14px; }
 .minerals .lbl, .trend .lbl { font-size: 11px; color: var(--muted); }
 .minerals .els { display: flex; gap: 4px; flex-wrap: wrap; }
@@ -475,7 +475,7 @@ table.lic th, table.lic td { text-align: left; padding: 8px 6px; border-bottom: 
 .pt-controls { display: flex; flex-direction: column; gap: 2px; padding: 0 16px 6px; }
 .pt-controls .chips-row { padding: 4px 0; }
 .pt-scroll { overflow-x: auto; overscroll-behavior-x: contain; padding: 4px 16px 10px; -webkit-overflow-scrolling: touch; }
-.pt { --cell: 40px; display: grid; grid-template-columns: 18px repeat(18, var(--cell)); grid-template-rows: 18px repeat(7, calc(var(--cell) * 1.18)) 10px repeat(2, calc(var(--cell) * 1.18)); gap: 2px; width: max-content; }
+.pt { --cell: 40px; margin-top: 10px; display: grid; grid-template-columns: 18px repeat(18, var(--cell)); grid-template-rows: 18px repeat(7, calc(var(--cell) * 1.18)) 10px repeat(2, calc(var(--cell) * 1.18)); gap: 2px; width: max-content; }
 .pt-h { font-size: 10px; color: var(--muted); display: grid; place-items: center; }
 .pt-series { font-size: 9px; color: var(--muted); display: grid; place-items: center; border: 1px dashed var(--line); border-radius: 6px; text-align: center; line-height: 1.1; }
 .pt-el { position: relative; border-radius: 7px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text); line-height: 1.05; overflow: hidden; }

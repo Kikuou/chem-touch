@@ -17,6 +17,17 @@ page.on('pageerror', (e) => errors.push(e.message));
 const step = (s) => console.log('✓', s);
 
 await page.goto(BASE + '#/');
+// home tiles keep their size: the periodic-table tile once grew to ~700px tall
+// because the home mini table and the #/periodic grid shared the class `.pt`
+await page.waitForSelector('a.t.tall svg');
+const homeBox = await page.evaluate(() => {
+  const r = (s) => document.querySelector(s).getBoundingClientRect();
+  return { tile: r('a.t.tall').height, mini: r('a.t.tall svg').width, sq: r('a.t.sq').height };
+});
+assert.ok(homeBox.tile < 360, `periodic tile height ${homeBox.tile}px`);
+assert.ok(homeBox.mini > 100, `mini periodic table width ${homeBox.mini}px`);
+assert.ok(homeBox.sq < 200, `square tile height ${homeBox.sq}px`);
+step(`home tiles: periodic ${Math.round(homeBox.tile)}px tall, mini table ${Math.round(homeBox.mini)}px wide`);
 await page.click('a[aria-label="分子をさがす"]');
 await page.fill('.search input', 'グルコース');
 await page.waitForSelector('.item');
