@@ -16,6 +16,8 @@
 
 ## ドキュメント
 - **教員向けガイド（授業での使い方・化合物の追加方法）: [docs/teacher_guide.md](docs/teacher_guide.md)**
+- **改善企画（確定版・これからの実装計画）: [docs/plan.md](docs/plan.md)**
+- 作業の約束事（Claude Code 用）: [CLAUDE.md](CLAUDE.md)
 - 仕様書: [docs/spec.md](docs/spec.md)
 - 構成とモジュール境界: [docs/architecture.md](docs/architecture.md)
 - 開発ルール（サーバー版フェーズ用。静的サイトには適用しない）: [docs/dev_rules.md](docs/dev_rules.md)
