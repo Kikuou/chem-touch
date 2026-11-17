@@ -46,6 +46,7 @@ await page.waitForSelector('.item');
 const names = await page.locator('.item .nm').allTextContents();
 assert.ok(names.includes('α-D-グルコース'), 'search result contains α-D-グルコース');
 step(`search "グルコース" -> ${names.join(', ')}`);
+assert.ok(await page.locator('.item .thumb.pre svg').count() >= 3, 'the list uses the pictures made at build time (thumbs.json)');
 
 await page.locator('.item', { hasText: 'α-D-グルコース' }).click();
 await page.waitForURL(/#\/compound\/alpha-d-glucose$/);

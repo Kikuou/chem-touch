@@ -2,7 +2,7 @@
 // ?life=<id> limits it to one 身近なもの group (食品, からだ, ...; views/life.js).
 import { esc, isDark, formulaHtml } from '../core/dom.js';
 import { icon } from '../core/icons.js';
-import { compounds, categories, lifeGroups } from '../core/data.js';
+import { compounds, categories, lifeGroups, thumbs } from '../core/data.js';
 import { search } from '../core/search.js';
 import { setQuery, goBack } from '../core/router.js';
 import { getRDKit, preloadRDKit, depict } from '../mol/rdkit.js';
@@ -12,9 +12,12 @@ const thumbCache = new Map();
 // library categories that have a homologous series (B-3)
 const SERIES_OF = { alkane: 'alkane', alcohol: 'alkanol', 'carboxylic-acid': 'carboxylic-acid', 'fatty-acid': 'saturated-fatty-acid' };
 
+let PRE = {}; // pictures made at build time (data/thumbs.json)
+
 function itemHtml(c) {
+  const pre = PRE[c.id]?.svg;
   return `<a class="item" href="#/compound/${encodeURIComponent(c.id)}">
-    <div class="thumb" data-thumb="${esc(c.id)}">${c.kind === 'crystal' ? icon('hex') : ''}</div>
+    <div class="thumb${pre ? ' pre' : ''}"${pre ? '' : ` data-thumb="${esc(c.id)}"`}>${c.kind === 'crystal' ? icon('hex') : pre || ''}</div>
     <div class="tx">
       <div class="nm">${esc(c.name_ja)}</div>
       <div class="en">${esc(c.name_en)}</div>
@@ -52,7 +55,8 @@ async function fillThumbs(root, list) {
 }
 
 export async function renderLibrary({ el, query }) {
-  const [all, allCats, groups] = await Promise.all([compounds(), categories(), lifeGroups()]);
+  const [all, allCats, groups, pre] = await Promise.all([compounds(), categories(), lifeGroups(), thumbs()]);
+  PRE = pre;
   const life = groups.find((g) => g.id === query.get('life') && !g.planned) || null;
   // a 身近なもの group: only its categories and their compounds
   const cats = life ? life.cats.map((id) => allCats.find((c) => c.id === id)).filter(Boolean) : allCats;
@@ -138,9 +142,11 @@ export async function renderLibrary({ el, query }) {
     if (!q && cat && SERIES_OF[cat]) {
       results.insertAdjacentHTML('afterbegin', `<a class="info series-hint" href="#/series?s=${SERIES_OF[cat]}" style="margin:0 0 10px">${icon('chart')}<span>炭素数による沸点・融点の変化を見る（同族体シリーズ）</span>${icon('chev')}</a>`);
     }
-    if (shown.length) {
+    // only pictures missing from thumbs.json are drawn here with RDKit.js
+    const missing = shown.filter((c) => c.kind !== 'crystal' && !PRE[c.id]);
+    if (missing.length) {
       preloadRDKit();
-      fillThumbs(results, shown).then((stop) => { stopThumbs = stop; });
+      fillThumbs(results, missing).then((stop) => { stopThumbs = stop; });
     }
   }
 

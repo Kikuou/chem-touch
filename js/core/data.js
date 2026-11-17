@@ -71,6 +71,16 @@ export async function states() {
   return (await getJSON('states.json')).substances;
 }
 
+// 2D pictures of the compounds made at build time (scripts/build_thumbs.py),
+// so that the list does not need RDKit.js first; {} when the file is missing
+export async function thumbs() {
+  try {
+    return (await getJSON('thumbs.json')).thumbs;
+  } catch (e) {
+    return {};
+  }
+}
+
 // Question bank of the colour cards and おわりの3問, by id
 let qById = null;
 export async function questions() {

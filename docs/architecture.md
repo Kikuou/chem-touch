@@ -37,6 +37,7 @@ js/lesson/            授業（docs/plan.md 提案5・11。js/core/ だけを使
   catalog.js          教材カタログ: "compound:water" などの部品名 → 題名・開く画面
   progress.js         端末が覚えること（今日の回、おわりの3問のできた印）
   colors.js           色カードの4色（文字と形つき）
+data/thumbs.json      分子の一覧の構造式の絵（scripts/build_thumbs.py）。library.js はこれを先に使い、無いものだけ RDKit.js で描く
 js/lab/               触る教材（docs/plan.md 提案9・10。#/lab/<id>、views/lab.js が読み込む）
   states.js           温度と三態（スライダー型・粒子のアニメ。視差効果を減らす設定では止める）
   formula.js          組成式パズル（仕分け・並べ型）。compose() は tests/test_labs.mjs でテスト

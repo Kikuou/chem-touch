@@ -6,7 +6,7 @@
 //   - vendor/ (libraries, versioned folder names): cache first
 // The page sends the URLs it has already loaded (performance entries) so
 // that they are cached on the first visit too (see js/main.js).
-const VERSION = 'v10';
+const VERSION = 'v11';
 const APP_CACHE = `chemtouch-app-${VERSION}`;
 const LIB_CACHE = 'chemtouch-lib';
 const NETWORK_TIMEOUT_MS = 4000;
@@ -26,6 +26,7 @@ const PRECACHE = [
   'data/elements.json',
   'data/questions.json',
   'data/labs.json',
+  'data/thumbs.json',
   'data/states.json',
   'data/plans/index.json', // the plan file itself is cached when the home screen loads it
   'data/practice.json',

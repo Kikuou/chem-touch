@@ -152,6 +152,15 @@ def main() -> int:
             if m is None or sum(a.GetAtomicNum() == 6 for a in m.GetAtoms()) > 6:
                 err(f"practice.json/{g.get('id')}", f"'{pid}' has more than 6 carbons")
 
+    # thumbs.json (scripts/build_thumbs.py): a picture for every compound, drawn from its current SMILES
+    import hashlib
+    tpath = DATA / "thumbs.json"
+    th = json.loads(tpath.read_text(encoding="utf-8"))["thumbs"] if tpath.exists() else {}
+    stale = [c["id"] for c in compounds if c.get("kind") != "crystal" and c.get("smiles")
+             and th.get(c["id"], {}).get("k") != hashlib.sha1(c["smiles"].encode()).hexdigest()[:10]]
+    if stale:
+        errors.append(f"thumbs.json: missing or old pictures ({', '.join(stale[:5])}{' ...' if len(stale) > 5 else ''}); run python scripts/build_thumbs.py")
+
     # 身近なもの groups (categories.json "life")
     for g in json.loads((DATA / "categories.json").read_text(encoding="utf-8")).get("life", []):
         for k in g.get("cats", []):
