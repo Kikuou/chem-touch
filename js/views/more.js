@@ -54,6 +54,7 @@ export function renderMore({ el }) {
       <a href="#/electron">${icon('shell')}<span>電子配置ビルダー</span></a>
       <a href="#/bond">${icon('atom')}<span>電子と結合（イオン結合・共有結合）</span></a>
       <a href="#/scan">${icon('qr')}<span>QRコードを読み取る</span></a>
+      ${isDetail() ? `<a href="#/teach">${icon('build')}<span>授業をつくる（教員用）<br><span class="small muted">授業プランの下書きを直して書き出す</span></span></a>` : ''}
     </div>
     <h2 class="section-title">このアプリについて</h2>
     <div class="card prose">

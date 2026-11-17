@@ -260,6 +260,25 @@ html.ls-asking .nav, html.ls-asking .present-bar { display: none; }
 .ls-res li b.ok { color: var(--accent); }
 .ls-res li b.ng { color: var(--danger); }
 
+/* ---------------------------------------------------------------- 授業をつくる (tc-) */
+.tc-bar { display: flex; gap: 8px; margin-bottom: 10px; }
+.tc-bar .btn { flex: 1; }
+.tc-field { display: flex; flex-direction: column; gap: 4px; margin: 0 0 10px; font-size: 13px; color: var(--muted); font-weight: 600; }
+.tc-field input, .tc-field textarea, .tc-search { font: inherit; font-size: 16px; color: var(--text); font-weight: 400; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; width: 100%; }
+.tc-parts, .tc-qs { display: flex; flex-direction: column; gap: 6px; }
+.tc-row { display: flex; align-items: center; gap: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 6px 6px 6px 10px; }
+.tc-t { flex: 1; min-width: 0; font-size: 14px; line-height: 1.45; }
+.tc-t b { font-size: 14.5px; }
+.tc-row .iconbtn { width: 38px; height: 38px; font-size: 16px; }
+.tc-bad { color: var(--danger); }
+.tc-danger { color: var(--danger); }
+.tc-qbtn { display: block; width: 100%; text-align: left; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; margin-bottom: 6px; background: var(--surface); color: var(--text); font-size: 14px; line-height: 1.5; }
+.tc-qbtn span { display: block; }
+.tc-help { font-size: 14px; line-height: 1.7; }
+.tc-found { min-height: 8px; }
+.hm-draft { display: flex; align-items: center; gap: 8px; background: var(--warn-bg); color: var(--warn-ink); border-radius: 12px; padding: 8px 12px; margin-bottom: 10px; font-size: 13px; }
+.hm-draft a { margin-left: auto; font-weight: 700; text-decoration: underline; }
+
 /* ---------------------------------------------------------------- colour card (cc-) */
 html.cc-lock .nav, html.cc-lock .present-bar { display: none; }
 html.cc-lock, html.cc-lock body { overflow: hidden; }

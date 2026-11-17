@@ -42,8 +42,18 @@ export async function lifeGroups() {
   return (await getJSON('categories.json')).life || [];
 }
 
-// The lesson plan in use (data/plans/index.json -> data/plans/<id>.json)
-export async function lessonPlan() {
+// The lesson plan in use (data/plans/index.json -> data/plans/<id>.json).
+// A teacher trying a draft from 授業をつくる (views/teach.js) sees the draft
+// instead, on that device only.
+export async function lessonPlan({ file = false } = {}) {
+  if (!file) {
+    try {
+      if (localStorage.getItem('chemtouch:teach:use') === '1') {
+        const d = JSON.parse(localStorage.getItem('chemtouch:teach:draft') || 'null');
+        if (d && Array.isArray(d.lessons)) return d;
+      }
+    } catch (e) { /* no storage: the file */ }
+  }
   const index = await getJSON('plans/index.json');
   return getJSON(`plans/${index.current}.json`);
 }

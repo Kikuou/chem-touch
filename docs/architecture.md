@@ -53,6 +53,8 @@ js/views/             画面（1画面1ファイル）
   lesson.js              目次 #/lessons、各回 #/lesson/<no>、いっせい問題 #/lesson/<no>/ask、おわりの3問 #/lesson/<no>/end
   card.js                色カード #/card
   life.js                身近なもの #/life（各グループは #/library?life=<id>）
+  teach.js               授業をつくる #/teach（教員用。授業プランの下書きを localStorage で編集し、書き出す。
+                         「この端末でためす」中は core/data.js の lessonPlan() が下書きを返す）
   library.js             分子ライブラリ（B-1）
   compound.js            分子詳細 #/compound/<id>（名前・読みがな → ひとことで言うと → 3D・構造式・官能基 → 関連 → くわしいデータ）
                          と任意分子 #/view?smiles=（A-7, B-2, D-1）

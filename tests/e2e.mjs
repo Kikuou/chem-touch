@@ -9,7 +9,7 @@ import assert from 'node:assert/strict';
 const BASE = process.env.BASE_URL || 'http://localhost:8000/';
 const browser = await chromium.launch({ args: ['--enable-unsafe-swiftshader', '--use-angle=swiftshader'] });
 // the service worker is tested on its own at the end (offline use)
-const ctx = await browser.newContext({ viewport: { width: 375, height: 812 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, locale: 'ja-JP', serviceWorkers: 'block' });
+const ctx = await browser.newContext({ viewport: { width: 375, height: 812 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, locale: 'ja-JP', serviceWorkers: 'block', acceptDownloads: true });
 const errors = [];
 ctx.on('page', (p) => p.on('pageerror', (e) => errors.push(e.message)));
 const page = await ctx.newPage();
@@ -526,6 +526,37 @@ assert.match(m2.url(), /i=1/);
 assert.equal(await m2.locator('.ls-ask-o > div.ok').count(), 0, 'the next question starts hidden');
 await m2.evaluate(() => localStorage.removeItem('chemtouch:detail'));
 step('いっせい問題 (teacher): 4 coloured choices, 答えを見せる marks the right one, next question');
+
+// 授業をつくる (teacher, behind くわしい表示): edit a draft, try it on this device
+await m2.evaluate(() => localStorage.setItem('chemtouch:detail', '1'));
+await m2.goto(BASE + '#/more');
+await m2.click('a[href="#/teach"]');
+await m2.waitForSelector('.ls-list [data-open="7"]');
+await m2.click('[data-open="7"]');
+await m2.waitForSelector('.tc-parts');
+const partsBefore = await m2.locator('.tc-parts .tc-row').count();
+m2.once('dialog', (d) => d.accept('果物の香りはエステル'));
+await m2.click('[data-act="addcard"]');
+await m2.waitForFunction((n) => document.querySelectorAll('.tc-parts .tc-row').length === n + 1, partsBefore);
+await m2.click('[data-act="addpart"]');
+await m2.fill('[data-search]', 'エタノール');
+await m2.click('.tc-found [data-pick="compound:ethanol"]');
+await m2.waitForFunction((n) => document.querySelectorAll('.tc-parts .tc-row').length === n + 2, partsBefore);
+await m2.click('[data-act="back"]');
+await m2.click('[data-act="use"]');
+await m2.goto(BASE + '#/');
+await m2.waitForSelector('.hm-draft');
+await m2.goto(BASE + '#/lesson/7');
+await m2.waitForSelector('.ls-flow');
+assert.equal(await m2.locator('.ls-flow > *').count(), partsBefore + 2);
+assert.match(await m2.textContent('.ls-flow'), /果物の香りはエステル/);
+await m2.goto(BASE + '#/teach');
+const [dl] = await Promise.all([m2.waitForEvent('download'), m2.click('[data-act="export"]')]);
+assert.equal(dl.suggestedFilename(), '2027.json');
+const exported = JSON.parse(await (await import('node:fs/promises')).readFile(await dl.path(), 'utf8'));
+assert.equal(exported.lessons.find((l) => l.no === 7).parts.length, partsBefore + 2);
+await m2.evaluate(() => ['detail', 'teach:use', 'teach:draft'].forEach((k) => localStorage.removeItem('chemtouch:' + k)));
+step('授業をつくる: add a topic card and ethanol to 第7回, try the draft on this device (home banner, lesson page), export 2027.json');
 
 await m2.goto(BASE + '#/life');
 await m2.waitForSelector('.lf-grid');

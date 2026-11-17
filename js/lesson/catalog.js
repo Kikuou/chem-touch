@@ -99,3 +99,19 @@ export async function resolvePart(entry) {
   }
   return part;
 }
+
+// Every part a lesson can use, in groups, for the 授業をつくる editor
+// (views/teach.js). Molecules are many: they are searched there instead.
+export async function catalogGroups() {
+  const [presets, cats, life] = await Promise.all([comparisons(), categories(), lifeGroups()]);
+  const g = (label, ids) => ({ label, ids });
+  return [
+    g('触る教材', Object.keys(LAB).map((k) => `lab:${k}`)),
+    g('計算練習', Object.keys(CALC).map((k) => `calc:${k}`)),
+    g('くらべる', presets.map((p) => `compare:${p.id}`)),
+    g('つくる・確認', ['draw', 'practice', 'practice:choose', 'practice:blocks', 'practice:draw', 'quiz', 'notation']),
+    g('周期表・電子・結合', [...Object.keys(PERIODIC).map((k) => (k ? `periodic:${k}` : 'periodic')), 'electron', 'bond:ionic', 'bond:covalent']),
+    g('分子の一覧', [...life.filter((x) => !x.planned).map((x) => `life:${x.id}`), ...cats.map((c) => `library:${c.id}`)]),
+    g('同族体シリーズ', ['series:alkane', 'series:alkanol', 'series:carboxylic-acid', 'series:saturated-fatty-acid']),
+  ];
+}
