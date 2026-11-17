@@ -1,0 +1,67 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><style>
+body{margin:0;background:#E9EBEE;font-family:"Hiragino Sans","Noto Sans JP",sans-serif;color:#15171A}
+.b{display:none;padding:28px 32px 36px}.b.on{display:block}
+h1{font-size:26px;margin:0 0 4px}.sub{font-size:15px;color:#5B616B;margin:0 0 22px;line-height:1.6}
+.row{display:flex;gap:28px;align-items:flex-start}
+.c{width:375px;flex:none}.c.w{width:760px}
+.lab{display:inline-block;font-weight:700;font-size:15px;padding:4px 12px;border-radius:99px;margin-bottom:8px;background:#2F6F4F;color:#fff}
+.c img{width:100%;display:block;border-radius:18px;box-shadow:0 0 0 1px #C9CDD3,0 8px 24px rgba(0,0,0,.12);background:#fff}
+.c p{font-size:13.5px;line-height:1.6;margin:10px 2px 0;color:#30343A}
+pre{font:13.5px/1.65 ui-monospace,Menlo,monospace;background:#1D2421;color:#E6EEE9;border-radius:16px;padding:16px 18px;margin:0;white-space:pre}
+pre i{font-style:normal;color:#9FB3A8}
+.note{font-size:13px;color:#5B616B;margin-top:18px}
+</style></head><body>
+
+<section class="b" id="home">
+<h1>① ホーム：「今日の授業」「身近なもの」「基礎の復習」</h1>
+<p class="sub">いちばん上に今日の授業。色カードもここから1回で開ける。周期表などは「道具」に小さく残す（下のタブからも行ける）。</p>
+<div class="row">
+<div class="c"><span class="lab">ホーム</span><img src="img/home-full.png"><p>今日の授業は、授業プランの日付から選ぶ。日付がない・ちがうときは「ほかの回をえらぶ」で選び直せる（端末が覚える）。</p></div>
+<div class="c"><span class="lab">ほかの回をえらぶ</span><img src="img/home-pick.png"><p>先生が「今日は第7回」と言ったら、ここで選ぶ。日付に縛られない。</p></div>
+<div class="c"><span class="lab">基礎の復習（目次）</span><img src="img/review.png"><p>15回の目次。授業プランから自動で作る。✓ はおわりの3問をやった回（この端末だけ）。</p></div>
+</div></section>
+
+<section class="b" id="lesson">
+<h1>② 各回のページと「おわりの3問」</h1>
+<p class="sub">身近な話題 → きょうの流れ（使う部品の順）→ いっせい問題（色カード）→ おわりの3問。すべて授業プランのファイルから作る。問題の文は例です。</p>
+<div class="row">
+<div class="c"><span class="lab">第7回のページ</span><img src="img/lesson.png"><p>「きょうの流れ」の各行は、今ある画面（書き方くらべ・なぞって描く・クイズ・くらべる）を開く。右上の QR で、このページを学生と共有。</p></div>
+<div class="c"><span class="lab">おわりの3問</span><img src="img/end3-q.png"><p>4択。答えるとすぐ正解と一言の説明。</p></div>
+<div class="c"><span class="lab">おわりの3問：結果</span><img src="img/end3-result.png"><p>結果は端末の中だけ。先生には送らない（集計なし）。×の問題から関係する画面へ戻れる。</p></div>
+</div></section>
+
+<section class="b" id="cc">
+<h1>③ 色カード（いっせい問題）</h1>
+<p class="sub">先生が問題を映す → 学生が A〜D をタップ → 画面いっぱいにその色と文字 → 掲げる。サーバーなし・集計なし。色の見分けにくい人のため、文字と形（● ▲ ■ ◆）も出す。</p>
+<div class="row">
+<div class="c"><span class="lab">学生：えらぶ</span><img src="img/cc-select.png"></div>
+<div class="c"><span class="lab">学生：掲げる</span><img src="img/cc-up.png"><p>画面を一度タップすると選び直し。</p></div>
+<div class="c w"><span class="lab">先生：映す（提示モード）</span><img src="img/projector.png"><p>問題と A〜D を色つきで大きく。右上にこの回のページの QR を常に出す（提示モードの常設 QR）。「答えを見せる」で正解の色だけ残す。</p></div>
+</div></section>
+
+<section class="b" id="life">
+<h1>④ 身近なもの と 授業プランのファイル</h1>
+<p class="sub">「身近なもの」は1つの入口で、開くと4つに分かれる。化学の分類（アルカン・アルコール…）は、その下と一覧の絞り込みに残す。</p>
+<div class="row">
+<div class="c"><span class="lab">身近なもの</span><img src="img/life.png"><p>今の分類から振り分ける案：食品＝糖質・脂肪酸・脂質・アミノ酸・ビタミン・食品成分／からだ＝生体物質／くすり・医療＝医薬品・消毒薬。くらしは化合物の追加（PubChem で照合）が必要。</p></div>
+<div class="c w"><span class="lab">授業プランのファイル（1回分の例）</span>
+<pre><i>// 年度ごとに1つ（例: data/plans/2027.json）。複製して直せば来年度用</i>
+{
+  "no": 7,
+  "date": "2027-06-07",               <i>// なくてもよい</i>
+  "title": "炭素がつくる分子と官能基",
+  "topic": "都市ガスとお酒を構造式で書く。お酢、果物の香り…",
+  "parts": [                           <i>// 教材カタログの部品を、使う順に</i>
+    "notation:acetic-acid",            <i>// 書き方くらべ</i>
+    "draw:methane,ethanol",            <i>// なぞって描く</i>
+    "quiz:functional-groups",          <i>// 官能基クイズ</i>
+    "compare:oleic-elaidic",           <i>// くらべる</i>
+    { "card": "果物の香りはエステル" }  <i>// 部品にない話題は文章（と画像）のカード</i>
+  ],
+  "colorcards": ["q7-1", "q7-2"],      <i>// いっせい問題（問題集の ID）</i>
+  "end3": ["q7-a", "q7-b", "q7-c"]     <i>// おわりの3問</i>
+}</pre>
+<p>教材カタログ＝今ある画面や分子を「部品」として ID で呼べる一覧（例: <code>compare:oleic-elaidic</code>）。問題は別の「問題集」ファイルに置き、ID で呼ぶ。中身の文は下書きとして入れ、先生の確認後に公開。「授業をつくる」画面（第4段階）ができるまでは、先生が文で伝えた内容をこちらでファイルに書く。</p></div>
+</div></section>
+<script>const id=location.hash.slice(1)||'home';document.getElementById(id).classList.add('on');</script>
+</body></html>
