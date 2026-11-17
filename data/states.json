@@ -5,16 +5,132 @@
    "id": "water",
    "name": "水",
    "kind": "melt-boil",
-   "mp": null,
-   "bp": null,
+   "mp": {
+    "value": 0.0,
+    "raw": "0 °C",
+    "source": "Hazardous Substances Data Bank (HSDB)",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/8183",
+    "candidates": [
+     {
+      "v": 0.0,
+      "source": "Hazardous Substances Data Bank (HSDB)"
+     },
+     {
+      "v": 0.0,
+      "source": "Human Metabolome Database (HMDB)"
+     },
+     {
+      "v": 0.0,
+      "source": "CAMEO Chemicals"
+     }
+    ],
+    "unit": "°C"
+   },
+   "bp": {
+    "value": 100.0,
+    "raw": "99.974 °C",
+    "source": "Hazardous Substances Data Bank (HSDB)",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/8183",
+    "candidates": [
+     {
+      "v": 100.0,
+      "source": "Hazardous Substances Data Bank (HSDB)"
+     },
+     {
+      "v": 100.0,
+      "source": "CAMEO Chemicals"
+     }
+    ],
+    "unit": "°C"
+   },
    "sublimes": null
   },
   {
    "id": "ethanol",
    "name": "エタノール",
    "kind": "melt-boil",
-   "mp": null,
-   "bp": null,
+   "mp": {
+    "value": -114.1,
+    "raw": "-114.14 °C",
+    "source": "Hazardous Substances Data Bank (HSDB)",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/82",
+    "candidates": [
+     {
+      "v": -114.1,
+      "source": "Hazardous Substances Data Bank (HSDB)"
+     },
+     {
+      "v": -114.0,
+      "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+     },
+     {
+      "v": -114.1,
+      "source": "Human Metabolome Database (HMDB)"
+     },
+     {
+      "v": -114.1,
+      "source": "DrugBank"
+     },
+     {
+      "v": -114.1,
+      "source": "CAMEO Chemicals"
+     },
+     {
+      "v": -113.9,
+      "source": "Occupational Safety and Health Administration (OSHA)"
+     },
+     {
+      "v": -114.1,
+      "source": "PAC Chemical Database, U.S. Department of Energy"
+     },
+     {
+      "v": -113.9,
+      "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+     }
+    ],
+    "unit": "°C"
+   },
+   "bp": {
+    "value": 78.2,
+    "raw": "78.24 °C",
+    "source": "Hazardous Substances Data Bank (HSDB)",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/82",
+    "candidates": [
+     {
+      "v": 78.2,
+      "source": "Hazardous Substances Data Bank (HSDB)"
+     },
+     {
+      "v": 78.0,
+      "source": "ILO-WHO International Chemical Safety Cards (ICSCs)"
+     },
+     {
+      "v": 78.2,
+      "source": "DrugBank"
+     },
+     {
+      "v": 78.5,
+      "source": "CAMEO Chemicals"
+     },
+     {
+      "v": 78.0,
+      "source": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)"
+     },
+     {
+      "v": 78.3,
+      "source": "Occupational Safety and Health Administration (OSHA)"
+     },
+     {
+      "v": 78.3,
+      "source": "PAC Chemical Database, U.S. Department of Energy"
+     },
+     {
+      "v": 78.3,
+      "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+     }
+    ],
+    "unit": "°C"
+   },
    "sublimes": null
   },
   {
@@ -23,7 +139,35 @@
    "kind": "sublime",
    "mp": null,
    "bp": null,
-   "sublimes": null
+   "sublimes": {
+    "value": -78.5,
+    "raw": "-78.464 °C (sublimes)",
+    "source": "Hazardous Substances Data Bank (HSDB)",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/516",
+    "unit": "°C",
+    "candidates": [
+     {
+      "v": -78.5,
+      "source": "Hazardous Substances Data Bank (HSDB)"
+     },
+     {
+      "v": -78.3,
+      "source": "CAMEO Chemicals"
+     },
+     {
+      "v": -78.3,
+      "source": "CAMEO Chemicals"
+     },
+     {
+      "v": -78.3,
+      "source": "Occupational Safety and Health Administration (OSHA)"
+     },
+     {
+      "v": -78.3,
+      "source": "The National Institute for Occupational Safety and Health (NIOSH)"
+     }
+    ]
+   }
   }
  ]
 }
