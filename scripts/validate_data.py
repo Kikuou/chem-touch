@@ -209,6 +209,30 @@ def main() -> int:
     for g in labsdoc["formula"]["goals"]:
         if g.get("cation") not in ion_ids or g.get("anion") not in ion_ids:
             errors.append(f"labs.json formula goal '{g.get('text')}': unknown ion")
+    # なかまわけ: every card goes into an existing box
+    for sid, st in labsdoc["sorts"].items():
+        for it in st["items"]:
+            if not (0 <= it.get("box", -1) < len(st["boxes"])):
+                errors.append(f"labs.json sorts/{sid}: '{it.get('name')}' has no valid box")
+    # 反応式の天びん: each reaction can be balanced with coefficients 1..9
+    import itertools
+
+    def atoms_of(f):
+        out = {}
+        for el, n in re.findall(r"([A-Z][a-z]?)(\d*)", f):
+            out[el] = out.get(el, 0) + (int(n) if n else 1)
+        return out
+
+    for r in labsdoc["reactions"]:
+        terms = [atoms_of(f) for f in r["left"] + r["right"]]
+        nl = len(r["left"])
+        els = {e for t in terms for e in t}
+        ok = any(all(sum(c * t.get(e, 0) for c, t in zip(co[:nl], terms[:nl])) ==
+                     sum(c * t.get(e, 0) for c, t in zip(co[nl:], terms[nl:])) for e in els)
+                 for co in itertools.product(range(1, 10), repeat=len(terms)))
+        if not ok:
+            errors.append(f"labs.json reactions '{r['name']}': cannot be balanced with coefficients 1-9")
+
     # calculation practice: rounded atomic weights agree with PubChem (elements.json)
     eldoc = json.loads((DATA / "elements.json").read_text(encoding="utf-8"))
     masses = {e["symbol"]: e["mass"] for e in (eldoc["elements"] if isinstance(eldoc, dict) else eldoc)}

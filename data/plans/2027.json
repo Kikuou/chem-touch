@@ -9,7 +9,7 @@
    "title": "物質を見分ける・物質の三態",
    "topic": "水・空気・食塩水・牛乳、ドライアイス、消毒用アルコールが乾く理由",
    "parts": [
-    "soon:なかまわけ",
+    "lab:sort",
     "lab:states",
     "compound:water",
     "compound:carbon-dioxide",
@@ -110,11 +110,11 @@
    "title": "分子間力と物質のなりたち",
    "topic": "水が 100 ℃ まで沸騰しない理由（水素結合）、水と油、氷が浮く、鉛筆の芯とダイヤ、アルミ箔",
    "parts": [
-    "soon:ひきあう分子",
+    "lab:attract",
     "series:alkane",
     "compound:diamond",
     "compound:graphite",
-    "soon:自由電子の図"
+    "lab:metal"
    ],
    "colorcards": [
     "q6-1",
@@ -156,8 +156,8 @@
    "title": "原子量・分子量とモル",
    "topic": "角砂糖1個・水コップ1杯は何 mol？",
    "parts": [
-    "soon:分子量カウンター",
-    "soon:モルのはかり",
+    "lab:mwcount",
+    "lab:molscale",
     "compound:sucrose",
     "compound:water",
     "calc:molar-mass",
@@ -178,7 +178,7 @@
    "title": "溶液の濃度",
    "topic": "生理食塩水と点滴、スポーツドリンク、消毒用アルコール、しょうゆの塩分",
    "parts": [
-    "soon:とかすビーカー",
+    "lab:dissolve",
     "calc:mass-percent",
     "compound:nacl-crystal",
     "compound:alpha-d-glucose",
@@ -201,7 +201,7 @@
    "title": "化学反応式と量の関係",
    "topic": "ガスの燃焼、呼吸、食品のエネルギー",
    "parts": [
-    "soon:反応式の天びん",
+    "lab:balance",
     "compound:methane",
     "compound:propane",
     "compound:alpha-d-glucose",
@@ -243,7 +243,7 @@
    "title": "中和と塩",
    "topic": "胃薬（制酸薬）、酢とふくらし粉",
    "parts": [
-    "soon:滴定シミュレーション",
+    "lab:titration",
     "compound:hydrogen-chloride",
     "compound:acetic-acid",
     "calc:neutral"
@@ -263,7 +263,7 @@
    "title": "酸化と還元",
    "topic": "りんごの変色とビタミンC、カイロ、漂白剤、お酒が体の中で酸化される道すじ",
    "parts": [
-    "soon:電子の受けわたし",
+    "lab:redox",
     "compound:ascorbic-acid",
     "compound:ethanol",
     "compound:acetaldehyde",
@@ -308,7 +308,7 @@
     "life:medical",
     "compound:aspirin",
     "compound:acetaminophen",
-    "soon:総まとめクイズ"
+    "lab:review"
    ],
    "colorcards": [
     "q15-1",

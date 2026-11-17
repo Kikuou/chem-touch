@@ -478,12 +478,12 @@ await m2.click('.ls-flow > a >> nth=3');
 await m2.waitForURL(/#\/compare\/oleic-elaidic$/);
 await m2.goto(BASE + '#/lesson/1');
 await m2.waitForSelector('.ls-flow');
-assert.ok(await m2.locator('.ls-flow > .ls-off').count() >= 1, '準備中 materials are not links');
+assert.equal(await m2.locator('.ls-flow > a').count(), await m2.locator('.ls-flow > *').count(), 'every part opens a screen');
 await m2.goto(BASE + '#/lesson/3?today=1');
 await m2.waitForSelector('.ls-flow');
 assert.equal(await m2.evaluate(() => localStorage.getItem('chemtouch:lesson:today')), '3');
 assert.doesNotMatch(m2.url(), /today=1/);
-step('lesson page: 第7回 has 5 parts in order (書き方くらべ … くらべる opens oleic/elaidic); 準備中 parts; ?today=1 sets today');
+step('lesson page: 第7回 has 5 parts in order (書き方くらべ … くらべる opens oleic/elaidic); every part of 第1回 opens a screen; ?today=1 sets today');
 
 await m2.goto(BASE + '#/card');
 await m2.waitForSelector('.cc-grid');
@@ -636,6 +636,44 @@ for (const v of ['2', '1', '18']) {
 assert.match(await m2.textContent('.cp-msg'), /せいかい/);
 assert.equal(await m2.locator('.cp-eq u.ok').count(), 3);
 step('計算練習：分子量 (same engine): H₂O ≈ 18; blanks 1.0 × 2 ＋ 16 × 1 ＝ 18');
+
+// the other materials of the plan (one screen = one idea)
+await m2.goto(BASE + '#/lab/sort');
+await m2.waitForSelector('.so-list');
+await m2.click('[data-k="0"][data-b="0"]'); // 水（純水）-> 純物質
+await m2.click('[data-k="1"][data-b="0"]'); // 空気 -> 純物質 (wrong)
+assert.equal(await m2.locator('.so-item.ok').count(), 1);
+assert.equal(await m2.locator('.so-item.ng').count(), 1);
+await m2.goto(BASE + '#/lab/balance?r=0');
+await m2.waitForSelector('.rb-eq');
+await m2.click('[data-c="0"][data-d="1"]'); // 2H2
+await m2.click('[data-c="2"][data-d="1"]'); // 2H2O
+assert.equal(await m2.locator('.rb-eq.ok').count(), 1, '2H2 + O2 -> 2H2O is balanced');
+await m2.goto(BASE + '#/lab/titration');
+await m2.waitForSelector('.ti-range');
+await m2.locator('.ti-range').fill('20');
+assert.match(await m2.textContent('.lb-big'), /pH 7/);
+await m2.goto(BASE + '#/lab/mwcount');
+await m2.waitForSelector('.mw-tiles');
+for (const el of ['H', 'O']) await m2.click(`[data-el="${el}"]`);
+assert.match(await m2.textContent('.mw-sum'), /18/);
+await m2.goto(BASE + '#/lab/molscale');
+await m2.waitForSelector('.ms-range');
+await m2.locator('.ms-range').fill('2');
+assert.match(await m2.textContent('.ms-facts'), /36 g/);
+await m2.goto(BASE + '#/lab/dissolve');
+await m2.waitForSelector('.dv-eq');
+assert.match(await m2.textContent('.lb-big'), /9.1 %/);
+for (const id of ['attract', 'metal', 'redox', 'review']) {
+  await m2.goto(BASE + `#/lab/${id}`);
+  await m2.waitForSelector('.content > *');
+}
+await m2.click('[data-k="0"]');
+assert.equal(await m2.locator('.ls-q-ex').count(), 1);
+await m2.goto(BASE + '#/lesson/1');
+await m2.waitForSelector('.ls-flow');
+assert.equal(await m2.locator('.ls-flow > .ls-off').count(), 0, 'no 準備中 parts left in the plan');
+step('materials: なかまわけ, 反応式の天びん (2H₂ + O₂ → 2H₂O), 滴定 (20 mL -> pH 7), 分子量 18, 2 mol of water = 36 g, 9.1 %, and the particle / quiz screens open');
 
 // ---- M4 acceptance: build the electron configuration of Na, give an
 // electron to Cl, go to the NaCl crystal; periodic table, detail, Lewis formulas

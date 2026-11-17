@@ -53,6 +53,10 @@ export async function lessonPlan() {
 export async function labs() {
   return getJSON('labs.json');
 }
+// homologous series with boiling / melting points from PubChem
+export async function seriesData() {
+  return getJSON('series.json');
+}
 export async function states() {
   return (await getJSON('states.json')).substances;
 }

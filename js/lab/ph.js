@@ -7,7 +7,7 @@ import { setQuery } from '../core/router.js';
 import { labs } from '../core/data.js';
 
 // colours along the scale (0 ... 14), roughly like a universal indicator
-const STOPS = ['#D7263D', '#F46036', '#F7A325', '#F3D34A', '#B5D33D', '#5FB760', '#2E9E6B', '#2A9D8F', '#2C7DA0', '#3D5A99', '#5B4B9A', '#6A3D8F', '#7A2E80', '#7F2370', '#80195E'];
+export const STOPS = ['#D7263D', '#F46036', '#F7A325', '#F3D34A', '#B5D33D', '#5FB760', '#2E9E6B', '#2A9D8F', '#2C7DA0', '#3D5A99', '#5B4B9A', '#6A3D8F', '#7A2E80', '#7F2370', '#80195E'];
 
 // 10^n in words: 100000 -> "10万", 3162 -> "約 3,200"
 function times(n) {

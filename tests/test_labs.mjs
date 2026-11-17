@@ -5,6 +5,8 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { compose } from '../js/lab/formula.js';
 import { agrees, KINDS, setWeights } from '../js/lab/calc.js';
+import { atoms, count } from '../js/lab/balance.js';
+import { phAfter } from '../js/lab/titration.js';
 
 const labs = JSON.parse(readFileSync(new URL('../data/labs.json', import.meta.url)));
 const ions = labs.formula.ions;
@@ -69,4 +71,18 @@ assert.equal(KINDS.dilution.ans({ c: 1, v1: 100, v2: 500 }), 0.2);
 assert.equal(KINDS.stoich.ans({ ca: 1, cb: 2, mol: 3 }), 6);
 assert.equal(KINDS.neutral.ans({ n_a: 2, c_a: 0.1, v_a: 10, n_b: 1, c_b: 0.1 }), 20);
 n += 7;
+// 反応式の天びん: formula parser and atom counts
+assert.deepEqual(atoms('C3H8'), { C: 3, H: 8 });
+assert.deepEqual(atoms('Ca(OH)2'), { Ca: 1, O: 2, H: 2 });
+assert.deepEqual(atoms('C6H12O6'), { C: 6, H: 12, O: 6 });
+assert.deepEqual(count(['CH4', 'O2'], [1, 2]), count(['CO2', 'H2O'], [1, 2]));
+assert.notDeepEqual(count(['H2', 'O2'], [1, 1]), count(['H2O'], [1]));
+n += 5;
+// 中和の滴定 (0.10 mol/L HCl 20 mL, 0.10 mol/L NaOH)
+const t = labs.titration;
+assert.equal(Math.round(phAfter(t, 0) * 100) / 100, 1);
+assert.equal(phAfter(t, 20), 7);
+assert.ok(phAfter(t, 19.9) < 7 && phAfter(t, 20.1) > 7);
+assert.equal(Math.round(phAfter(t, 40) * 100) / 100, 12.52);
+n += 4;
 console.log(`${n} checks, 0 failures`);

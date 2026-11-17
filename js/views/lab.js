@@ -9,6 +9,16 @@ export const LABS = {
   states: { title: '温度と三態', load: () => import('../lab/states.js') },
   formula: { title: '組成式パズル', load: () => import('../lab/formula.js') },
   ph: { title: 'pH ものさし', load: () => import('../lab/ph.js') },
+  sort: { title: 'なかまわけ', load: () => import('../lab/sort.js') },
+  attract: { title: 'ひきあう分子', load: () => import('../lab/attract.js') },
+  metal: { title: '金属と自由電子', load: () => import('../lab/metal.js') },
+  mwcount: { title: '分子量カウンター', load: () => import('../lab/mwcount.js') },
+  molscale: { title: 'モルのはかり', load: () => import('../lab/molscale.js') },
+  dissolve: { title: 'とかすビーカー', load: () => import('../lab/dissolve.js') },
+  balance: { title: '反応式の天びん', load: () => import('../lab/balance.js') },
+  titration: { title: '中和の滴定', load: () => import('../lab/titration.js') },
+  redox: { title: '電子の受けわたし', load: () => import('../lab/redox.js') },
+  review: { title: '総まとめクイズ', load: () => import('../lab/review.js') },
   calc: { title: '計算練習', load: () => import('../lab/calc.js'), full: true }, // ?k=<kind>
 };
 
