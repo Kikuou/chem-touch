@@ -28,7 +28,7 @@
 - push の前に実行する:
   ```sh
   python scripts/validate_data.py
-  node tests/test_notation.mjs && node tests/test_assemble.mjs
+  node tests/test_notation.mjs && node tests/test_assemble.mjs && node tests/test_labs.mjs
   python3 -m http.server 8000 &   # 別ターミナルでも可
   npm run e2e
   ```

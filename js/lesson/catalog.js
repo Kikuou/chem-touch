@@ -9,6 +9,14 @@ import { compound, comparisons, categories, lifeGroups } from '../core/data.js';
 
 const enc = encodeURIComponent;
 
+// hands-on materials (views/lab.js)
+const LAB = {
+  states: ['温度と三態', 'スライダーで温度を変えて、分子の動きを見る'],
+  formula: ['組成式パズル', '＋と−のイオンを組み合わせて物質をつくる'],
+  ph: ['pH ものさし', 'pH と水素イオンの濃さ、身近なものの pH'],
+  concentration: ['計算練習：濃度', '見当をつける → 穴うめ → 自分で計算'],
+};
+
 const BOND = {
   ionic: ['イオン結合（Na と Cl）', 'Na から Cl へ電子をわたして、NaCl の結晶へ'],
   covalent: ['共有結合と電子式', '電子を出し合って分子をつくる'],
@@ -53,6 +61,7 @@ const KINDS = {
   },
   electron: (a) => ({ tag: '教材', title: a ? `電子配置（${a}）` : '電子配置ビルダー', sub: 'K殻・L殻・M殻に電子を入れる', href: a ? `#/electron/${enc(a)}` : '#/electron' }),
   bond: (a = 'ionic') => BOND[a] && { tag: '教材', title: BOND[a][0], sub: BOND[a][1], href: `#/bond?type=${a}` },
+  lab: (a) => LAB[a] && { tag: a === 'concentration' ? '計算' : '触る', title: LAB[a][0], sub: LAB[a][1], href: `#/lab/${a}` },
   soon: (a) => a && { tag: '準備中', title: a, sub: '新しい教材（作成中）', href: null },
 };
 

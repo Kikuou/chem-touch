@@ -48,6 +48,15 @@ export async function lessonPlan() {
   return getJSON(`plans/${index.current}.json`);
 }
 
+// Hands-on materials (data/labs.json) and the three-state temperatures
+// from PubChem (data/states.json)
+export async function labs() {
+  return getJSON('labs.json');
+}
+export async function states() {
+  return (await getJSON('states.json')).substances;
+}
+
 // Question bank of the colour cards and おわりの3問, by id
 let qById = null;
 export async function questions() {

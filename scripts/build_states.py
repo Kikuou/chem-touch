@@ -1,0 +1,120 @@
+#!/usr/bin/env python3
+"""Build data/states.json: melting and boiling points (1 atm) of the
+substances in the 温度と三態 material, from PubChem (like build_series.py).
+
+    python scripts/build_states.py            # needs PubChem
+    python scripts/build_states.py --offline  # no network: keeps the values
+                                              # already in states.json
+
+Carbon dioxide does not melt at 1 atm: its "sublimes" value (dry ice) is
+taken from the boiling / melting point texts that mention sublimation.
+Every value keeps its PubChem data source and original text; null = no
+sourced value found (the app then says the value is being checked).
+On GitHub Actions it runs after build_series.py (.github/workflows/pubchem.yml).
+"""
+
+from __future__ import annotations
+
+import json
+import re
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from build_series import (  # noqa: E402
+    SOURCE_ORDER, NUM, _norm, _strings, _walk, fetch, pick_value,
+)
+
+ROOT = Path(__file__).resolve().parent.parent
+DATA = ROOT / "data"
+
+# id in compounds.json, name shown, how it changes state at 1 atm
+SUBSTANCES = [
+    ("water", "水", "melt-boil"),
+    ("ethanol", "エタノール", "melt-boil"),
+    ("carbon-dioxide", "二酸化炭素", "sublime"),
+]
+
+
+def parse_sublimation(text: str) -> float | None:
+    """'-78.464 °C (sublimes)' -> -78.5. Only texts that say 'sublim'."""
+    t = _norm(text)
+    if "sublim" not in t.lower():
+        return None
+    m = re.search(rf"({NUM})\s*°C", t)
+    if m:
+        return round(float(m.group(1)), 1)
+    m = re.search(rf"({NUM})\s*°F", t)
+    if m:
+        return round((float(m.group(1)) - 32) * 5 / 9, 1)
+    return None
+
+
+def pick_sublimation(records: list[dict]) -> dict | None:
+    candidates = []
+    for record in records:
+        rec = (record or {}).get("Record", {})
+        refs = {r.get("ReferenceNumber"): r for r in rec.get("Reference", [])}
+        for heading in ("Boiling Point", "Melting Point"):
+            for info in _walk(rec.get("Section"), heading):
+                ref = refs.get(info.get("ReferenceNumber"), {})
+                source = ref.get("SourceName", "PubChem")
+                for text in _strings(info):
+                    v = parse_sublimation(text)
+                    if v is None:
+                        continue
+                    rank = SOURCE_ORDER.index(source) if source in SOURCE_ORDER else len(SOURCE_ORDER)
+                    candidates.append((rank, len(candidates), {"value": v, "raw": text[:200], "source": source,
+                                                               "url": ref.get("URL") or f"https://pubchem.ncbi.nlm.nih.gov/compound/{rec.get('RecordNumber')}"}))
+    if not candidates:
+        return None
+    if len(candidates) >= 3:
+        vals = sorted(c[2]["value"] for c in candidates)
+        med = vals[len(vals) // 2]
+        candidates = [c for c in candidates if abs(c[2]["value"] - med) <= 10] or candidates
+    best = dict(min(candidates, key=lambda c: (c[0], c[1]))[2])
+    best["unit"] = "°C"
+    best["candidates"] = [{"v": c[2]["value"], "source": c[2]["source"]} for c in sorted(candidates, key=lambda c: (c[0], c[1]))[:8]]
+    return best
+
+
+def main(argv=None) -> int:
+    offline = "--offline" in (argv if argv is not None else sys.argv[1:])
+    compounds = {c["id"]: c for c in json.loads((DATA / "compounds.json").read_text(encoding="utf-8"))["compounds"]}
+    path = DATA / "states.json"
+    old = {s["id"]: s for s in json.loads(path.read_text(encoding="utf-8"))["substances"]} if path.exists() else {}
+    out = []
+    for sid, name, kind in SUBSTANCES:
+        c = compounds[sid]
+        entry = {"id": sid, "name": name, "kind": kind, "mp": None, "bp": None, "sublimes": None}
+        if offline:  # keep values fetched earlier
+            if sid in old:
+                entry.update({k: old[sid].get(k) for k in ("mp", "bp", "sublimes")})
+        elif c.get("pubchem_cid"):
+            recs = {}
+            for heading in ("Melting Point", "Boiling Point"):
+                try:
+                    recs[heading] = fetch(c["pubchem_cid"], heading)
+                except Exception as e:  # noqa: BLE001
+                    print(f"! {sid} {heading}: {e}", file=sys.stderr)
+                    recs[heading] = None
+            if kind == "sublime":
+                entry["sublimes"] = pick_sublimation(list(recs.values()))
+            else:
+                entry["mp"] = pick_value(recs["Melting Point"], "mp") if recs["Melting Point"] else None
+                entry["bp"] = pick_value(recs["Boiling Point"], "bp") if recs["Boiling Point"] else None
+        print(f"  {sid:<16} mp={entry['mp'] and entry['mp']['value']} bp={entry['bp'] and entry['bp']['value']} "
+              f"sublimes={entry['sublimes'] and entry['sublimes']['value']}")
+        out.append(entry)
+    doc = {
+        "note": "Generated by scripts/build_states.py from PubChem experimental properties (PUG View), "
+                "at 1 atm. Each value keeps its data source and the original text; null = no sourced value found.",
+        "substances": out,
+    }
+    path.write_text(json.dumps(doc, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    print("states.json written")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

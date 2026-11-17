@@ -21,6 +21,7 @@ import { renderMore } from './views/more.js';
 import { renderLessons, renderLesson, renderAsk, renderEnd } from './views/lesson.js';
 import { renderCard } from './views/card.js';
 import { renderLife } from './views/life.js';
+import { renderLab } from './views/lab.js';
 import { renderPeriodic } from './periodic/table.js';
 import { renderElement } from './periodic/detail.js';
 import { renderElectron, renderElectronHome } from './periodic/electron.js';
@@ -39,6 +40,7 @@ route('/lesson/:no/ask', renderAsk, { tab: 'home', title: 'いっせい問題' }
 route('/lesson/:no/end', renderEnd, { tab: 'home', title: 'おわりの3問' });
 route('/card', renderCard, { tab: 'home', title: '色カード' });
 route('/life', renderLife, { tab: 'library', title: '身近なもの' });
+route('/lab/:id', renderLab, { tab: 'home', title: '教材' });
 
 // --- M2: compare (A-13 – A-16)
 route('/compare', renderCompare, { tab: 'home', title: 'くらべる' });

@@ -539,6 +539,89 @@ assert.equal(await m2.locator('.chips-row .chip').count(), 7);
 assert.equal((await m2.textContent('.results .subhead')).trim(), '糖質');
 step('身近なもの: 4 groups (くらし 準備中); 食品 lists its categories, 糖質 first');
 
+// ---- hands-on materials (docs/plan.md 提案9・10)
+// 温度と三態: the temperatures come from PubChem (data/states.json); this
+// test uses its own fixed values so it does not depend on that file
+const fx = (value) => ({ value, source: 'test', raw: '' });
+await m2.route('**/data/states.json', (r) => r.fulfill({ contentType: 'application/json', body: JSON.stringify({ substances: [
+  { id: 'water', name: '水', kind: 'melt-boil', mp: fx(0), bp: fx(100), sublimes: null },
+  { id: 'ethanol', name: 'エタノール', kind: 'melt-boil', mp: fx(-114.1), bp: fx(78.2), sublimes: null },
+  { id: 'carbon-dioxide', name: '二酸化炭素', kind: 'sublime', mp: null, bp: null, sublimes: fx(-78.5) }] }) }));
+await m2.goto(BASE + '#/lab/states');
+await m2.waitForSelector('.lb-range');
+assert.equal((await m2.textContent('.lb-chip')).trim(), '液体（水）');
+assert.equal(await m2.locator('.lb-mols > g').count(), 40);
+const t0 = await m2.getAttribute('.lb-mols > g >> nth=0', 'transform');
+await m2.waitForTimeout(400);
+assert.notEqual(await m2.getAttribute('.lb-mols > g >> nth=0', 'transform'), t0, 'the molecules move');
+await m2.locator('.lb-range').fill('-20');
+assert.equal((await m2.textContent('.lb-chip')).trim(), '固体（氷）');
+await m2.locator('.lb-range').fill('120');
+assert.equal((await m2.textContent('.lb-chip')).trim(), '気体（水蒸気）');
+await m2.click('[data-s="ethanol"]');
+assert.equal((await m2.textContent('.lb-chip')).trim(), '液体');
+await m2.click('[data-s="carbon-dioxide"]');
+assert.equal((await m2.textContent('.lb-chip')).trim(), '気体');
+await m2.locator('.lb-range').fill('-100');
+assert.equal((await m2.textContent('.lb-chip')).trim(), '固体（ドライアイス）');
+assert.match(await m2.textContent('.lb-foot'), /昇華/);
+await m2.unroute('**/data/states.json');
+step('温度と三態: water liquid at 25 ℃, ice at −20 ℃, steam at 120 ℃; ethanol; CO₂ gas at 25 ℃ and dry ice at −100 ℃ (sublimes); molecules move');
+
+await m2.goto(BASE + '#/lab/formula?g=1');
+await m2.waitForSelector('.fp-pal');
+await m2.click('.fp-pal [data-add="Mg2+"]');
+await m2.click('.fp-pal [data-add="Cl-"]');
+assert.match(await m2.textContent('.fp-meter .t'), /\+1/);
+assert.match(await m2.textContent('.lb-say'), /たりない/);
+await m2.click('.fp-pal [data-add="Cl-"]');
+assert.equal((await m2.textContent('.fp-f')).trim(), 'MgCl₂');
+assert.match(await m2.textContent('.fp-done'), /塩化マグネシウム.*つりあった/);
+await m2.click('.fp-tray [data-out="0"]');
+assert.equal(await m2.locator('.fp-done').count(), 0);
+await m2.click('[data-g="free"]');
+for (const id of ['Ca2+', 'OH-', 'OH-']) await m2.click(`.fp-pal [data-add="${id}"]`);
+assert.equal((await m2.textContent('.fp-f')).trim(), 'Ca(OH)₂');
+step('組成式パズル: Mg²⁺ + Cl⁻ -> "+1, たりない"; + Cl⁻ -> MgCl₂ 塩化マグネシウム; free: Ca(OH)₂');
+
+await m2.goto(BASE + '#/lab/ph');
+await m2.waitForSelector('.ph-range');
+assert.match(await m2.textContent('.ph-times'), /中性/);
+await m2.locator('.ph-range').fill('2');
+assert.match(await m2.textContent('.ph-times'), /10万 倍/);
+assert.equal(await m2.locator('.ph-ladder i').count(), 5);
+await m2.click('.ph-mark >> text=血液');
+assert.equal((await m2.textContent('.lb-big')).trim(), 'pH 7.4');
+assert.ok(await m2.locator('.ph-src a').count() >= 4, 'every example has a source');
+step('pH ものさし: pH 2 = 中性の 10万倍 (5 steps of ×10); tap 血液 -> pH 7.4; sources listed');
+
+await m2.goto(BASE + '#/lab/concentration');
+await m2.waitForSelector('[data-pick]');
+assert.equal(await m2.evaluate(() => getComputedStyle(document.querySelector('.nav')).display), 'none');
+await m2.click('[data-pick="5"]');
+assert.match(await m2.textContent('.ls-q-ex'), /せいかい/);
+await m2.click('[data-act="to2"]');
+await m2.click('[data-key="4"]');
+await m2.click('[data-key="ok"]');
+assert.match(await m2.textContent('.cp-msg'), /溶液は/);
+await m2.click('[data-key="⌫"]');
+await m2.click('[data-key="5"]');
+await m2.click('[data-key="ok"]');
+await m2.click('[data-key="5"]');
+await m2.click('[data-key="ok"]');
+await m2.click('[data-act="to3"]');
+const [w3, s3] = (await m2.textContent('.cp-q')).match(/水 (\d+) g に \S+ (\d+) g/).slice(1).map(Number);
+await m2.click('[data-key="1"]');
+await m2.click('[data-key="ok"]');
+assert.equal(await m2.locator('.cp-hint li.on').count(), 1, 'a wrong answer shows the first step');
+await m2.click('[data-act="hint"]');
+assert.equal(await m2.locator('.cp-hint li.on').count(), 2);
+await m2.click('[data-key="⌫"]');
+for (const k of String(Math.round((s3 / (s3 + w3)) * 1000) / 10)) await m2.click(`[data-key="${k}"]`);
+await m2.click('[data-key="ok"]');
+assert.match(await m2.textContent('.ls-q-ex'), /せいかい/);
+step(`計算練習：濃度: 見当 5 % -> 穴うめ (95 + 5, 5 %) -> 自分で計算 ${s3} g / ${w3} g: wrong shows steps, right accepted; number pad only, no tab bar`);
+
 // ---- M4 acceptance: build the electron configuration of Na, give an
 // electron to Cl, go to the NaCl crystal; periodic table, detail, Lewis formulas
 await m2.goto(BASE + '#/periodic');

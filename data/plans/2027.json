@@ -10,7 +10,7 @@
    "topic": "水・空気・食塩水・牛乳、ドライアイス、消毒用アルコールが乾く理由",
    "parts": [
     "soon:なかまわけ",
-    "soon:温度スライダー（三態）",
+    "lab:states",
     "compound:water",
     "compound:carbon-dioxide",
     "compound:ethanol"
@@ -72,7 +72,7 @@
    "parts": [
     "bond:ionic",
     "compound:nacl-crystal",
-    "soon:組成式パズル"
+    "lab:formula"
    ],
    "colorcards": [
     "q4-1",
@@ -177,6 +177,7 @@
    "topic": "生理食塩水と点滴、スポーツドリンク、消毒用アルコール、しょうゆの塩分",
    "parts": [
     "soon:とかすビーカー",
+    "lab:concentration",
     "compound:nacl-crystal",
     "compound:alpha-d-glucose",
     "compound:ethanol"
@@ -216,7 +217,7 @@
    "title": "酸と塩基・pH",
    "topic": "胃液・レモン・血液・せっけん",
    "parts": [
-    "soon:pH ものさし",
+    "lab:ph",
     "compound:hydrogen-chloride",
     "compound:acetic-acid",
     "compound:citric-acid"

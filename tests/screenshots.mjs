@@ -80,6 +80,37 @@ for (const scheme of ['light', 'dark']) {
     await p.waitForSelector('.results .item');
     await p.waitForTimeout(2000); // thumbnails (RDKit.js)
     await shot(p, 'life-food');
+    // hands-on materials (docs/plan.md 提案9・10)
+    await p.goto(BASE + '#/lab/states');
+    await p.waitForSelector('.lb-range, .empty');
+    await p.waitForTimeout(1500);
+    await shot(p, 'lab-states');
+    if (await p.locator('[data-s="carbon-dioxide"]').count()) {
+      await p.click('[data-s="carbon-dioxide"]');
+      await p.waitForTimeout(1500);
+      await shot(p, 'lab-states-co2');
+    }
+    await p.goto(BASE + '#/lab/formula?g=1');
+    await p.waitForSelector('.fp-pal');
+    for (const id of ['Mg2+', 'Cl-', 'Cl-']) await p.click(`.fp-pal [data-add="${id}"]`);
+    await shot(p, 'lab-formula');
+    await p.goto(BASE + '#/lab/ph?ph=2.3');
+    await p.waitForSelector('.ph-range');
+    await shot(p, 'lab-ph');
+    await p.goto(BASE + '#/lab/concentration');
+    await p.waitForSelector('[data-pick]');
+    await p.click('[data-pick="5"]');
+    await shot(p, 'lab-calc-1');
+    await p.click('[data-act="to2"]');
+    await p.click('[data-key="5"]');
+    await p.click('[data-key="ok"]');
+    await shot(p, 'lab-calc-2');
+    await p.click('[data-key="5"]');
+    await p.click('[data-key="ok"]');
+    await p.click('[data-act="to3"]');
+    await p.click('[data-key="1"]');
+    await p.click('[data-key="ok"]');
+    await shot(p, 'lab-calc-3');
     await p.setViewportSize({ width: 1280, height: 720 });
     await p.goto(BASE + '#/lesson/7/ask');
     await p.waitForSelector('.ls-ask-o');

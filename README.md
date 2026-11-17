@@ -38,6 +38,7 @@
 | つくる改修 | 書き方くらべ・書きかえ練習・かんたん作図（下記）、練習用の分子 37 件を追加（C6 まで） | 実装済み |
 | 作図の改善 | かんたん作図を「選んでから変える」操作と全画面モードに作り直し（スクロールの誤作動・誤操作の対策）。書き方の切り替え・H を補う・すべて消すを常に見える場所へ、PC の横長レイアウトとキーボード操作 | 実装済み（第1段階で「なぞって描く」に置きかえ） |
 | 第1段階（docs/plan.md） | ホームの周期表タイルの修正。作図を「なぞって描く」に一本化し、部品の棚に「戻す」。分子ページを「ひとことで言うと」中心にし、専門データを「くわしいデータ」に折りたたむ。「その他」に「くわしい表示」スイッチ | 実装済み |
+| 第3段階（docs/plan.md、試作） | 触る教材の3つの型: スライダー型（温度と三態 `#/lab/states`、pH ものさし `#/lab/ph`）、仕分け・並べ型（組成式パズル `#/lab/formula`）、計算練習の型（濃度 `#/lab/concentration`）。三態の融点・沸点は PubChem から（`scripts/build_states.py`）。pH の身近な例とお題は下書き | 実装済み（教員の試用待ち） |
 | 第2段階（docs/plan.md） | 教材カタログと授業プラン（`js/lesson/catalog.js`、`data/plans/`、`data/questions.json`）。ホームを「今日の授業・身近なもの・基礎の復習・道具」に。各回のページ、色カード、いっせい問題の提示画面、おわりの3問。問題・身近な話題は下書き | 実装済み |
 
 ## GitHub Pages での公開（初回のみ）
@@ -70,6 +71,8 @@ python3 -m http.server 8000
 | `data/series.json` | 同族体シリーズの沸点・融点・溶解度（`scripts/build_series.py` が PubChem から取得。値ごとに出典） | 編集しない |
 | `data/plans/index.json`, `data/plans/<年度>.json` | 授業プラン（各回の題名・身近な話題・使う部品の順・問題の ID）。部品の名前は `js/lesson/catalog.js` | 教員・開発者 |
 | `data/questions.json` | 色カードとおわりの3問の問題集（4択、`reviewed` で下書きか確認済みか） | 教員・開発者 |
+| `data/labs.json` | 触る教材のデータ: pH の身近な例（範囲と出典）、組成式パズルのイオンとお題、濃度の計算練習の問題。`reviewed: false` は下書き | 教員・開発者 |
+| `data/states.json` | 温度と三態の融点・沸点・昇華する温度（1気圧、`scripts/build_states.py` が PubChem から取得。値ごとに出典） | 編集しない |
 | `scripts/element_names_ja.csv` | 元素記号と日本語名（1〜118） | 開発者 |
 | `scripts/element_notes.json` | 元素の用途・体内での役割、栄養ミネラル（はたらき・欠乏症・過剰症・食品）、人体の元素組成の順位、陰イオン名。すべて下書き。確認したら `"reviewed": true` にする | 教員 |
 | `data/elements.json` | 周期表のデータ（`scripts/build_elements.py` が PubChem の周期表と上の2ファイルから生成） | 編集しない |
@@ -122,6 +125,7 @@ python scripts/validate_data.py   # データ検証（SMILES・SDF・原子数�
 python tests/test_series_parse.py # PubChem の物性値テキストの読み取りテスト
 node tests/test_assemble.mjs      # ビルダーの組み立て（SMILES・日本語名・シス/トランス・価標の規則）
 node tests/test_notation.mjs      # 書き方（練習用 73 分子の示性式・構造式）と答え合わせ（同じ分子か）
+node tests/test_labs.mjs          # 組成式パズル（組成式・名前・いちばん簡単な比）と計算練習の答えの判定
 python tests/test_elements.py     # 周期表の配置（周期・族）と電子殻の計算
 npm install                       # Playwright（スクリーンショットと E2E 用）
 python3 -m http.server 8000 &

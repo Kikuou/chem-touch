@@ -1,0 +1,166 @@
+{
+ "note": "Data of the hands-on materials (docs/plan.md 提案9・10). reviewed: false = draft, not yet checked by the teacher. Temperatures of the three-state material are in states.json (from PubChem).",
+ "ph": {
+  "reviewed": false,
+  "examples": [
+   {
+    "name": "胃液",
+    "low": 1.0,
+    "high": 2.0,
+    "sources": [
+     {
+      "label": "Chang & Leung, Gastric Physiology (Springer, 2014)",
+      "url": "https://link.springer.com/10.1007/978-94-017-8771-0_3"
+     },
+     {
+      "label": "StatPearls: Physiology, Pepsin (NCBI Bookshelf NBK537005)",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK537005/"
+     }
+    ],
+    "note": "胃の中の液は 1.5〜3.5 とする資料もある"
+   },
+   {
+    "name": "レモン果汁",
+    "low": 2.0,
+    "high": 2.6,
+    "sources": [
+     {
+      "label": "Healthy Canning: The acidity of lemons and home canning（米国 FDA の食品 pH 表を引用）",
+      "url": "https://www.healthycanning.com/the-acidity-of-lemons-and-home-canning/"
+     }
+    ],
+    "note": "孫引きのため、FDA の表そのもので要確認"
+   },
+   {
+    "name": "血液",
+    "low": 7.35,
+    "high": 7.45,
+    "sources": [
+     {
+      "label": "MSD マニュアル家庭版: 酸塩基平衡の概要",
+      "url": "https://www.msdmanuals.com/home/hormonal-and-metabolic-disorders/acid-base-balance/overview-of-acid-base-balance"
+     }
+    ]
+   },
+   {
+    "name": "せっけん水",
+    "low": 9.0,
+    "high": 10.0,
+    "sources": [
+     {
+      "label": "Journal of the Society of Cosmetic Chemists 37(5)（固形せっけんの pH）",
+      "url": "https://library.scconline.org/v037n05/12"
+     }
+    ],
+    "note": "固形せっけんを水にとかした液。製品によってちがう"
+   }
+  ]
+ },
+ "formula": {
+  "reviewed": false,
+  "ions": [
+   {
+    "id": "Na+",
+    "symbol": "Na",
+    "charge": 1,
+    "name": "ナトリウム"
+   },
+   {
+    "id": "K+",
+    "symbol": "K",
+    "charge": 1,
+    "name": "カリウム"
+   },
+   {
+    "id": "Mg2+",
+    "symbol": "Mg",
+    "charge": 2,
+    "name": "マグネシウム"
+   },
+   {
+    "id": "Ca2+",
+    "symbol": "Ca",
+    "charge": 2,
+    "name": "カルシウム"
+   },
+   {
+    "id": "Cl-",
+    "symbol": "Cl",
+    "charge": -1,
+    "name": "塩化"
+   },
+   {
+    "id": "O2-",
+    "symbol": "O",
+    "charge": -2,
+    "name": "酸化"
+   },
+   {
+    "id": "OH-",
+    "symbol": "OH",
+    "charge": -1,
+    "name": "水酸化",
+    "group": true
+   },
+   {
+    "id": "CO32-",
+    "symbol": "CO3",
+    "charge": -2,
+    "name": "炭酸",
+    "group": true
+   }
+  ],
+  "goals": [
+   {
+    "cation": "Na+",
+    "anion": "Cl-",
+    "text": "食塩の成分「塩化ナトリウム」をつくろう"
+   },
+   {
+    "cation": "Mg2+",
+    "anion": "Cl-",
+    "text": "にがりの成分「塩化マグネシウム」をつくろう"
+   },
+   {
+    "cation": "Ca2+",
+    "anion": "CO32-",
+    "text": "カルシウムのサプリに使われる「炭酸カルシウム」をつくろう"
+   }
+  ]
+ },
+ "concentration": {
+  "reviewed": false,
+  "problems": [
+   {
+    "solute": "食塩",
+    "solute_g": 5,
+    "water_g": 95
+   },
+   {
+    "solute": "砂糖",
+    "solute_g": 20,
+    "water_g": 180
+   },
+   {
+    "solute": "食塩",
+    "solute_g": 10,
+    "water_g": 240
+   },
+   {
+    "solute": "砂糖",
+    "solute_g": 15,
+    "water_g": 85
+   },
+   {
+    "solute": "食塩",
+    "solute_g": 3,
+    "water_g": 97
+   },
+   {
+    "solute": "砂糖",
+    "solute_g": 30,
+    "water_g": 120
+   }
+  ]
+ }
+}

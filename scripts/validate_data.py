@@ -193,7 +193,36 @@ def main() -> int:
         "bond": lambda a: a in (None, "ionic", "covalent"),
         "practice": lambda a: a in (None, "choose", "blocks", "draw"),
         "soon": lambda a: bool(a),
+        "lab": lambda a: a in ("states", "formula", "ph", "concentration"),
     }
+    # hands-on materials: labs.json (drafts) and states.json (PubChem)
+    labsdoc = json.loads((DATA / "labs.json").read_text(encoding="utf-8"))
+    for x in labsdoc["ph"]["examples"]:
+        if not (0 <= x["low"] <= x["high"] <= 14) or not x.get("sources"):
+            errors.append(f"labs.json ph/{x.get('name')}: needs 0 <= low <= high <= 14 and a source")
+    ion_ids = {i["id"] for i in labsdoc["formula"]["ions"]}
+    for i in labsdoc["formula"]["ions"]:
+        if not isinstance(i.get("charge"), int) or i["charge"] == 0:
+            errors.append(f"labs.json formula/{i.get('id')}: charge must be a non-zero integer")
+    for g in labsdoc["formula"]["goals"]:
+        if g.get("cation") not in ion_ids or g.get("anion") not in ion_ids:
+            errors.append(f"labs.json formula goal '{g.get('text')}': unknown ion")
+    for pr in labsdoc["concentration"]["problems"]:
+        if not (pr.get("solute_g", 0) > 0 and pr.get("water_g", 0) > 0):
+            errors.append(f"labs.json concentration: masses must be positive ({pr})")
+    for st in json.loads((DATA / "states.json").read_text(encoding="utf-8"))["substances"]:
+        if st["id"] not in idset:
+            errors.append(f"states.json: unknown compound {st['id']}")
+        keys = ["sublimes"] if st["kind"] == "sublime" else ["mp", "bp"]
+        for k in keys:
+            v = st.get(k)
+            if v is None:
+                warnings.append(f"states.json {st['id']}: no sourced {k} yet (filled in by the PubChem check)")
+            elif not v.get("source"):
+                errors.append(f"states.json {st['id']}: {k} has no source")
+        if st["kind"] != "sublime" and st.get("mp") and st.get("bp") and st["mp"]["value"] >= st["bp"]["value"]:
+            errors.append(f"states.json {st['id']}: melting point must be below boiling point")
+
     index = json.loads((DATA / "plans" / "index.json").read_text(encoding="utf-8"))
     plan_ids = [p["id"] for p in index.get("plans", [])]
     if index.get("current") not in plan_ids:
